@@ -1,0 +1,76 @@
+/** GENERAL **/
+
+html {
+    background-color: white;
+    /*text-*/color: #444;
+}
+
+body {
+    width: 20em;
+    margin: 2em auto;
+    font-family: Palatino;
+    font-size: 150%;
+}
+
+strong {
+    font-weight: bold;
+}
+
+a, a:visited {
+    color: #00f;
+    text-decoration: none;
+}
+
+a:hover, a:active {
+    color: #00b;
+}
+
+sup {
+    font-size: 50%;
+    font-style: italic;
+    vertical-align: super;
+}
+
+/** HEADER **/
+
+header {
+    text-align: center;
+}
+
+h1 {
+    font-size: 200%;
+}
+
+h2 {
+    font-size: 125%;
+}
+
+/** CONTENT **/
+
+article {
+    margin: 2em 0;
+}
+
+p, ul {
+    margin: 1em 0;
+}
+
+li {
+    list-style-type: circle;
+}
+
+a em {
+    background-color: #ff8;
+    padding: 0 4px;
+}
+
+/** FOOTER **/
+
+footer {
+    text-align: right;
+}
+
+p#copy {
+    color: #888;
+    font-style: italic;
+}
