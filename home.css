@@ -7,9 +7,13 @@ html {
 
 body {
     width: 20em;
-    margin: 2em auto;
-    font-family: Palatino;
+    margin: 2em auto !important;    /* !important for GoDaddy */
+    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
     font-size: 150%;
+}
+
+iframe {    /* TODO target specifically #conash3D0? */
+    display: none !important;       /* !important for GoDaddy */
 }
 
 strong {
@@ -29,6 +33,16 @@ sup {
     font-size: 50%;
     font-style: italic;
     vertical-align: super;
+}
+
+/** MOBILE **/
+
+@media screen and (max-width: 480px) {
+    body {
+        width: auto;
+        padding: 0 2em !important;      /* !important for GoDaddy */
+        font-size: 100%;
+    }
 }
 
 /** HEADER **/

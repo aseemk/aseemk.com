@@ -1,0 +1,10 @@
+# Many thanks to:
+# http://cantonbecker.com/work/musings/2009/strip-www-off-urls-at-godaddy-using-htaccess-mod_rewrite/
+
+# Override GoDaddy defaults that inhibit URL rewriting
+Options -MultiViews
+rewriteEngine On
+
+# Rewrite URLs to remove www from domain name
+RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
