@@ -1,0 +1,196 @@
+/** GENERAL LAYOUT **/
+
+html {
+    padding: 0.5em;
+}
+
+body {
+    // !important margin and padding needed for GoDaddy
+    margin: auto !important;
+    padding: 0.5em 1em !important;
+    max-width: 32em;
+}
+
+@media screen and (max-device-width: 480px) {
+    html {
+        padding: 0;
+    }
+    
+    body {
+        max-width: 100%;
+    }
+}
+
+
+
+/** GENERAL TEXT AND COLORS **/
+
+html {
+    // white background by default
+    // #444 text color already defined in h5bp-base
+}
+
+// applying font family uniformly across affected elements as per h5bp!
+body, select, input, textarea {
+    font-family: "Lucida Sans Unicode", "Lucida Grande", "Thonburi", sans-serif;
+}
+
+body {
+    font-size: 120%;
+}
+
+@media screen and (max-device-width: 480px) {
+    body {
+        font-size: 80%;
+    }
+}
+
+a, a:visited {
+    text-decoration: none;
+    color: #00b;
+}
+
+a:hover, a:active {
+    color: #006;
+}
+
+em {
+    font-style: italic;
+}
+
+em a, em a:visited {
+    font-style: normal;
+    padding: 0 0.2em;
+    background-color: #ffc;
+}
+
+em a:hover, em a:active {
+    background-color: #ff8;
+}
+
+// h5bp override:
+// TODO ugh this is annoying -- i just want the native style. might want to remove the h5bp declaration.
+::-moz-selection, ::selection {
+    background-color: #ddf;
+    color: inherit;
+}
+
+// h5bp override:
+a:link {
+    -webkit-tap-highlight-color: inherit;
+}
+
+
+
+/** HEADER **/
+
+header {
+    text-align: center;
+}
+
+h1 {
+    font-size: 250%;
+}
+
+h1 a, h1 a:visited {
+    color: #444;
+}
+
+h1 a:hover, h1 a:active {
+    color: black;
+}
+
+nav {
+    margin: 0.5em auto;
+}
+
+nav a {
+    margin: 0 0.2em;
+}
+
+/*h1 a:before,*/ nav a:before {
+    content: "{";
+    margin-right: 0.2em;
+}
+
+/*h1 a:after,*/ nav a:after {
+    content: "}";
+    margin-left: 0.2em;
+}
+
+/*h1 a:before, h1 a:after,*/
+nav a:before, nav a:after {
+    visibility: hidden;
+    color: #ccc;
+}
+
+nav a:hover:before, nav a:hover:after,
+nav a:active:before, nav a:active:after {
+    color: #bbb;
+}
+
+/*h1 a.current:before, h1 a.current:after,*/
+nav a.current:before, nav a.current:after {
+    visibility: inherit;
+}
+
+
+
+/** ARTICLE **/
+
+article {
+}
+
+section {
+    margin: 2.5em 0;
+}
+
+h2 {
+    font-size: 125%;
+}
+
+p, ol, ul {
+    margin: 1em 0;
+}
+
+ul {
+    list-style: none none inside;
+    margin-left: 2em;
+}
+
+ul li {
+    position: relative;
+}
+
+ul li:before {
+    content: "»";
+    position: absolute;
+    left: -1.5em;
+    color: #ccc;
+    font-size: 80%;
+}
+
+
+
+/** FOOTER **/
+
+footer {
+    margin-top: 3.5em;
+    text-align: center;
+}
+
+p#copy {
+    color: #888;
+    font-style: italic;
+}
+
+
+
+
+/** MISC **/
+
+// this is for GoDaddy:
+// TODO should we target #conash3D0 specifically?
+iframe {
+    display: none !important;
+}

@@ -149,7 +149,8 @@ button {  width: auto; overflow: visible; }
  */
 
 body, select, input, textarea {
-  /* #444 looks better than black: twitter.com/H_FJ/statuses/11800719859 */
+  /* #444 looks better than black: 
+   */
   color: #444;
   /* Set your base font here, to apply evenly */
   /* font-family: Georgia, serif;  */
@@ -258,3 +259,4 @@ a:hover { color: #036; }
   p, h2, h3 { orphans: 3; widows: 3; }
   h2, h3{ page-break-after: avoid; }
 }
+
