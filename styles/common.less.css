@@ -136,12 +136,9 @@ nav a.current:before, nav a.current:after {
 
 
 
-/** ARTICLE **/
+/** CONTENT **/
 
-article {
-}
-
-section {
+article, section {
     margin: 2.5em 0;
 }
 
@@ -183,7 +180,6 @@ p#copy {
     color: #888;
     font-style: italic;
 }
-
 
 
 

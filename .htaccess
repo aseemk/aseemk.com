@@ -3,8 +3,16 @@
 
 # Override GoDaddy defaults that inhibit URL rewriting
 Options -MultiViews
-rewriteEngine On
+RewriteEngine On
 
 # Rewrite URLs to remove www from domain name
 RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
 RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
+
+# Friendly URLs for section home pages!
+# TODO is there a simpler way to write this w/out duplication?
+RewriteRule ^about/$    about.php
+RewriteRule ^blog/$     blog.php
+RewriteRule ^music/$    music.php
+RewriteRule ^projects/$ projects.php
+RewriteRule ^teaching/$ teaching.php
