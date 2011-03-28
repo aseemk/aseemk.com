@@ -17,8 +17,6 @@
             }
         ?>
         
-        <!-- $REQUEST_URI: <?= $REQUEST_URI ?> -->
-        
         <h1>
             <a href="" class="<?= pathIs('') ? 'current' : '' ?>">Aseem Kishore</a>
         </h1>

@@ -16,3 +16,10 @@ RewriteRule ^blog/$     blog.php
 RewriteRule ^music/$    music.php
 RewriteRule ^projects/$ projects.php
 RewriteRule ^teaching/$ teaching.php
+
+# Friendly URLs for blog posts! Note no trailing slash.
+RewriteRule ^blog/([^.]*)$ blog/_site/$1.php
+
+# Redirect to no-trailing-slash if there's a trailing slash:
+# TODO this doesn't seem to work, but not sure we need it anyway
+#RewriteRule ^blog/(\d{4})/(\d{2})/(\d{2})/(.*?)/$    blog/$1/$2/$3/$4 [R]

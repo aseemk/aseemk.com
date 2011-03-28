@@ -2,7 +2,6 @@
     // just for fun -- see <h2> below :)
     setcookie('welcome', 'back');
     
-    $title = "Home";
     $description = "";      // TODO
     
     require("_templates/head.php");
@@ -29,7 +28,7 @@
             Welcome
             <? if ($_COOKIE['welcome']) { ?>
                 <span id="return-greeting"
-                    title="Don't worry, I'm not tracking you. Only your computer is, and only for this session. :)">back</span>
+                    title="Don't worry, I'm not tracking you. Only your browser is, and only for this session. :)">back</span>
                 <script>
                     document.getElementById("return-greeting").onclick = function () {
                         alert(this.title);

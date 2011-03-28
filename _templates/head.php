@@ -11,7 +11,7 @@
         switch ($HTTP_HOST) {
             
             case "localhost":
-            case "akishore-macbook.local":
+            case "aseemk.local":
                 $root = "website/new/";
                 break;
             
@@ -24,13 +24,16 @@
         }
     ?>
     
-    <!-- $HTTP_HOST: <?= $HTTP_HOST ?> -->
-    <!-- $root: <?= $root ?> -->
-    <? if ($root) { ?>
     <base href="http://<?= $HTTP_HOST ?>/<?= $root ?>" />
+    
+    <? if ($title && $section) { ?>
+    <title><?= $title ?> – <?= $section ?> – Aseem Kishore</title>
+    <? } else if ($section) { ?>
+    <title>Aseem Kishore – <?= $section ?></title>
+    <? } else { ?>
+    <title>Aseem Kishore</title>
     <? } ?>
     
-    <title>Aseem Kishore – <?= $title ?></title>
     <meta name="description" content="<?= $description ?>" />
     
     <link rel="shortcut icon" href="favicon.ico">

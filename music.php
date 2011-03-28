@@ -1,5 +1,5 @@
 <?
-    $title = "Music";
+    $section = "Music";
     $description = "";      // TODO
     
     require("_templates/head.php");

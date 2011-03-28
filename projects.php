@@ -1,5 +1,5 @@
 <?
-    $title = "Projects";
+    $section = "Projects";
     $description = "";      // TODO
     
     require("_templates/head.php");
@@ -47,13 +47,14 @@
             <li>
                 <p>
                     Helping <a href="http://bondidigital.com/" target="_blank">Bondi Digital Publishing</a>
-                    build an <strong>iPad magazine viewer</strong> in HTML5 for Playboy, Vogue and more.
+                    build an <strong>iPad magazine viewer</strong> in HTML5 for Playboy, Vogue, Rolling Stone and others.
                 </p>
             </li>
             <li>
                 <p>
                     Contributing multi-touch <strong><a href="https://github.com/aseemk/iscroll" target="_blank">zoom improvements</a></strong>
-                    to Matteo Spinelli's <a href="http://cubiq.org/iscroll-4" target="_blank">iScroll 4</a>.
+                    to Matteo Spinelli's <a href="http://cubiq.org/iscroll-4" target="_blank">iScroll</a>,
+                    a JavaScript library for inertial scrolling.
                 </p>
             </li>
             <li>
@@ -77,7 +78,7 @@
             <li>
                 <p>
                     Authored <strong><a href="http://addons.mozilla.org/en-us/firefox/addon/thumbstrips/" target="_blank">Thumbstrips</a></strong>,
-                    a Firefox extension that makes browsing history visual.
+                    a Firefox extension that makes browsing history visual and easily accessible.
                 </p>
             </li>
         </ul>

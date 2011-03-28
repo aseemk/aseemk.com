@@ -1,5 +1,5 @@
 <?
-    $title = "Blog";
+    $section = "Blog";
     $description = "";      // TODO
     
     require("_templates/head.php");
