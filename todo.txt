@@ -1,5 +1,4 @@
 Blog must:
-- RSS feed!
 - float title and date to support longer titles
 
 Blog nice-to-haves:
@@ -15,3 +14,4 @@ Jekyll issues:
 - Doesn't spit out .php, making auto mode a deal-breaker, preventing save-and-refresh development!
 - YAML front matter is required for the templating system to kick in, which sort of sucks.
 ==> Should I just use regular PHP Markdown??
+==> Or spit out PHP "data" files for include() only?

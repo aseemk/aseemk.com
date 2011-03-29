@@ -4,10 +4,12 @@
     
     require("../_templates/head.php");
 ?>
-
+    
+    <link href="http://feeds.feedburner.com/aseemk/blog" type="application/atom+xml" rel="alternate" title="Aseem Kishore – Blog" />
+    
     <style>
     </style>
-
+    
 <?
     require("../_templates/body.php");
 ?>
