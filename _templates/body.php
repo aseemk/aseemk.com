@@ -4,26 +4,24 @@
     <header>
         
         <?
-            $REQUEST_URI = $_SERVER['REQUEST_URI'];
-            
-            function pathIs($path) {
-                global $REQUEST_URI, $root;
-                return $REQUEST_URI === ('/' . $root . $path);
+            function req_path_is($path) {
+                global $req_path, $root;
+                return $req_path === ('/' . $root . $path);
             }
             
-            function pathIsIn($pathRoot) {
-                global $REQUEST_URI, $root;
-                return strpos($REQUEST_URI, '/' . $root . $pathRoot) === 0;
+            function req_path_is_in($path_root) {
+                global $req_path, $root;
+                return strpos($req_path, '/' . $root . $path_root) === 0;
             }
         ?>
         
         <h1>
-            <a href="" class="<?= pathIs('') ? 'current' : '' ?>">Aseem Kishore</a>
+            <a href="" class="<?= req_path_is('') ? 'current' : '' ?>">Aseem Kishore</a>
         </h1>
         
         <nav>
             <?
-                $navLinks = array(
+                $nav_links = array(
                     'About' => 'about/',
                     'Blog' => 'blog/',
                     'Music' => 'music/',
@@ -31,9 +29,9 @@
                     'Teaching' => 'teaching/'
                 );
                 
-                foreach ($navLinks as $text => $path) {
+                foreach ($nav_links as $text => $path) {
             ?>
-                <a href="<?= $path ?>" class="<?= pathIsIn($path) ? 'current' : '' ?>"><?= $text ?></a>
+                <a href="<?= $path ?>" class="<?= req_path_is_in($path) ? 'current' : '' ?>"><?= $text ?></a>
             <?
                 }
             ?>

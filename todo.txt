@@ -1,12 +1,17 @@
 Blog must:
-- comments (Facebook? Disqus?)
-- "Like" and "Tweet" buttons
-- index page!
 - RSS feed!
+- float title and date to support longer titles
 
 Blog nice-to-haves:
 - trackbacks??
 - categories?
+- category-specific feeds?
+- pagination once many posts
 
 Misc:
 - reorganize site to use Jekyll entirely? e.g. "src/" and "bin/" folders?
+
+Jekyll issues:
+- Doesn't spit out .php, making auto mode a deal-breaker, preventing save-and-refresh development!
+- YAML front matter is required for the templating system to kick in, which sort of sucks.
+==> Should I just use regular PHP Markdown??

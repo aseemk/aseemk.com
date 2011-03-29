@@ -6,9 +6,9 @@
     <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0" />
     
     <?
-        $HTTP_HOST = $_SERVER['HTTP_HOST'];
+        $host = $_SERVER['HTTP_HOST'];
         
-        switch ($HTTP_HOST) {
+        switch ($host) {
             
             case "localhost":
             case "aseemk.local":
@@ -22,9 +22,19 @@
                 break;
             
         }
+        
+        // TEMP HACK a special case for windows accessing this server
+        if (strpos($host, "192.168.") === 0) {
+            $root = "website/new/";
+        }
+        
+        $base = "http://" . $host . "/" . $root;
+        
+        $req_path = $_SERVER['REQUEST_URI'];
+        $req_url = "http://" .$host . $req_path;
     ?>
     
-    <base href="http://<?= $HTTP_HOST ?>/<?= $root ?>" />
+    <base href="<?= $base ?>" />
     
     <? if ($title && $section) { ?>
     <title><?= $title ?> – Aseem Kishore – <?= $section ?></title>
@@ -35,6 +45,9 @@
     <? } ?>
     
     <meta name="description" content="<?= $description ?>" />
+    
+    <meta property="fb:admins" content="704844" />
+    <? // TODO? <meta property="fb:app_id" content="160410744017439"> ?>
     
     <link rel="shortcut icon" href="favicon.ico">
     

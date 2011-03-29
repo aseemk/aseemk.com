@@ -136,6 +136,15 @@ article, section {
     position: relative;     // TEMP HACK just for the h3 styles below
 }
 
+article:after, section:after {
+    content: "\0020";
+    display: block;
+    clear: both;
+    overflow: hidden;
+    height: 0;
+    zoom: 1;
+}
+
 h2, h3, p, ol, ul {
     margin: 1em 0;
 }
@@ -154,6 +163,12 @@ h3 {
     font-weight: lighter;
     color: #888;
 }
+
+/* TODO might want to do this at some point; just doesn't look good now...
+p {
+    text-align: justify;
+}
+*/
 
 ul {
     list-style: none none inside;
@@ -188,6 +203,40 @@ aside a:hover, aside a:active {
     color: #226;
 }
 
+div.stats, div.buttons {
+    margin: 1em 0;
+    font-size: 75%;
+    color: #888;
+}
+
+// TODO these should really be LESS-ified...
+
+div.stats a, div.stats a:visited {
+    color: #44b;
+}
+
+div.stats a:hover, div.stats a:active {
+    color: #888;
+}
+
+div.stats {
+    float: left;
+}
+
+div.buttons {
+    float: right;
+}
+
+div.buttons iframe {
+    vertical-align: bottom;
+}
+
+div.comments {
+    clear: both;
+    margin: 1em 0;
+    // TODO min-height for an accurate layout sooner?
+}
+
 
 
 /** FOOTER **/
@@ -208,6 +257,6 @@ p#copy {
 
 // this is for GoDaddy:
 // TODO should we target #conash3D0 specifically?
-iframe {
+body > iframe {
     display: none !important;
 }

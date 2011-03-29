@@ -1,23 +1,49 @@
 <?
-    $title = 'Hello, web';
-    $section = 'Blog';
-    $description = "";
+    $section = "Blog";
+    $description = "";      // TODO
     
-    require("../../_templates/head.php");
+    require("../_templates/head.php");
 ?>
-    
+
     <style>
     </style>
-    
+
 <?
-    require("../../_templates/body.php");
-    
-    $post_url_urlencoded = rawurlencode($base . str_replace('/posts/', 'blog/', str_replace('.html', '', '/posts/hello-web.html')));
+    require("../_templates/body.php");
 ?>
+    
+    <section>
+        
+        <h2>
+            The post is mightier
+        </h2>
+        
+        <p>
+            Please excuse the construction in this humble corner of the web.
+        </p>
+        
+    </section>
+    
+    <?
+        $post_urls = array();
+        
+        // this is Liquid markup for Jekyll;
+        // see https://github.com/mojombo/jekyll/wiki/Template-Data for available params
+    ?>
     
     <article>
         
-        <h2>Hello, web</h2>
+        <?
+            $post_title = "Hello, web";   // TODO escape quotes in here!
+            $post_url = str_replace('/posts/', 'blog/', '/posts/hello-web');
+            $post_url_urlencoded = rawurlencode($base . $post_url);
+            
+            $post_urls[] = $base . $post_url;
+        ?>
+            
+        <h2>
+            <a href="<?= $post_url ?>">Hello, web</a>
+        </h2>
         
         <h3>
             <time pubdate datetime="2011-03-28">March 28, 2011</time>
@@ -36,15 +62,7 @@
         <div class="stats">
             
             <!-- technique via http://developers.facebook.com/docs/reference/plugins/comments/ FAQ -->
-            <span id="comments-count">&nbsp;</span>
-            <script>
-                function updateCommentsCount(obj) {
-                    var num = obj.comments;
-                    document.getElementById("comments-count").innerHTML =
-                        (num || "No") + " " + (num === 1 ? "comment" : "comments");
-                }
-            </script>
-            <script src="https://graph.facebook.com/?id=<?= $post_url_urlencoded ?>&amp;callback=updateCommentsCount"></script>
+            <a href="<?= $post_url ?>#comments"><span class="comments-count">View comments</span></a>
             
         </div>
         
@@ -55,33 +73,36 @@
                 scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:90px; height:20px;" allowTransparency="true"></iframe>
             
             <!-- via http://dev.twitter.com/pages/tweet_button instead of https://twitter.com/about/resources/tweetbutton to get iframe and customized to be 110x20 -->
-            <!-- note that this page's <title> isn't accessible from the iframe! so have to insert it manually -->
             <iframe allowtransparency="true" frameborder="0" scrolling="no"
-                src="http://platform.twitter.com/widgets/tweet_button.html?url=<?= $post_url_urlencoded ?>&amp;count=horizontal&amp;via=aseemk&amp;text=<?= rawurlencode($title) ?>"
+                src="http://platform.twitter.com/widgets/tweet_button.html?url=<?= $post_url_urlencoded ?>&amp;count=horizontal&amp;via=aseemk&amp;text=<?= rawurlencode($post_title) ?>"
                 style="width:110px; height:20px;"></iframe>
-            
-            <!-- for reference, here's the regular tweet button:
-            <a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-via="aseemk">Tweet</a>
-            <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
-            -->
-            
-        </div>
-        
-        <div id="comments" class="comments">
-            
-            <!-- via http://developers.facebook.com/docs/reference/plugins/comments/ but customized to be dynamic width -->
-            <div id="fb-root"></div>
-            <script src="http://connect.facebook.net/en_US/all.js#appId=160410744017439&amp;xfbml=1"></script>
-            <fb:comments id="fb-comments" href="<?= $post_url_urlencoded ?>" num_posts="10" width=""></fb:comments>
-            <script>
-                // TEMP HACK body.clientWidth is not very robust if we add padding!
-                document.getElementById("fb-comments").setAttribute("width", document.body.clientWidth);
-            </script>
             
         </div>
         
     </article>
     
+    
+    <? // TEMP HACK this whole thing feels quite hacky. wish there were easier ways. ?>
+    <script>
+        var postUrls = ["<?= join('","', $post_urls) ?>"],
+            commentsCountSpans = document.querySelectorAll(".comments-count");
+        
+        function updateCommentsCounts(objs) {
+            for (var i = 0; i < postUrls.length; i++) {
+                var num = objs[postUrls[i]].comments;
+                commentsCountSpans[i].innerHTML =
+                    num ? (num + " comment" + (num > 1 ? 's' : '')) : "Add a comment";
+            }
+        }
+        
+        document.write([
+            '<script src="https://graph.facebook.com/?ids=',
+            encodeURIComponent(postUrls.join(',')),
+            '&callback=updateCommentsCounts"></',
+            'script>'
+        ].join(''));
+    </script>
+    
 <?
-    require("../../_templates/foot.php");
+    require("../_templates/foot.php");
 ?>

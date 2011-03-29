@@ -11,8 +11,9 @@ RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
 
 # Friendly URLs for section home pages!
 # TODO is there a simpler way to write this w/out duplication?
+RewriteRule ^$          home.php
 RewriteRule ^about/$    about.php
-RewriteRule ^blog/$     blog.php
+RewriteRule ^blog/$     blog/blog.php
 RewriteRule ^music/$    music.php
 RewriteRule ^projects/$ projects.php
 RewriteRule ^teaching/$ teaching.php
