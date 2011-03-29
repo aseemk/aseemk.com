@@ -60,7 +60,7 @@
             <li>
                 <p>
                     Authored <strong><a href="http://zoom.it/" target="_blank">Zoom.it</a></strong>,
-                    a website and service for frictionless viewing and sharing of high-res imagery.
+                    a website and service for fun and easy viewing and sharing of high-res imagery.
                 </p>
             </li>
             <li>

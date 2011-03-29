@@ -1,0 +1,12 @@
+Blog must:
+- comments (Facebook? Disqus?)
+- "Like" and "Tweet" buttons
+- index page!
+- RSS feed!
+
+Blog nice-to-haves:
+- trackbacks??
+- categories?
+
+Misc:
+- reorganize site to use Jekyll entirely? e.g. "src/" and "bin/" folders?

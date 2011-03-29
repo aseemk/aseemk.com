@@ -27,7 +27,7 @@
     <base href="http://<?= $HTTP_HOST ?>/<?= $root ?>" />
     
     <? if ($title && $section) { ?>
-    <title><?= $title ?> – <?= $section ?> – Aseem Kishore</title>
+    <title><?= $title ?> – Aseem Kishore – <?= $section ?></title>
     <? } else if ($section) { ?>
     <title>Aseem Kishore – <?= $section ?></title>
     <? } else { ?>

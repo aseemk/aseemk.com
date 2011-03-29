@@ -18,7 +18,7 @@ RewriteRule ^projects/$ projects.php
 RewriteRule ^teaching/$ teaching.php
 
 # Friendly URLs for blog posts! Note no trailing slash.
-RewriteRule ^blog/([^.]*)$ blog/_site/$1.php
+RewriteRule ^blog/([^.]*)$ blog/posts/$1.php
 
 # Redirect to no-trailing-slash if there's a trailing slash:
 # TODO this doesn't seem to work, but not sure we need it anyway

@@ -1,7 +1,7 @@
 /** GENERAL LAYOUT **/
 
 html {
-    padding: 0.5em 34px;
+    padding: 1em 34px;
 }
 
 body {
@@ -13,11 +13,7 @@ body {
 
 @media screen and (max-device-width: 480px) {
     html {
-        padding: 0;
-    }
-    
-    body {
-        max-width: 100%;
+        padding: 0.5em 1em;
     }
 }
 
@@ -37,12 +33,6 @@ body, select, input, textarea {
 
 body {
     font-size: 120%;
-}
-
-@media screen and (max-device-width: 480px) {
-    body {
-        font-size: 80%;
-    }
 }
 
 a, a:visited {
@@ -68,16 +58,15 @@ em a:hover, em a:active {
     background-color: #ff8;
 }
 
-// h5bp override:
-// TODO ugh this is annoying -- i just want the native style. might want to remove the h5bp declaration.
-::-moz-selection, ::selection {
-    background-color: #ddf;
-    color: inherit;
-}
-
-// h5bp override:
-a:link {
-    -webkit-tap-highlight-color: inherit;
+@media screen and (max-device-width: 480px) {
+    body {
+        -ms-text-size-adjust: none;
+        -webkit-text-size-adjust: none;
+    }
+    
+    li > a, nav > a {
+        line-height: 1.5em;
+    }
 }
 
 
@@ -163,7 +152,7 @@ h3 {
     right: 0;
     font-size: 75%;
     font-weight: lighter;
-    color: #ccc;
+    color: #888;
 }
 
 ul {
@@ -178,9 +167,25 @@ ul li {
 ul li:before {
     content: "»";
     position: absolute;
+    top: 0.1em;
     left: -1.5em;
     color: #ccc;
+    font-size: 75%;
+}
+
+aside {
     font-size: 80%;
+    font-style: italic;
+    margin: 1.5em 0;
+    color: #888;
+}
+
+aside a, aside a:visited {
+    color: #44b;
+}
+
+aside a:hover, aside a:active {
+    color: #226;
 }
 
 
