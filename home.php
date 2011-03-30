@@ -2,7 +2,8 @@
     // just for fun -- see <h2> below :)
     setcookie('welcome', 'back');
     
-    $description = "";      // TODO
+    // TEMP TODO improve this!
+    $description = "Developer, musician, entrepreneur. Please excuse the construction.";
     
     require("_templates/head.php");
 ?>

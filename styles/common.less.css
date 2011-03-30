@@ -11,7 +11,7 @@ body {
     max-width: 700px;
 }
 
-@media screen and (max-device-width: 480px) {
+@media screen and (max-width: 480px) {
     html {
         padding: 0.5em 1em;
     }
@@ -33,6 +33,8 @@ body, select, input, textarea {
 
 body {
     font-size: 120%;
+    -ms-text-size-adjust: none;
+    -webkit-text-size-adjust: none;
 }
 
 a, a:visited {
@@ -58,12 +60,7 @@ em a:hover, em a:active {
     background-color: #ff8;
 }
 
-@media screen and (max-device-width: 480px) {
-    body {
-        -ms-text-size-adjust: none;
-        -webkit-text-size-adjust: none;
-    }
-    
+@media screen and (max-width: 480px) {
     li > a, nav > a {
         line-height: 1.5em;
     }

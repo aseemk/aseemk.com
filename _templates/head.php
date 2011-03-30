@@ -36,18 +36,33 @@
     
     <base href="<?= $base ?>" />
     
-    <? if ($title && $section) { ?>
-    <title><?= $title ?> – Aseem Kishore – <?= $section ?></title>
-    <? } else if ($section) { ?>
-    <title>Aseem Kishore – <?= $section ?></title>
-    <? } else { ?>
-    <title>Aseem Kishore</title>
-    <? } ?>
+    <?
+        $site_name = "Aseem Kishore";
+        $title_parts = array();
+        
+        if ($title) {
+            $title_parts[] = $title;
+        }
+        
+        $title_parts[] = $site_name;
+        
+        if ($section) {
+            $title_parts[] = $section;
+        }
+    ?>
+    
+    <title><?= join(" - ", $title_parts) ?></title>
     
     <meta name="description" content="<?= $description ?>" />
     
+    <!-- http://developers.facebook.com/docs/opengraph/ -->
+    <meta property="og:title" content="<?= $title ? $title : ($section ? $section : $site_name) ?>" />
+    <meta property="og:site_name" content="<?= $title ? join(' - ', array_slice($title_parts, 1)) : $site_name ?>" />
+    <meta property="og:type" content="<?= $og_type ? $og_type : 'website' ?>" />
+    <meta property="og:image" content="<?= $og_image ?>" />
+    
     <meta property="fb:admins" content="704844" />
-    <? // TODO? <meta property="fb:app_id" content="160410744017439"> ?>
+    <meta property="fb:app_id" content="160410744017439" />
     
     <link rel="shortcut icon" href="favicon.ico">
     

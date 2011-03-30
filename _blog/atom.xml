@@ -7,7 +7,7 @@ layout: nil
     <id>http://aseemk.com/blog/</id>
     <link href="http://aseemk.com/blog/" />
     <link href="http://aseemk.com/blog/atom.xml" rel="self" />
-    <title>Aseem Kishore – Blog</title>
+    <title>Aseem Kishore - Blog</title>
     <updated>{{ site.time | date_to_xmlschema }}</updated>
     
     <author>

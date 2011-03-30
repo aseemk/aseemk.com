@@ -4,11 +4,12 @@ layout: nil
 <?
     $section = "Blog";
     $description = "";      // TODO
+    $og_type = "blog";      // only the root should be this, according to the documentation
     
     require("../_templates/head.php");
 ?>
     
-    <link href="http://feeds.feedburner.com/aseemk/blog" type="application/atom+xml" rel="alternate" title="Aseem Kishore – Blog" />
+    <link href="http://feeds.feedburner.com/aseemk/blog" type="application/atom+xml" rel="alternate" title="Aseem Kishore - Blog" />
     
     <style>
     </style>
