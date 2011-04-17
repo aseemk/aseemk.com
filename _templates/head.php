@@ -8,24 +8,17 @@
     <?
         $host = $_SERVER['HTTP_HOST'];
         
-        switch ($host) {
-            
-            case "localhost":
-            case "aseemk.local":
-                $root = "website/new/";
-                break;
-            
-            case "aseemk.com":
-            case "aseemk.dev":
-            default:
-                $root = "";
-                break;
-            
+        // via http://www.php.net/manual/en/ref.strings.php#62307
+        function endsWith($str, $sub) {
+            return substr($str, strlen($str) - strlen($sub)) === $sub;
         }
         
-        // TEMP HACK a special case for windows accessing this server
-        if (strpos($host, "192.168.") === 0) {
-            $root = "website/new/";
+        if (endsWith($host, ".com") || endsWith($host, ".dev")) {
+            // e.g. aseemk.com, aseemk.dev
+            $root = "";
+        } else {
+            // e.g. localhost, aseemk.local, 192.168.0.101
+            $root = "web/";
         }
         
         $base = "http://" . $host . "/" . $root;
