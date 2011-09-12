@@ -39,20 +39,22 @@
         <ul>
             <li>
                 <p>
-                    Co-founding a <strong>startup</strong> with friends in Seattle.
-                    Unannounced, but it has plenty of buzzwords:
-                    <em>social</em>, <em>mobile</em>, <em>graphs</em>, etc.
+                    Co-founded and built <strong><a href="http://www.thethingdom.com/" target="_blank">The Thingdom</a></strong>,
+                    a social network centered around things, with
+                    <a href="http://gasi.ch/" target="_blank">Daniel Gasienica</a>. Current project.
                 </p>
             </li>
             <li>
                 <p>
-                    Helping <a href="http://bondidigital.com/" target="_blank">Bondi Digital Publishing</a>
-                    build an <strong>iPad magazine viewer</strong> in HTML5 for Playboy, Vogue, Rolling Stone and others.
+                    Contributed multi-touch pan, swipe and hi-res zoom to
+                    <strong><a href="http://i.playboy.com/" target="_blank">iPlayboy</a></strong>,
+                    an HTML5 iPad magazine viewing app developed by
+                    <a href="http://bondidigital.com/" target="_blank">Bondi Digital</a>.
                 </p>
             </li>
             <li>
                 <p>
-                    Contributing multi-touch <strong><a href="https://github.com/aseemk/iscroll" target="_blank">zoom improvements</a></strong>
+                    Contributed multi-touch <strong><a href="https://github.com/aseemk/iscroll" target="_blank">zoom improvements</a></strong>
                     to Matteo Spinelli's <a href="http://cubiq.org/iscroll-4" target="_blank">iScroll</a>,
                     a JavaScript library for inertial scrolling.
                 </p>
