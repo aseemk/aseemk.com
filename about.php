@@ -86,7 +86,7 @@
             <li><a id="ext-link-fb" href="http://www.facebook.com/aseem.kishore" target="_blank">Facebook</a></li>
             <li><a id="ext-link-gh" href="https://github.com/aseemk" target="_blank">GitHub</a></li>
             <li><a id="ext-link-gp" href="https://plus.google.com/111953344870761422329/about" target="_blank">Google</a></li>
-            <li><a id="ext-link-li" href="http://www.linkedin.com/in/akishore" target="_blank">LinkedIn</a></li>
+            <li><a id="ext-link-li" href="http://www.linkedin.com/in/aseemk" target="_blank">LinkedIn</a></li>
             <li><a id="ext-link-tw" href="http://twitter.com/aseemk" target="_blank">Twitter</a></li>
         </ul>
 
