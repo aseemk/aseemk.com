@@ -224,8 +224,8 @@ div.buttons {
     float: right;
 }
 
-div.buttons iframe {
-    vertical-align: bottom;
+div.buttons > * {
+    vertical-align: bottom !important;  // override generated inline styles...
 }
 
 div.comments {

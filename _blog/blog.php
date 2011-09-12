@@ -67,6 +67,10 @@ layout: nil
 
         <div class="buttons">
 
+            <!-- via http://www.google.com/webmasters/+1/button/ but customized to be 20px tall -->
+            <!-- the script is at the bottom, since it needs to be included only once -->
+            <div class="g-plusone" data-size="medium"></div>
+
             <!-- via http://developers.facebook.com/docs/reference/plugins/like/ but customized to be 90x20 -->
             <iframe src="http://www.facebook.com/plugins/like.php?href=<?= $post_url_urlencoded ?>&amp;layout=button_count&amp;show_faces=false&amp;width=90&amp;action=like&amp;font&amp;colorscheme=light&amp;height=20"
                 scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:90px; height:20px;" allowTransparency="true"></iframe>
@@ -80,6 +84,15 @@ layout: nil
 
     </article>
     {% endfor %}
+
+    <? // Google +1 script (async) ?>
+    <script type="text/javascript">
+      (function() {
+        var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+        po.src = 'https://apis.google.com/js/plusone.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+      })();
+    </script>
 
     <? // TEMP HACK this whole thing feels quite hacky. wish there were easier ways. ?>
     <script>
