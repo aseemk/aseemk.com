@@ -75,8 +75,14 @@
             </script>
 
             <!-- via http://developers.facebook.com/docs/reference/plugins/like/ but customized to be 90x20 -->
-            <iframe src="http://www.facebook.com/plugins/like.php?href=<?= $post_url_urlencoded ?>&amp;layout=button_count&amp;show_faces=false&amp;width=90&amp;action=like&amp;font&amp;colorscheme=light&amp;height=20"
-                scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:90px; height:20px;" allowTransparency="true"></iframe>
+            <div id="fb-root"></div>
+            <script>(function(d){
+              var js, id = 'facebook-jssdk'; if (d.getElementById(id)) {return;}
+              js = d.createElement('script'); js.id = id; js.async = true;
+              js.src = "//connect.facebook.net/en_US/all.js#appId=278241485519332&xfbml=1";
+              d.getElementsByTagName('head')[0].appendChild(js);
+            }(document));</script>
+            <div class="fb-like" data-send="false" data-layout="button_count" data-width="90" data-show-faces="false"></div>
 
             <!-- via http://dev.twitter.com/pages/tweet_button instead of https://twitter.com/about/resources/tweetbutton to get iframe and customized to be 110x20 -->
             <!-- note that this page's <title> isn't accessible from the iframe! so have to insert it manually -->

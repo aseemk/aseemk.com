@@ -228,6 +228,11 @@ div.buttons > * {
     vertical-align: bottom !important;  // override generated inline styles...
 }
 
+// XXX FIXME hack needed since this messes up layout. weird?
+div.buttons > #fb-root {
+    display: none;
+}
+
 div.comments {
     clear: both;
     margin: 1em 0;
