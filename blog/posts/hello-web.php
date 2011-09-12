@@ -74,16 +74,9 @@
             }(document));</script>
             <div class="fb-like" data-send="false" data-layout="button_count" data-width="90" data-show-faces="false"></div>
 
-            <!-- via http://dev.twitter.com/pages/tweet_button instead of https://twitter.com/about/resources/tweetbutton to get iframe and customized to be 110x20 -->
-            <!-- note that this page's <title> isn't accessible from the iframe! so have to insert it manually -->
-            <iframe allowtransparency="true" frameborder="0" scrolling="no"
-                src="http://platform.twitter.com/widgets/tweet_button.html?url=<?= $post_url_urlencoded ?>&amp;count=horizontal&amp;via=aseemk&amp;text=<?= rawurlencode($title) ?>"
-                style="width:110px; height:20px;"></iframe>
-
-            <!-- for reference, here's the regular tweet button:
-            <a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-via="aseemk">Tweet</a>
-            <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
-            -->
+            <!-- via https://dev.twitter.com/docs/tweet-button customized for me, and script made async -->
+            <a href="http://twitter.com/share" class="twitter-share-button" data-via="aseemk" data-related="aseemk">Tweet</a>
+            <script async src="http://platform.twitter.com/widgets.js" type="text/javascript"></script>
 
         </div>
 

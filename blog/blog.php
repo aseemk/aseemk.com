@@ -89,10 +89,8 @@
             <!-- the script is at the bottom, since it needs to be included only once -->
             <div class="fb-like" data-send="false" data-layout="button_count" data-width="90" data-show-faces="false"></div>
 
-            <!-- via http://dev.twitter.com/pages/tweet_button instead of https://twitter.com/about/resources/tweetbutton to get iframe and customized to be 110x20 -->
-            <iframe allowtransparency="true" frameborder="0" scrolling="no"
-                src="http://platform.twitter.com/widgets/tweet_button.html?url=<?= $post_url_urlencoded ?>&amp;count=horizontal&amp;via=aseemk&amp;text=<?= rawurlencode($post_title) ?>"
-                style="width:110px; height:20px;"></iframe>
+            <!-- via https://dev.twitter.com/docs/tweet-button customized for me, and script made async -->
+            <a href="http://twitter.com/share" class="twitter-share-button" data-via="aseemk" data-related="aseemk">Tweet</a>
 
         </div>
 
@@ -143,10 +141,8 @@
             <!-- the script is at the bottom, since it needs to be included only once -->
             <div class="fb-like" data-send="false" data-layout="button_count" data-width="90" data-show-faces="false"></div>
 
-            <!-- via http://dev.twitter.com/pages/tweet_button instead of https://twitter.com/about/resources/tweetbutton to get iframe and customized to be 110x20 -->
-            <iframe allowtransparency="true" frameborder="0" scrolling="no"
-                src="http://platform.twitter.com/widgets/tweet_button.html?url=<?= $post_url_urlencoded ?>&amp;count=horizontal&amp;via=aseemk&amp;text=<?= rawurlencode($post_title) ?>"
-                style="width:110px; height:20px;"></iframe>
+            <!-- via https://dev.twitter.com/docs/tweet-button customized for me, and script made async -->
+            <a href="http://twitter.com/share" class="twitter-share-button" data-via="aseemk" data-related="aseemk">Tweet</a>
 
         </div>
 
@@ -170,6 +166,9 @@
       js.src = "//connect.facebook.net/en_US/all.js#appId=278241485519332&xfbml=1";
       d.getElementsByTagName('head')[0].appendChild(js);
     }(document));</script>
+
+    <? // Tweet button script (async) ?>
+    <script async src="http://platform.twitter.com/widgets.js" type="text/javascript"></script>
 
     <? // TEMP HACK this whole thing feels quite hacky. wish there were easier ways. ?>
     <script>
