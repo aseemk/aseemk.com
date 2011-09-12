@@ -1,7 +1,7 @@
 <?
     $section = "Projects";
     $description = "";      // TODO
-    
+
     require("_templates/head.php");
 ?>
 
@@ -11,31 +11,31 @@
 <?
     require("_templates/body.php");
 ?>
-    
+
     <section>
-        
+
         <h2>
             Monkey see, monkey do
         </h2>
-        
+
         <p>
             Please excuse the construction in this humble corner of the web.
         </p>
-        
+
     </section>
-    
+
     <!-- TODO -->
-    
+
     <section>
-        
+
         <h2>
             A quick list
         </h2>
-        
+
         <p>
             In reverse chronological order:
         </p>
-        
+
         <ul>
             <li>
                 <p>
@@ -82,9 +82,9 @@
                 </p>
             </li>
         </ul>
-        
+
     </section>
-    
+
 <?
     require("_templates/foot.php");
 ?>
