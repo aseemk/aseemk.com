@@ -39,7 +39,7 @@
         <?
             $post_title = "Introducing: The Thingdom";   // TODO escape quotes in here!
             $post_url = str_replace('/posts/', 'blog/', '/posts/introducing-the-thingdom');
-            $post_url_urlencoded = rawurlencode($base . $post_url);
+            $post_url_absolute = $base . $post_url;
 
             $post_urls[] = $base . $post_url;
         ?>
@@ -87,10 +87,12 @@
 
             <!-- via http://developers.facebook.com/docs/reference/plugins/like/ but customized to be 90x20 -->
             <!-- the script is at the bottom, since it needs to be included only once -->
-            <div class="fb-like" data-send="false" data-layout="button_count" data-width="90" data-show-faces="false"></div>
+            <div class="fb-like" data-send="false" data-layout="button_count" data-width="90" data-show-faces="false"
+                data-href="<?= htmlspecialchars($post_url_absolute) ?>"></div>
 
             <!-- via https://dev.twitter.com/docs/tweet-button customized for me, and script made async -->
-            <a href="http://twitter.com/share" class="twitter-share-button" data-via="aseemk" data-related="aseemk">Tweet</a>
+            <a href="http://twitter.com/share" class="twitter-share-button" data-via="aseemk" data-related="aseemk"
+                data-url="<?= htmlspecialchars($post_url_absolute) ?>" data-text="<?= htmlspecialchars($post_title) ?>">Tweet</a>
 
         </div>
 
@@ -101,7 +103,7 @@
         <?
             $post_title = "Hello, web";   // TODO escape quotes in here!
             $post_url = str_replace('/posts/', 'blog/', '/posts/hello-web');
-            $post_url_urlencoded = rawurlencode($base . $post_url);
+            $post_url_absolute = $base . $post_url;
 
             $post_urls[] = $base . $post_url;
         ?>
@@ -139,10 +141,12 @@
 
             <!-- via http://developers.facebook.com/docs/reference/plugins/like/ but customized to be 90x20 -->
             <!-- the script is at the bottom, since it needs to be included only once -->
-            <div class="fb-like" data-send="false" data-layout="button_count" data-width="90" data-show-faces="false"></div>
+            <div class="fb-like" data-send="false" data-layout="button_count" data-width="90" data-show-faces="false"
+                data-href="<?= htmlspecialchars($post_url_absolute) ?>"></div>
 
             <!-- via https://dev.twitter.com/docs/tweet-button customized for me, and script made async -->
-            <a href="http://twitter.com/share" class="twitter-share-button" data-via="aseemk" data-related="aseemk">Tweet</a>
+            <a href="http://twitter.com/share" class="twitter-share-button" data-via="aseemk" data-related="aseemk"
+                data-url="<?= htmlspecialchars($post_url_absolute) ?>" data-text="<?= htmlspecialchars($post_title) ?>">Tweet</a>
 
         </div>
 

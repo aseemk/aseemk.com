@@ -16,6 +16,7 @@
 <?
     require("../../_templates/body.php");
 
+    $post_title = "{{ page.title }}";   // TODO escape quotes in here!
     $post_url_urlencoded = rawurlencode($base . str_replace('/posts/', 'blog/', str_replace('.html', '', '{{ page.url }}')));
 ?>
 
@@ -68,7 +69,8 @@
             <div class="fb-like" data-send="false" data-layout="button_count" data-width="90" data-show-faces="false"></div>
 
             <!-- via https://dev.twitter.com/docs/tweet-button customized for me, and script made async -->
-            <a href="http://twitter.com/share" class="twitter-share-button" data-via="aseemk" data-related="aseemk">Tweet</a>
+            <a href="http://twitter.com/share" class="twitter-share-button" data-via="aseemk" data-related="aseemk"
+                data-text="<?= htmlspecialchars($post_title) ?>">Tweet</a>
             <script async src="http://platform.twitter.com/widgets.js" type="text/javascript"></script>
 
         </div>
