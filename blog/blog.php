@@ -2,57 +2,57 @@
     $section = "Blog";
     $description = "";      // TODO
     $og_type = "blog";      // only the root should be this, according to the documentation
-    
+
     require("../_templates/head.php");
 ?>
-    
+
     <link href="http://feeds.feedburner.com/aseemk/blog" type="application/atom+xml" rel="alternate" title="Aseem Kishore - Blog" />
-    
+
     <style>
     </style>
-    
+
 <?
     require("../_templates/body.php");
 ?>
-    
+
     <section>
-        
+
         <h2>
             The post is mightier
         </h2>
-        
+
         <p>
             Please excuse the construction in this humble corner of the web.
         </p>
-        
+
     </section>
-    
+
     <?
         $post_urls = array();
-        
+
         // this is Liquid markup for Jekyll;
         // see https://github.com/mojombo/jekyll/wiki/Template-Data for available params
     ?>
     
     <article>
-        
+
         <?
             $post_title = "Introducing: The Thingdom";   // TODO escape quotes in here!
             $post_url = str_replace('/posts/', 'blog/', '/posts/introducing-the-thingdom');
             $post_url_urlencoded = rawurlencode($base . $post_url);
-            
+
             $post_urls[] = $base . $post_url;
         ?>
-            
+
         <h2>
             <a href="<?= $post_url ?>">Introducing: The Thingdom</a>
         </h2>
-        
+
         <h3>
             <time pubdate datetime="2011-09-12">September 12, 2011</time>
             <!-- TODO categories -->
         </h3>
-        
+
         <p>I&#8217;m very excited to finally unveil what I&#8217;ve been working on for the past few months! I&#8217;ll start with the story.</p>
 
 <p>When I decided to leave Microsoft, I realized that I&#8217;d need a new computer. Having experienced Apple hardware in the past, I knew that I wanted a Mac; the question was simply which one.</p>
@@ -71,48 +71,48 @@
 
 <p>So check it out, join (<a href='http://www.thethingdom.com/aseemk'>follow me</a> once you do) and tell us where you think we should go with this! We&#8217;re just getting started.</p>
 <aside>The Thingdom wouldn&#8217;t be nearly what it is today without the contributions of several amazing people. For starters, <a href='http://www.twitter.com/sanjayvc'>Sanjay Kumar</a> and <a href='http://www.hungrybear.org/about/'>Sergio Haro</a> contributed significantly to our original ideas and prototypes. Along the way, our beta users provided invaluable feedback (among the most prolific were <a href='http://www.thethingdom.com/424f'>Boris Bluntschli</a>, <a href='http://www.thethingdom.com/gz'>Gerd Zellweger</a> and <a href='http://www.thethingdom.com/frida'>Frida Kumar</a>), and our friends and family provided equally invaluable support and encouragement. And last but definitely not least, <a href='http://www.thethingdom.com/gasi'>Daniel Gasienica</a> brought the whole idea to life, and so much more. Thanks, everyone.</aside>
-        
+
         <div class="stats">
-            
+
             <!-- technique via http://developers.facebook.com/docs/reference/plugins/comments/ FAQ -->
             <a href="<?= $post_url ?>#comments"><span class="comments-count">View comments</span></a>
-            
+
         </div>
-        
+
         <div class="buttons">
-            
+
             <!-- via http://developers.facebook.com/docs/reference/plugins/like/ but customized to be 90x20 -->
             <iframe src="http://www.facebook.com/plugins/like.php?href=<?= $post_url_urlencoded ?>&amp;layout=button_count&amp;show_faces=false&amp;width=90&amp;action=like&amp;font&amp;colorscheme=light&amp;height=20"
                 scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:90px; height:20px;" allowTransparency="true"></iframe>
-            
+
             <!-- via http://dev.twitter.com/pages/tweet_button instead of https://twitter.com/about/resources/tweetbutton to get iframe and customized to be 110x20 -->
             <iframe allowtransparency="true" frameborder="0" scrolling="no"
                 src="http://platform.twitter.com/widgets/tweet_button.html?url=<?= $post_url_urlencoded ?>&amp;count=horizontal&amp;via=aseemk&amp;text=<?= rawurlencode($post_title) ?>"
                 style="width:110px; height:20px;"></iframe>
-            
+
         </div>
-        
+
     </article>
     
     <article>
-        
+
         <?
             $post_title = "Hello, web";   // TODO escape quotes in here!
             $post_url = str_replace('/posts/', 'blog/', '/posts/hello-web');
             $post_url_urlencoded = rawurlencode($base . $post_url);
-            
+
             $post_urls[] = $base . $post_url;
         ?>
-            
+
         <h2>
             <a href="<?= $post_url ?>">Hello, web</a>
         </h2>
-        
+
         <h3>
             <time pubdate datetime="2011-03-28">March 28, 2011</time>
             <!-- TODO categories -->
         </h3>
-        
+
         <p>It&#8217;s been <a href='http://aseemk.github.com/mit-website/' title='my old MIT website from 2008'>a few years</a> since I&#8217;ve had a website to call my own. That&#8217;s certainly ironic, given that I call myself a <a href='projects/'>web developer</a>.</p>
 
 <p>Most of those few years for me were spent at <a href='http://en.wikipedia.org/wiki/Microsoft_Live_Labs'>Microsoft Live Labs</a>, home to some amazing people that built some equally <a href='http://gasi.ch/blog/live-labs/'>amazing technology</a>. At Live Labs, my thoughts and ideas were all public, whether through emails or frequent show-and-tells like those at the end of our <a href='http://windowseat.ca/item.php?id=342'>out-of-the-box weeks</a>. It was a very special community.</p>
@@ -121,35 +121,35 @@
 
 <p>So this is my <a href='about/'>introduction</a>. I&#8217;ll be sharing my thoughts and ideas here, and with your help, I hope we can make the web an even better place.</p>
 <aside>Special thanks to <a href='http://gasi.ch/'>Daniel Gasienica</a> for encouraging me to create this blog. He mostly just wanted me to stop sending long emails, though. ;)</aside>
-        
+
         <div class="stats">
-            
+
             <!-- technique via http://developers.facebook.com/docs/reference/plugins/comments/ FAQ -->
             <a href="<?= $post_url ?>#comments"><span class="comments-count">View comments</span></a>
-            
+
         </div>
-        
+
         <div class="buttons">
-            
+
             <!-- via http://developers.facebook.com/docs/reference/plugins/like/ but customized to be 90x20 -->
             <iframe src="http://www.facebook.com/plugins/like.php?href=<?= $post_url_urlencoded ?>&amp;layout=button_count&amp;show_faces=false&amp;width=90&amp;action=like&amp;font&amp;colorscheme=light&amp;height=20"
                 scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:90px; height:20px;" allowTransparency="true"></iframe>
-            
+
             <!-- via http://dev.twitter.com/pages/tweet_button instead of https://twitter.com/about/resources/tweetbutton to get iframe and customized to be 110x20 -->
             <iframe allowtransparency="true" frameborder="0" scrolling="no"
                 src="http://platform.twitter.com/widgets/tweet_button.html?url=<?= $post_url_urlencoded ?>&amp;count=horizontal&amp;via=aseemk&amp;text=<?= rawurlencode($post_title) ?>"
                 style="width:110px; height:20px;"></iframe>
-            
+
         </div>
-        
+
     </article>
     
-    
+
     <? // TEMP HACK this whole thing feels quite hacky. wish there were easier ways. ?>
     <script>
         var postUrls = ["<?= join('","', $post_urls) ?>"],
             commentsCountSpans = document.querySelectorAll(".comments-count");
-        
+
         function updateCommentsCounts(objs) {
             for (var i = 0; i < postUrls.length; i++) {
                 var num = objs[postUrls[i]].comments;
@@ -157,7 +157,7 @@
                     num ? (num + " comment" + (num > 1 ? 's' : '')) : "Add a comment";
             }
         }
-        
+
         document.write([
             '<script src="https://graph.facebook.com/?ids=',
             encodeURIComponent(postUrls.join(',')),
@@ -165,7 +165,7 @@
             'script>'
         ].join(''));
     </script>
-    
+
 <?
     require("../_templates/foot.php");
 ?>
