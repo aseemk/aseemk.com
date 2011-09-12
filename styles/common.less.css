@@ -225,6 +225,7 @@ div.buttons {
 }
 
 div.buttons > * {
+    height: 20px;
     vertical-align: bottom !important;  // override generated inline styles...
 }
 
