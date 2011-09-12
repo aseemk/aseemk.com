@@ -44,6 +44,10 @@
             background-image: url(https://github.com/favicon.ico);
         }
 
+        ul#ext-links a#ext-link-gp:before {
+            background-image: url(https://plus.google.com/favicon.ico);
+        }
+
         ul#ext-links  a#ext-link-li:before {
             background-image: url(http://www.linkedin.com/favicon.ico);
         }
@@ -81,6 +85,7 @@
             <li><a id="ext-link-am" href="http://about.me/aseemk" target="_blank">About.me</a></li>
             <li><a id="ext-link-fb" href="http://www.facebook.com/aseem.kishore" target="_blank">Facebook</a></li>
             <li><a id="ext-link-gh" href="https://github.com/aseemk" target="_blank">GitHub</a></li>
+            <li><a id="ext-link-gp" href="https://plus.google.com/111953344870761422329/about" target="_blank">Google</a></li>
             <li><a id="ext-link-li" href="http://www.linkedin.com/in/akishore" target="_blank">LinkedIn</a></li>
             <li><a id="ext-link-tw" href="http://twitter.com/aseemk" target="_blank">Twitter</a></li>
         </ul>
