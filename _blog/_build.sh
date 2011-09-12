@@ -7,5 +7,5 @@ jekyll
 # so we generate .html from Jekyll and manually rename to .php:
 for i in ../blog/posts/*.html
 do
-    mv $i ${i%%.html}.php
+    mv "$i" "${i%%.html}".php
 done
