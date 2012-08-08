@@ -9,6 +9,9 @@ RewriteEngine On
 RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
 RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
 
+# Rewrite URLs to compile LESS to CSS:
+RewriteRule ^styles/(.*)\.less\.css$    styles/lessc.php?path=$1.less.css
+
 # Friendly URLs for section home pages!
 # TODO is there a simpler way to write this w/out duplication?
 RewriteRule ^$          home.php
