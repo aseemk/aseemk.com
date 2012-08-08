@@ -1,5 +1,5 @@
 <?
-    $title = 'Hello, web';
+    $title = 'Joining FiftyThree';
     $section = 'Blog';
     $description = "";
 
@@ -16,27 +16,34 @@
 <?
     require("../../_templates/body.php");
 
-    $post_title = "Hello, web";   // TODO escape quotes in here!
-    $post_url_urlencoded = rawurlencode($base . str_replace('/posts/', 'blog/', str_replace('.html', '', '/posts/hello-web.html')));
+    $post_title = "Joining FiftyThree";   // TODO escape quotes in here!
+    $post_url_urlencoded = rawurlencode($base . str_replace('/posts/', 'blog/', str_replace('.html', '', '/posts/joining-fiftythree.html')));
 ?>
 
     <article>
 
-        <h2>Hello, web</h2>
+        <h2>Joining FiftyThree</h2>
 
         <h3>
-            <time pubdate datetime="2011-03-28">March 28, 2011</time>
+            <time pubdate datetime="2012-08-10">August 10, 2012</time>
             <!-- TODO categories -->
         </h3>
 
-        <p>It&#8217;s been <a title='my old MIT website from 2008' href='http://aseemk.github.com/mit-website/'>a few years</a> since I&#8217;ve had a website to call my own. That&#8217;s certainly ironic, given that I call myself a <a href='projects/'>web developer</a>.</p>
+        <p>Eighteen months ago, I left Microsoft to start <a href='http://www.thethingdom.com/'>The Thingdom</a>. That journey officially ended this week, and a new one has begun.</p>
 
-<p>Most of those few years for me were spent at <a href='http://en.wikipedia.org/wiki/Microsoft_Live_Labs'>Microsoft Live Labs</a>, home to some amazing people that built some equally <a href='http://gasi.ch/blog/live-labs/'>amazing technology</a>. At Live Labs, my thoughts and ideas were all public, whether through emails or frequent show-and-tells like those at the end of our <a href='http://windowseat.ca/item.php?id=342'>out-of-the-box weeks</a>. It was a very special community.</p>
+<p>After months of keeping it under wraps, I&#8217;m thrilled to finally share that my friends at <a href='http://www.fiftythree.com/'>FiftyThree</a> have <a href='http://blog.thethingdom.com/joining-fiftythree/'>acquired</a> The Thingdom, and I&#8217;ve <a href='http://blog.fiftythree.com/'>joined them</a> to transform our technology into something new.</p>
+<!-- TODO update FiftyThree blog link above to reference actual post -->
+<p>FiftyThree is the company behind the award-winning iPad app <a href='http://www.fiftythree.com/paper'>Paper</a>, and their mission is to bring creation tools into the post-PC era. If you hadn&#8217;t heard, they&#8217;re off to <a href='http://blog.fiftythree.com/post/20910947821/thank-you'>quite</a> a <a href='http://blog.fiftythree.com/post/24916653139/apple-design-award'>start</a>.</p>
 
-<p>Now that Live Labs is no more, I&#8217;ve been longing to be a part of another such community, and what better one is there than the web at large? I&#8217;m especially inspired by <a href='https://github.com/'>GitHub</a>; I was hooked the moment I made my first <a href='https://github.com/aseemk/seadragon-ajax/commit/f20c8c389862866f70ce17caf36da8cd79a3f4c0'>push</a>, my first <a href='https://github.com/aseemk/iscroll'>fork</a>, my first <a href='https://github.com/cubiq/iscroll/pull/19'>pull request</a>.</p>
+<p>The opportunity is fantastic, but the <a href='http://www.fiftythree.com/about'>team</a> is simply world-class. I&#8217;m honored to work alongside some of not just the brightest but also the nicest people in our industry.</p>
 
-<p>So this is my <a href='about/'>introduction</a>. I&#8217;ll be sharing my thoughts and ideas here, and with your help, I hope we can make the web an even better place.</p>
-<aside>Special thanks to <a href='http://gasi.ch/'>Daniel Gasienica</a> for encouraging me to create this blog. He mostly just wanted me to stop sending long emails, though. ;)</aside>
+<p>When we met, they joked that they wanted to turn &#8220;The Thingdom&#8221; into &#8220;The Ideadom&#8221; &#8212; a place to connect people around ideas and help them grow. That&#8217;s what we&#8217;re building now, and I couldn&#8217;t be more excited.</p>
+
+<p>We&#8217;re just getting started, and if you&#8217;re interested in being a part of it, reach out &#8212; <a href='http://www.fiftythree.com/jobs'>we&#8217;re hiring</a>. Let&#8217;s invent the future together.</p>
+
+<p>There&#8217;s much more I can say, but let me end it here for now and just say thanks to everyone who helped along the way. Your support was invaluable, and I couldn&#8217;t have done it without you.</p>
+
+<p>One journey ends, and another begins. So it goes&#8230;</p>
 
         <div class="stats">
 
