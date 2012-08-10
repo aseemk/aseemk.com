@@ -47,3 +47,7 @@ thanks to everyone who helped along the way. Your support was invaluable, and
 I couldn't have done it without you.
 
 One journey ends, and another begins. So it goes...
+
+<aside markdown="1">
+Fun fact: [this](/images/fiftythree-blog-ada-photo.png) was my arm!
+</aside>

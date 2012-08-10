@@ -44,6 +44,7 @@
 <p>There&#8217;s much more I can say, but let me end it here for now and just say thanks to everyone who helped along the way. Your support was invaluable, and I couldn&#8217;t have done it without you.</p>
 
 <p>One journey ends, and another begins. So it goes&#8230;</p>
+<aside>Fun fact: <a href='/images/fiftythree-blog-ada-photo.png'>this</a> was my arm!</aside>
 
         <div class="stats">
 
