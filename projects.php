@@ -54,13 +54,6 @@
             </li>
             <li>
                 <p>
-                    Contributed multi-touch <strong><a href="https://github.com/aseemk/iscroll" target="_blank">zoom improvements</a></strong>
-                    to Matteo Spinelli's <a href="http://cubiq.org/iscroll-4" target="_blank">iScroll</a>,
-                    a JavaScript library for inertial scrolling.
-                </p>
-            </li>
-            <li>
-                <p>
                     Authored <strong><a href="http://zoom.it/" target="_blank">Zoom.it</a></strong>,
                     a website and service for fun and easy viewing and sharing of high-res imagery.
                 </p>
@@ -84,6 +77,11 @@
                 </p>
             </li>
         </ul>
+
+        <p>
+            Find more at <a href="https://github.com/aseemk" target="_blank">
+                GitHub</a>.
+        </p>
 
     </section>
 
