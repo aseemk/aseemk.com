@@ -1,3 +1,6 @@
+---
+layout: nil
+---
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     
@@ -5,53 +8,21 @@
     <link href="http://aseemk.com/blog/" />
     <link href="http://aseemk.com/blog/atom.xml" rel="self" />
     <title>Aseem Kishore - Blog</title>
-    <updated>2011-09-12T08:11:46-07:00</updated>
+    <updated>{{ site.time | date_to_xmlschema }}</updated>
     
     <author>
         <name>Aseem Kishore</name>
         <email>aseem.kishore@gmail.com</email>
     </author>
     
-    
+    {% for post in site.posts %}
     <entry>
-        <id>http://aseemk.com/blog/introducing-the-thingdom</id>
-        <link href="http://aseemk.com/blog/introducing-the-thingdom" />
-        <title>Introducing: The Thingdom</title>
-        <updated>2011-09-12T00:00:00-07:00</updated>
-        <content type="html">&lt;p&gt;I&amp;#8217;m very excited to finally unveil what I&amp;#8217;ve been working on for the past few months! I&amp;#8217;ll start with the story.&lt;/p&gt;
-
-&lt;p&gt;When I decided to leave Microsoft, I realized that I&amp;#8217;d need a new computer. Having experienced Apple hardware in the past, I knew that I wanted a Mac; the question was simply which one.&lt;/p&gt;
-
-&lt;p&gt;I spent time researching the various models and specs, but ultimately, I wanted more &amp;#8220;human&amp;#8221; data. I thus wrote up an (admittedly long) email to the subset of my friends who I knew had a Mac, asking them which ones they had and how they liked them.&lt;/p&gt;
-
-&lt;p&gt;Among those on the &amp;#8220;To:&amp;#8221; line of my email was my close friend and peer, &lt;a href='http://gasi.ch/'&gt;Daniel Gasienica&lt;/a&gt;. Daniel is a big Apple fan (to say the least), so I valued his opinions in particular.&lt;/p&gt;
-
-&lt;p&gt;Surprisingly, answering my email wasn&amp;#8217;t a chore for Daniel; he &lt;em&gt;wanted&lt;/em&gt; to tell me what he had and what he thought, because he loved Apple and identified with their products. This was equally the case with my other friends, as well.&lt;/p&gt;
-
-&lt;p&gt;Stepping back, these were two sides of the same coin: I wanted to &lt;em&gt;see&lt;/em&gt; what my friends had, and my friends wanted to &lt;em&gt;share&lt;/em&gt; what they had. We had no other place to do these things, so we resorted to email.&lt;/p&gt;
-
-&lt;p&gt;People resorted to email for sharing photos, too, before Facebook and Flickr came along.&lt;/p&gt;
-
-&lt;p&gt;So this is what Daniel and I have been working on: building a place for people to connect around the things in their lives. We&amp;#8217;re excited to finally share it publicly today; we call it &lt;strong&gt;&lt;em&gt;&lt;a href='http://www.thethingdom.com/'&gt;The Thingdom&lt;/a&gt;&lt;/em&gt;&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;p&gt;So check it out, join (&lt;a href='http://www.thethingdom.com/aseemk'&gt;follow me&lt;/a&gt; once you do) and tell us where you think we should go with this! We&amp;#8217;re just getting started.&lt;/p&gt;
-&lt;aside&gt;The Thingdom wouldn&amp;#8217;t be nearly what it is today without the contributions of several amazing people. For starters, &lt;a href='http://www.twitter.com/sanjayvc'&gt;Sanjay Kumar&lt;/a&gt; and &lt;a href='http://www.hungrybear.org/about/'&gt;Sergio Haro&lt;/a&gt; contributed significantly to our original ideas and prototypes. Along the way, our beta users provided invaluable feedback (among the most prolific were &lt;a href='http://www.thethingdom.com/424f'&gt;Boris Bluntschli&lt;/a&gt;, &lt;a href='http://www.thethingdom.com/gz'&gt;Gerd Zellweger&lt;/a&gt; and &lt;a href='http://www.thethingdom.com/frida'&gt;Frida Kumar&lt;/a&gt;), and our friends and family provided equally invaluable support and encouragement. And last but definitely not least, &lt;a href='http://www.thethingdom.com/gasi'&gt;Daniel Gasienica&lt;/a&gt; brought the whole idea to life, and so much more. Thanks, everyone.&lt;/aside&gt;</content>
+        <id>http://aseemk.com/{{ post.id | replace: '/posts/', 'blog/' }}</id>
+        <link href="http://aseemk.com/{{ post.id | replace: '/posts/', 'blog/' }}" />
+        <title>{{ post.title }}</title>
+        <updated>{{ post.date | date_to_xmlschema }}</updated>
+        <content type="html">{{ post.content | xml_escape }}</content>
     </entry>
-    
-    <entry>
-        <id>http://aseemk.com/blog/hello-web</id>
-        <link href="http://aseemk.com/blog/hello-web" />
-        <title>Hello, web</title>
-        <updated>2011-03-28T00:00:00-07:00</updated>
-        <content type="html">&lt;p&gt;It&amp;#8217;s been &lt;a href='http://aseemk.github.com/mit-website/' title='my old MIT website from 2008'&gt;a few years&lt;/a&gt; since I&amp;#8217;ve had a website to call my own. That&amp;#8217;s certainly ironic, given that I call myself a &lt;a href='projects/'&gt;web developer&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Most of those few years for me were spent at &lt;a href='http://en.wikipedia.org/wiki/Microsoft_Live_Labs'&gt;Microsoft Live Labs&lt;/a&gt;, home to some amazing people that built some equally &lt;a href='http://gasi.ch/blog/live-labs/'&gt;amazing technology&lt;/a&gt;. At Live Labs, my thoughts and ideas were all public, whether through emails or frequent show-and-tells like those at the end of our &lt;a href='http://windowseat.ca/item.php?id=342'&gt;out-of-the-box weeks&lt;/a&gt;. It was a very special community.&lt;/p&gt;
-
-&lt;p&gt;Now that Live Labs is no more, I&amp;#8217;ve been longing to be a part of another such community, and what better one is there than the web at large? I&amp;#8217;m especially inspired by &lt;a href='https://github.com/'&gt;GitHub&lt;/a&gt;; I was hooked the moment I made my first &lt;a href='https://github.com/aseemk/seadragon-ajax/commit/f20c8c389862866f70ce17caf36da8cd79a3f4c0'&gt;push&lt;/a&gt;, my first &lt;a href='https://github.com/aseemk/iscroll'&gt;fork&lt;/a&gt;, my first &lt;a href='https://github.com/cubiq/iscroll/pull/19'&gt;pull request&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;So this is my &lt;a href='about/'&gt;introduction&lt;/a&gt;. I&amp;#8217;ll be sharing my thoughts and ideas here, and with your help, I hope we can make the web an even better place.&lt;/p&gt;
-&lt;aside&gt;Special thanks to &lt;a href='http://gasi.ch/'&gt;Daniel Gasienica&lt;/a&gt; for encouraging me to create this blog. He mostly just wanted me to stop sending long emails, though. ;)&lt;/aside&gt;</content>
-    </entry>
-    
+    {% endfor %}
 
 </feed>

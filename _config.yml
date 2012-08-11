@@ -11,4 +11,4 @@ destination: ./_site
 lsi: false
 pygments: true
 
-permalink: /posts/:title.html
+permalink: /blog/posts/:title.html
