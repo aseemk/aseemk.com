@@ -1,0 +1,14 @@
+# Jekyll config. Reference:
+# https://github.com/mojombo/jekyll/wiki/Configuration
+
+# But GitHub overrides some configs, including disabling plugins!
+# So we develop with those same configs:
+# http://help.github.com/pages/#using_jekyll_for_complex_layouts
+
+safe: true
+source: .
+destination: ./_site
+lsi: false
+pygments: true
+
+permalink: /posts/:title.html

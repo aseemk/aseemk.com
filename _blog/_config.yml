@@ -1,3 +1,0 @@
-source: .
-destination: ../blog/.
-permalink:  /posts/:title.html
