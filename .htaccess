@@ -1,19 +1,21 @@
-# Many thanks to:
-# http://cantonbecker.com/work/musings/2009/strip-www-off-urls-at-godaddy-using-htaccess-mod_rewrite/
+# Important: this .htaccess file is only used during devleopment.
+# GitHub Pages in particular do *not* respect anything in here.
+# Only coincidentally, GitHub Pages still support "clean" extensionless URLs:
+# https://github.com/aseemk/gh-pages-test
 
-# Override GoDaddy defaults that inhibit URL rewriting
-Options -MultiViews
+# URL rewriting reference:
+# http://httpd.apache.org/docs/current/mod/mod_rewrite.html
 RewriteEngine On
 
-# Rewrite URLs to remove www from domain name
-RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
-RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
-
 # Rewrite URLs to compile LESS to CSS:
+# TODO Remove this when we move to straight CSS for GitHub Pages:
 RewriteRule ^styles/(.*)\.less\.css$    styles/lessc.php?path=$1.less.css
 
 # Friendly URLs for section home pages!
-# TODO is there a simpler way to write this w/out duplication?
+# TODO Is there a simpler way to write this w/out duplication?
+# TODO Update this to ensure it matches GitHub Pages' approach! (E.g. blog)
+# In particular, trailing slashes are *not* respected for *.html files!
+# So use folders with index.html files rather than top-level files.
 RewriteRule ^$          home.php
 RewriteRule ^about/$    about.php
 RewriteRule ^blog/$     blog/blog.php
@@ -22,8 +24,5 @@ RewriteRule ^projects/$ projects.php
 RewriteRule ^teaching/$ teaching.php
 
 # Friendly URLs for blog posts! Note no trailing slash.
+# TODO Update this to ensure it matches GitHub Pages' approach!
 RewriteRule ^blog/([^.]*)$ blog/posts/$1.php
-
-# Redirect to no-trailing-slash if there's a trailing slash:
-# TODO this doesn't seem to work, but not sure we need it anyway
-#RewriteRule ^blog/(\d{4})/(\d{2})/(\d{2})/(.*?)/$    blog/$1/$2/$3/$4 [R]
