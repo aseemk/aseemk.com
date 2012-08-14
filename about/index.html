@@ -1,9 +1,9 @@
-<?
-    $section = "About";
-    $description = "";      // TODO
+---
+section: About
+# TODO description
+---
 
-    require("_templates/head.php");
-?>
+{% include head.html %}
 
     <style>
         ul#ext-links {
@@ -57,9 +57,7 @@
         }
     </style>
 
-<?
-    require("_templates/body.php");
-?>
+{% include body.html %}
 
     <section>
 
@@ -92,6 +90,4 @@
 
     </section>
 
-<?
-    require("_templates/foot.php");
-?>
+{% include foot.html %}
