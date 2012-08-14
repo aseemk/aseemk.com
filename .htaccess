@@ -17,7 +17,6 @@ RewriteRule ^styles/(.*)\.less\.css$    styles/lessc.php?path=$1.less.css
 # In particular, trailing slashes are *not* respected for *.html files!
 # So use folders with index.html files rather than top-level files.
 RewriteRule ^blog/$     blog/blog.php
-RewriteRule ^projects/$ projects.php
 RewriteRule ^teaching/$ teaching.php
 
 # Friendly URLs for blog posts! Note no trailing slash.
