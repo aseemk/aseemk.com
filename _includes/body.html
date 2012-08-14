@@ -10,9 +10,9 @@
         <nav>
             <!--
                 TODO Why isn't Liquid's split() working??
-                {% raw %}
-                {{ 'About~Blog~Music~Projects~Teaching' | split:~ }}
-                {% endraw %} ==>
+                (note that GitHub Pages doesn't support Liquid's "raw" tag yet.)
+                << 'About~Blog~Music~Projects~Teaching' | split:~ >>
+                 ==>
                 {{ 'About~Blog~Music~Projects~Teaching' | split:~ }}
 
                 XXX FIXME Until then, using manual copy/paste...
