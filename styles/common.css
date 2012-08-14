@@ -5,9 +5,8 @@ html {
 }
 
 body {
-    // !important margin and padding needed for GoDaddy
-    margin: 0 auto !important;
-    padding: 0 !important;
+    margin: 0 auto;
+    padding: 0;
     max-width: 700px;
 }
 
@@ -22,11 +21,11 @@ body {
 /** GENERAL TEXT AND COLORS **/
 
 html {
-    // white background by default
-    // #444 text color already defined in h5bp-base
+    /* white background by default */
+    /* #444 text color already defined in h5bp-base */
 }
 
-// applying font family uniformly across affected elements as per h5bp!
+/* applying font family uniformly across affected elements as per h5bp! */
 body, select, input, textarea {
     font-family: "Lucida Sans Unicode", "Lucida Grande", "Thonburi", sans-serif;
 }
@@ -131,7 +130,7 @@ article, section {
     border-top: 1px solid #eee;
     border-bottom: 1px solid #eee;
     margin-bottom: -1px;
-    position: relative;     // TEMP HACK just for the h3 styles below
+    position: relative;     /* TEMP HACK just for the h3 styles below */
 }
 
 article:after, section:after {
@@ -152,7 +151,7 @@ h2 {
     margin-bottom: 0;
 }
 
-// TEMP HACK all these were contrived just for publish date on blog posts
+/* TEMP HACK all these were contrived just for publish date on blog posts */
 h3 {
     position: absolute;
     top: 2em;
@@ -207,7 +206,7 @@ div.stats, div.buttons {
     color: #888;
 }
 
-// TODO these should really be LESS-ified...
+/* TODO these should really be LESS-ified... */
 
 div.stats a, div.stats a:visited {
     color: #44b;
@@ -227,10 +226,10 @@ div.buttons {
 
 div.buttons > * {
     height: 20px;
-    vertical-align: bottom !important;  // override generated inline styles...
+    vertical-align: bottom !important;  /* override generated inline styles... */
 }
 
-// XXX FIXME hack needed since this messes up layout. weird?
+/* XXX FIXME hack needed since this messes up layout. weird? */
 div.buttons > #fb-root {
     display: none;
 }
@@ -238,7 +237,7 @@ div.buttons > #fb-root {
 div.comments {
     clear: both;
     margin: 1em 0;
-    // TODO min-height for an accurate layout sooner?
+    /* TODO min-height for an accurate layout sooner? */
 }
 
 
@@ -254,14 +253,4 @@ footer {
 p#copy {
     color: #888;
     font-style: italic;
-}
-
-
-
-/** MISC **/
-
-// this is for GoDaddy:
-// TODO should we target #conash3D0 specifically?
-body > iframe {
-    display: none !important;
 }
