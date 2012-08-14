@@ -7,10 +7,6 @@
 # http://httpd.apache.org/docs/current/mod/mod_rewrite.html
 RewriteEngine On
 
-# Rewrite URLs to compile LESS to CSS:
-# TODO Remove this when we move to straight CSS for GitHub Pages:
-RewriteRule ^styles/(.*)\.less\.css$    styles/lessc.php?path=$1.less.css
-
 # Friendly URLs for section home pages!
 # TODO Is there a simpler way to write this w/out duplication?
 # TODO Update this to ensure it matches GitHub Pages' approach! (E.g. blog)
