@@ -25,13 +25,13 @@
         <h2>Joining FiftyThree</h2>
 
         <h3>
-            <time pubdate datetime="2012-08-10">August 10, 2012</time>
+            <time pubdate datetime="2012-08-14">August 14, 2012</time>
             <!-- TODO categories -->
         </h3>
 
         <p>Eighteen months ago, I left Microsoft to start <a href='http://www.thethingdom.com/'>The Thingdom</a>. That journey officially ended this week, and a new one has begun.</p>
 
-<p>After months of keeping it under wraps, I&#8217;m thrilled to finally share that my friends at <a href='http://www.fiftythree.com/'>FiftyThree</a> have <a href='http://blog.thethingdom.com/joining-fiftythree/'>acquired</a> The Thingdom, and I&#8217;ve <a href='http://blog.fiftythree.com/'>joined them</a> to transform our technology into something new.</p>
+<p>After months of keeping it under wraps, I&#8217;m thrilled to finally share that my friends at <a href='http://www.fiftythree.com/'>FiftyThree</a> have <a href='http://blog.thethingdom.com/joining-fiftythree/'>acquired</a> The Thingdom, and I&#8217;ve <a href='http://blog.fiftythree.com/post/29419711762/welcome-aseem'>joined them</a> to transform our technology into something new.</p>
 <!-- TODO update FiftyThree blog link above to reference actual post -->
 <p>FiftyThree is the company behind the award-winning iPad app <a href='http://www.fiftythree.com/paper'>Paper</a>, and their mission is to bring creation tools into the post-PC era. If you hadn&#8217;t heard, they&#8217;re off to <a href='http://blog.fiftythree.com/post/20910947821/thank-you'>quite</a> a <a href='http://blog.fiftythree.com/post/24916653139/apple-design-award'>start</a>.</p>
 

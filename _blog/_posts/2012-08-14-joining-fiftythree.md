@@ -15,7 +15,7 @@ them][] to transform our technology into something new.
 
 [FiftyThree]: http://www.fiftythree.com/
 [acquired]: http://blog.thethingdom.com/joining-fiftythree/
-[joined them]: http://blog.fiftythree.com/
+[joined them]: http://blog.fiftythree.com/post/29419711762/welcome-aseem
 
 <!-- TODO update FiftyThree blog link above to reference actual post -->
 
