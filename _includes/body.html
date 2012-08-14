@@ -1,0 +1,37 @@
+</head>
+<body>
+
+    <header>
+
+        <h1>
+            <a href="/" class="{% if page.url == '/index.html' %}current{% endif %}">Aseem Kishore</a>
+        </h1>
+
+        <nav>
+            <!--
+                TODO Why isn't Liquid's split() working??
+                {% raw %}
+                {{ 'About~Blog~Music~Projects~Teaching' | split:~ }}
+                {% endraw %} ==>
+                {{ 'About~Blog~Music~Projects~Teaching' | split:~ }}
+
+                XXX FIXME Until then, using manual copy/paste...
+            -->
+
+            <a href="/about" class="{% if page.url == '/about/index.html' %}current{% endif %}">
+                About</a>
+
+            <a href="/blog/" class="{% if page.url == '/blog/index.html' %}current{% endif %}">
+                Blog</a>
+
+            <a href="/music" class="{% if page.url == '/music/index.html' %}current{% endif %}">
+                Music</a>
+
+            <a href="/projects" class="{% if page.url == '/projects/index.html' %}current{% endif %}">
+                Projects</a>
+
+            <a href="/teaching" class="{% if page.url == '/teaching/index.html' %}current{% endif %}">
+                Teaching</a>
+        </nav>
+
+    </header>

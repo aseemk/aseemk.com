@@ -21,4 +21,3 @@ done
 # Another hack: manually copy files that Jekyll is ignoring.
 # TODO Get rid of these when we can (see above).
 cp .htaccess _site
-cp -r _templates _site
