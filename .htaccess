@@ -16,7 +16,6 @@ RewriteRule ^styles/(.*)\.less\.css$    styles/lessc.php?path=$1.less.css
 # TODO Update this to ensure it matches GitHub Pages' approach! (E.g. blog)
 # In particular, trailing slashes are *not* respected for *.html files!
 # So use folders with index.html files rather than top-level files.
-RewriteRule ^$          home.php
 RewriteRule ^about/$    about.php
 RewriteRule ^blog/$     blog/blog.php
 RewriteRule ^music/$    music.php
