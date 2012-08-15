@@ -1,24 +1,17 @@
-<?
-    $title = '{{ page.title }}';
-    $section = 'Blog';
-    $description = "{{ page.summary }}";
+---
+section: Blog
+# TODO description (should this be in each post?)
+ogType: article
+---
 
-    $og_type = "article";
-
-    require("../../_templates/head.php");
-?>
+{% include head.html %}
 
     <link href="http://feeds.feedburner.com/aseemk/blog" type="application/atom+xml" rel="alternate" title="Aseem Kishore - Blog" />
 
     <style>
     </style>
 
-<?
-    require("../../_templates/body.php");
-
-    $post_title = "{{ page.title }}";   // TODO escape quotes in here!
-    $post_url_urlencoded = rawurlencode($base . str_replace('/posts/', 'blog/', str_replace('.html', '', '{{ page.url }}')));
-?>
+{% include body.html %}
 
     <article>
 
@@ -41,8 +34,16 @@
                     document.getElementById("comments-count").innerHTML =
                         (num || "No") + " " + (num === 1 ? "comment" : "comments");
                 }
+
+                // XXX hackishly using document.write() since we need the full URL:
+                document.write([
+                    '<script src="https://graph.facebook.com/?id=',
+                    // be sure to strip the query string to get canonical-ish path:
+                    encodeURIComponent(location.protocol + '//' + location.host + location.pathname),
+                    '&amp;callback=updateCommentsCount"></',
+                    'script>'
+                ].join(''));
             </script>
-            <script src="https://graph.facebook.com/?id=<?= $post_url_urlencoded ?>&amp;callback=updateCommentsCount"></script>
 
         </div>
 
@@ -70,7 +71,7 @@
 
             <!-- via https://dev.twitter.com/docs/tweet-button customized for me, and script made async -->
             <a href="http://twitter.com/share" class="twitter-share-button" data-via="aseemk" data-related="aseemk"
-                data-text="<?= htmlspecialchars($post_title) ?>">Tweet</a>
+                data-text="{{ page.title | escape }}">Tweet</a>
             <script async src="http://platform.twitter.com/widgets.js" type="text/javascript"></script>
 
         </div>
@@ -80,7 +81,8 @@
             <!-- via http://developers.facebook.com/docs/reference/plugins/comments/ but customized to be dynamic width -->
             <div id="fb-root"></div>
             <script src="http://connect.facebook.net/en_US/all.js#appId=160410744017439&amp;xfbml=1"></script>
-            <fb:comments id="fb-comments" href="<?= $post_url_urlencoded ?>" num_posts="10" width=""></fb:comments>
+            <!-- XXX not including href since we don't know the absolute URL at build time. is that fine? -->
+            <fb:comments id="fb-comments" num_posts="10" width=""></fb:comments>
             <script>
                 // TEMP HACK body.clientWidth is not very robust if we add padding!
                 document.getElementById("fb-comments").setAttribute("width", document.body.clientWidth);
@@ -90,6 +92,4 @@
 
     </article>
 
-<?
-    require("../../_templates/foot.php");
-?>
+{% include foot.html %}

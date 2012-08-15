@@ -15,5 +15,6 @@ RewriteEngine On
 RewriteRule ^blog/$     blog/blog.php
 
 # Friendly URLs for blog posts! Note no trailing slash.
-# TODO Update this to ensure it matches GitHub Pages' approach!
-RewriteRule ^blog/([^.]*)$ blog/posts/$1.php
+# Important: this matches GitHub's approach. Trailing slashes not allowed!
+# TODO Generalize this to work across all sections?
+RewriteRule ^blog/([^.]+)$ blog/$1.html

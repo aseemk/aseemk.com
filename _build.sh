@@ -7,17 +7,8 @@
 # We just need Apache/.htaccess for clean URLs (like GitHub's) for now, but
 # Jekyll now supports "including" files like .htaccess. Waiting for update!
 
-# This ideally would be all that's needed...
 jekyll
 
-# But unfortunately Jekyll doesn't correctly spit out .php files,
-# so we generate .html from Jekyll and manually rename to .php:
-# TODO Remove this once we port all of our PHP to Liquid layouts.
-for i in _site/blog/posts/*.html
-do
-    mv "$i" "${i%%.html}".php
-done
-
-# Another hack: manually copy files that Jekyll is ignoring.
+# Hack: manually copy files that Jekyll is ignoring.
 # TODO Get rid of these when we can (see above).
 cp .htaccess _site
