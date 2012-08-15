@@ -1,35 +1,37 @@
-aseemk.com
-==========
+# aseemk.com
 
 This is the source code behind [aseemk.com](http://aseemk.com/), the personal
 website of Aseem Kishore.
 
-It's a PHP website, which means it's mostly static files with a little bit of
-dynamic PHP powering them.
+The website is powered entirely by [Jekyll](http://jekyllrb.com), which uses
+[Markdown](http://daringfireball.net/projects/markdown/) and
+[Liquid](http://www.liquidmarkup.org/) for markup, and is hosted and served by
+[GitHub Pages](http://pages.github.com/).
 
-The blog uses [Jekyll](http://jekyllrb.com/), a static website generator.
-Because I don't want an entirely static website (I value separation of concerns,
-e.g. not having to re-upload every page on my website if I want to make one
-small tweak to the HTML of the site's header), I use it only for its blog
-features (e.g. Markdown+YAML parsing and aggregating for the index and feed).
+Adding to, updating and deploying this site is as easy as changing this source
+and pushing to the `gh-pages` branch. GitHub's
+[Pages help](https://help.github.com/categories/20/articles) provides more
+details, including support for custom domains and error pages.
 
-To that end, the `_blog` directory is the (Jekyll) source for the blog, while
-the `blog` directory is the built output.
+## Development
 
-Development
------------
+Development of the site could/would/should be as simple as running the Jekyll
+server and having it watch for file changes:
 
-To "build" the blog:
+    $ jekyll --auto --server
 
-    cd _blog
-    ./_build.sh
+But this site takes advantage of one cool GitHub Pages feature: support for
+"clean" [extensionless URLs](http://gh-pages-test.aseemk.com/). Jekyll's
+server doesn't seem to support that, so I personally serve the site locally
+with the Apache that comes bundled with Mac OS X, and I use a small, simple
+`.htaccess` file to mimic GitHub's clean URLs.
 
-Run this whenever any of the content inside the `_blog` directory changes.
+Jekyll doesn't copy dotfiles like `.htaccess` into the output directory by
+default, but support for an `include` option
+[has been added](https://github.com/mojombo/jekyll/pull/261) and is hopefully
+[shipped soon](https://github.com/mojombo/jekyll/blob/master/History.txt).
+Until then, there's a minimal build script that copies this `.htaccess` file:
 
-**Important:** you *must* be inside the `_blog` directory before running the
-`_build.sh` script.
+    $ ./_build.sh
 
-This build script is only necessary because of a [Jekyll bug](https://github.com/mojombo/jekyll/issues/139)
-that prevents our output posts from retaining their `.php` extension. I hope to
-write a simple [Jekyll plugin](https://github.com/mojombo/jekyll/wiki/Plugins)
-for this site to work around that bug and make the build script unnecessary.
+Unfortunately, this needs to be manually run after each change... for now.
