@@ -1,6 +1,7 @@
 ---
 title: "Introducing: The Thingdom"
 categories: thingdom
+description: "I’m very excited to finally unveil what I’ve been working on for the past few months! I’ll start with the story."
 layout: post
 ---
 
