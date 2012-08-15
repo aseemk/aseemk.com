@@ -95,11 +95,17 @@ ogType: blog    # only the root should be this, according to the documentation
 
     <!-- TEMP HACK this whole thing feels quite hacky. wish there were easier ways. -->
     <script>
-        // iterate over all the articles, grabbing their URLs:
-        var postLinks = document.querySelectorAll('body > article > h2 > a');
-        var postURLs = [];
-        for (var i = 0; i < postLinks.length; i++) {
-            postURLs.push(BASE_URL + postLinks[i].getAttribute('href'));
+        // Liquid gives us our post URLs as an array, but we can only spit
+        // them out as a string (TODO FIXME if Liquid adds a JSON filter or
+        // similar -- and GitHub updates to it!), so we do that and construct
+        // the array via JS. TODO Escape JS/JSON in this string somehow?
+        var postURLs = '{{ site.posts | map:'url' | join:',' }}'.split(',');
+
+        // XXX need to repeat process of making each URL absolute and removing
+        // the .html extension from it. argh, Liquid is so limiting!
+        // TODO again it'd be nice to JS-/JSON-escape the site URL somehow...
+        for (var i = 0; i < postURLs.length; i++) {
+            postURLs[i] = '{{ site.url }}' + postURLs[i].replace('.html', '');
         }
 
         function updateCommentsCounts(objs) {
