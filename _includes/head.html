@@ -26,7 +26,10 @@
         - {% endif %}{% if page.section %}{{ pageSectionEsc }}
         - {% endif %}{{ siteTitleEsc }}</title>
 
-    <meta name="description" content="{{ page.description | escape }}" />
+    {% capture pageDescEsc %}{{ page.description | escape }}{% endcapture %}
+    {% capture siteDescEsc %}{{ site.description | escape }}{% endcapture %}
+
+    <meta name="description" content="{% if page.description %}{{ pageDescEsc }}{% else %}{{ siteDescEsc }}{% endif %}" />
 
     <!-- http://developers.facebook.com/docs/opengraph/ -->
     <!-- TODO is there a better liquid way of "if x then x else y"?
