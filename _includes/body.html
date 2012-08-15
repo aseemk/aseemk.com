@@ -9,13 +9,16 @@
 
         <nav>
             <!--
-                TODO Why isn't Liquid's split() working??
-                (note that GitHub Pages doesn't support Liquid's "raw" tag yet.)
-                << 'About~Blog~Music~Projects~Teaching' | split:~ >>
-                 ==>
-                {{ 'About~Blog~Music~Projects~Teaching' | split:~ }}
+                XXX Liquid doesn't have a notion of array literals it seems.
+                We could construct one for our nav by splitting a string, but
+                GitHub's unfortunately on an older version of Liquid w/out it.
+                Argh. So until then, manually duplicating markup below...
+                TODO FIXME Make this into an array once GitHub updates Liquid!
 
-                XXX FIXME Until then, using manual copy/paste...
+                Test: (GitHub's version also doesn't support "raw" Liquid)
+                << 'About~Blog~Music~Projects~Teaching' | split:'~' | join:',' >>
+                 ==>
+                {{ 'About~Blog~Music~Projects~Teaching' | split:'~' | join:',' }}
             -->
 
             <!--
