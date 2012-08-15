@@ -37,69 +37,6 @@
     <article>
 
         <?
-            $post_title = "Joining FiftyThree";   // TODO escape quotes in here!
-            $post_url = str_replace('/posts/', 'blog/', '/posts/joining-fiftythree');
-            $post_url_absolute = $base . $post_url;
-
-            $post_urls[] = $base . $post_url;
-        ?>
-
-        <h2>
-            <a href="<?= $post_url ?>">Joining FiftyThree</a>
-        </h2>
-
-        <h3>
-            <time pubdate datetime="2012-08-14">August 14, 2012</time>
-            <!-- TODO categories -->
-        </h3>
-
-        <p>Eighteen months ago, I left Microsoft to start <a href='http://www.thethingdom.com/'>The Thingdom</a>. That journey officially ended this week, and a new one has begun.</p>
-
-<p>After months of keeping it under wraps, I&#8217;m thrilled to finally share that my friends at <a href='http://www.fiftythree.com/'>FiftyThree</a> have <a href='http://blog.thethingdom.com/joining-fiftythree/'>acquired</a> The Thingdom, and I&#8217;ve <a href='http://blog.fiftythree.com/post/29419711762/welcome-aseem'>joined them</a> to transform our technology into something new.</p>
-<!-- TODO update FiftyThree blog link above to reference actual post -->
-<p>FiftyThree is the company behind the award-winning iPad app <a href='http://www.fiftythree.com/paper'>Paper</a>, and their mission is to bring creation tools into the post-PC era. If you hadn&#8217;t heard, they&#8217;re off to <a href='http://blog.fiftythree.com/post/20910947821/thank-you'>quite</a> a <a href='http://blog.fiftythree.com/post/24916653139/apple-design-award'>start</a>.</p>
-
-<p>The opportunity is fantastic, but the <a href='http://www.fiftythree.com/about'>team</a> is simply world-class. I&#8217;m honored to work alongside some of not just the brightest but also the nicest people in our industry.</p>
-
-<p>When we met, they joked that they wanted to turn &#8220;The Thingdom&#8221; into &#8220;The Ideadom&#8221; &#8212; a place to connect people around ideas and help them grow. That&#8217;s what we&#8217;re building now, and I couldn&#8217;t be more excited.</p>
-
-<p>We&#8217;re just getting started, and if you&#8217;re interested in being a part of it, reach out &#8212; <a href='http://www.fiftythree.com/jobs'>we&#8217;re hiring</a>. Let&#8217;s invent the future together.</p>
-
-<p>There&#8217;s much more I can say, but let me end it here for now and just say thanks to everyone who helped along the way. Your support was invaluable, and I couldn&#8217;t have done it without you.</p>
-
-<p>One journey ends, and another begins. So it goes&#8230;</p>
-<aside>Fun fact: <a href='/images/fiftythree-blog-ada-photo.png'>this</a> was my arm!</aside>
-
-        <div class="stats">
-
-            <!-- technique via http://developers.facebook.com/docs/reference/plugins/comments/ FAQ -->
-            <a href="<?= $post_url ?>#comments"><span class="comments-count">View comments</span></a>
-
-        </div>
-
-        <div class="buttons">
-
-            <!-- via http://www.google.com/webmasters/+1/button/ but customized to be 20px tall -->
-            <!-- the script is at the bottom, since it needs to be included only once -->
-            <div class="g-plusone" data-size="medium"
-                data-href="<?= htmlspecialchars($post_url_absolute) ?>"></div>
-
-            <!-- via http://developers.facebook.com/docs/reference/plugins/like/ but customized to be 90x20 -->
-            <!-- the script is at the bottom, since it needs to be included only once -->
-            <div class="fb-like" data-send="false" data-layout="button_count" data-width="90" data-show-faces="false"
-                data-href="<?= htmlspecialchars($post_url_absolute) ?>"></div>
-
-            <!-- via https://dev.twitter.com/docs/tweet-button customized for me, and script made async -->
-            <a href="http://twitter.com/share" class="twitter-share-button" data-via="aseemk" data-related="aseemk"
-                data-url="<?= htmlspecialchars($post_url_absolute) ?>" data-text="<?= htmlspecialchars($post_title) ?>">Tweet</a>
-
-        </div>
-
-    </article>
-    
-    <article>
-
-        <?
             $post_title = "Introducing: The Thingdom";   // TODO escape quotes in here!
             $post_url = str_replace('/posts/', 'blog/', '/posts/introducing-the-thingdom');
             $post_url_absolute = $base . $post_url;
@@ -146,8 +83,7 @@
 
             <!-- via http://www.google.com/webmasters/+1/button/ but customized to be 20px tall -->
             <!-- the script is at the bottom, since it needs to be included only once -->
-            <div class="g-plusone" data-size="medium"
-                data-href="<?= htmlspecialchars($post_url_absolute) ?>"></div>
+            <div class="g-plusone" data-size="medium"></div>
 
             <!-- via http://developers.facebook.com/docs/reference/plugins/like/ but customized to be 90x20 -->
             <!-- the script is at the bottom, since it needs to be included only once -->
@@ -181,7 +117,7 @@
             <!-- TODO categories -->
         </h3>
 
-        <p>It&#8217;s been <a title='my old MIT website from 2008' href='http://aseemk.github.com/mit-website/'>a few years</a> since I&#8217;ve had a website to call my own. That&#8217;s certainly ironic, given that I call myself a <a href='projects/'>web developer</a>.</p>
+        <p>It&#8217;s been <a href='http://aseemk.github.com/mit-website/' title='my old MIT website from 2008'>a few years</a> since I&#8217;ve had a website to call my own. That&#8217;s certainly ironic, given that I call myself a <a href='projects/'>web developer</a>.</p>
 
 <p>Most of those few years for me were spent at <a href='http://en.wikipedia.org/wiki/Microsoft_Live_Labs'>Microsoft Live Labs</a>, home to some amazing people that built some equally <a href='http://gasi.ch/blog/live-labs/'>amazing technology</a>. At Live Labs, my thoughts and ideas were all public, whether through emails or frequent show-and-tells like those at the end of our <a href='http://windowseat.ca/item.php?id=342'>out-of-the-box weeks</a>. It was a very special community.</p>
 
@@ -201,8 +137,7 @@
 
             <!-- via http://www.google.com/webmasters/+1/button/ but customized to be 20px tall -->
             <!-- the script is at the bottom, since it needs to be included only once -->
-            <div class="g-plusone" data-size="medium"
-                data-href="<?= htmlspecialchars($post_url_absolute) ?>"></div>
+            <div class="g-plusone" data-size="medium"></div>
 
             <!-- via http://developers.facebook.com/docs/reference/plugins/like/ but customized to be 90x20 -->
             <!-- the script is at the bottom, since it needs to be included only once -->

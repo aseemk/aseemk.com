@@ -5,7 +5,7 @@
     <link href="http://aseemk.com/blog/" />
     <link href="http://aseemk.com/blog/atom.xml" rel="self" />
     <title>Aseem Kishore - Blog</title>
-    <updated>2012-08-14T16:54:13-04:00</updated>
+    <updated>2011-09-12T08:11:46-07:00</updated>
     
     <author>
         <name>Aseem Kishore</name>
@@ -14,33 +14,10 @@
     
     
     <entry>
-        <id>http://aseemk.com/blog/joining-fiftythree</id>
-        <link href="http://aseemk.com/blog/joining-fiftythree" />
-        <title>Joining FiftyThree</title>
-        <updated>2012-08-14T00:00:00-04:00</updated>
-        <content type="html">&lt;p&gt;Eighteen months ago, I left Microsoft to start &lt;a href='http://www.thethingdom.com/'&gt;The Thingdom&lt;/a&gt;. That journey officially ended this week, and a new one has begun.&lt;/p&gt;
-
-&lt;p&gt;After months of keeping it under wraps, I&amp;#8217;m thrilled to finally share that my friends at &lt;a href='http://www.fiftythree.com/'&gt;FiftyThree&lt;/a&gt; have &lt;a href='http://blog.thethingdom.com/joining-fiftythree/'&gt;acquired&lt;/a&gt; The Thingdom, and I&amp;#8217;ve &lt;a href='http://blog.fiftythree.com/post/29419711762/welcome-aseem'&gt;joined them&lt;/a&gt; to transform our technology into something new.&lt;/p&gt;
-&lt;!-- TODO update FiftyThree blog link above to reference actual post --&gt;
-&lt;p&gt;FiftyThree is the company behind the award-winning iPad app &lt;a href='http://www.fiftythree.com/paper'&gt;Paper&lt;/a&gt;, and their mission is to bring creation tools into the post-PC era. If you hadn&amp;#8217;t heard, they&amp;#8217;re off to &lt;a href='http://blog.fiftythree.com/post/20910947821/thank-you'&gt;quite&lt;/a&gt; a &lt;a href='http://blog.fiftythree.com/post/24916653139/apple-design-award'&gt;start&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;The opportunity is fantastic, but the &lt;a href='http://www.fiftythree.com/about'&gt;team&lt;/a&gt; is simply world-class. I&amp;#8217;m honored to work alongside some of not just the brightest but also the nicest people in our industry.&lt;/p&gt;
-
-&lt;p&gt;When we met, they joked that they wanted to turn &amp;#8220;The Thingdom&amp;#8221; into &amp;#8220;The Ideadom&amp;#8221; &amp;#8212; a place to connect people around ideas and help them grow. That&amp;#8217;s what we&amp;#8217;re building now, and I couldn&amp;#8217;t be more excited.&lt;/p&gt;
-
-&lt;p&gt;We&amp;#8217;re just getting started, and if you&amp;#8217;re interested in being a part of it, reach out &amp;#8212; &lt;a href='http://www.fiftythree.com/jobs'&gt;we&amp;#8217;re hiring&lt;/a&gt;. Let&amp;#8217;s invent the future together.&lt;/p&gt;
-
-&lt;p&gt;There&amp;#8217;s much more I can say, but let me end it here for now and just say thanks to everyone who helped along the way. Your support was invaluable, and I couldn&amp;#8217;t have done it without you.&lt;/p&gt;
-
-&lt;p&gt;One journey ends, and another begins. So it goes&amp;#8230;&lt;/p&gt;
-&lt;aside&gt;Fun fact: &lt;a href='/images/fiftythree-blog-ada-photo.png'&gt;this&lt;/a&gt; was my arm!&lt;/aside&gt;</content>
-    </entry>
-    
-    <entry>
         <id>http://aseemk.com/blog/introducing-the-thingdom</id>
         <link href="http://aseemk.com/blog/introducing-the-thingdom" />
         <title>Introducing: The Thingdom</title>
-        <updated>2011-09-12T00:00:00-04:00</updated>
+        <updated>2011-09-12T00:00:00-07:00</updated>
         <content type="html">&lt;p&gt;I&amp;#8217;m very excited to finally unveil what I&amp;#8217;ve been working on for the past few months! I&amp;#8217;ll start with the story.&lt;/p&gt;
 
 &lt;p&gt;When I decided to leave Microsoft, I realized that I&amp;#8217;d need a new computer. Having experienced Apple hardware in the past, I knew that I wanted a Mac; the question was simply which one.&lt;/p&gt;
@@ -65,8 +42,8 @@
         <id>http://aseemk.com/blog/hello-web</id>
         <link href="http://aseemk.com/blog/hello-web" />
         <title>Hello, web</title>
-        <updated>2011-03-28T00:00:00-04:00</updated>
-        <content type="html">&lt;p&gt;It&amp;#8217;s been &lt;a title='my old MIT website from 2008' href='http://aseemk.github.com/mit-website/'&gt;a few years&lt;/a&gt; since I&amp;#8217;ve had a website to call my own. That&amp;#8217;s certainly ironic, given that I call myself a &lt;a href='projects/'&gt;web developer&lt;/a&gt;.&lt;/p&gt;
+        <updated>2011-03-28T00:00:00-07:00</updated>
+        <content type="html">&lt;p&gt;It&amp;#8217;s been &lt;a href='http://aseemk.github.com/mit-website/' title='my old MIT website from 2008'&gt;a few years&lt;/a&gt; since I&amp;#8217;ve had a website to call my own. That&amp;#8217;s certainly ironic, given that I call myself a &lt;a href='projects/'&gt;web developer&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;Most of those few years for me were spent at &lt;a href='http://en.wikipedia.org/wiki/Microsoft_Live_Labs'&gt;Microsoft Live Labs&lt;/a&gt;, home to some amazing people that built some equally &lt;a href='http://gasi.ch/blog/live-labs/'&gt;amazing technology&lt;/a&gt;. At Live Labs, my thoughts and ideas were all public, whether through emails or frequent show-and-tells like those at the end of our &lt;a href='http://windowseat.ca/item.php?id=342'&gt;out-of-the-box weeks&lt;/a&gt;. It was a very special community.&lt;/p&gt;
 
