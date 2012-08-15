@@ -5,32 +5,32 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0" />
 
-    {% assign siteTitle = 'Aseem Kishore' %}
-    {% capture fullTitle %}{% if page.title %}{{ page.title }}
-        - {% endif %}{% if page.section %}{{ page.section }}
-        - {% endif %}{{ siteTitle }}{% endcapture %}
+    {% capture pageTitleEsc %}{{ page.title | escape }}{% endcapture %}
+    {% capture pageSectionEsc %}{{ page.section | escape }}{% endcapture %}
+    {% capture siteTitleEsc %}{{ site.title | escape }}{% endcapture %}
 
-    <title>{{ fullTitle }}</title>
+    <title>{% if page.title %}{{ pageTitleEsc }}
+        - {% endif %}{% if page.section %}{{ pageSectionEsc }}
+        - {% endif %}{{ siteTitleEsc }}</title>
 
-    <meta name="description" content="{{ page.description }}" />
+    <meta name="description" content="{{ page.description | escape }}" />
 
     <!-- http://developers.facebook.com/docs/opengraph/ -->
     <!-- TODO is there a better liquid way of "if x then x else y"?
          "x or y" doesn't seem to work, neither "or" nor "||". -->
-    {% capture ogTitle %}{% if page.title %}{{ page.title }}{% elsif page.section %}{{ page.section }}{% else %}{{ siteTitle }}{% endif %}{% endcapture %}
-    {% capture ogSiteName %}{% if page.title && page.section %}{{ page.section }}
-        - {% endif %}{{ siteTitle }}{% endcapture %}
+    {% capture ogTitle %}{% if page.title %}{{ pageTitleEsc }}{% elsif page.section %}{{ pageSectionEsc }}{% else %}{{ siteTitleEsc }}{% endif %}{% endcapture %}
+    {% capture ogSiteName %}{% if page.title && page.section %}{{ pageSectionEsc }}
+        - {% endif %}{{ siteTitleEsc }}{% endcapture %}
     <meta property="og:title" content="{{ ogTitle }}" />
     <meta property="og:site_name" content="{{ ogSiteName }}" />
-    <meta property="og:type" content="{% if page.og_type %}{{ page.og_type }}{% else %}website{% endif %}" />
-    <meta property="og:image" content="{{ page.og_image }}" />
+    <meta property="og:type" content="{% if page.og_type %}{{ page.og_type | escape }}{% else %}website{% endif %}" />
+    <meta property="og:image" content="{{ page.og_image | escape }}" />
 
     <meta property="fb:admins" content="704844" />
     <meta property="fb:app_id" content="160410744017439" />
 
     <link rel="shortcut icon" href="/favicon.ico">
 
-    <!-- TODO update to not rely on LESS, or at least not server-side -->
     <link rel="stylesheet" href="/styles/h5bp-base.css" />
     <link rel="stylesheet" href="/styles/common.css" />
 
@@ -38,6 +38,7 @@
     <script src="/scripts/modernizr-1.7.min.js"></script>
 
     <!-- convenience variables/etc. for scripts -->
+    <!-- TODO remove this once no longer needed -->
     <script>
-        var BASE_URL = '{{ site.url }}';
+        var BASE_URL = '{{ site.url }}';    // TODO JS-escape this somehow?
     </script>

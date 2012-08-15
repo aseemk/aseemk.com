@@ -12,4 +12,5 @@ lsi: false
 pygments: true
 
 url: http://aseemk.com
+title: Aseem Kishore
 permalink: /blog/:title.html

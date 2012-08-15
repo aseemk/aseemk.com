@@ -30,9 +30,11 @@ ogType: blog    # only the root should be this, according to the documentation
 
         {% capture postURL %}{{ post.url | remove:'.html' }}{% endcapture %}
         {% capture postURLAbs %}{{ site.url }}{{ postURL }}{% endcapture %}
+        {% capture postURLEsc %}{{ postURL | escape }}{% endcapture %}
+        {% capture postURLAbsEsc %}{{ postURLAbs | escape }}{% endcapture %}
 
         <h2>
-            <a href="{{ postURL }}">{{ post.title }}</a>
+            <a href="{{ postURLEsc }}">{{ post.title | escape }}</a>
         </h2>
 
         <h3>
@@ -40,12 +42,13 @@ ogType: blog    # only the root should be this, according to the documentation
             <!-- TODO categories -->
         </h3>
 
+        <!-- important: don't escape content! it'll actually be HTML markup. -->
         {{ post.content }}
 
         <div class="stats">
 
             <!-- technique via http://developers.facebook.com/docs/reference/plugins/comments/ FAQ -->
-            <a href="{{ postURL }}#comments"><span class="comments-count">View comments</span></a>
+            <a href="{{ postURLEsc }}#comments"><span class="comments-count">View comments</span></a>
 
         </div>
 
@@ -53,16 +56,16 @@ ogType: blog    # only the root should be this, according to the documentation
 
             <!-- via http://www.google.com/webmasters/+1/button/ but customized to be 20px tall -->
             <!-- the script is at the bottom, since it needs to be included only once -->
-            <div class="g-plusone" data-size="medium" data-href="{{ postURLAbs }}"></div>
+            <div class="g-plusone" data-size="medium" data-href="{{ postURLAbsEsc }}"></div>
 
             <!-- via http://developers.facebook.com/docs/reference/plugins/like/ but customized to be 90x20 -->
             <!-- the script is at the bottom, since it needs to be included only once -->
-            <div class="fb-like" data-send="false" data-layout="button_count" data-width="90" data-show-faces="false" data-href="{{ postURLAbs }}"></div>
+            <div class="fb-like" data-send="false" data-layout="button_count" data-width="90" data-show-faces="false" data-href="{{ postURLAbsEsc }}"></div>
 
             <!-- via https://dev.twitter.com/docs/tweet-button customized for me, and script made async -->
             <!-- the script is at the bottom, since it needs to be included only once -->
             <a href="http://twitter.com/share" class="twitter-share-button" data-via="aseemk" data-related="aseemk"
-                data-href="{{ postURLAbs }}" data-text="{{ post.title | escape }}">Tweet</a>
+                data-href="{{ postURLAbsEsc }}" data-text="{{ post.title | escape }}">Tweet</a>
 
         </div>
 

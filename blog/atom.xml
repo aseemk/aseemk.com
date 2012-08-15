@@ -4,9 +4,11 @@ layout: nil
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-    <id>{{ site.url }}/blog/</id>
-    <link href="{{ site.url }}/blog/" />
-    <link href="{{ site.url }}/blog/atom.xml" rel="self" />
+    {% capture siteURLEsc %}{{ site.url | xml_escape }}{% endcapture %}
+
+    <id>{{ siteURLEsc }}/blog/</id>
+    <link href="{{ siteURLEsc }}/blog/" />
+    <link href="{{ siteURLEsc }}/blog/atom.xml" rel="self" />
     <title>Aseem Kishore - Blog</title>
     <updated>{{ site.time | date_to_xmlschema }}</updated>
 
@@ -17,9 +19,9 @@ layout: nil
 
     {% for post in site.posts %}
     <entry>
-        <id>{{ site.url }}{{ post.id }}</id>
-        <link href="{{ site.url }}{{ post.url | remove:'.html' }}" />
-        <title>{{ post.title }}</title>
+        <id>{{ siteURLEsc }}{{ post.id | xml_escape }}</id>
+        <link href="{{ siteURLEsc }}{{ post.url | remove:'.html' | xml_escape }}" />
+        <title>{{ post.title | xml_escape }}</title>
         <updated>{{ post.date | date_to_xmlschema }}</updated>
         <content type="html">{{ post.content | xml_escape }}</content>
     </entry>
