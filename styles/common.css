@@ -96,24 +96,24 @@ nav a {
 }
 
 /*h1 a:before,*/ nav a:before {
-    content: "{";
-    margin-right: 0.2em;
+    content: "‹";
+    margin-right: 0.3em;
 }
 
 /*h1 a:after,*/ nav a:after {
-    content: "}";
-    margin-left: 0.2em;
+    content: "›";
+    margin-left: 0.3em;
 }
 
 /*h1 a:before, h1 a:after,*/
 nav a:before, nav a:after {
     visibility: hidden;
-    color: #ccc;
+    color: #aaa;
 }
 
 nav a:hover:before, nav a:hover:after,
 nav a:active:before, nav a:active:after {
-    color: #bbb;
+    color: #888;
 }
 
 /*h1 a.current:before, h1 a.current:after,*/
