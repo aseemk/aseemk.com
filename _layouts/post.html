@@ -19,8 +19,10 @@ ogType: article
         {% capture postURLAbs %}{{ site.url }}{{ postURL }}{% endcapture %}
         {% capture postURLAbsEsc %}{{ postURLAbs | escape }}{% endcapture %}
 
-        <h2>{{ page.title | escape }}</h2>
-        <!-- TODO make this a hyperlink -->
+        <h2>
+            <a class="current" href="{{ postURL | escape }}">
+                {{ page.title | escape }}</a>
+        </h2>
 
         <h3>
             <time pubdate datetime="{{ page.date | date: "%Y-%m-%d" }}">{{ page.date | date: "%B %d, %Y" }}</time>

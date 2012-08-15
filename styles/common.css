@@ -146,9 +146,18 @@ h2, h3, p, ol, ul {
     margin: 1em 0;
 }
 
+/* for blog posts, this is the post title */
 h2 {
     font-size: 125%;
     margin-bottom: 0;
+}
+
+h2 a.current {
+    color: #444;
+}
+
+h2 a.current:hover {
+    color: black;
 }
 
 /* TEMP HACK all these were contrived just for publish date on blog posts */
