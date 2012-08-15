@@ -32,6 +32,6 @@ default, but support for an `include` option
 [shipped soon](https://github.com/mojombo/jekyll/blob/master/History.txt).
 Until then, there's a minimal build script that copies this `.htaccess` file:
 
-    $ ./_build.sh
+    $ make
 
 Unfortunately, this needs to be manually run after each change... for now.
