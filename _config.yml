@@ -11,4 +11,5 @@ destination: ./_site
 lsi: false
 pygments: true
 
+url: http://aseemk.com
 permalink: /blog/:title.html

@@ -29,7 +29,7 @@ ogType: blog    # only the root should be this, according to the documentation
     <article>
 
         {% capture postURL %}{{ post.url | remove:'.html' }}{% endcapture %}
-        {% capture postURLEscaped %}{{ postURL | escape }}{% endcapture %}
+        {% capture postURLAbs %}{{ site.url }}{{ postURL }}{% endcapture %}
 
         <h2>
             <a href="{{ postURL }}">{{ post.title }}</a>
@@ -51,38 +51,18 @@ ogType: blog    # only the root should be this, according to the documentation
 
         <div class="buttons">
 
-            <script>
-                // XXX hackishly using document.write() since we need posts'
-                // full URLs, and this output is static HTML...
+            <!-- via http://www.google.com/webmasters/+1/button/ but customized to be 20px tall -->
+            <!-- the script is at the bottom, since it needs to be included only once -->
+            <div class="g-plusone" data-size="medium" data-href="{{ postURLAbs }}"></div>
 
-                // via http://www.google.com/webmasters/+1/button/ but
-                // customized to be 20px tall. the script is at the bottom,
-                // since it needs to be included only once.
-                document.write([
-                    '<div class="g-plusone" data-size="medium" data-href="',
-                    BASE_URL, '{{ postURLEscaped }}"></div>'
-                ].join(''));
+            <!-- via http://developers.facebook.com/docs/reference/plugins/like/ but customized to be 90x20 -->
+            <!-- the script is at the bottom, since it needs to be included only once -->
+            <div class="fb-like" data-send="false" data-layout="button_count" data-width="90" data-show-faces="false" data-href="{{ postURLAbs }}"></div>
 
-                // via http://developers.facebook.com/docs/reference/plugins/like/
-                // but customized to be 90x20. the script is at the bottom,
-                // since it needs to be included only once.
-                document.write([
-                    '<div class="fb-like" data-send="false" ',
-                    'data-layout="button_count" data-width="90" ',
-                    'data-show-faces="false" data-href="',
-                    BASE_URL, '{{ postURLEscaped }}"></div>'
-                ].join(''));
-
-                // via https://dev.twitter.com/docs/tweet-button customized
-                // for me, and script made async.
-                document.write([
-                    '<a href="http://twitter.com/share" ',
-                    'class="twitter-share-button" data-via="aseemk" ',
-                    'data-related="aseemk" data-url="',
-                    BASE_URL, '{{ postURLEscaped }}" ',
-                    'data-text="{{ post.title | escape }}">Tweet</a>'
-                ].join(''));
-            </script>
+            <!-- via https://dev.twitter.com/docs/tweet-button customized for me, and script made async -->
+            <!-- the script is at the bottom, since it needs to be included only once -->
+            <a href="http://twitter.com/share" class="twitter-share-button" data-via="aseemk" data-related="aseemk"
+                data-href="{{ postURLAbs }}" data-text="{{ post.title | escape }}">Tweet</a>
 
         </div>
 
