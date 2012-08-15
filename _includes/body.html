@@ -18,19 +18,31 @@
                 XXX FIXME Until then, using manual copy/paste...
             -->
 
-            <a href="/about" class="{% if page.url == '/about/index.html' %}current{% endif %}">
+            <!--
+                XXX FIXME super hacky: liquid contains no startsWith() or
+                similar, and contains() isn't what we want, so we mimic our
+                own by using a unique string...
+            -->
+            {% capture paddedURL %}BEGIN{{ page.url }}END{% endcapture %}
+
+            {% assign aboutMatch = paddedURL | replace_first:'/about/','MATCH' %}
+            <a href="/about/" class="{% if aboutMatch contains 'BEGINMATCH' %}current{% endif %}">
                 About</a>
 
-            <a href="/blog/" class="{% if page.url == '/blog/index.html' %}current{% endif %}">
+            {% assign blogMatch = paddedURL | replace_first:'/blog/','MATCH' %}
+            <a href="/blog/" class="{% if blogMatch contains 'BEGINMATCH' %}current{% endif %}">
                 Blog</a>
 
-            <a href="/music" class="{% if page.url == '/music/index.html' %}current{% endif %}">
+            {% assign musicMatch = paddedURL | replace_first:'/music/','MATCH' %}
+            <a href="/music/" class="{% if musicMatch contains 'BEGINMATCH' %}current{% endif %}">
                 Music</a>
 
-            <a href="/projects" class="{% if page.url == '/projects/index.html' %}current{% endif %}">
+            {% assign projectsMatch = paddedURL | replace_first:'/projects/','MATCH' %}
+            <a href="/projects/" class="{% if projectsMatch contains 'BEGINMATCH' %}current{% endif %}">
                 Projects</a>
 
-            <a href="/teaching" class="{% if page.url == '/teaching/index.html' %}current{% endif %}">
+            {% assign teachingMatch = paddedURL | replace_first:'/teaching/','MATCH' %}
+            <a href="/teaching/" class="{% if teachingMatch contains 'BEGINMATCH' %}current{% endif %}">
                 Teaching</a>
         </nav>
 
