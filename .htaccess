@@ -7,13 +7,6 @@
 # http://httpd.apache.org/docs/current/mod/mod_rewrite.html
 RewriteEngine On
 
-# Friendly URLs for section home pages!
-# TODO Is there a simpler way to write this w/out duplication?
-# TODO Update this to ensure it matches GitHub Pages' approach! (E.g. blog)
-# In particular, trailing slashes are *not* respected for *.html files!
-# So use folders with index.html files rather than top-level files.
-RewriteRule ^blog/$     blog/blog.php
-
 # Friendly URLs for blog posts! Note no trailing slash.
 # Important: this matches GitHub's approach. Trailing slashes not allowed!
 # TODO Generalize this to work across all sections?

@@ -39,7 +39,7 @@ ogType: article
                 document.write([
                     '<script src="https://graph.facebook.com/?id=',
                     // be sure to strip the query string to get canonical-ish path:
-                    encodeURIComponent(location.protocol + '//' + location.host + location.pathname),
+                    encodeURIComponent(BASE_URL + location.pathname),
                     '&amp;callback=updateCommentsCount"></',
                     'script>'
                 ].join(''));
