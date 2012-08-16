@@ -1,6 +1,7 @@
 ---
 title: "Joining FiftyThree"
 categories: thingdom, fiftythree
+description: "Eighteen months ago, I left Microsoft to start The Thingdom. That journey officially ended this week, and a new one has begun."
 layout: post
 ---
 
@@ -16,8 +17,6 @@ them][] to transform our technology into something new.
 [FiftyThree]: http://www.fiftythree.com/
 [acquired]: http://blog.thethingdom.com/joining-fiftythree/
 [joined them]: http://blog.fiftythree.com/post/29419711762/welcome-aseem
-
-<!-- TODO update FiftyThree blog link above to reference actual post -->
 
 FiftyThree is the company behind the award-winning iPad app [Paper][], and
 their mission is to bring creation tools into the post-PC era. If you hadn't
