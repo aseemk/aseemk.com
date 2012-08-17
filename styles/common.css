@@ -217,7 +217,7 @@ aside a:hover, aside a:active {
     color: #226;
 }
 
-div.stats, div.buttons {
+div.stats, div.buttons, div.continue {
     margin: 1em 0;
     font-size: 75%;
     color: #888;
@@ -225,19 +225,23 @@ div.stats, div.buttons {
 
 /* TODO these should really be LESS-ified... */
 
-div.stats a, div.stats a:visited {
+div.stats a, div.stats a:visited,
+div.buttons a, div.buttons a:visited,
+div.continue a, div.continue a:visited {
     color: #44b;
 }
 
-div.stats a:hover, div.stats a:active {
-    color: #888;
+div.stats a:hover, div.stats a:active,
+div.buttons a:hover, div.buttons a:active,
+div.continue a:hover, div.continue a:active {
+    color: #226;
 }
 
 div.stats {
     float: left;
 }
 
-div.buttons {
+div.buttons, div.continue {
     float: right;
 }
 
