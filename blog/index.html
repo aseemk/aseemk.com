@@ -26,16 +26,10 @@ ogType: blog    # only the root should be this, according to the documentation
     </section>
 
     {% for post in site.posts %}
+    <a class="post" href="{{ post.url | remove:'.html' | escape }}">
     <article>
 
-        {% capture postURL %}{{ post.url | remove:'.html' }}{% endcapture %}
-        {% capture postURLAbs %}{{ site.url }}{{ postURL }}{% endcapture %}
-        {% capture postURLEsc %}{{ postURL | escape }}{% endcapture %}
-        {% capture postURLAbsEsc %}{{ postURLAbs | escape }}{% endcapture %}
-
-        <h2>
-            <a href="{{ postURLEsc }}">{{ post.title | escape }}</a>
-        </h2>
+        <h2>{{ post.title | escape }}</h2>
 
         <h3>
             <time pubdate datetime="{{ post.date | date: "%Y-%m-%d" }}">{{ post.date | date: "%B %d, %Y" }}</time>
@@ -47,19 +41,14 @@ ogType: blog    # only the root should be this, according to the documentation
         </p>
 
         <div class="stats">
-
-            <!-- technique via http://developers.facebook.com/docs/reference/plugins/comments/ FAQ -->
-            <a href="{{ postURLEsc }}#comments"><span class="comments-count">View comments</span></a>
-
+            <!-- This gets populated by script below -->
+            <span class="comments-count">View comments</span>
         </div>
 
-        <div class="continue">
-
-            <a href="{{ postURLEsc }}">Continue reading &rarr;</a>
-
-        </div>
+        <div class="continue">Continue reading &rarr;</div>
 
     </article>
+    </a>
     {% endfor %}
 
     <!-- TEMP HACK this whole thing feels quite hacky. wish there were easier ways. -->

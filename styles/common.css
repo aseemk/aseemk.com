@@ -141,6 +141,7 @@ header + article, header + section {
     border-top: none;
 }
 
+/* clearfix: j.mp/bestclearfix */
 article:after, section:after {
     content: "\0020";
     display: block;
@@ -148,6 +149,11 @@ article:after, section:after {
     overflow: hidden;
     height: 0;
     zoom: 1;
+}
+
+/* blog index: make post snippets look like normal, non-link text */
+a.post article p {
+    color: #444;
 }
 
 h2, h3, p, ol, ul {
@@ -227,13 +233,13 @@ div.stats, div.buttons, div.continue {
 
 div.stats a, div.stats a:visited,
 div.buttons a, div.buttons a:visited,
-div.continue a, div.continue a:visited {
+a.post div.continue, a.post:visited div.continue {
     color: #44b;
 }
 
 div.stats a:hover, div.stats a:active,
 div.buttons a:hover, div.buttons a:active,
-div.continue a:hover, div.continue a:active {
+a.post:hover div.continue, a.post:active div.continue {
     color: #226;
 }
 
