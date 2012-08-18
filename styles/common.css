@@ -73,6 +73,7 @@ em a:hover, em a:active {
 header {
     text-align: center;
     padding-bottom: 1em;
+    border-bottom: 1px solid #eee;
 }
 
 h1 {
@@ -127,10 +128,17 @@ nav a.current:before, nav a.current:after {
 
 article, section {
     padding: 0.5em 0 1em;
-    border-top: 1px solid #eee;
-    border-bottom: 1px solid #eee;
-    margin-bottom: -1px;
     position: relative;     /* TEMP HACK just for the h3 styles below */
+}
+
+/* articles and sections should be separated by borders... */
+article, section {
+    border-top: 1px solid #eee;
+}
+
+/* ...using border-top since our only way of excluding is after header */
+header + article, header + section {
+    border-top: none;
 }
 
 article:after, section:after {
@@ -257,6 +265,7 @@ footer {
     text-align: center;
     padding-top: 1em;
     font-size: 80%;
+    border-top: 1px solid #eee;
 }
 
 p#copy {
