@@ -18,6 +18,9 @@
         Aseem
     -->
 
+    <!-- Prevent excessive caching by GitHub Pages: -->
+    <meta http-equiv="cache-control" content="max-age=0, must-revalidate" />
+
     {% capture pageTitleEsc %}{{ page.title | escape }}{% endcapture %}
     {% capture pageSectionEsc %}{{ page.section | escape }}{% endcapture %}
     {% capture siteTitleEsc %}{{ site.title | escape }}{% endcapture %}
