@@ -40,7 +40,9 @@
     <meta property="og:title" content="{{ ogTitle }}" />
     <meta property="og:site_name" content="{{ ogSiteName }}" />
     <meta property="og:type" content="{% if page.og_type %}{{ page.og_type | escape }}{% else %}website{% endif %}" />
+    {% if page.og_image %}
     <meta property="og:image" content="{{ page.og_image | escape }}" />
+    {% endif %}
 
     <meta property="fb:admins" content="704844" />
     <meta property="fb:app_id" content="160410744017439" />
