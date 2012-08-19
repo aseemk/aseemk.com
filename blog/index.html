@@ -26,6 +26,7 @@ og_type: blog
     </section>
 
     {% for post in site.posts %}
+    {% unless post.draft == true %}
     <a class="post" href="{{ post.url | remove:'.html' | escape }}">
     <article>
 
@@ -49,6 +50,7 @@ og_type: blog
 
     </article>
     </a>
+    {% endunless %}
     {% endfor %}
 
     <!-- TEMP HACK this whole thing feels quite hacky. wish there were easier ways. -->
