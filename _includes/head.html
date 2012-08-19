@@ -42,6 +42,9 @@
     <meta property="og:type" content="{% if page.og_type %}{{ page.og_type | escape }}{% else %}website{% endif %}" />
     {% if page.og_image %}
     <meta property="og:image" content="{{ page.og_image | escape }}" />
+    {% else %}
+    <!-- XXX use my Gravatar as default OpenGraph image if none specified? -->
+    <meta property="og:image" content="http://gravatar.com/avatar/5af2930e39246c8339fa7ad8e394e96e?s=200">
     {% endif %}
 
     <meta property="fb:admins" content="704844" />
