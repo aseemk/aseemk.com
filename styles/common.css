@@ -221,6 +221,14 @@ ul li:before {
     font-size: 75%;
 }
 
+blockquote {
+    border-left: 2px solid #eee;
+    padding-left: 1em;
+    color: #666;
+    font-size: 80%;
+    font-style: italic;
+}
+
 aside {
     font-size: 80%;
     font-style: italic;
