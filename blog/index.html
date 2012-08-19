@@ -1,7 +1,7 @@
 ---
 section: Blog
 # TODO custom description?
-ogType: blog    # only the root should be this, according to the documentation
+og_type: blog
 ---
 
 {% include head.html %}
@@ -42,7 +42,7 @@ ogType: blog    # only the root should be this, according to the documentation
 
         <div class="stats">
             <!-- This gets populated by script below -->
-            <span class="comments-count">View comments</span>
+            <span class="comments-count">&nbsp;</span>
         </div>
 
         <div class="continue">Continue reading &rarr;</div>
@@ -71,7 +71,7 @@ ogType: blog    # only the root should be this, according to the documentation
             for (var i = 0; i < postURLs.length; i++) {
                 var num = objs[postURLs[i]].comments;
                 commentsCountSpans[i].innerHTML =
-                    num ? (num + " comment" + (num > 1 ? 's' : '')) : "Add a comment";
+                    num ? (num + " comment" + (num > 1 ? 's' : '')) : "No comments";
             }
         }
 
