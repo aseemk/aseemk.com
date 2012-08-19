@@ -203,6 +203,11 @@ p {
 }
 */
 
+ol {
+    list-style-position: inside;
+    margin-left: 1em;
+}
+
 ul {
     list-style: none none inside;
     margin-left: 2em;
