@@ -237,7 +237,7 @@ aside a:hover, aside a:active {
 }
 
 div.stats, div.buttons, div.continue {
-    margin: 1em 0;
+    margin: 0.5em 0 1.5em;
     font-size: 75%;
     color: #888;
 }
