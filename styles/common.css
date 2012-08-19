@@ -265,6 +265,7 @@ div.buttons, div.continue {
 }
 
 div.buttons > * {
+    display: inline-block;
     height: 20px;
     vertical-align: bottom !important;  /* override generated inline styles... */
 }
