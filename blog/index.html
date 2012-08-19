@@ -26,72 +26,30 @@ ogType: blog    # only the root should be this, according to the documentation
     </section>
 
     {% for post in site.posts %}
+    <a class="post" href="{{ post.url | remove:'.html' | escape }}">
     <article>
 
-        {% capture postURL %}{{ post.url | remove:'.html' }}{% endcapture %}
-        {% capture postURLAbs %}{{ site.url }}{{ postURL }}{% endcapture %}
-        {% capture postURLEsc %}{{ postURL | escape }}{% endcapture %}
-        {% capture postURLAbsEsc %}{{ postURLAbs | escape }}{% endcapture %}
-
-        <h2>
-            <a href="{{ postURLEsc }}">{{ post.title | escape }}</a>
-        </h2>
+        <h2>{{ post.title | escape }}</h2>
 
         <h3>
             <time pubdate datetime="{{ post.date | date: "%Y-%m-%d" }}">{{ post.date | date: "%B %d, %Y" }}</time>
             <!-- TODO categories -->
         </h3>
 
-        <!-- important: don't escape content! it'll actually be HTML markup. -->
-        {{ post.content }}
+        <p>
+            {{ post.description | escape }}
+        </p>
 
         <div class="stats">
-
-            <!-- technique via http://developers.facebook.com/docs/reference/plugins/comments/ FAQ -->
-            <a href="{{ postURLEsc }}#comments"><span class="comments-count">View comments</span></a>
-
+            <!-- This gets populated by script below -->
+            <span class="comments-count">View comments</span>
         </div>
 
-        <div class="buttons">
-
-            <!-- via http://www.google.com/webmasters/+1/button/ but customized to be 20px tall -->
-            <!-- the script is at the bottom, since it needs to be included only once -->
-            <div class="g-plusone" data-size="medium" data-href="{{ postURLAbsEsc }}"></div>
-
-            <!-- via http://developers.facebook.com/docs/reference/plugins/like/ but customized to be 90x20 -->
-            <!-- the script is at the bottom, since it needs to be included only once -->
-            <div class="fb-like" data-send="false" data-layout="button_count" data-width="90" data-show-faces="false" data-href="{{ postURLAbsEsc }}"></div>
-
-            <!-- via https://dev.twitter.com/docs/tweet-button customized for me, and script made async -->
-            <!-- the script is at the bottom, since it needs to be included only once -->
-            <a href="http://twitter.com/share" class="twitter-share-button" data-via="aseemk" data-related="aseemk"
-                data-url="{{ postURLAbsEsc }}" data-text="{{ post.title | escape }}">Tweet</a>
-
-        </div>
+        <div class="continue">Continue reading &rarr;</div>
 
     </article>
+    </a>
     {% endfor %}
-
-    <!-- Google +1 script (async) -->
-    <script type="text/javascript">
-      (function() {
-        var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-        po.src = 'https://apis.google.com/js/plusone.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-      })();
-    </script>
-
-    <!-- Facebook JS SDK script (async) -->
-    <div id="fb-root"></div>
-    <script>(function(d){
-      var js, id = 'facebook-jssdk'; if (d.getElementById(id)) {return;}
-      js = d.createElement('script'); js.id = id; js.async = true;
-      js.src = "//connect.facebook.net/en_US/all.js#appId=278241485519332&xfbml=1";
-      d.getElementsByTagName('head')[0].appendChild(js);
-    }(document));</script>
-
-    <!-- Tweet button script (async) -->
-    <script async src="http://platform.twitter.com/widgets.js" type="text/javascript"></script>
 
     <!-- TEMP HACK this whole thing feels quite hacky. wish there were easier ways. -->
     <script>

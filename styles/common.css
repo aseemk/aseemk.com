@@ -1,3 +1,16 @@
+/** CONSTANTS
+
+Colors:
+- #444 (less-than-full black) for text; recommended by HTML5BP too
+- #00b for links; #006 on hover
+- #888 (gray) for secondary text
+- #44b for secondary links; #226 on hover
+- #eee (light silver) for separators
+- #ffa for background highlight; #ff8 on hover
+
+*/
+
+
 /** GENERAL LAYOUT **/
 
 html {
@@ -17,7 +30,6 @@ body {
 }
 
 
-
 /** GENERAL TEXT AND COLORS **/
 
 html {
@@ -27,6 +39,7 @@ html {
 
 /* applying font family uniformly across affected elements as per h5bp! */
 body, select, input, textarea {
+    color: #444;
     font-family: "Lucida Sans Unicode", "Lucida Grande", "Thonburi", sans-serif;
 }
 
@@ -41,7 +54,6 @@ a, a:visited {
     text-decoration: none;
     color: #00b;
 }
-
 a:hover, a:active {
     color: #006;
 }
@@ -50,12 +62,12 @@ em {
     font-style: italic;
 }
 
+/* emphasized links: highlight them */
 em a, em a:visited {
     font-style: normal;
     padding: 0 0.2em;
     background-color: #ffa;
 }
-
 em a:hover, em a:active {
     background-color: #ff8;
 }
@@ -67,22 +79,23 @@ em a:hover, em a:active {
 }
 
 
-
 /** HEADER **/
 
 header {
     text-align: center;
     padding-bottom: 1em;
+    border-bottom: 1px solid #eee;
 }
 
+/* This is the main "Aseem Kishore" heading: */
 h1 {
     font-size: 250%;
 }
 
+/* It's a link to the homepage, but should look normal: */
 h1 a, h1 a:visited {
     color: #444;
 }
-
 h1 a:hover, h1 a:active {
     color: black;
 }
@@ -95,11 +108,13 @@ nav a {
     margin: 0 0.2em;
 }
 
+/** For the nav bar, surround the "current" link with markers. To keep the
+    layout consistent, apply the markers to all links; just hide them. */
+
 /*h1 a:before,*/ nav a:before {
     content: "‹";
     margin-right: 0.3em;
 }
-
 /*h1 a:after,*/ nav a:after {
     content: "›";
     margin-left: 0.3em;
@@ -122,17 +137,24 @@ nav a.current:before, nav a.current:after {
 }
 
 
-
 /** CONTENT **/
 
 article, section {
     padding: 0.5em 0 1em;
-    border-top: 1px solid #eee;
-    border-bottom: 1px solid #eee;
-    margin-bottom: -1px;
     position: relative;     /* TEMP HACK just for the h3 styles below */
 }
 
+/* articles and sections should be separated by borders... */
+article, section {
+    border-top: 1px solid #eee;
+}
+
+/* ...using border-top since our only way of excluding is after header */
+header + article, header + section {
+    border-top: none;
+}
+
+/* clearfix these in case any content is floated: j.mp/bestclearfix */
 article:after, section:after {
     content: "\0020";
     display: block;
@@ -140,6 +162,11 @@ article:after, section:after {
     overflow: hidden;
     height: 0;
     zoom: 1;
+}
+
+/* blog index: make post snippets look like normal, non-link text */
+a.post article p {
+    color: #444;
 }
 
 h2, h3, p, ol, ul {
@@ -152,10 +179,10 @@ h2 {
     margin-bottom: 0;
 }
 
+/* on post pages, the title is a link but should look normal */
 h2 a.current {
     color: #444;
 }
-
 h2 a.current:hover {
     color: black;
 }
@@ -209,27 +236,31 @@ aside a:hover, aside a:active {
     color: #226;
 }
 
-div.stats, div.buttons {
-    margin: 1em 0;
+div.stats, div.buttons, div.continue {
+    margin: 0.5em 0 1.5em;
     font-size: 75%;
     color: #888;
 }
 
-/* TODO these should really be LESS-ified... */
+/* Since these are all secondary links, apply the secondary link colors: */
 
-div.stats a, div.stats a:visited {
+div.stats a, div.stats a:visited,
+div.buttons a, div.buttons a:visited,
+a.post div.continue, a.post:visited div.continue {
     color: #44b;
 }
 
-div.stats a:hover, div.stats a:active {
-    color: #888;
+div.stats a:hover, div.stats a:active,
+div.buttons a:hover, div.buttons a:active,
+a.post:hover div.continue, a.post:active div.continue {
+    color: #226;
 }
 
 div.stats {
     float: left;
 }
 
-div.buttons {
+div.buttons, div.continue {
     float: right;
 }
 
@@ -250,13 +281,13 @@ div.comments {
 }
 
 
-
 /** FOOTER **/
 
 footer {
     text-align: center;
     padding-top: 1em;
     font-size: 80%;
+    border-top: 1px solid #eee;
 }
 
 p#copy {
