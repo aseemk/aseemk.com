@@ -72,14 +72,8 @@ ogType: article
         <!--
             Facebook comments plugin:
             http://developers.facebook.com/docs/reference/plugins/comments/
-
-            But customized to be dynamic width.
         -->
-        <div id="comments" class="fb-comments" data-num-posts="50" data-width="" data-href="{{ postURLAbsEsc }}"></div>
-        <script>
-            // TEMP HACK body.clientWidth is not very robust if we add padding!
-            document.getElementById("comments").setAttribute("width", document.body.clientWidth);
-        </script>
+        <div id="comments" class="fb-comments" data-num-posts="50" data-width="700" data-href="{{ postURLAbsEsc }}"></div>
 
     </article>
 

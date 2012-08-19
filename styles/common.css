@@ -275,10 +275,17 @@ div.buttons > #fb-root {
 }
 
 div#comments {
-    display: block;     /* override Facebook's inline-block */
     clear: both;
     margin: 1em 0;
     /* TODO min-height for an accurate layout sooner? */
+}
+
+/* for Facebook comments, override/customize styles as needed: */
+div.fb-comments {
+    display: block;
+}
+div.fb-comments span, div.fb-comments iframe {
+    width: 100% !important;
 }
 
 
