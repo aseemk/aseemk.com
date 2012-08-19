@@ -1,0 +1,9 @@
+CACHE MANIFEST
+
+# References:
+# http://en.wikipedia.org/wiki/Cache_manifest_in_HTML5
+# http://www.html5rocks.com/en/tutorials/appcache/beginner/
+
+# This one is simple: we just want to cache nothing!
+NETWORK:
+*
