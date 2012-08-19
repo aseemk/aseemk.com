@@ -57,3 +57,16 @@
 
     <!-- this is needed before body to enable HTML5 elements in IE8- -->
     <script src="/scripts/modernizr-1.7.min.js"></script>
+
+    <!-- Google Analytics, streamlined/optimized a bit: -->
+    <script>
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-22174557-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
