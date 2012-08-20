@@ -19,7 +19,7 @@ Stepping back, these were two sides of the same coin: I wanted to *see* what my 
 
 People resorted to email for sharing photos, too, before Facebook and Flickr came along.
 
-So this is what Daniel and I have been working on: building a place for people to connect around the things in their lives. We're excited to finally share it publicly today; we call it ***[The Thingdom](http://www.thethingdom.com/)***.
+So this is what Daniel and I have been working on: building a place for people to connect around the things in their lives. We're excited to finally share it publicly today; we call it **[The Thingdom](http://www.thethingdom.com/)**.
 
 So check it out, join ([follow me](http://www.thethingdom.com/aseemk) once you do) and tell us where you think we should go with this! We're just getting started.
 

@@ -6,7 +6,6 @@ Colors:
 - #888 (gray) for secondary text
 - #44b for secondary links; #226 on hover
 - #eee (light silver) for separators
-- #ffa for background highlight; #ff8 on hover
 
 */
 
@@ -60,16 +59,6 @@ a:hover, a:active {
 
 em {
     font-style: italic;
-}
-
-/* emphasized links: highlight them */
-em a, em a:visited {
-    font-style: normal;
-    padding: 0 0.2em;
-    background-color: #ffa;
-}
-em a:hover, em a:active {
-    background-color: #ff8;
 }
 
 @media screen and (max-width: 480px) {
