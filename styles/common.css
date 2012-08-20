@@ -50,11 +50,12 @@ body {
 }
 
 a, a:visited {
-    text-decoration: none;
     color: #00b;
+    text-decoration: none;
 }
 a:hover, a:active {
     color: #006;
+    text-decoration: underline;
 }
 
 em {
@@ -81,12 +82,13 @@ h1 {
     font-size: 250%;
 }
 
-/* It's a link to the homepage, but should look normal: */
+/* It's a link to the homepage, but should look normal -- and no underline: */
 h1 a, h1 a:visited {
     color: #444;
 }
 h1 a:hover, h1 a:active {
     color: black;
+    text-decoration: none;
 }
 
 nav {
@@ -118,6 +120,15 @@ nav a:before, nav a:after {
 nav a:hover:before, nav a:hover:after,
 nav a:active:before, nav a:active:after {
     color: #888;
+    text-decoration: none;
+}
+
+/** XXX FIXME the text-decoration none on the :before and :after markers above
+    doesn't seem to be having an effect, so preventing underline on the entire
+    link itself... not ideal. TODO investigate... */
+/*h1 a.current:hover, h1 a.current:active,*/
+nav a.current:hover, nav a.current:active {
+    text-decoration: none;
 }
 
 /*h1 a.current:before, h1 a.current:after,*/
@@ -153,9 +164,19 @@ article:after, section:after {
     zoom: 1;
 }
 
-/* blog index: make post snippets look like normal, non-link text */
+/** blog index: make post snippets look like normal, non-link text -- and
+    don't underline the text on hover! XXX FIXME for some reason, putting
+    text-decoration: none on the p doesn't work! TODO investigate... */
 a.post article p {
     color: #444;
+}
+a.post:hover, a.post:active {
+    text-decoration: none;
+}
+/** but do make the headline look and feel like a link, incl. underline: */
+a.post:hover article h2,
+a.post:active article h2 {
+    text-decoration: underline;
 }
 
 h2, h3, p, ol, ul {
@@ -172,7 +193,7 @@ h2 {
 h2 a.current {
     color: #444;
 }
-h2 a.current:hover {
+h2 a.current:hover, h2 a.current:active {
     color: black;
 }
 
@@ -256,6 +277,7 @@ div.stats a:hover, div.stats a:active,
 div.buttons a:hover, div.buttons a:active,
 a.post:hover div.continue, a.post:active div.continue {
     color: #226;
+    text-decoration: underline;     /* for the a.post div.continue */
 }
 
 div.stats {
