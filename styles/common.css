@@ -179,6 +179,29 @@ a.post:active article h2 {
     text-decoration: underline;
 }
 
+/** do make the headline look and feel like a link, but only when *it's*
+    hovered! same for the "continue reading" link. */
+a.post:hover article h2,
+a.post:active article h2 {
+    color: #00b;
+    text-decoration: none;
+}
+a.post:hover article h2:hover,
+a.post:active article h2:hover {
+    color: #006;
+    text-decoration: underline;
+}
+a.post:hover div.continue,
+a.post:active div.continue {
+    color: #44b;
+    text-decoration: none;
+}
+a.post:hover div.continue:hover,
+a.post:active div.continue:hover {
+    color: #226;
+    text-decoration: underline;
+}
+
 h2, h3, p, ol, ul {
     margin: 1em 0;
 }
@@ -274,10 +297,11 @@ a.post div.continue, a.post:visited div.continue {
 }
 
 div.stats a:hover, div.stats a:active,
-div.buttons a:hover, div.buttons a:active,
-a.post:hover div.continue, a.post:active div.continue {
+div.buttons a:hover, div.buttons a:active/*,
+a.post:hover div.continue, a.post:active div.continue*/ {
+    /** the a.post:hover/active div.continue styles are higher up above to
+        account for the *div* looking and feeling like a link. */
     color: #226;
-    text-decoration: underline;     /* for the a.post div.continue */
 }
 
 div.stats {
