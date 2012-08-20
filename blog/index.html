@@ -55,19 +55,14 @@ og_type: blog
 
     <!-- TEMP HACK this whole thing feels quite hacky. wish there were easier ways. -->
     <script>
-        // Liquid gives us our post URLs as an array, but we can only spit
-        // them out as a string (TODO FIXME if Liquid adds a JSON filter or
-        // similar -- and GitHub updates to it!), so we do that and construct
-        // the array via JS. TODO Escape JS/JSON in this string somehow?
-        var postURLs = '{{ site.posts | map:'url' | join:',' }}'.split(',');
-
-        // XXX need to repeat process of making each URL absolute and removing
-        // the .html extension from it. argh, Liquid is so limiting!
-        // TODO again it'd be nice to JS-/JSON-escape the site URL somehow...
-        for (var i = 0; i < postURLs.length; i++) {
-            postURLs[i] = '{{ site.url }}' + postURLs[i].replace('.html', '');
+        // iterate over all the posts above and grab their (absolute) URLs:
+        var posts = document.querySelectorAll('body > a.post');
+        var postURLs = [];
+        for (var i = 0; i < posts.length; i++) {
+            postURLs.push('{{ site.url }}' + posts[i].getAttribute('href'));
         }
 
+        // callback function for the next JSONP request:
         function updateCommentsCounts(objs) {
             var commentsCountSpans = document.querySelectorAll(".comments-count");
             for (var i = 0; i < postURLs.length; i++) {
@@ -77,6 +72,7 @@ og_type: blog
             }
         }
 
+        // fetch the # of comments for each post as a single batch request:
         document.write([
             '<script src="https://graph.facebook.com/?ids=',
             encodeURIComponent(postURLs.join(',')),
