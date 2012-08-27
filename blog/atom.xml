@@ -18,6 +18,7 @@ layout: nil
     </author>
 
     {% for post in site.posts %}
+    {% unless post.draft == true %}
     <entry>
         <id>{{ siteURLEsc }}{{ post.id | xml_escape }}</id>
         <link href="{{ siteURLEsc }}{{ post.url | remove:'.html' | xml_escape }}" />
@@ -25,6 +26,7 @@ layout: nil
         <updated>{{ post.date | date_to_xmlschema }}</updated>
         <content type="html">{{ post.content | xml_escape }}</content>
     </entry>
+    {% endunless %}
     {% endfor %}
 
 </feed>
