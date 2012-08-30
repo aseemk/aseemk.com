@@ -197,14 +197,16 @@ h2 a.current:hover, h2 a.current:active {
     color: black;
 }
 
-/* TEMP HACK all these were contrived just for publish date on blog posts */
-h3 {
-    position: absolute;
-    top: 2em;
-    right: 0;
-    font-size: 75%;
+/* this is the publish date on blog posts and the blog index */
+h2 time[pubdate] {
+    float: right;
+    font-size: 60%;
     font-weight: lighter;
     color: #888;
+
+    /* XXX FIXME can't figure out how to align to baseline; hack: */
+    position: relative;
+    bottom: -0.75em;
 }
 
 /* TODO might want to do this at some point; just doesn't look good now...

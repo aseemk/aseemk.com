@@ -21,12 +21,11 @@ og_type: article
         <h2>
             <a class="current" href="{{ postURL | escape }}">
                 {{ page.title | escape }}</a>
-        </h2>
 
-        <h3>
             <time pubdate datetime="{{ page.date | date: "%Y-%m-%d" }}">{{ page.date | date: "%B %d, %Y" }}</time>
-            <!-- TODO categories -->
-        </h3>
+
+            <!-- TODO categories? -->
+        </h2>
 
         <!-- important: don't escape content! it'll actually be HTML markup. -->
         {{ content }}

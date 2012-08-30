@@ -30,12 +30,13 @@ og_type: blog
     <a class="post" href="{{ post.url | remove:'.html' | escape }}">
     <article>
 
-        <h2>{{ post.title | escape }}</h2>
+        <h2>
+            {{ post.title | escape }}
 
-        <h3>
             <time pubdate datetime="{{ post.date | date: "%Y-%m-%d" }}">{{ post.date | date: "%B %d, %Y" }}</time>
+
             <!-- TODO categories -->
-        </h3>
+        </h2>
 
         <p>
             {{ post.description | escape }}
