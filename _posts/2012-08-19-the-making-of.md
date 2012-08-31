@@ -10,6 +10,7 @@ I started this blog over [a year ago][hello-web]. I promised to share my thought
 
 [hello-web]: http://aseemk.com/blog/hello-web
 
+
 ### Context
 
 Your first question may be, why is there any *code* at all? There are plenty of [feature-rich][wordpress] [blogging][blogger] [sites][posterous] and [services][tumblr] out there, and indeed, for most people, I'd unequivocally recommend using one of them. (I'd personally recommend Tumblr today.)
@@ -38,6 +39,7 @@ There were three main factors I cared most about (and still care about) when mak
 
 What you see today is the result of these factors. Let's dive right in...
 
+
 ### Act One
 
 With hosted services out of the way, using something like **[Jekyll][]** to develop with was a no-brainer. No database to manage and worry about, posts as just regular files, and support for [Markdown][]; what wasn't to love? ([Tom Preston-Werner][] has a great post about the [rationale behind Jekyll][tpw-post].)
@@ -62,11 +64,26 @@ And in fact, this Jekyll+PHP mashup worked for an entire year. (That doesn't say
 [gh-old]: https://github.com/aseemk/aseemk.com/tree/6b8b9edc13890b93f9d5a90037e5d30901cfdccf
 
 
+### Act Two
+
+TODO
+
+
+<!--
+
+- Factors: ease of deployment (git, not FTP), ease of development (always available, no build step), cost (free)
+- GitHub Pages delights: clean URLs, correct MIME types and cache headers, e.g. for cache.manifest
+- GitHub Pages trip-ups: no Jekyll plugins, excessive caching
+- Liquid trip-ups: no array literals, no index_of, no join() on GH Pages
+- Jekyll trip-ups: no include config on GH Pages
+- notes on iPhone
+- Link to Octopress
+- Link to Joe Hewitt's Dropbox post
+
+-->
 
 [Liquid]: http://www.liquidmarkup.org/
 [GitHub Pages]: http://pages.github.com/
-
-
 
 [Joe Hewitt]: http://joehewitt.com/
 [jh-post]: http://joehewitt.com/2011/10/03/dropbox-is-my-publish-button
