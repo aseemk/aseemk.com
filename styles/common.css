@@ -220,17 +220,26 @@ p {
 }
 */
 
-ol {
-    list-style-position: inside;
-}
-
-ul {
+/** For lists, we'll reimplement the numbers/bullets ourselves to get our own
+    custom style. CSS counters to the rescue here for numbers! (IE8+) */
+ol, ul {
     list-style: none none inside;
     margin-left: 1em;
+    counter-reset: item;
 }
 
-ul li {
+li {
     position: relative;
+}
+
+ol li:before {
+    content: counter(item) ")";
+    counter-increment: item;
+    position: absolute;
+    bottom: 0.2em;
+    left: -1.5em;
+    color: #888;
+    font-size: 75%;
 }
 
 ul li:before {
