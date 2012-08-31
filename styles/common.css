@@ -236,19 +236,23 @@ ol li:before {
     content: counter(item) ")";
     counter-increment: item;
     position: absolute;
-    bottom: 0.2em;
+    top: 0;
+    bottom: 0;
     left: -1.5em;
     color: #888;
     font-size: 75%;
+    line-height: 2;     /* default 1.5 adjusted for 75% font-size */
 }
 
 ul li:before {
     content: "»";
     position: absolute;
-    top: 0.1em;
+    top: 0;
+    bottom: 0;
     left: -1.5em;
-    color: #ccc;
+    color: #aaa;
     font-size: 75%;
+    line-height: 2;     /* default 1.5 adjusted for 75% font-size */
 }
 
 blockquote {
