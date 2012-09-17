@@ -28,19 +28,41 @@ server and having it watch for file changes:
 
 But this site takes advantage of one cool GitHub Pages feature: support for
 "clean" [extensionless URLs][]. Jekyll's server doesn't seem to support that,
-so I personally serve the local site with Apache and use the small, simple
-`.htaccess` file to mimic GitHub's clean URLs.
+so I personally serve the local site with Apache and use a rewrite rule to
+mimic GitHub's clean URLs.
 
 [extensionless URLs]: http://gh-pages-test.aseemk.com/
 
-Jekyll doesn't copy dotfiles like `.htaccess` into the output directory by
-default, but support for an `include` option [has been added][Jekyll include]
-and is hopefully [shipped soon][Jekyll history].
-Until then, there's a minimal Makefile that copies this `.htaccess` file:
-
-    $ make
-
-Unfortunately, this needs to be manually run after each change... for now.
+That could be achieved via an `.htaccess` file, but Jekyll doesn't copy
+dotfiles into the output directory yet. Support for an `include` config
+[has been added][Jekyll include] and hopefully [ships soon][Jekyll history].
+Until then, I place the rewrite rule in my global Apache config:
 
 [Jekyll include]: https://github.com/mojombo/jekyll/pull/261
 [Jekyll history]: https://github.com/mojombo/jekyll/blob/master/History.txt
+
+```
+<Directory "/path/to/aseemk.com/_site">
+    # XXX This should belong in an .htaccess file inside this directory, but
+    # that's not possible to automate with Jekyll right now. TODO FIXME Move
+    # this into an .htaccess file when Jekyll ships the `include` config.
+
+    # Important: this .htaccess file is only used during devleopment.
+    # GitHub Pages in particular do *not* respect anything in here.
+    # Only coincidentally, GitHub Pages supports "clean" extensionless URLs:
+    # https://github.com/aseemk/gh-pages-test
+
+    # URL rewriting reference:
+    # http://httpd.apache.org/docs/current/mod/mod_rewrite.html
+    RewriteEngine On
+
+    # Friendly URLs for blog posts! Note no trailing slash.
+    # Important: this matches GitHub's approach. Trailing slashes not allowed!
+    # TODO Generalize this to work across all sections?
+    RewriteRule ^blog/([^.]+)$ blog/$1.html
+</Directory>
+```
+
+With this in place, development of the site is just running Jekyll:
+
+    $ jekyll --auto
