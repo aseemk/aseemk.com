@@ -53,30 +53,93 @@ Despite that, I didn't like the idea of using Jekyll to power my *entire* site. 
 
 So using *some* sort of server-side scripting/templating language felt "right", but at the same time (ease of development), I didn't want to have to launch a server when developing locally.
 
-I thus settled on using **PHP** with **Apache**: available by default on Mac OS X, always "running", no build/compile step, and for both of their flaws, straightforward and simple to use for a case like this.
+I thus settled on using **PHP** with **Apache**: available by default on Mac OS X, always "running", no build/compile step, and despite both their flaws, they're both straightforward and simple to use for a case like this.
 
 Part of the motivation for that was also that my domain, purchased from **GoDaddy**, came with **free PHP hosting**. (I'm not linking to GoDaddy for good reasons --- I fully intend to move off at some point.) I just had to use **FTP** for deploying, which wasn't a big deal as I used **[Coda][]** at the time.
 
 [Coda]: http://panic.com/coda/
 
-And in fact, this Jekyll+PHP mashup worked for an entire year. (That doesn't say much since that was only two blog posts. Yes, I'm sorry!) You can [browse the code][gh-old] from this period if you're interested.
+Unfortunately, Jekyll didn't play completely nicely with PHP, and the result meant a build step (a small one, but a build step nonetheless). Despite that, I went with it, and this Jekyll+PHP mashup worked for a while.
+
+You can [browse the code][gh-old] from this period if you're interested.
 
 [gh-old]: https://github.com/aseemk/aseemk.com/tree/6b8b9edc13890b93f9d5a90037e5d30901cfdccf
 
 
 ### Act Two
 
-TODO
+But pain showed up when I revisited this blog nearly a year later. In particular, FTP felt cumbersome and silly (I had moved from Coda to **[TextMate][]**). Deployment was neither easy nor reliably safe.
+
+[TextMate]: http://macromates.com/
+
+It made sense now to move to **[git][]** for deployment, just like I was already doing with "real" websites. Setting up my own git server felt like overkill to me, so it was time to move to an app platform in The Cloud&trade;.
+
+[git]: http://git-scm.com/
+
+I was already familiar with **[Heroku][]**, but Heroku doesn't support "naked" domains (no www), and for a static site, it's also [expensive][heroku-pricing] ($35/mo.), unless you're willing to put up with [long load times][heroku-idling].
+
+[Heroku]: http://www.heroku.com/
+[heroku-pricing]: http://www.heroku.com/pricing#2-0
+[heroku-idling]: https://devcenter.heroku.com/articles/dynos#dyno-idling
+
+But I also knew that a potential alternative was **[GitHub Pages][]**. After all, it's specifically meant for hosting (only) static content, and it specifically supports (only) Jekyll for generating that content.
+
+[GitHub Pages]: http://pages.github.com/
+
+And unlike Heroku, GitHub Pages is free and fast, and it supports naked domains! (This isn't documented clearly for project pages, but you just [add an A record][gh-pages-dns] like you would for user/org pages.)
+
+[gh-pages-dns]: https://help.github.com/articles/setting-up-a-custom-domain-with-pages
+
+Unfortunately, GitHub Pages has two limitations: it *only* supports Jekyll --- so no PHP or similar --- and it even locks Jekyll down to disallow custom plugins --- so no helper extras like [LESS][] or [SASS][].
+
+[LESS]: TODO
+[SASS]: TODO
+
+Fortunately, Jekyll does include support for a templating language called **[Liquid][]**, built by [Shopify][]. Liquid lacks the flexibility and expressiveness of "regular" languages, but it's safe and secure for hosts like GitHub.
+
+[Liquid]: TODO
+[Shopify]: TODO
+
+I was reluctant to switch to a completely new and less popular templating language, but the benefits of GitHub Pages outweighed these costs to me, so I decided to bite the bullet and port my site.
+
+And indeed, the result is what you see today: this site is running entirely on GitHub Pages. You can [browse this code][gh-new] too if you're interested.
+
+<!-- TODO update link -->
+[gh-new]: https://github.com/aseemk/aseemk.com
+
+
+### Details
+
+Porting this site to Jekyll and Liquid for hosting on GitHub Pages wasn't trivial --- it was in fact filled with gotchas. And issues remain.
+
+Liquid, for example, doesn't seem to have a notion of (user-declared) array literals. That would have been useful in cases like the nav bar, e.g. to iterate over a list of links like `['About', 'Blog', ...]`.
+
+GitHub Pages also uses an outdated version of Liquid, since updates to Jekyll are sitting unreleased, so newer Liquid features like `index_of()` and `join()` are also unavailable for use.
+
+GitHub Pages also caches very aggressively --- too aggressively for regularly updated sites like blogs. I'm not the first one to notice, and I've tried to come up with workarounds, but none have worked so far.
+
+It's not all bad, though. In fact, GitHub Pages has some great features that were delightful to discover.
+
+Most useful is that it has simple support for clean URLs baked right in: a file at `/foo.html` can also be accessed at `/foo` (no trailing slash), as long as no folder `/foo/` exists. This site takes advantage of that.
+
+I've also been impressed by the thoroughness and thought that's gone into GitHub Pages. MIME types, modern HTTP headers, even details like making sure HTML5 cache manifests are never cached --- good stuff.
+
+
+### Going forward
+
+Overall, I'm quite happy with this new setup. Liquid is workable, Jekyll is great, and GitHub Pages is a pleasure to use overall.
+
+If I had a wishlist for improvements I would love to see, it'd be something like this (in rough priority order):
+
+1. Abc
+
+2. Abc
+
+3. Abc
 
 
 <!--
 
-- Factors: ease of deployment (git, not FTP), ease of development (always available, no build step), cost (free)
-- GitHub Pages delights: clean URLs, correct MIME types and cache headers, e.g. for cache.manifest
-- GitHub Pages trip-ups: no Jekyll plugins, excessive caching
-- Liquid trip-ups: no array literals, no index_of, no join() on GH Pages
-- Jekyll trip-ups: no include config on GH Pages
-- notes on iPhone
 - Link to Octopress
 - Link to Joe Hewitt's Dropbox post
 
