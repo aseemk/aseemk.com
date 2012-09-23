@@ -1,7 +1,7 @@
 ---
 title: "The making of"
 categories: meta, tech
-description: "TODO"
+description: "I promised to share my thoughts and ideas here, and what better way to begin than to share the code behind this blog itself?"
 layout: post
 draft: true
 ---
@@ -82,29 +82,30 @@ I was already familiar with **[Heroku][]**, but Heroku doesn't support "naked" d
 [heroku-pricing]: http://www.heroku.com/pricing#2-0
 [heroku-idling]: https://devcenter.heroku.com/articles/dynos#dyno-idling
 
-But I also knew that a potential alternative was **[GitHub Pages][]**. After all, it's specifically meant for hosting (only) static content, and it specifically supports (only) Jekyll for generating that content.
+But I also knew that a potential alternative was **[GitHub Pages][]**. After all, it's specifically meant for hosting (only) static content, and it specifically [supports (only) Jekyll][gh-pages-jekyll] for generating that content.
 
 [GitHub Pages]: http://pages.github.com/
+[gh-pages-jekyll]: https://help.github.com/articles/using-jekyll-with-pages
 
 And unlike Heroku, GitHub Pages is free and fast, and it supports naked domains! (This isn't documented clearly for project pages, but you just [add an A record][gh-pages-dns] like you would for user/org pages.)
 
 [gh-pages-dns]: https://help.github.com/articles/setting-up-a-custom-domain-with-pages
 
-Unfortunately, GitHub Pages has two limitations: it *only* supports Jekyll --- so no PHP or similar --- and it even locks Jekyll down to disallow custom plugins --- so no helper extras like [LESS][] or [SASS][].
+Unfortunately, GitHub Pages has two limitations: it *only* supports Jekyll --- so no PHP or similar --- and it even locks Jekyll down to disallow [custom plugins][jekyll-plugins] --- so no helper extras like [LESS][] or [SASS][].
 
-[LESS]: TODO
-[SASS]: TODO
+[jekyll-plugins]: https://github.com/mojombo/jekyll/wiki/Plugins
+[LESS]: http://lesscss.org/
+[SASS]: http://sass-lang.com/
 
 Fortunately, Jekyll does include support for a templating language called **[Liquid][]**, built by [Shopify][]. Liquid lacks the flexibility and expressiveness of "regular" languages, but it's safe and secure for hosts like GitHub.
 
-[Liquid]: TODO
-[Shopify]: TODO
+[Liquid]: http://liquidmarkup.org/
+[Shopify]: http://www.shopify.com/
 
 I was reluctant to switch to a completely new and less popular templating language, but the benefits of GitHub Pages outweighed these costs to me, so I decided to bite the bullet and port my site.
 
-And indeed, the result is what you see today: this site is running entirely on GitHub Pages. You can [browse this code][gh-new] too if you're interested.
+And indeed, the result is what you see today. You can [browse this code][gh-new] too if you're interested.
 
-<!-- TODO update link -->
 [gh-new]: https://github.com/aseemk/aseemk.com
 
 
@@ -114,39 +115,71 @@ Porting this site to Jekyll and Liquid for hosting on GitHub Pages wasn't trivia
 
 Liquid, for example, doesn't seem to have a notion of (user-declared) array literals. That would have been useful in cases like the nav bar, e.g. to iterate over a list of links like `['About', 'Blog', ...]`.
 
-GitHub Pages also uses an outdated version of Liquid, since updates to Jekyll are sitting unreleased, so newer Liquid features like `index_of()` and `join()` are also unavailable for use.
+GitHub Pages also uses an outdated version of Liquid, since updates to Jekyll are [sitting unreleased][jekyll-history], so [newer Liquid features][liquid-history] like `index_of()` and `join()` are also unavailable for use.
 
-GitHub Pages also caches very aggressively --- too aggressively for regularly updated sites like blogs. I'm not the first one to notice, and I've tried to come up with workarounds, but none have worked so far.
+[jekyll-history]: https://github.com/mojombo/jekyll/blob/master/History.txt
+[liquid-history]: https://github.com/Shopify/liquid/blob/master/History.md
+
+GitHub Pages also caches very aggressively --- too aggressively for regularly updated sites like blogs. [I'm not][gh-pages-caching-1] [the first one][gh-pages-caching-2] [to notice][gh-pages-caching-3], and [I've tried][gh-pages-caching-4] [to come up][gh-pages-caching-5] [with workarounds][gh-pages-caching-6], but [none][gh-pages-caching-7] [have][gh-pages-caching-8] [worked][gh-pages-caching-9].
+
+[gh-pages-caching-1]: https://twitter.com/timfox/status/179956962723766273
+[gh-pages-caching-2]: http://stackoverflow.com/questions/9638122/jekyll-bootstrap-based-blog-expire-headers
+[gh-pages-caching-3]: https://github.com/getpelican/pelican/issues/507#issuecomment-8401688
+
+[gh-pages-caching-4]: http://stackoverflow.com/questions/1341089/using-meta-tags-to-turn-off-caching-in-all-browsers/1341133#1341133
+[gh-pages-caching-5]: http://www.html5rocks.com/en/tutorials/appcache/beginner/
+[gh-pages-caching-6]: http://saikotroid.blogspot.com/2011/06/application-cache-whitelisting-master.html
+
+[gh-pages-caching-7]: http://stackoverflow.com/questions/6664542/html5-meta-tag-cache-control-no-longer-valid
+[gh-pages-caching-8]: http://stackoverflow.com/questions/5045782/html5-cache-manifest-no-cache-for-html-file-itself
+[gh-pages-caching-9]: http://saikotroid.blogspot.com/2011/06/application-cache-whitelisting-master.html?showComment=1316637903857#c7393851362953489501
 
 It's not all bad, though. In fact, GitHub Pages has some great features that were delightful to discover.
 
-Most useful is that it has simple support for clean URLs baked right in: a file at `/foo.html` can also be accessed at `/foo` (no trailing slash), as long as no folder `/foo/` exists. This site takes advantage of that.
+Most useful is that it has simple support for [clean URLs][gh-pages-clean-urls] baked right in: a file at `/foo.html` can also be accessed at `/foo` (no trailing slash), as long as no folder `/foo/` exists. This site takes advantage of that.
 
-I've also been impressed by the thoroughness and thought that's gone into GitHub Pages. MIME types, modern HTTP headers, even details like making sure HTML5 cache manifests are never cached --- good stuff.
+[gh-pages-clean-urls]: http://gh-pages-test.aseemk.com/
+
+I've also been impressed by the thoroughness and thought that's gone into GitHub Pages. MIME types, HTTP headers, even details like making sure HTML5 cache manifest files are never cached --- good stuff.
 
 
-### Going forward
+### Review
 
 Overall, I'm quite happy with this new setup. Liquid is workable, Jekyll is great, and GitHub Pages is a pleasure to use overall.
 
 If I had a wishlist for improvements I would love to see, it'd be something like this (in rough priority order):
 
-1. Abc
+1. **Eased caching** on GitHub Pages. Browsers could still cache pages; they'd just check first, and GitHub would respond with a `304 Not Modified`.
 
-2. Abc
+2. Support for **Jekyll plugins** on GitHub Pages. This is understandably a security concern, but maybe the most popular plugins could be vetted and supported, just like Pygments is for syntax highlighting.
 
-3. Abc
+3. Support for **another templating language** in Jekyll. Liquid is great for non-technical uses, but it's just so verbose and cumbersome for general-purpose templating. This could maybe be solved by a plugin.
+
+4. If not, **streamlined syntax** in Liquid. Shorthand tags and operators would be a great start; variable assignment could also use improvement.
+
+Still, the current situation is pretty fantastic: write posts in Markdown, deploy via git, and on a host that's both fast and free. You can't ask for much closer to "ideal" here.
 
 
-<!--
+### Alternatives
 
-- Link to Octopress
-- Link to Joe Hewitt's Dropbox post
+But we all strive towards different "ideals", and two alternatives are worth mentioning here.
 
--->
+The first is **[Octopress][]**. This is a WordPress-level project that builds on top of Jekyll, and it's simply impressive. In fact, this is strongly worth considering if you're looking to start (or revamp) your own blog.
 
-[Liquid]: http://www.liquidmarkup.org/
-[GitHub Pages]: http://pages.github.com/
+[Octopress]: http://octopress.org/
+
+The second is [Joe Hewitt]'s **[Dropbox-based setup][jh-post]**. The code behind the actual blogging platform is custom, and it requires server hosting, but you have to admire the nirvana of simply saving to publish.
 
 [Joe Hewitt]: http://joehewitt.com/
 [jh-post]: http://joehewitt.com/2011/10/03/dropbox-is-my-publish-button
+
+I'm not aware of any other great alternatives, but let me know if you have any other recommendations worth checking out.
+
+
+### Onward
+
+This site and blog have been an ongoing pet project, but after some effort, I'm quite happy with the current setup and workflow.
+
+I'm also happy to finish this post and use it to kick off more regular sharing here! (Although just this post took me over a month of on-and-off writing, so don't expect updates too frequently...)
+
+With that, time to finally save, commit, and push. See you next time!
