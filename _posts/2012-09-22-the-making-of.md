@@ -3,7 +3,6 @@ title: "The making of"
 categories: meta, tech
 description: "I promised to share my thoughts and ideas here, and what better way to begin than to share the code behind this blog itself?"
 layout: post
-draft: true
 ---
 
 I started this blog over [a year ago][hello-web]. I promised to share my thoughts and ideas here, but that's barely happened! Time to change that, and what better way to begin than to share the code behind this blog itself?
