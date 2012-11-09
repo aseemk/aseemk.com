@@ -75,6 +75,7 @@ section#title
 <!--
     all of the sections (slides) below are written in Markdown;
     we wrap them in proper script tags, etc. at the bottom via script.
+    same for the asides (speaker notes).
 -->
 
 <section id="title">
@@ -87,21 +88,29 @@ section#title
 Aseem Kishore<br/>
 QCon SF 2012<br/>
 </section>
+<aside>
+Hi guys. I'm [Aseem Kishore](http://aseemk.com/), and I'm here to talk to you about graph databases.
+</aside>
 
 </div>  <!-- .slides -->
 </div>  <!-- .reveal -->
 
 <script>
-// wrap all Markdown slides into the format needed by Reveal.js:
+// add data-markdown attributes to all slides and speaker notes,
+// and insert the speaker notes into the slides, as reveal needs:
+// (important: the reveal documentation says to wrap the markdown in script
+// tags, but this is both unnecessary and error-prone w/ speaker nodes!)
 var sections = document.getElementsByTagName('section');
 [].slice.call(sections).forEach(function (section) {
     section.setAttribute('data-markdown', 'true');
-    section.innerHTML = [
-        '<script type="text/template">',
-        section.innerHTML,
-        '</',
-        'script>'
-    ].join('');
+
+    // does this slide have speaker notes?
+    var aside = section.nextElementSibling;
+    if (aside && aside.tagName === 'ASIDE') {
+        aside.className = 'notes';
+        aside.setAttribute('data-markdown',  'true');
+        section.appendChild(aside);
+    }
 });
 </script>
 

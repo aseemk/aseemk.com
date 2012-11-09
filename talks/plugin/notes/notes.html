@@ -89,17 +89,23 @@
 	<body>
 
 		<div id="wrap-current-slide" class="slides">
-			<iframe src="../../index.html" width="1280" height="1024" id="current-slide"></iframe>
+			<iframe width="1280" height="1024" id="current-slide"></iframe>
 		</div>
 
 		<div id="wrap-next-slide" class="slides">
-			<iframe src="../../index.html" width="640" height="512" id="next-slide"></iframe>
+			<iframe width="640" height="512" id="next-slide"></iframe>
 			<span>UPCOMING:</span>
 		</div>
 		<div id="notes"></div>
 
 		<script src="../../plugin/markdown/showdown.js"></script>
 		<script>
+			// ASEEMK: fix for calling talk may not be at index.html.
+			var iframes = document.querySelectorAll('.slides iframe');
+			[].slice.call(iframes).forEach(function (iframe) {
+				iframe.src = window.opener.location.href;
+			});
+
 			window.addEventListener( 'load', function() {
 
 				(function( window, undefined ) {
