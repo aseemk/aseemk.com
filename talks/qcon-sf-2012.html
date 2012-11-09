@@ -35,22 +35,30 @@ div.reveal > div.slides
     width 90%   // default 80%
     height 80%  // default 60%
 
-// hacky spacing and overrides of colors (which means shadows too):
+// optimize for big, centered images:
+div.reveal > div.slides section img
+    margin 0
+    border none
+
+// some general colors (hacky overrides, requires shadows too):
+h1 span.graphdb
+    color #8f8
+    text-shadow 0 5px 0 #080
+h1 span.betting
+    color #f88
+    text-shadow 0 5px 0 #800
+strong
+    color #bbf
+
+// slide-specific overrides:
 section#title
-    // the "Graph Database" line:
-    h1
-        color #008
-        text-shadow 0 5px 0 #004
-    // the "Betting the Company" line -- important to come after previous:
-    h1:first-child
-        color #800
-        text-shadow 0 5px 0 #400
-    // the "(Literally) on a" line:
-    h2
-        color #bbb
-    // the "Tips, Tricks, and Lessons Learned" line:
     h3
         margin 1em 0
+
+section#neo4j-file-format
+    img
+        position absolute
+        left 0
 </style>
 
 <script src="/scripts/stylus.js"></script>
@@ -79,9 +87,9 @@ section#title
 -->
 
 <section id="title">
-# Betting the Company
+# <span class="betting">Betting the Company</span>
 ## (Literally) on a
-# Graph Database
+# <span class="graphdb">Graph Database</span>
 
 ### Tips, Tricks, and Lessons Learned
 
@@ -89,7 +97,263 @@ Aseem Kishore<br/>
 QCon SF 2012<br/>
 </section>
 <aside>
-Hi guys. I'm [Aseem Kishore](http://aseemk.com/), and I'm here to talk to you about graph databases.
+Hi guys. My name is [Aseem Kishore](http://aseemk.com/), and I'm here to share my experiences building a startup with a graph database.
+
+And since every choice you make when you're a startup is literally "betting the company", especially early on, choosing to go with a graph database was definitely a significant one.
+</aside>
+
+<section>
+[![](/images/qcon-sf-2012/fiftythree-hp.png)](http://www.fiftythree.com/)
+</section>
+<aside>
+- currently work for FiftyThree
+</aside>
+
+<section>
+[![](/images/qcon-sf-2012/thingdom-hp-gasi.png)](http://www.thethingdom.com/)
+</section>
+<aside>
+The startup in question was one that I founded with a friend a year and a half ago, and it was called The Thingdom. (Like "kingdom", but with "things".)
+
+The Thingdom was a social network around products. It was a site where you could catalog and share the *things* in your life -- in particular, the things you had and the things you wanted. Something like an Amazon + Facebook mashup.
+
+(Quick demo)
+</aside>
+
+<section>
+[![](/images/qcon-sf-2012/zoomit-hp.png)](http://zoom.it/)
+</section>
+<aside>
+When we started, neither of us had any significant experience working with relational databases, so we were in an interesting spot. I think this was fortunate: neither of us had any shackles or "baggage" causing us to use a relational database "just because" that was all we knew.
+
+We had some solid experience using a key-value store -- both of us had worked at Microsoft before starting The Thingdom, and we had built a "bit.ly for high-res images" type of site and service called Zoom.it there -- but early on, we realized that a highly partitioned key-value store wouldn't quite fit here. After all, how do you partition arbitrarily-connected data?
+</aside>
+
+<section>
+![](/images/qcon-sf-2012/calvin-hobbes-ignorance.jpg)
+</section>
+<aside>
+So we did what (hopefully?) any other ignorant and naive pair of developers would do: we googled it. Surely in the era of Facebook's Graph API, this must be a solved problem.
+
+We expected to just find techniques and best practices explaining how to use either a regular (relational) db or a key-value store to implement a graph, but we were surprised to hear that there were actually dedicated "graph databases" for this kind of data.
+</aside>
+
+<section>
+![](/images/qcon-sf-2012/neo4j-viz.png)
+</section>
+<aside>
+There appeared to be a bunch of options, and we settled on what has turned out to be the most mainstream one, Neo4j. We tried it, and we liked it, so we decided to stick with it. And it turned out to be a great choice.
+
+In fact, I've often said that this decision was probably the *best* technology choice we made. Not because of scale or anything like that, but simply because it let us build our *app* and focus on the user experience rather than the format of the data being stored.
+</aside>
+
+<section>
+![](/images/qcon-sf-2012/thingdom-graph1.jpg)
+</section>
+<aside>
+It sounds cliche, but we were truly able to translate whiteboard sketches directly to our data model, with no (or minimal) futzing in between. And that meant that we were able to crank out features and iterate rapidly on them. The simple programming model and schemaless structure were key factors there.
+</aside>
+
+<section>
+![](/images/qcon-sf-2012/thingdom-recommendations.png)
+</section>
+<aside>
+For example, we were able to not only show recommendations for people you might like to follow, but also show *why* we were recommending those people to you (e.g. their followers that were also your following) -- all in real-time.
+</aside>
+
+<section>
+```
+START user=node(1), other=node(2)
+MATCH (user) -[r1:has|wants]-> (thing) <-[r2:has|wants]- (other)
+WHERE TYPE(r1) <> TYPE(r2)
+RETURN TYPE(r1), TYPE(r2), thing
+```
+
+<img class="fragment" src="/images/qcon-sf-2012/thingdom-mutual-things.png" />
+</section>
+<aside>
+We also had an idea we were excited about (but didn't get around to) of showing "friendship" pages between people around their mututal/complementary things. E.g. show me all the things that my friend has that I want.
+
+With Neo4j, we were able to not only express this question as a really straightforward Cypher query,  we were also able to *answer* that question efficiently, again in real-time.
+
+So that was pretty exciting, and potentially even a source of competitive advantage if we found success with a feature like that.
+</aside>
+
+<section>
+![](/images/qcon-sf-2012/meme-camera-phone.jpg)
+</section>
+<aside>
+But more than anything, this was my favorite technology choice because it simply made us happy and productive. We never dreaded schema upgrades or struggled over table design. Using a graph database was just *fun* -- and you can't underestimate the importance of that when doing a startup.
+
+(Pic from http://pdnpulse.com/category/fun)
+</aside>
+
+<section>
+[![](/images/qcon-sf-2012/gasi.jpg)](http://gasi.ch/)
+
+Daniel Gasienica<br/>
+[@gasi](https://twitter.com/gasi)<br/>
+</section>
+<aside>
+I should pause at this point and give credit where credit's very much due: it was my co-founder, Daniel Gasienica, who made us go in this direction. I was actually skeptical at first!
+
+But that was a pattern in our relationship -- he also made us try CoffeeScript, and I was really against it at first, but I've come to love it even more than JavaScript.
+
+So thanks Daniel!
+
+[TODO: funny statement about courting Daniel? Doing so in a talk is the developer equivalent of a public proposal?]
+</aside>
+
+<section>
+# So…
+## &nbsp;
+# Just what is a
+# <span class="graphdb">graph database</span>?
+</section>
+<aside>
+Okay, so first of all, just what does it mean for a database for a database to be a "graph database"?
+</aside>
+
+<section>
+![](http://upload.wikimedia.org/wikipedia/commons/3/3a/GraphDatabase_PropertyGraph.png)
+</section>
+<aside>
+Well, it should of course mean that the database either stores data in some kind of graph format, or that the database is optimized for graph operations (e.g. traversals, shortest paths, etc.).
+
+I can't speak to other graph databases, but both are true for Neo4j at least, and both are important in their own ways. Obviously if you want to do graph operations on your data, you want your database optimized for those operations, but understanding how a graph database stores its data on disk also helps you get a sense of what things it's good at and not good at.
+
+(pic from http://en.wikipedia.org/wiki/Graph_database)
+</aside>
+
+<section id="neo4j-file-format">
+<img class="" src="/images/qcon-sf-2012/neo4j-file-diagram1.png" />
+<img class="fragment" src="/images/qcon-sf-2012/neo4j-file-diagram2.png" />
+<img class="fragment" src="/images/qcon-sf-2012/neo4j-file-diagram3.png" />
+<img class="fragment" src="/images/qcon-sf-2012/neo4j-file-diagram4.png" />
+<img class="fragment" src="/images/qcon-sf-2012/neo4j-file-diagram5.png" />
+<img class="fragment" src="/images/qcon-sf-2012/neo4j-file-diagram6.png" />
+<img class="fragment" src="/images/qcon-sf-2012/neo4j-file-format.png" />
+</section>
+<aside>
+So let's look at how Neo4j stores data on disk. By the way, this is a good time to clarify, if you're not familiar, that Neo4j is a full, "proper" ACID database, with its own file format for on-disk storage, etc.
+
+Neo4j uses fixed-size records for both nodes and relationships, with each record offset by its ID, so that if you know the ID of a node or relationship, a direct lookup is O(1).
+
+In order to get fixed-size records, a node's record, for instance, can't include an arbitrary list or hash table of the node's relationships. So instead, it just contains a pointer to its *first* relationship... and that relationship contains a pointer to the next relationship for that node (and for its other node)... and so on. Recognize this data structure? Yep, it's a linked list. (Neo4j also stores this info in reverse, so it's actually a doubly-linked list.)
+
+So right off the bat, you can guess that a graph database like this will be really good at things like localized searches. E.g. to get the people you follow, it just needs to follow your node's linked list of relationships, and there you go, you have your following. And in fact, this is an O(1) operation relative to the size of the graph! It doesn't matter how many total users there are; it only matters how many people you follow.
+
+You can also guess that a graph database like this won't be so good at things like aggregations. E.g. the nodes or relationships aren't stored in any sorted order, so deriving the 20 most popular users requires a full scan.
+</aside>
+
+<section>
+![](/images/qcon-sf-2012/relational-to-graph.png)
+</section>
+<aside>
+It's worth mentioning at this point that we're talking about *databases* here, not *data*. Data is data; it's how you represent and store it that affects how easily and efficiently you can work with it in ways you need.
+
+So in fact, connected/graph data can also be stored just fine in a relational database. Here's how a simple social graph might translate between the two. We'd have a 'users' table for all our users, and a 'follows' table for the connections between them. This is a standard foreign key table, where the columns are 'from ID' and 'to ID'. So to fetch my following, you'd do a JOIN from my ID to my followings' IDs.
+
+(pic from http://systay.github.com/blog/2011/11/06/cypher---a-view-from-a-recovering-sql-dba/)
+</aside>
+
+<section>
+![](/images/qcon-sf-2012/meme-joins.jpg)
+</section>
+<aside>
+Of course, as the database grows, you'd want the JOIN to remain efficient, so you'd want to index the from ID, otherwise it'd require a full table scan each time. And this would be a global index, usually implemented as an O(log n) b-tree but possibly an O(1) hash table.
+
+(pic from http://yobriefca.se/blog/2012/11/02/neo4j-talk-in-november/)
+</aside>
+
+<section>
+<blockquote>
+By definition, a graph database is any storage system that provides <strong>index-free adjacency</strong>.
+</blockquote>
+
+&nbsp;
+
+<blockquote>
+This means that every element contains a <strong>direct pointer</strong> to its adjacent element and no index lookups are necessary.
+</blockquote>
+</section>
+<aside>
+And here's where we get to the "formal" definition of a graph database: it's a database that provides *"index-free adjacency"*. Every element contains a direct pointer to its neighbors, not requiring an index lookup in between. You could also think of these as "local" indices.
+</aside>
+
+<section>
+![](/images/qcon-sf-2012/graph-traversal.png)
+</section>
+<aside>
+(Pic from http://blog.octo.com/en/graph-databases-an-overview/)
+</aside>
+
+<section>
+![](/images/qcon-sf-2012/thingdom-graph1.jpg)
+</section>
+
+<section>
+![](/images/qcon-sf-2012/thingdom-people-stats.png)
+</section>
+
+<section>
+![](/images/qcon-sf-2012/thingdom-graph2.jpg)
+</section>
+
+<section>
+![](/images/qcon-sf-2012/thingdom-graph3.jpg)
+</section>
+
+<section>
+![](/images/qcon-sf-2012/thingdom-graph4.jpg)
+</section>
+
+<section>
+![](/images/qcon-sf-2012/thingdom-graph5.jpg)
+</section>
+
+<section>
+# Summary
+
+<ul>
+<li class="fragment">Unique, expressive relationship types</li>
+<li class="fragment">First-class objects ==> nodes</li>
+<li class="fragment">Storing history ==> nodes</li>
+<li class="fragment">Cache stats where possible</li>
+<li class="fragment">Prefer nodes over properties</li>
+<li class="fragment">Store linked lists where possible</li>
+</ul>
+</section>
+
+<section>
+# Neo4j Roadmap
+
+<ul>
+<li class="fragment">Overhaul of indexing API</li>
+<li class="fragment">Relationship type grouping</li>
+<li class="fragment">Socket and/or binary protocol</li>
+<li class="fragment">Automatic sharding?</li>
+</ul>
+</section>
+
+<section>
+[![](/images/qcon-sf-2012/fiftythree-hp.png)](http://www.fiftythree.com/)
+</section>
+
+<section>
+# Thanks!
+
+&nbsp;
+
+### Twitter: [@aseemk](https://twitter.com/aseemk)
+### GitHub: [aseemk](https://github.com/aseemk)
+### Email: [aseem.kishore@gmail.com](mailto:aseem.kishore@gmail.com)
+
+&nbsp;
+
+Questions?
+</section>
+<aside>
 </aside>
 
 </div>  <!-- .slides -->
