@@ -44,27 +44,27 @@ I wouldn’t be where I am today without the help and support of many other peop
 
 ### The Thingdom
 
-- Daniel
+- **Daniel**. You were one of the best co-founders one could ask for. It was a pleasure and a privilege bringing the idea to life with you; thanks, buddy. Maybe we can repeat the experience sometime. ;)
 
-- Sanjay
+- **Sanjay**. You literally made the experience possible with your logistical support, but I also appreciate the nudge you gave me to leave Microsoft to start something new. The trip to India was a life-changer. Thank you!
 
-- Jeremy
+- **Jeremy**. You took a leap of faith on me, and I appreciate that greatly. It didn't ultimately work out as we hoped it would, but I still found the experience incredibly valuable, and I hope you did too.
 
-- Sergio
+- **Sergio**. I was an ineffective leader when we started, but you contributed nonetheless, and more importantly, you remained friendly a year later. Thanks, Sergio. Your character is without match.
 
-- Our users
+- **Our users**, esp. **Frida, Boris, Gerd, Ian, Danish, Amanda Smith, Andrew Miner, and Tiff Ting**. You guys were the biggest source of motivation for us. Thanks for the feedback and support; you pushed us forward.
 
-- Crocodoc, FutureAdvisor, Venuetastic, Moki.tv
+- The founders at **Crocodoc**, **FutureAdvisor**, **Venuetastic**, and **Moki.tv**. Thanks for the YC interview prep — we really appreciated it. You all have my deep admiration and respect; good luck, and keep on truckin'.
 
-- YC
+- **Y Combinator**. We didn't get in, but just the experience of applying was invaluable. It was also a useful reminder of adversity, and for me personally, it was perhaps my first real taste of humble pie.
 
-- StartLabs
+- The **StartLabs crew**: **Paulina, Zach, Chris, and Ariadne**. You guys put together a great program, and you should be proud. Thanks for accepting us and providing such great support.
 
-- StartLabs advisors, esp. Kent
+- Our **StartLabs advisors**: **Nicole**, **Nitesh**, **Mina**, **Brad Feld**, and esp. **Kent**. Thanks for listening, helping, and mentoring. Kent, I'm especially grateful for how much help you provided when we needed it. Thank you.
 
-- Other advisors
+- Everyone else who provided advice and guidance: **Lawrence Coburn**, **Matt Jubelirer**, **Jay Gairson**, **Gary Flake**, **Ken Perkins**, **Max Krohn**, et al.
 
-- Open-source communities
+- The **developers and open-source communities** whose work we built on: **git**, **GitHub**, **Node.js**, **NPM**, **Express**, **CoffeeScript**, but esp. **Neo4j**, **Streamline.js (Bruno Jouhier)** and **DotCloud**.
 
 ### The Great Nomadic Adventure
 
