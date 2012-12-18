@@ -24,23 +24,23 @@ I wouldn’t be where I am today without the help and support of many other peop
 
 ### Families
 
-- Mom and Dad
+- **My parents**. Where do I begin? I'm immensely grateful for the way you guys raised me and the opportunities you both afforded me. I literally owe my life to you guys. Thanks, Mom and Dad.
 
-- Anant
+- **My brother, Anant**. That I got to grow up with an older brother is one of the things I'm most thankful for. I had a constant best friend, partner in crime, and role model — a younger brother can't ask for much more.
 
-- Amma and Nani
+- **My grandmothers, Amma and Nani**. It couldn't have been easy seeing your grandkids growing up halfway across the world and speaking a different language. Thanks for being there for us so frequently.
 
-- Extended family
+- **Bua, Fufaji, Chacha, Chachi, Askhay, Appar**, and the rest of our **extended family**. I hope we can continue to help and support each other over each of the next generations just as we have over this one.
 
-- Family friends
+- All of our **family friends** in Lucknow, Bareilly, Raipur, Atlanta, Buffalo, Lacrosse, Chicago, Seattle, and more. They say it takes a village to raise a child; I was fortunate to have several.
 
-- Jenny
+- **Jenny**. Where do I begin here too? Meeting you was one of the luckiest things that happened to me, and you've been the pillar of my life these past five years. Here's to the next five.
 
-- Jenny's family
+- **Andy, Mr., and Mrs. Liu**. You guys have welcomed me into your lives and homes with open arms. Maybe I'll even technically be family one day? ;)
 
-- FiftyThree
+- **FiftyThree**, esp. **Georg, Julian, Andrew, Jon, and John**. I'm deeply appreciative that you guys took a chance on me and trusted me to build a major part of our company's future. I'm so glad I joined this family.
 
-- NYC family
+- **Chris, Garrett, Dave, Danish**, and honorary members **Lauren** and **Daniela**. You guys are my NYC family, and it's been a blast experiencing this city with you all.
 
 ### The Thingdom
 
