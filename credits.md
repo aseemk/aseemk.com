@@ -68,19 +68,29 @@ I wouldn’t be where I am today without the help and support of many other peop
 
 ### The Great Nomadic Adventure
 
-- Josh, Guy
+At the end of October 2011, I left Seattle (with only my laptop, a suitcase of clothes, and my trombone) and traveled to San Francisco. I intended to relocate there to focus more fully on The Thingdom, but fate would have me there for less than a month.
 
-- Karan
+I spent that month and the next seven traveling between San Francisco, New York, Boston, and Seattle, staying most of that time with friends gracious enough to host me. I finally settled into my current place in New York (and received the rest of my stuff) in July 2012.
 
-- Ed, Spenser & Curtis, and Nicholas & Nancy Clark for letting me crash
+These are the people whose help went above and beyond. Thanks, guys.
 
-- Jeremy
+- **Josh, Guy, Daniel,** and **Jenny**, for holding onto my stuff while I moved.
 
-- Ele, Gabe
+- **Karan**, for being a great partner in our (looong!) drive down, and taking care of all the organizational details. Maybe we'll do the coast one day --- but not in a U-Haul this time. ;)
 
-- Susan
+- **Spenser & Curtis (& Karena & Jenny)**, for letting me crash, introducing me to the Bay Area, driving me to Startup School, and even bringing me out for (the awesomely fun) Zombie Tag.
 
-- Julian, Grace
+- **Ed (& TODO)**, for letting me crash, introducing me to SF, even giving me a spare key. Also, for letting me have some of that super tasty homemade pumpkin pie. Mmm, pie.
+
+- **Nicholas & Nancy**, for going out of your way to let me crash in your beautiful home even as you guys were leaving the country! (I was definitely  nervous I'd accidentally break something.)
+
+- **Jeremy**, for letting me crash for nearly a whole month as we worked together, for introducing me to NYC and your friends, and of course... for NBA Jam. He's on fire!
+
+- **Ele**, for letting me crash twice. It's always so great catching up with you. I'm ready to return the favor, btw, whenever you take the leap, too... ;)
+
+- **Gabe**, for letting me crash twice, too, and for bringing me out to a Celtics game! What I wrote for Ele above applies to you as well, btw!
+
+- And last --- and in fact the most --- **Julian**, for graciously giving me your apartment for an unbelievable 2.5 months, and **Grace**, for hosting Julian in return. I know this was a huge adjustment for you guys; thank you. And thanks also for welcoming me so warmly and introducing me to Jersey City. Who knew New Jersey could be so... decent?!
 
 ### Microsoft & Seattle
 
