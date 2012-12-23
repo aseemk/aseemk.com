@@ -38,7 +38,7 @@ I wouldn’t be where I am today without the help and support of many other peop
 
 - **Andy, Mr., and Mrs. Liu**. You guys have welcomed me into your lives and homes with open arms. Maybe I'll even technically be family one day? ;)
 
-- **FiftyThree**, esp. **Georg, Julian, Andrew, Jon, and John**. I'm deeply appreciative that you guys took a chance on me and trusted me to build a major part of our company's future. I'm so glad I joined this family.
+- **FiftyThree**, esp. **Georg, Julian, Andrew, Jon, and John**. I'm deeply appreciative that you guys took a chance on me and trusted me to build a major part of our company's future. I'm proud to be part of this family.
 
 - **Chris, Garrett, Dave, Danish**, and honorary members **Lauren** and **Daniela**. You guys are my NYC family, and it's been a blast experiencing this city with you all.
 
