@@ -52,17 +52,17 @@ I wouldn’t be where I am today without the help and support of many other peop
 
 - **Sergio**. I was an ineffective leader when we started, but you contributed nonetheless, and more importantly, you remained friendly a year later. Thanks, Sergio. Your character is without match.
 
-- **Our users**, esp. **Frida, Boris, Gerd, Ian, Danish, Amanda Smith, Andrew Miner, and Tiff Ting**. You guys were the biggest source of motivation for us. Thanks for the feedback and support; you pushed us forward.
+- **Our users**, esp. **Frida, Boris, Gerd, Danish, Ian, Amanda Smith, Andrew Miner, and Tiff Ting**. You guys were the biggest source of motivation for us. Thanks for the feedback and support; you pushed us forward.
 
 - The founders at **Crocodoc**, **FutureAdvisor**, **Venuetastic**, and **Moki.tv**. Thanks for the YC interview prep — we really appreciated it. You all have my deep admiration and respect; good luck, and keep on truckin'.
 
 - **Y Combinator**. We didn't get in, but just the experience of applying was invaluable. It was also a useful reminder of adversity, and for me personally, it was perhaps my first real taste of humble pie.
 
-- The **StartLabs crew**: **Paulina, Zach, Chris, and Ariadne**. You guys put together a great program, and you should be proud. Thanks for accepting us and providing such great support.
+- The **StartLabs crew**: **Paulina, Zach, Chris, and Ariadne**. You guys put together a great program, and you should be proud. Thanks for accepting us and giving us an IAP to remember.
 
-- Our **StartLabs advisors**: **Nicole**, **Nitesh**, **Mina**, **Brad Feld**, and esp. **Kent**. Thanks for listening, helping, and mentoring. Kent, I'm especially grateful for how much help you provided when we needed it. Thank you.
+- Our **StartLabs advisors**: **Nicole**, **Nitesh**, **Mina**, **Brad Feld**, and esp. **Kent**. Thanks for listening, helping, and mentoring. Kent, I'm especially grateful for how much you gave us when we needed it. Thank you.
 
-- Everyone else who provided advice and guidance: **Lawrence Coburn**, **Matt Jubelirer**, **Jay Gairson**, **Gary Flake**, **Ken Perkins**, **Max Krohn**, et al.
+- Everyone else who provided advice or guidance along the way: **Lawrence Coburn**, **Ian Gilman**, **Jay Gairson**, **Gary Flake**, **Ken Perkins**, **Matt Jubelirer**, **Max Krohn**, **Ayush Agarwal**, **Jules Walter**, **Ele Ocholi**, **Susan Song**, et al. I sincerely appreciate all the input you guys gave me.
 
 - The **developers and open-source communities** whose work we built on: **git**, **GitHub**, **Node.js**, **NPM**, **Express**, **CoffeeScript**, but esp. **Neo4j**, **Streamline.js (Bruno Jouhier)** and **DotCloud**.
 
