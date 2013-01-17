@@ -60,15 +60,15 @@ I wouldn’t be where I am today without the help and support of many other peop
 
 - The **StartLabs crew**: **Paulina, Zach, Chris, and Ariadne**. You guys put together a great program, and you should be proud. Thanks for accepting us and giving us an IAP to remember.
 
-- Our **StartLabs advisors**: **Nicole**, **Nitesh**, **Mina**, **Brad Feld**, and esp. **Kent**. Thanks for listening, helping, and mentoring. Kent, I'm especially grateful for how much you gave us when we needed it. Thank you.
+- Our **StartLabs advisors**: **Nicole Stata**, **Nitesh TODO**, **Mina Hsieh (TODO?)**, **Brad Feld**, and esp. **Kent Bennett (TODO?)**. Thanks for listening, helping, and mentoring. Kent, I'm especially grateful for how much you gave us when we needed it; thank you.
 
 - Everyone else who provided advice or guidance along the way: **Lawrence Coburn**, **Ian Gilman**, **Jay Gairson**, **Gary Flake**, **Ken Perkins**, **Matt Jubelirer**, **Max Krohn**, **Ayush Agarwal**, **Jules Walter**, **Ele Ocholi**, **Susan Song**, et al. I sincerely appreciate all the input you guys gave me.
 
-- The **developers and open-source communities** whose work we built on: **git**, **GitHub**, **Node.js**, **NPM**, **Express**, **CoffeeScript**, but esp. **Neo4j**, **Streamline.js (Bruno Jouhier)** and **DotCloud**.
+- The **developers and open-source communities** whose work we built on: **git**, **GitHub**, **Node.js**, **NPM**, **Express**, **CoffeeScript**, but esp. **Neo4j**, **Streamline.js (Bruno Jouhier)** and **DotCloud**. We were fortunate to be able to stand on the shoulders of such giants.
 
 ### The Great Nomadic Adventure
 
-At the end of October 2011, I left Seattle (with only my laptop, a suitcase of clothes, and my trombone) and traveled to San Francisco. I intended to relocate there to focus more fully on The Thingdom, but fate would have me there for less than a month.
+At the end of October 2011, I left Seattle (with only my laptop, a suitcase of clothes, and my trombone) and traveled to San Francisco. I intended to relocate there to focus more fully on The Thingdom, but circumstances would have me there for less than a month.
 
 I spent that month and the next seven traveling between San Francisco, New York, Boston, and Seattle, staying most of that time with friends gracious enough to host me. I finally settled into my current place in New York (and received the rest of my stuff) in July 2012.
 
@@ -82,19 +82,19 @@ These are the people whose help went above and beyond. Thanks, guys.
 
 - **Ed (& TODO)**, for letting me crash, introducing me to SF, even giving me a spare key. Also, for letting me have some of that super tasty homemade pumpkin pie. Mmm, pie.
 
-- **Nicholas & Nancy**, for going out of your way to let me crash in your beautiful home even as you guys were leaving the country! (I was definitely  nervous I'd accidentally break something.)
+- **Nicholas & Nancy**, for going out of your way to let me crash in your beautiful home even as you guys were leaving the country! (Your home was so nice, I was continually nervous I'd break something!)
 
 - **Jeremy**, for letting me crash for nearly a whole month as we worked together, for introducing me to NYC and your friends, and of course... for NBA Jam. He's on fire!
 
 - **Ele**, for letting me crash twice. It's always so great catching up with you. I'm ready to return the favor, btw, whenever you take the leap, too... ;)
 
-- **Gabe**, for letting me crash twice, too, and for bringing me out to a Celtics game! What I wrote for Ele above applies to you as well, btw!
+- **Gabe**, for letting me crash twice, too, and for bringing me out to a Celtics game! And what I wrote for Ele above applies to you as well!
 
 - And last --- and in fact the most --- **Julian**, for graciously giving me your apartment for an unbelievable 2.5 months, and **Grace**, for hosting Julian in return. I know this was a huge adjustment for you guys; thank you. And thanks also for welcoming me so warmly and introducing me to Jersey City. Who knew New Jersey could be so... decent?!
 
 ### Microsoft & Seattle
 
-- My managers at Seadragon: Ian, Jay, Tim.
+- My managers at Seadragon: **Ian, Jay, and Tim.** I learned so much from each of you guys, and I know I lucked out having you guys advocating for and supporting me. You guys really made great leaders.
 
 - Seadragon and LL Leadership, particularly Bill, Brett, Gary, for believing in me and giving me a chance. A real meritocracy.
 
