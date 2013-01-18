@@ -143,14 +143,14 @@ And since every choice you make when you're a startup is literally "betting the 
 </aside>
 
 <section>
-[![](/images/qcon-sf-2012/fiftythree-hp.png)](http://www.fiftythree.com/)
+[![](/images/graphdb-lessons-learned/fiftythree-hp.png)](http://www.fiftythree.com/)
 </section>
 <aside>
 - currently work for FiftyThree
 </aside>
 
 <section>
-[![](/images/qcon-sf-2012/thingdom-hp-gasi.png)](http://www.thethingdom.com/)
+[![](/images/graphdb-lessons-learned/thingdom-hp-gasi.png)](http://www.thethingdom.com/)
 </section>
 <aside>
 The startup in question was one that I founded with a friend a year and a half ago, and it was called The Thingdom. (Like "kingdom", but with "things".)
@@ -161,7 +161,7 @@ The Thingdom was a social network around products. It was a site where you could
 </aside>
 
 <section>
-[![](/images/qcon-sf-2012/zoomit-hp.png)](http://zoom.it/)
+[![](/images/graphdb-lessons-learned/zoomit-hp.png)](http://zoom.it/)
 </section>
 <aside>
 When we started, neither of us had any significant experience working with relational databases, so we were in an interesting spot. I think this was fortunate: neither of us had any shackles or "baggage" causing us to use a relational database "just because" that was all we knew.
@@ -170,7 +170,7 @@ We had some solid experience using a key-value store -- both of us had worked at
 </aside>
 
 <section class="small-img-portrait">
-![](/images/qcon-sf-2012/calvin-hobbes-ignorance.jpg)
+![](/images/graphdb-lessons-learned/calvin-hobbes-ignorance.jpg)
 </section>
 <aside>
 So we did what (hopefully?) any other ignorant and naive pair of developers would do: we googled it. Surely in the era of Facebook's Graph API, this must be a solved problem.
@@ -179,7 +179,7 @@ We expected to just find techniques and best practices explaining how to use eit
 </aside>
 
 <section>
-![](/images/qcon-sf-2012/neo4j-viz.png)
+![](/images/graphdb-lessons-learned/neo4j-viz.png)
 </section>
 <aside>
 There appeared to be a bunch of options, and we settled on what has turned out to be the most mainstream one, Neo4j. We tried it, and we liked it, so we decided to stick with it. And it turned out to be a great choice.
@@ -188,14 +188,14 @@ In fact, I've often said that this decision was probably the *best* technology c
 </aside>
 
 <section>
-![](/images/qcon-sf-2012/thingdom-graph1.jpg)
+![](/images/graphdb-lessons-learned/thingdom-graph1.jpg)
 </section>
 <aside>
 It sounds cliche, but we were truly able to translate whiteboard sketches directly to our data model, with no (or minimal) futzing in between. And that meant that we were able to crank out features and iterate rapidly on them. The simple programming model and schemaless structure were key factors there.
 </aside>
 
 <section>
-![](/images/qcon-sf-2012/thingdom-recommendations.png)
+![](/images/graphdb-lessons-learned/thingdom-recommendations.png)
 </section>
 <aside>
 For example, we were able to not only show recommendations for people you might like to follow, but also show *why* we were recommending those people to you (e.g. their followers that were also your following) -- all in real-time.
@@ -209,7 +209,7 @@ WHERE TYPE(r1) <> TYPE(r2)
 RETURN TYPE(r1), TYPE(r2), thing
 ```
 
-<img class="fragment" src="/images/qcon-sf-2012/thingdom-mutual-things.png" />
+<img class="fragment" src="/images/graphdb-lessons-learned/thingdom-mutual-things.png" />
 </section>
 <aside>
 We also had an idea we were excited about (but didn't get around to) of showing "friendship" pages between people around their mututal/complementary things. E.g. show me all the things that my friend has that I want.
@@ -220,7 +220,7 @@ So that was pretty exciting, and potentially even a source of competitive advant
 </aside>
 
 <section class="small-img-landscape">
-![](/images/qcon-sf-2012/meme-camera-phone.jpg)
+![](/images/graphdb-lessons-learned/meme-camera-phone.jpg)
 </section>
 <aside>
 But more than anything, this was my favorite technology choice because it simply made us happy and productive. We never dreaded schema upgrades or struggled over table design. Using a graph database was just *fun* -- and you can't underestimate the importance of that when doing a startup.
@@ -229,7 +229,7 @@ But more than anything, this was my favorite technology choice because it simply
 </aside>
 
 <section>
-[![](/images/qcon-sf-2012/gasi.jpg)](http://gasi.ch/)
+[![](/images/graphdb-lessons-learned/gasi.jpg)](http://gasi.ch/)
 
 Daniel Gasienica<br/>
 [@gasi](https://twitter.com/gasi)<br/>
@@ -289,13 +289,13 @@ Neo4j uses an adjacency list. (But it also has first-class relationship objects)
 </aside>
 
 <section id="neo4j-file-format">
-<img class="" src="/images/qcon-sf-2012/neo4j-file-diagram1.png" />
-<img class="fragment" src="/images/qcon-sf-2012/neo4j-file-diagram2.png" />
-<img class="fragment" src="/images/qcon-sf-2012/neo4j-file-diagram3.png" />
-<img class="fragment" src="/images/qcon-sf-2012/neo4j-file-diagram4.png" />
-<img class="fragment" src="/images/qcon-sf-2012/neo4j-file-diagram5.png" />
-<img class="fragment" src="/images/qcon-sf-2012/neo4j-file-diagram6.png" />
-<img class="fragment" src="/images/qcon-sf-2012/neo4j-file-format.png" />
+<img class="" src="/images/graphdb-lessons-learned/neo4j-file-diagram1.png" />
+<img class="fragment" src="/images/graphdb-lessons-learned/neo4j-file-diagram2.png" />
+<img class="fragment" src="/images/graphdb-lessons-learned/neo4j-file-diagram3.png" />
+<img class="fragment" src="/images/graphdb-lessons-learned/neo4j-file-diagram4.png" />
+<img class="fragment" src="/images/graphdb-lessons-learned/neo4j-file-diagram5.png" />
+<img class="fragment" src="/images/graphdb-lessons-learned/neo4j-file-diagram6.png" />
+<img class="fragment" src="/images/graphdb-lessons-learned/neo4j-file-format.png" />
 </section>
 <aside>
 So let's look at how Neo4j stores data on disk. By the way, this is a good time to clarify, if you're not familiar, that Neo4j is a full, "proper" ACID database, with its own file format for on-disk storage, etc.
@@ -310,7 +310,7 @@ You can also guess that a graph database like this won't be so good at things li
 </aside>
 
 <section class="small-img-landscape">
-![](/images/qcon-sf-2012/relational-to-graph.png)
+![](/images/graphdb-lessons-learned/relational-to-graph.png)
 </section>
 <aside>
 It's worth mentioning at this point that we're talking about *databases* here, not *data*. Data is data; it's how you represent and store it that affects how easily and efficiently you can work with it in ways you need.
@@ -321,7 +321,7 @@ So in fact, connected/graph data can also be stored just fine in a relational da
 </aside>
 
 <section class="small-img-landscape">
-![](/images/qcon-sf-2012/meme-joins.jpg)
+![](/images/graphdb-lessons-learned/meme-joins.jpg)
 </section>
 <aside>
 Of course, as the database grows, you'd want the JOIN to remain efficient, so you'd want to index the from ID, otherwise it'd require a full table scan each time. And this would be a global index, usually implemented as an O(log n) b-tree but possibly an O(1) hash table.
@@ -412,7 +412,7 @@ general usage:
 </section>
 
 <section>
-![](/images/qcon-sf-2012/thingdom-node-neo4j.png)
+![](/images/graphdb-lessons-learned/thingdom-node-neo4j.png)
 </section>
 
 <section>
@@ -472,7 +472,7 @@ general usage:
 
 <!-- unique, expressive relationship types -->
 <section>
-![](/images/qcon-sf-2012/thingdom-graph1.jpg)
+![](/images/graphdb-lessons-learned/thingdom-graph1.jpg)
 </section>
 
 <section class="learned">
@@ -485,7 +485,7 @@ general usage:
 
 <!-- cache stats -->
 <section class="small-img-portrait">
-![](/images/qcon-sf-2012/thingdom-people-stats.png)
+![](/images/graphdb-lessons-learned/thingdom-people-stats.png)
 </section>
 
 <section class="learned">
@@ -499,7 +499,7 @@ general usage:
 
 <!-- event nodes; prefer nodes for first-class objects -->
 <section>
-![](/images/qcon-sf-2012/thingdom-graph2.jpg)
+![](/images/graphdb-lessons-learned/thingdom-graph2.jpg)
 </section>
 
 <section class="learned">
@@ -515,12 +515,12 @@ general usage:
 
 <!-- expanded example of previous -->
 <section>
-![](/images/qcon-sf-2012/thingdom-graph3.jpg)
+![](/images/graphdb-lessons-learned/thingdom-graph3.jpg)
 </section>
 
 <!-- node hierarchy instead of properties -->
 <section>
-![](/images/qcon-sf-2012/thingdom-graph4.jpg)
+![](/images/graphdb-lessons-learned/thingdom-graph4.jpg)
 </section>
 
 <section class="learned">
@@ -537,7 +537,7 @@ general usage:
 
 <!-- inspired by graphity: linked lists -->
 <section>
-![](/images/qcon-sf-2012/thingdom-graph5.jpg)
+![](/images/graphdb-lessons-learned/thingdom-graph5.jpg)
 </section>
 
 <section class="learned">
@@ -565,7 +565,7 @@ general usage:
 </section>
 
 <section>
-[![](/images/qcon-sf-2012/fiftythree-hp.png)](http://www.fiftythree.com/)
+[![](/images/graphdb-lessons-learned/fiftythree-hp.png)](http://www.fiftythree.com/)
 </section>
 
 <section>
