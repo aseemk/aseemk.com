@@ -4,9 +4,9 @@
     <head>
         <meta charset="utf-8">
 
-        <title>Betting the Company (Literally) on a Graph Database – QCon SF 2012 – Talks – Aseem Kishore</title>
+        <title>Betting the Company (Literally) on a Graph Database – Talks – Aseem Kishore</title>
 
-        <meta name="description" content="The Thingdom was a social network around products, and it was built on Node.js and Neo4j. Come hear why we chose to build on a graph database, how we did it, and what we learned.">
+        <meta name="description" content="The Thingdom was a social network around products, and it was built on Node.js and Neo4j. This talk details why we chose to build on a graph database, how we did it, and what we learned.">
         <meta name="author" content="Aseem Kishore">
 
         <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -31,26 +31,58 @@
 <style type="text/stylus">
 
 // optimize for 1024x768 presentation:
+
 div.reveal > div.slides
     width 90%   // default 80%
     height 80%  // default 60%
 
 // optimize for big, centered images:
+
 div.reveal > div.slides section img
     margin 0
     border none
+    max-width 100%
+    max-height 100%
 
 // some general colors (hacky overrides, requires shadows too):
-h1 span.graphdb
+
+h1 span.positive
     color #8f8
     text-shadow 0 5px 0 #080
-h1 span.betting
+
+h1 span.negative
     color #f88
     text-shadow 0 5px 0 #800
+
 strong
     color #bbf
 
+// some general layout tweaks:
+
+pre code
+    padding 0.5em
+
+section.small-img-portrait
+    img
+        height 100%
+
+section.small-img-landscape
+    img
+        width 100%
+
+// XXX explicit specificity needed;
+.reveal section li
+    font-size 1.5em
+    line-height 1em
+    margin 0.5em auto
+
+    // remember to cancel out nested li's, but here we want them even smaller:
+    li
+        font-size 0.5em
+        margin 0.25em auto
+
 // slide-specific overrides:
+
 section#title
     h3
         margin 1em 0
@@ -59,6 +91,14 @@ section#neo4j-file-format
     img
         position absolute
         left 0
+
+section#graph-representations
+    pre
+        font-size 0.75em
+
+.reveal section.learned li
+    font-size 1.25em
+
 </style>
 
 <script src="/scripts/stylus.js"></script>
@@ -87,14 +127,14 @@ section#neo4j-file-format
 -->
 
 <section id="title">
-# <span class="betting">Betting the Company</span>
+# <span class="negative">Betting the Company</span>
 ## (Literally) on a
-# <span class="graphdb">Graph Database</span>
+# <span class="positive">Graph Database</span>
 
 ### Tips, Tricks, and Lessons Learned
 
 Aseem Kishore<br/>
-QCon SF 2012<br/>
+Nov 2012 & Jan 2013<br/>
 </section>
 <aside>
 Hi guys. My name is [Aseem Kishore](http://aseemk.com/), and I'm here to share my experiences building a startup with a graph database.
@@ -129,7 +169,7 @@ When we started, neither of us had any significant experience working with relat
 We had some solid experience using a key-value store -- both of us had worked at Microsoft before starting The Thingdom, and we had built a "bit.ly for high-res images" type of site and service called Zoom.it there -- but early on, we realized that a highly partitioned key-value store wouldn't quite fit here. After all, how do you partition arbitrarily-connected data?
 </aside>
 
-<section>
+<section class="small-img-portrait">
 ![](/images/qcon-sf-2012/calvin-hobbes-ignorance.jpg)
 </section>
 <aside>
@@ -179,7 +219,7 @@ With Neo4j, we were able to not only express this question as a really straightf
 So that was pretty exciting, and potentially even a source of competitive advantage if we found success with a feature like that.
 </aside>
 
-<section>
+<section class="small-img-landscape">
 ![](/images/qcon-sf-2012/meme-camera-phone.jpg)
 </section>
 <aside>
@@ -208,13 +248,13 @@ So thanks Daniel!
 # So…
 ## &nbsp;
 # Just what is a
-# <span class="graphdb">graph database</span>?
+# <span class="positive">graph database</span>?
 </section>
 <aside>
 Okay, so first of all, just what does it mean for a database for a database to be a "graph database"?
 </aside>
 
-<section>
+<section class="small-img-landscape">
 ![](http://upload.wikimedia.org/wikipedia/commons/3/3a/GraphDatabase_PropertyGraph.png)
 </section>
 <aside>
@@ -223,6 +263,29 @@ Well, it should of course mean that the database either stores data in some kind
 I can't speak to other graph databases, but both are true for Neo4j at least, and both are important in their own ways. Obviously if you want to do graph operations on your data, you want your database optimized for those operations, but understanding how a graph database stores its data on disk also helps you get a sense of what things it's good at and not good at.
 
 (pic from http://en.wikipedia.org/wiki/Graph_database)
+</aside>
+
+<section id="graph-representations">
+&nbsp;
+
+    # adjacency list:
+    nodes = List<Node>
+    neighbors = Map<Node, List<Node>>
+    neighbors[node1].add(node2)
+
+    # adjacency matrix:
+    nodes = List<Node>
+    connections = Map<Node, Map<Node, bool>>
+    connections[node1][node2] = true
+
+&nbsp;
+</section>
+<aside>
+Two popular types of graph representations:
+- Adjacency list
+- Adjacency matrix
+
+Neo4j uses an adjacency list. (But it also has first-class relationship objects).
 </aside>
 
 <section id="neo4j-file-format">
@@ -246,7 +309,7 @@ So right off the bat, you can guess that a graph database like this will be real
 You can also guess that a graph database like this won't be so good at things like aggregations. E.g. the nodes or relationships aren't stored in any sorted order, so deriving the 20 most popular users requires a full scan.
 </aside>
 
-<section>
+<section class="small-img-landscape">
 ![](/images/qcon-sf-2012/relational-to-graph.png)
 </section>
 <aside>
@@ -257,7 +320,7 @@ So in fact, connected/graph data can also be stored just fine in a relational da
 (pic from http://systay.github.com/blog/2011/11/06/cypher---a-view-from-a-recovering-sql-dba/)
 </aside>
 
-<section>
+<section class="small-img-landscape">
 ![](/images/qcon-sf-2012/meme-joins.jpg)
 </section>
 <aside>
@@ -282,46 +345,211 @@ And here's where we get to the "formal" definition of a graph database: it's a d
 </aside>
 
 <section>
-![](/images/qcon-sf-2012/graph-traversal.png)
+# Querying
+
+<ol>
+<li class="fragment"><strong>Start</strong> somewhere</li>
+<li class="fragment"><strong>Traverse</strong> elsewhere</li>
+</ol>
+</section>
+
+<section>
+# Querying in Neo4j
+
+<ol>
+<li>
+    <strong>Start</strong> somewhere
+    <ul class="fragment">
+    <li>Root node</li>
+    <li>ID directly (file offset)</li>
+    <li>Lucene index</li>
+    </ul>
+</li>
+<li class="fragment">
+    <strong>Traverse</strong> elsewhere
+    <ul class="fragment">
+    <li>Traversal APIs</li>
+    <li>Cypher patterns</li>
+    <li>Built-in graph algos (Djikstra, A*, etc.)</li>
+    </ul>
+</li>
+</ol>
+</section>
+
+<section>
+# Neo4j usage
+
+<ul>
+<li class="fragment"><strong>Embedded</strong> mode (Java API)</li>
+<li class="fragment"><strong>Server</strong> mode (REST API)</li>
+<li class="fragment"><strong>Cypher</strong> query language (both)</li>
+</ul>
 </section>
 <aside>
-(Pic from http://blog.octo.com/en/graph-databases-an-overview/)
+general usage:
+- "embedded mode" -- JAR you include in your Java app, Java API (richest, most performant way of using, w/ tightest control, e.g. transactions and traversal API)
+- initially, recommended writing your own server. then, built and included.
+- "server mode" -- REST (JSON) API, typical CRUD operations + batch API + Cypher + Gremlin
+- cypher: query + mutating language. (explain conceptually, a bit tricky)
 </aside>
 
+<section>
+# Our usage
+
+&nbsp;
+
+## **Node.js**
+
++
+
+## **REST API**
+
++
+
+## **Cypher**
+
+(later)
+</section>
+
+<section>
+![](/images/qcon-sf-2012/thingdom-node-neo4j.png)
+</section>
+
+<section>
+# Neo4j editions
+
+<ul>
+<li class="fragment">
+    <strong>Community</strong> edition
+    <ul>
+    <li>Single instance</li>
+    <li>Offline backup</li>
+    </ul>
+</li>
+<li class="fragment">
+    <strong>Advanced</strong> edition
+    <ul>
+    <li>Meh</li>
+    </ul>
+</li>
+<li class="fragment">
+    <strong>Enterprise</strong> edition
+    <ul>
+    <li>Multi-instance cluster!</li>
+    <li>Online backup!</li>
+    </ul>
+</li>
+</ul>
+</section>
+
+<section>
+# Neo4j scaling
+
+<ul>
+<li class="fragment">
+    <strong>4B limit</strong> on nodes, rels, props
+    <ul>
+    <li>But can be easily upped; just flipping some bits</li>
+    <li>100 props/node (high) ⇒ 42M nodes</li>
+    </ul>
+</li>
+<li class="fragment"><strong>Master-slave</strong> replication</li>
+<li class="fragment"><strong>Cache-based</strong> sharding</li>
+<li class="fragment"><strong>Feature-based</strong> polyglot'ing</li>
+</ul>
+</section>
+
+
+
+<!-- WHAT WE LEARNED -->
+
+<section>
+# Okay...
+## &nbsp;
+# Let's talk about
+# <span class="positive">what we learned</span>
+</section>
+
+<!-- unique, expressive relationship types -->
 <section>
 ![](/images/qcon-sf-2012/thingdom-graph1.jpg)
 </section>
 
-<section>
+<section class="learned">
+# What we learned
+
+<ul>
+<li>Unique, expressive <strong>relationship types</strong></li>
+</ul>
+</section>
+
+<!-- cache stats -->
+<section class="small-img-portrait">
 ![](/images/qcon-sf-2012/thingdom-people-stats.png)
 </section>
 
+<section class="learned">
+# What we learned
+
+<ul>
+<li>Unique, expressive <strong>relationship types</strong></li>
+<li><strong>Cache stats</strong> where possible</li>
+</ul>
+</section>
+
+<!-- event nodes; prefer nodes for first-class objects -->
 <section>
 ![](/images/qcon-sf-2012/thingdom-graph2.jpg)
 </section>
 
+<section class="learned">
+# What we learned
+
+<ul>
+<li>Unique, expressive <strong>relationship types</strong></li>
+<li><strong>Cache stats</strong> where possible</li>
+<li>First-class objects ⇒ <strong>nodes</strong>, not rels</li>
+<li>Capture history through <strong>event nodes</strong></li>
+</ul>
+</section>
+
+<!-- expanded example of previous -->
 <section>
 ![](/images/qcon-sf-2012/thingdom-graph3.jpg)
 </section>
 
+<!-- node hierarchy instead of properties -->
 <section>
 ![](/images/qcon-sf-2012/thingdom-graph4.jpg)
 </section>
 
+<section class="learned">
+# What we learned
+
+<ul>
+<li>Unique, expressive <strong>relationship types</strong></li>
+<li><strong>Cache stats</strong> where possible</li>
+<li>First-class objects ⇒ <strong>nodes</strong>, not rels</li>
+<li>Capture history through <strong>event nodes</strong></li>
+<li>Connected data ⇒ <strong>nodes</strong>, not props</li>
+</ul>
+</section>
+
+<!-- inspired by graphity: linked lists -->
 <section>
 ![](/images/qcon-sf-2012/thingdom-graph5.jpg)
 </section>
 
-<section>
-# Summary
+<section class="learned">
+# What we learned
 
 <ul>
-<li class="fragment">Unique, expressive relationship types</li>
-<li class="fragment">First-class objects ==> nodes</li>
-<li class="fragment">Storing history ==> nodes</li>
-<li class="fragment">Cache stats where possible</li>
-<li class="fragment">Prefer nodes over properties</li>
-<li class="fragment">Store linked lists where possible</li>
+<li>Unique, expressive <strong>relationship types</strong></li>
+<li><strong>Cache stats</strong> where possible</li>
+<li>First-class objects ⇒ <strong>nodes</strong>, not rels</li>
+<li>Capture history through <strong>event nodes</strong></li>
+<li>Connected data ⇒ <strong>nodes</strong>, not props</li>
+<li>Maintain <strong>linked lists</strong> for O(1) queries</li>
 </ul>
 </section>
 
