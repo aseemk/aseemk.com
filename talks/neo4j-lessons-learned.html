@@ -148,7 +148,7 @@ Over this talk, I'll share some of the lessons we learned along the way, but I'l
 </aside>
 
 <section>
-[![](/images/graphdb-lessons-learned/fiftythree-hp.png)](http://www.fiftythree.com/)
+[![](/images/neo4j-lessons-learned/fiftythree-hp.png)](http://www.fiftythree.com/)
 </section>
 <aside>
 If you aren't familiar with FiftyThree or Paper, definitely check it out.
@@ -157,7 +157,7 @@ It's worth noting that I can't take any of the credit for Paper's quality or suc
 </aside>
 
 <section>
-[![](/images/graphdb-lessons-learned/thingdom-hp-gasi.png)](http://www.thethingdom.com/)
+[![](/images/neo4j-lessons-learned/thingdom-hp-gasi.png)](http://www.thethingdom.com/)
 </section>
 <aside>
 This was The Thingdom. Check it out, too, to get a sense of what it was.
@@ -166,7 +166,7 @@ I built The Thingdom with my friend and co-founder, [Daniel Gasienica](http://ga
 </aside>
 
 <section>
-[![](/images/graphdb-lessons-learned/zoomit-hp.png)](http://zoom.it/)
+[![](/images/neo4j-lessons-learned/zoomit-hp.png)](http://zoom.it/)
 </section>
 <aside>
 When Daniel and I started building The Thingdom, neither of us had had any significant experience working with relational databases.
@@ -177,7 +177,7 @@ But early on, we realized that a highly partitioned key-value store didn't quite
 </aside>
 
 <section class="small-img-portrait">
-![](/images/graphdb-lessons-learned/calvin-hobbes-ignorance.jpg)
+![](/images/neo4j-lessons-learned/calvin-hobbes-ignorance.jpg)
 </section>
 <aside>
 So we did what (hopefully?) any other ignorant and naive pair of developers would do: we googled it. Surely in the era of Facebook's Graph API, this must be a solved problem.
@@ -188,7 +188,7 @@ Pic from: (unknown, sorry!)
 </aside>
 
 <section>
-![](/images/graphdb-lessons-learned/neo4j-viz.png)
+![](/images/neo4j-lessons-learned/neo4j-viz.png)
 </section>
 <aside>
 There appeared to be a bunch of options, and we settled on what has turned out to be the most mainstream one, Neo4j. We tried it, and we liked it, so we decided to stick with it. And it turned out to be a great choice.
@@ -197,14 +197,14 @@ In fact, I've often said that this decision was probably the *best* technology c
 </aside>
 
 <section>
-![](/images/graphdb-lessons-learned/thingdom-graph1.jpg)
+![](/images/neo4j-lessons-learned/thingdom-graph1.jpg)
 </section>
 <aside>
 It sounds cliche, but we were truly able to translate whiteboard sketches directly to our data model, with no (or minimal) futzing in between. And that meant that we were able to crank out features and iterate rapidly on them. The simple programming model and schemaless structure were key factors here.
 </aside>
 
 <section>
-![](/images/graphdb-lessons-learned/thingdom-recommendations.png)
+![](/images/neo4j-lessons-learned/thingdom-recommendations.png)
 </section>
 <aside>
 For example, we were able to not only show recommendations for people you might like to follow, but also show *why* we were recommending those people to you (e.g. their followers that were also your following) -- all in real-time.
@@ -218,7 +218,7 @@ WHERE TYPE(r1) <> TYPE(r2)
 RETURN TYPE(r1), TYPE(r2), thing
 ```
 
-<img class="fragment" src="/images/graphdb-lessons-learned/thingdom-mutual-things.png" />
+<img class="fragment" src="/images/neo4j-lessons-learned/thingdom-mutual-things.png" />
 </section>
 <aside>
 We were also able to easily implement more advanced features (even if we never got around to implementing the UI/UX for those features -- that was always the hard part and the bottleneck for us), like helping you discovering things you have that another person wants (or vice versa).
@@ -229,7 +229,7 @@ So that was pretty exciting, and potentially even a source of competitive advant
 </aside>
 
 <section class="small-img-landscape">
-![](/images/graphdb-lessons-learned/meme-camera-phone.jpg)
+![](/images/neo4j-lessons-learned/meme-camera-phone.jpg)
 </section>
 <aside>
 But more than anything, this was my favorite technology choice because it simply made us happy and productive. We never dreaded schema upgrades or struggled over table design. Using a graph database was just *fun* -- and you can't underestimate the importance of that when doing a startup.
@@ -238,7 +238,7 @@ Pic from: http://pdnpulse.com/category/fun
 </aside>
 
 <section>
-[![](/images/graphdb-lessons-learned/gasi.jpg)](http://gasi.ch/)
+[![](/images/neo4j-lessons-learned/gasi.jpg)](http://gasi.ch/)
 
 Daniel Gasienica<br/>
 [@gasi](https://twitter.com/gasi)<br/>
@@ -296,13 +296,13 @@ Adjacency lists are optimized for sparse graphs, while adjacency matrices are op
 </aside>
 
 <section id="neo4j-file-format">
-<img class="" src="/images/graphdb-lessons-learned/neo4j-file-diagram1.png" />
-<img class="fragment" src="/images/graphdb-lessons-learned/neo4j-file-diagram2.png" />
-<img class="fragment" src="/images/graphdb-lessons-learned/neo4j-file-diagram3.png" />
-<img class="fragment" src="/images/graphdb-lessons-learned/neo4j-file-diagram4.png" />
-<img class="fragment" src="/images/graphdb-lessons-learned/neo4j-file-diagram5.png" />
-<img class="fragment" src="/images/graphdb-lessons-learned/neo4j-file-diagram6.png" />
-<img class="fragment" src="/images/graphdb-lessons-learned/neo4j-file-format.png" />
+<img class="" src="/images/neo4j-lessons-learned/neo4j-file-diagram1.png" />
+<img class="fragment" src="/images/neo4j-lessons-learned/neo4j-file-diagram2.png" />
+<img class="fragment" src="/images/neo4j-lessons-learned/neo4j-file-diagram3.png" />
+<img class="fragment" src="/images/neo4j-lessons-learned/neo4j-file-diagram4.png" />
+<img class="fragment" src="/images/neo4j-lessons-learned/neo4j-file-diagram5.png" />
+<img class="fragment" src="/images/neo4j-lessons-learned/neo4j-file-diagram6.png" />
+<img class="fragment" src="/images/neo4j-lessons-learned/neo4j-file-format.png" />
 </section>
 <aside>
 And indeed, that's how Neo4j stores its data. It happens to use doubly-linked lists for everything, but the idea is the same: for each node, there's a list of its incoming and outgoing relationships.
@@ -321,7 +321,7 @@ Slides from [Tobias Lindaaker](https://github.com/thobe), Neo4j engineer: http:/
 </aside>
 
 <section class="small-img-landscape">
-![](/images/graphdb-lessons-learned/relational-to-graph.png)
+![](/images/neo4j-lessons-learned/relational-to-graph.png)
 </section>
 <aside>
 Graph data can also be stored in a relational database, of course. Here's how a simple graph might translate between the two. And this is what shows the localized aspect of graph databases so clearly: the relationships between `foo` and `bar` require a lookup in a large single table in the relational representation, but they're stored local to `foo` and `bar` in the graph representation.
@@ -347,7 +347,7 @@ Quotes from Wikipedia: http://en.wikipedia.org/wiki/Graph_database
 </aside>
 
 <section class="small-img-landscape">
-![](/images/graphdb-lessons-learned/meme-joins.jpg)
+![](/images/neo4j-lessons-learned/meme-joins.jpg)
 </section>
 <aside>
 I can't speak to this, but I've also heard that you should consider using a graph database if you find yourself doing multiple or complex JOINs like this. =)
@@ -432,7 +432,7 @@ This is how we used Neo4j.
 </aside>
 
 <section>
-[![](/images/graphdb-lessons-learned/thingdom-node-neo4j.png)](https://github.com/thingdom/node-neo4j)
+[![](/images/neo4j-lessons-learned/thingdom-node-neo4j.png)](https://github.com/thingdom/node-neo4j)
 </section>
 <aside>
 And when we started, there wasn't a formal Neo4j client library for Node.js, so we built and open-sourced our own. Check it out if you're interested. Feedback, pull requests, etc. always welcome.
@@ -516,7 +516,7 @@ We'll do this by going through a few examples of things we ran into when designi
 </aside>
 
 <section>
-![](/images/graphdb-lessons-learned/thingdom-graph1.jpg)
+![](/images/neo4j-lessons-learned/thingdom-graph1.jpg)
 </section>
 <aside>
 Here's the basic social graph for The Thingdom. It's pretty straightforward, but note how the relationship names are unique and expressive -- they tell you how two nodes relate, and they let you easily find one type of node from another.
@@ -538,7 +538,7 @@ And again, the way Neo4j stores data on disk, the relationship type is the only 
 </aside>
 
 <section class="small-img-portrait">
-![](/images/graphdb-lessons-learned/thingdom-people-stats.png)
+![](/images/neo4j-lessons-learned/thingdom-people-stats.png)
 </section>
 <aside>
 Like any social network, we also obviously wanted to show users' stats whenever we showed a list of users. But it obviously wouldn't be performant to fetch all these followers and things for each user everytime. So we cached those numbers as properties on user nodes, e.g. `numFollowers` and `numThings`.
@@ -561,7 +561,7 @@ Avoid expensive traversals and aggregations wherever you can.
 </aside>
 
 <section>
-![](/images/graphdb-lessons-learned/thingdom-graph2.jpg)
+![](/images/neo4j-lessons-learned/thingdom-graph2.jpg)
 </section>
 <aside>
 I showed earlier that our basic graph was that users were connected to things through `has` and `wants` relationships. That worked fine for the present -- this moment in time -- but how does that work over time, when those relationships can change?
@@ -591,7 +591,7 @@ So if that works for your domain too, consider keeping relationships lean in num
 </aside>
 
 <section>
-![](/images/graphdb-lessons-learned/thingdom-graph3.jpg)
+![](/images/neo4j-lessons-learned/thingdom-graph3.jpg)
 </section>
 <aside>
 But we also learned another lesson from that experience: we noticed that these event nodes let us (and our users) do things we couldn't do with the simple `has` and `wants` relationships. Other users could "like" an event node, or comment on it, or be @mentioned by a decsription on it.
@@ -618,7 +618,7 @@ So remember that relationships are limited to connecting just two nodes. If you'
 </aside>
 
 <section>
-![](/images/graphdb-lessons-learned/thingdom-graph4.jpg)
+![](/images/neo4j-lessons-learned/thingdom-graph4.jpg)
 </section>
 <aside>
 We made a similar mistake when it came to curation/categorization. What's pictured here is what we *should* have done: have nodes for categories (and in this case, e.g. brands too), and have thing nodes connected to those category nodes. That would have let us even have a hierarchy of categories/subcategories, like pictured here.
@@ -644,7 +644,7 @@ So again, if something in your data model is important enough to warrant working
 </aside>
 
 <section>
-![](/images/graphdb-lessons-learned/thingdom-graph5.jpg)
+![](/images/neo4j-lessons-learned/thingdom-graph5.jpg)
 </section>
 <aside>
 Finally, maybe the most important lesson we learned was around our activity feed implementation. This was probably the most important lesson because it's not necessarily obvious if you're new to graphs / graph databases, but it's also one of the most fundamental.
@@ -703,7 +703,7 @@ Overall, it's been great to grow with Neo4j and be a part of the community, and 
 </aside>
 
 <section>
-[![](/images/graphdb-lessons-learned/fiftythree-hp.png)](http://www.fiftythree.com/)
+[![](/images/neo4j-lessons-learned/fiftythree-hp.png)](http://www.fiftythree.com/)
 </section>
 <aside>
 Check out FiftyThree and Paper again if you haven't already. We're hiring, too. ;)
