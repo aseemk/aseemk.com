@@ -1,0 +1,42 @@
+<!-- documentation at bottom (to not penalize perf) -->
+<!-- IMPORTANT: if changing the target, do so in the noscript meta too! -->
+
+<noscript>
+    <meta http-equiv="refresh" content="0;URL='/'">
+</noscript>
+
+<a id="link" href="/"></a>
+
+<script>
+    var link = document.getElementById('link');
+    var _gaq = [['_setAccount', 'UA-22174557-1'], ['_trackPageview'], function () {
+        if (link.click) {
+            link.click();
+        } else {
+            location.replace(link.href);
+        }
+    }];
+
+    (function(d, t) {
+        var g = d.createElement(t),
+        s = d.getElementsByTagName(t)[0];
+        g.src = '//www.google-analytics.com/ga.js';
+        s.parentNode.insertBefore(g, s);
+    }(document, 'script'));
+</script>
+
+<!--
+    This is an HTTP redirect implemented via HTML/JS in order to retain the
+    Referer header. (Browsers don't retain it over regular HTTP redirects.)
+
+    Modeled off of studying/reverse-engineering Google Instant's redirects,
+    e.g. http://www.google.com/url?url=[...]. The response is different for
+    IE vs. Chrome/Safari/Firefox; this combines the different implementations.
+
+    We do this after capturing this pageview in Google Analytics though, in
+    order to register the *original* referrer (e.g. Tumblr, Twitter, etc.).
+    Props to http://stackoverflow.com/a/4568101/132978 for the "callback"
+    technique and to GA's async API for making it possible!
+
+    TODO Do we want to show a spinner or similar while this happens?
+-->
