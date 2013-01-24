@@ -57,7 +57,11 @@ function render() {
         maxSlidesHeight / SLIDES_HEIGHT :
         maxSlidesWidth / SLIDES_WIDTH;
 
-    slidesIframe.style.webkitTransform = 'scale(' + slidesScale + ')';
+    var props = ['webkitTransform', 'MozTransform', 'msTransform', 'oTransform', 'transform'];
+    for (var i = 0; i < props.length; i++) {
+        var prop = props[i];
+        slidesIframe.style[prop] = 'scale(' + slidesScale + ')';
+    }
 
     // position the notes (if landscape, this means setting width):
     if (viewportWider) {
@@ -77,6 +81,8 @@ render();
 
 // BEHAVIOR:
 
+var slidesReveal;
+
 // account for both iframe already loaded and not yet loaded cases:
 if (slidesIframe.contentWindow.Reveal) {
     initUpdating();
@@ -87,18 +93,17 @@ if (slidesIframe.contentWindow.Reveal) {
 // when the iframe has loaded, its Reveal object should be present:
 function initUpdating() {
     var iframe = slidesIframe.contentWindow;
-    var reveal = iframe.Reveal;
-    var slide = reveal.getCurrentSlide();
+    var reveal = slidesReveal = iframe.Reveal;
 
     // account for both Reveal ready and not yet ready cases:
-    if (slide) {
-        updateTo(slide);
+    if (reveal.getCurrentSlide()) {
+        update();
     } else {
-        reveal.addEventListener('ready', onRevealEvent);
+        reveal.addEventListener('ready', update);
     }
 
     // but either way, listen for slide change events:
-    reveal.addEventListener('slidechanged', onRevealEvent);
+    reveal.addEventListener('slidechanged', update);
 
     // map our hash to reveal's -- and set reveal's to ours at load time:
     if (location.hash) {
@@ -140,13 +145,8 @@ function initUpdating() {
     });
 }
 
-function onRevealEvent(event) {
-    if (event.currentSlide) {
-        updateTo(event.currentSlide);
-    }
-}
-
-function updateTo(slide) {
+function update() {
+    var slide = slidesReveal.getCurrentSlide();
     var notes = slide.querySelector('aside.notes');
     notesElmt.innerHTML = notes ? notes.innerHTML : '';
 }

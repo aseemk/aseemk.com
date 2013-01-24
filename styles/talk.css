@@ -11,6 +11,10 @@ html, body, #slides, #notes {
     width: 1024px;
     height: 768px;
     -webkit-transform-origin: 0 0;
+    -moz-transform-origin: 0 0;
+    -ms-transform-origin: 0 0;
+    -o-transform-origin: 0 0;
+    transform-origin: 0 0;
 }
 
 #notes {
@@ -18,6 +22,8 @@ html, body, #slides, #notes {
     margin: auto;
     padding: 0.5em 1em;
     -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 body.portrait #slides {
@@ -44,8 +50,6 @@ body {
     color: #444;
     font-family: "Lucida Sans Unicode", "Lucida Grande", "Thonburi", sans-serif;
     font-size: 120%;
-    -ms-text-size-adjust: none;
-    -webkit-text-size-adjust: none;
     line-height: 1.5;
 }
 
