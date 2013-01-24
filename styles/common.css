@@ -230,6 +230,21 @@ p {
 }
 */
 
+/* blog post images: */
+img {
+    max-width: 100%;
+    vertical-align: middle;
+    margin: 0.5em auto;
+}
+
+/* and we'll apply some hover treatment to image links -- but not w/ touch: */
+.no-touch a img {
+    opacity: 0.9;
+}
+.no-touch a:hover img {
+    opacity: 1;
+}
+
 /** For lists, we'll reimplement the numbers/bullets ourselves to get our own
     custom style. CSS counters to the rescue here for numbers! (IE8+) */
 ol, ul {
