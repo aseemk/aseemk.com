@@ -14,8 +14,10 @@ html, body, #slides, #notes {
 }
 
 #notes {
-    -webkit-box-sizing: border-box;
+    max-width: 1024px;  /* same as slides; too long? */
+    margin: auto;
     padding: 0.5em 1em;
+    -webkit-box-sizing: border-box;
 }
 
 body.portrait #slides {
