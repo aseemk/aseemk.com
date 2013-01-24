@@ -140,9 +140,9 @@ section#graph-representations
 Jan 2013<br/>
 </section>
 <aside>
-Hi guys. My name is Aseem Kishore. I'm a developer at a startup here in NYC called FiftyThree. We make an iPad app called Paper.
+Hi guys. My name is [Aseem Kishore](http://aseemk.com/). I'm a developer at a startup here in NYC called [FiftyThree](http://www.fiftythree.com/). We make an iPad app called [Paper](http://www.fiftythree.com/paper).
 
-Before I joined FiftyThree, I built a startup with a friend called The Thingdom, which was a social network around products. Early on in The Thingdom's life, we decided to build on Neo4j, a graph database. And since every choice you make when you're a startup (especially early on) is literally "betting the company", choosing to build on a graph database was definitely a significant one.
+Before I joined FiftyThree, I built a startup with a friend called [The Thingdom](http://www.thethingdom.com/), which was a social network around products. Early on in The Thingdom's life, we decided to build on [Neo4j](http://www.neo4j.org/), a graph database. And since every choice you make when you're a startup (especially early on) is literally "betting the company", choosing to build on a graph database was definitely a significant one.
 
 Over this talk, I'll share some of the lessons we learned along the way, but I'll also cover the basics around graph databases generally and Neo4j specifically.
 </aside>
@@ -151,7 +151,7 @@ Over this talk, I'll share some of the lessons we learned along the way, but I'l
 [![](/images/neo4j-lessons-learned/fiftythree-hp.png)](http://www.fiftythree.com/)
 </section>
 <aside>
-If you aren't familiar with FiftyThree or Paper, definitely check it out.
+If you aren't familiar with [FiftyThree](http://www.fiftythree.com/) or [Paper](http://www.fiftythree.com/paper), definitely check it out.
 
 It's worth noting that I can't take any of the credit for Paper's quality or success. That's all the amazing work of the other folks at FiftyThree. I'm leading the development of our next product, which we haven't announced yet.
 </aside>
@@ -160,7 +160,7 @@ It's worth noting that I can't take any of the credit for Paper's quality or suc
 [![](/images/neo4j-lessons-learned/thingdom-hp-gasi.png)](http://www.thethingdom.com/)
 </section>
 <aside>
-This was The Thingdom. Check it out, too, to get a sense of what it was.
+This was [The Thingdom](http://www.thethingdom.com/). Check it out, too, to get a sense of what it was.
 
 I built The Thingdom with my friend and co-founder, [Daniel Gasienica](http://gasi.ch/). This is him (and his photography gear) pictured here.
 </aside>
@@ -171,9 +171,7 @@ I built The Thingdom with my friend and co-founder, [Daniel Gasienica](http://ga
 <aside>
 When Daniel and I started building The Thingdom, neither of us had had any significant experience working with relational databases.
 
-We had some solid experience using a key-value store: we had built this "bit.ly for high-res images" type of site and service called Zoom.it.
-
-But early on, we realized that a highly partitioned key-value store didn't quite make sense for a social network like we were building with The Thingdom. After all, how do you partition arbitrarily-connected data? We didn't know.
+We had some solid experience using a key-value store: we had built this "bit.ly for high-res images" type of site and service called [Zoom.it](http://zoom.it/). But early on, we realized that a highly partitioned key-value store didn't quite make sense for a social network like we were building with The Thingdom. After all, how do you partition arbitrarily-connected data? We didn't know.
 </aside>
 
 <section class="small-img-portrait">
@@ -183,15 +181,13 @@ But early on, we realized that a highly partitioned key-value store didn't quite
 So we did what (hopefully?) any other ignorant and naive pair of developers would do: we googled it. Surely in the era of Facebook's Graph API, this must be a solved problem.
 
 We expected to just find techniques and best practices explaining how to use either a regular relational db or a key-value store to implement a graph, but we were surprised to hear that there were actually dedicated "graph databases" for this kind of data.
-
-Pic from: (unknown, sorry!)
 </aside>
 
 <section>
-![](/images/neo4j-lessons-learned/neo4j-viz.png)
+[![](/images/neo4j-lessons-learned/neo4j-viz.png)](http://www.neo4j.org/)
 </section>
 <aside>
-There appeared to be a bunch of options, and we settled on what has turned out to be the most mainstream one, Neo4j. We tried it, and we liked it, so we decided to stick with it. And it turned out to be a great choice.
+There appeared to be a bunch of options, and we settled on what has turned out to be the most mainstream one, [Neo4j](http://www.neo4j.org/). We tried it, and we liked it, so we decided to stick with it. And it turned out to be a great choice.
 
 In fact, I've often said that this decision was probably the *best* technology choice we made. Not because of scale or anything like that, but simply because it let us build our *app* and focus on the user experience rather than the format of the data being stored.
 </aside>
@@ -234,7 +230,7 @@ So that was pretty exciting, and potentially even a source of competitive advant
 <aside>
 But more than anything, this was my favorite technology choice because it simply made us happy and productive. We never dreaded schema upgrades or struggled over table design. Using a graph database was just *fun* -- and you can't underestimate the importance of that when doing a startup.
 
-Pic from: http://pdnpulse.com/category/fun
+(Pic from [pdnpulse.com](http://pdnpulse.com/2012/04/sign-of-the-times-has-13k-of-camera-gear-uses-phone-instead-friday-photo-fun.html))
 </aside>
 
 <section>
@@ -244,7 +240,7 @@ Daniel Gasienica<br/>
 [@gasi](https://twitter.com/gasi)<br/>
 </section>
 <aside>
-I should pause at this point and give credit where credit's very much due: it was my co-founder, Daniel Gasienica, who made us go in this direction. I was actually skeptical at first! Thanks Daniel. =)
+I should pause at this point and give credit where credit's very much due: it was my co-founder, [Daniel Gasienica](http://www.gasi.ch/), who made us go in this direction. I was actually skeptical at first! Thanks Daniel. =)
 </aside>
 
 
@@ -268,7 +264,7 @@ relationships as "records" then, kind of like rows in a table.
 
 Graph datbases also generally label relationships -- it's the one "type" or "schema" that graph databases need to know about.
 
-Pic from: http://en.wikipedia.org/wiki/Graph_databases
+(Pic from [Wikipedia](http://en.wikipedia.org/wiki/Graph_databases))
 </aside>
 
 <section id="graph-representations">
@@ -290,7 +286,7 @@ Pic from: http://en.wikipedia.org/wiki/Graph_databases
 There are generally two main ways to represent a graph, and indeed, a graph
 database would probably store the graph (at a high level) in one of these two ways.
 
-An adjacency list representation keeps track of each node's neighbors (which are nodes here, but would probably be relationships to nodes in practice), whereas an adjacency matrix representation tracks whether any given pair of nodes are neighbors (or more precisely again, have one or more relationships connecting them).
+An "adjacency list" representation keeps track of each node's neighbors (which are nodes here, but would probably be relationships to nodes in practice), whereas an "adjacency matrix" representation tracks whether any given pair of nodes are neighbors (or more precisely again, have one or more relationships connecting them).
 
 Adjacency lists are optimized for sparse graphs, while adjacency matrices are optimized for dense graphs. Most graph databases would probably then store an adjacency list, since the density of the graph won't be known in advance.
 </aside>
@@ -315,9 +311,9 @@ This is really useful to know, because it shows you a few properties of Neo4j (a
 
 - It's not great at aggregation. E.g. the nodes or relationships aren't stored in any sorted order, so deriving the 20 most popular users requires a full scan.
 
-- It suffers from the supernode problem. At least currently, a node's neighboring relationships are stored as a flat list, so if you have a million followers, fetching the one person you follow is slow. This could be solved by storing neighbors as a hash table or a B-tree, but there are other trade-offs then, too. We'll come back to this.
+- It suffers from the "supernode problem". At least currently, a node's neighboring relationships are stored as a flat list, so if you have a million followers, fetching even one person you follow is slow. This could be solved by storing neighbors as a hash table or a B-tree, but there are other trade-offs then, too. We'll come back to this.
 
-Slides from [Tobias Lindaaker](https://github.com/thobe), Neo4j engineer: http://www.slideshare.net/thobe/an-overview-of-neo4j-internals
+(Slides from [Tobias Lindaaker](https://github.com/thobe), Neo4j engineer; retrieved from [slideshare.net](http://www.slideshare.net/thobe/an-overview-of-neo4j-internals))
 </aside>
 
 <section class="small-img-landscape">
@@ -326,7 +322,7 @@ Slides from [Tobias Lindaaker](https://github.com/thobe), Neo4j engineer: http:/
 <aside>
 Graph data can also be stored in a relational database, of course. Here's how a simple graph might translate between the two. And this is what shows the localized aspect of graph databases so clearly: the relationships between `foo` and `bar` require a lookup in a large single table in the relational representation, but they're stored local to `foo` and `bar` in the graph representation.
 
-Slide from [Andreas Kollegger](https://twitter.com/akollegger) (I believe), Neo4j engineer; retrieved from: http://systay.github.com/blog/2011/11/06/cypher---a-view-from-a-recovering-sql-dba/
+(Slide from [Andreas Kollegger](https://twitter.com/akollegger) I believe, another Neo4j engineer; retrieved from [systay.github.com](http://systay.github.com/blog/2011/11/06/cypher---a-view-from-a-recovering-sql-dba/))
 </aside>
 
 <section>
@@ -343,7 +339,7 @@ This means that every element contains a <strong>direct pointer</strong> to its 
 <aside>
 And here's where we get to the "formal" definition of a graph database: it's a database that provides *"index-free adjacency"*. Every element contains a direct pointer to its neighbors, not requiring a global index lookup in between. You could also think of these as "local" indices.
 
-Quotes from Wikipedia: http://en.wikipedia.org/wiki/Graph_database
+(Quotes from [Wikipedia](http://en.wikipedia.org/wiki/Graph_database))
 </aside>
 
 <section class="small-img-landscape">
@@ -352,7 +348,7 @@ Quotes from Wikipedia: http://en.wikipedia.org/wiki/Graph_database
 <aside>
 I can't speak to this, but I've also heard that you should consider using a graph database if you find yourself doing multiple or complex JOINs like this. =)
 
-Pic from: http://yobriefca.se/blog/2012/11/02/neo4j-talk-in-november/
+(Pic from [yobriefca.se](http://yobriefca.se/blog/2012/11/02/neo4j-talk-in-november/))
 </aside>
 
 <section>
@@ -435,7 +431,7 @@ This is how we used Neo4j.
 [![](/images/neo4j-lessons-learned/thingdom-node-neo4j.png)](https://github.com/thingdom/node-neo4j)
 </section>
 <aside>
-And when we started, there wasn't a formal Neo4j client library for Node.js, so we built and open-sourced our own. Check it out if you're interested. Feedback, pull requests, etc. always welcome.
+And when we started, there wasn't a formal Neo4j client library for Node.js, so we built and open-sourced our own. Check it out if you're interested: [thingdom/node-neo4j](https://github.com/thingdom/node-neo4j). Feedback, pull requests, etc. always welcome.
 </aside>
 
 <section>
@@ -675,7 +671,7 @@ Hat-tip to [René Pickhardt](http://www.rene-pickhardt.de/) for opening my eyes 
 </ul>
 </section>
 <aside>
-And that's the last major lesson we learned for making the most of a graph database. This approach of storing linked lists is also sometimes referred to as creating secondary, "in-graph" indexes.
+And that's the last major lesson we learned for making the most of a graph database. This approach of storing linked lists is also sometimes referred to as creating secondary "in-graph" indexes.
 </aside>
 
 <section>
@@ -699,14 +695,16 @@ Going forward, we're pretty excited for a few improvements and developments to N
 
 - Graphs aren't trivially partitionable, as I mentioned, but if anyone has the knowledge to figure out how to do it heuristically -- and connect the pieces together -- it should be a graph database. I believe they're already working on this problem, which is pretty cool.
 
-Overall, it's been great to grow with Neo4j and be a part of the community, and I'm still as excited as ever for its future.
+Overall, it's been great to grow with Neo4j and be a part of the community, and we're still as excited as ever for its future.
 </aside>
 
 <section>
 [![](/images/neo4j-lessons-learned/fiftythree-hp.png)](http://www.fiftythree.com/)
 </section>
 <aside>
-Check out FiftyThree and Paper again if you haven't already. We're hiring, too. ;)
+And that's that!
+
+So check out [FiftyThree](http://www.fiftythree.com/) and [Paper](http://www.fiftythree.com/paper) again if you haven't already. We're very much looking forward to shipping what we're building with this tech.
 </aside>
 
 <section>
@@ -722,6 +720,16 @@ Check out FiftyThree and Paper again if you haven't already. We're hiring, too. 
 
 Questions?
 </section>
+<aside>
+And thanks to [Reveal.js](https://github.com/hakimel/reveal.js) by [Hakim El Hattab](http://hakim.se/about) for the excellent platform on which this presentation was created.
+
+If you want to see how I created this slides+notes combo viewer, don't hesitate to view source. ;)
+
+I hope this presentation helped, and I look forward to seeing all the great things you build too!
+
+Cheers,<br/>
+Aseem
+</aside>
 
 
 </div>  <!-- .slides -->
