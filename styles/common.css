@@ -209,6 +209,16 @@ h2 time[pubdate] {
     bottom: -0.75em;
 }
 
+/* and clearfix for the above... XXX duplicated from earlier! */
+h2:after {
+    content: "\0020";
+    display: block;
+    clear: both;
+    overflow: hidden;
+    height: 0;
+    zoom: 1;
+}
+
 /* this is for section headlines within blog posts */
 h3 {
     margin-top: 2em;
