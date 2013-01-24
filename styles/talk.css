@@ -6,10 +6,6 @@ html, body, #slides, #notes {
     padding: 0;
 }
 
-#slides, #notes {
-    position: absolute;
-}
-
 #slides {
     border: 0;
     width: 1024px;
@@ -17,4 +13,61 @@ html, body, #slides, #notes {
     -webkit-transform-origin: 0 0;
 }
 
+#notes {
+    -webkit-box-sizing: border-box;
+    padding: 0.5em 1em;
+}
 
+body.portrait #slides {
+    display: block;
+    margin: auto;
+}
+
+body.landscape #slides {
+    position: fixed;
+    top: 0;     /* TODO would be great to vertically align */
+    left: 0;
+}
+
+body.landscape #notes {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+
+/** THEME **/
+
+body {
+    color: #444;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", "Thonburi", sans-serif;
+    font-size: 120%;
+    -ms-text-size-adjust: none;
+    -webkit-text-size-adjust: none;
+    line-height: 1.5;
+}
+
+a, a:visited {
+    color: #00b;
+    text-decoration: none;
+}
+a:hover, a:active {
+    color: #006;
+    text-decoration: underline;
+}
+
+em {
+    font-style: italic;
+}
+
+strong {
+    font-weight: bold;
+}
+
+noscript p {
+    color: red;
+    font-weight: bold;
+    margin: 1em;
+    text-align: center;
+    text-decoration: underline;
+}

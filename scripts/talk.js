@@ -4,6 +4,7 @@
 
 // ELEMENTS:
 
+var body = document.body;
 var viewport = document.documentElement;
 var slides = document.getElementById('slides');
 var notes = document.getElementById('notes');
@@ -12,7 +13,8 @@ var SLIDES_WIDTH = slides.clientWidth;
 var SLIDES_HEIGHT = slides.clientHeight;
 var SLIDES_RATIO = SLIDES_WIDTH / SLIDES_HEIGHT;
 
-var MIN_NOTES_WIDTH = 200;
+var MIN_NOTES_WIDTH = 400;
+var MIN_NOTES_HEIGHT = 100;
 
 
 // LAYOUT:
@@ -34,9 +36,19 @@ function render() {
     var viewportRatio = viewportWidth / viewportHeight;
     var viewportWider = viewportRatio >= SLIDES_RATIO;
 
+    // update the body's class based on whether we're portrait or landscape:
+    body.className = viewportWider ? 'landscape' : 'portrait';
+
     // what are our constraining width and height?
+    // either way, be sure to leave enough room for the notes.
     var maxSlidesWidth = Math.min(SLIDES_WIDTH, viewportWidth);
+    if (viewportWider) {
+        maxSlidesWidth = Math.min(maxSlidesWidth, viewportWidth - MIN_NOTES_WIDTH);
+    }
     var maxSlidesHeight = Math.min(SLIDES_HEIGHT, viewportHeight);
+    if (!viewportWider) {
+        maxSlidesHeight = Math.min(maxSlidesHeight, viewportHeight - MIN_NOTES_HEIGHT);
+    }
     var maxSlidesRatio = maxSlidesWidth / maxSlidesHeight;
     var maxSlidesWider = maxSlidesRatio >= SLIDES_RATIO;
 
@@ -47,17 +59,16 @@ function render() {
 
     slides.style.webkitTransform = 'scale(' + slidesScale + ')';
 
-    // // case 1: viewport is wider than slides:
-    // if (viewportWider) {
-    //
-    //     // what are our constraining width and height?
-    //     var maxSlidesWidth = Math.min(SLIDES_WIDTH, viewportWidth - MIN_NOTES_WIDTH);
-    //     var maxSlidesHeight = Math.min(SLIDES_HEIGHT, viewportHeight);
-    //
-    // // case 2: viewport is taller than slides:
-    // } else {
-    //
-    // }
+    // position the notes (if landscape, this means setting width):
+    if (viewportWider) {
+        notes.style.marginTop = '';
+        notes.style.width =
+            Math.ceil(viewportWidth - slidesScale * SLIDES_WIDTH) + 'px';
+    } else {
+        notes.style.width = '';
+        notes.style.marginTop =
+            -Math.ceil(SLIDES_HEIGHT - slidesScale * SLIDES_HEIGHT) + 'px';
+    }
 }
 
 window.addEventListener('resize', render);
