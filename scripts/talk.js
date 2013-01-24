@@ -107,6 +107,37 @@ function initUpdating() {
     iframe.addEventListener('hashchange', function () {
         location.hash = iframe.location.hash;
     });
+
+    // also forward (replay) keyboard events to reveal:
+    document.addEventListener('keydown', function (orig) {
+        // XXX simply dispatching the original event to the iframe throws an
+        // exception, so manually recreating it. feels super hackish!
+        // var copy = iframe.document.createEvent(orig.constructor.name);
+        // var props = ['shiftKey', 'altKey', 'ctrlKey', 'metaKey', 'keyCode', 'charCode'];
+        // copy.initEvent(orig.type, orig.bubbles, orig.cancelable);
+        // for (var i = 0; i < props.length; i++) {
+        //     var prop = props[i];
+        //     copy[prop] = orig[prop];
+        // }
+        // iframe.document.body.dispatchEvent(copy);
+
+        // XXX unfortunately, the above doesn't seem to have any effect!
+        // so for now, manually reimplementing just left/right support...
+        if (orig.shiftKey || orig.altKey || orig.ctrlKey || orig.metaKey) {
+            return;
+        }
+
+        var handled = true;
+        switch (orig.keyCode) {
+            case 37: reveal.navigateLeft(); break;
+            case 39: reveal.navigateRight(); break;
+            default: handled = false;
+        }
+
+        if (handled) {
+            orig.preventDefault();     // prevent accidental scrolling
+        }
+    });
 }
 
 function onRevealEvent(event) {
