@@ -86,7 +86,8 @@ if (slidesIframe.contentWindow.Reveal) {
 
 // when the iframe has loaded, its Reveal object should be present:
 function initUpdating() {
-    var reveal = slidesIframe.contentWindow.Reveal;
+    var iframe = slidesIframe.contentWindow;
+    var reveal = iframe.Reveal;
     var slide = reveal.getCurrentSlide();
 
     // account for both Reveal ready and not yet ready cases:
@@ -98,6 +99,14 @@ function initUpdating() {
 
     // but either way, listen for slide change events:
     reveal.addEventListener('slidechanged', onRevealEvent);
+
+    // map our hash to reveal's -- and set reveal's to ours at load time:
+    if (location.hash) {
+        iframe.location.hash = location.hash;
+    }
+    iframe.addEventListener('hashchange', function () {
+        location.hash = iframe.location.hash;
+    });
 }
 
 function onRevealEvent(event) {
