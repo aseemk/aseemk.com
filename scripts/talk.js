@@ -76,6 +76,13 @@ function render() {
 }
 
 window.addEventListener('resize', render);
+
+// XXX FIXME iOS doesn't seem to re-render properly on orientation changes;
+// simply reloading the page for now... (at least we update our hash...)
+window.addEventListener('orientationchange', function () {
+    location.reload();
+});
+
 render();
 
 
