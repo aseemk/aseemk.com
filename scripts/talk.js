@@ -6,11 +6,11 @@
 
 var body = document.body;
 var viewport = document.documentElement;
-var slides = document.getElementById('slides');
-var notes = document.getElementById('notes');
+var slidesIframe = document.getElementById('slides');
+var notesElmt = document.getElementById('notes');
 
-var SLIDES_WIDTH = slides.clientWidth;
-var SLIDES_HEIGHT = slides.clientHeight;
+var SLIDES_WIDTH = slidesIframe.clientWidth;
+var SLIDES_HEIGHT = slidesIframe.clientHeight;
 var SLIDES_RATIO = SLIDES_WIDTH / SLIDES_HEIGHT;
 
 var MIN_NOTES_WIDTH = 400;
@@ -57,19 +57,56 @@ function render() {
         maxSlidesHeight / SLIDES_HEIGHT :
         maxSlidesWidth / SLIDES_WIDTH;
 
-    slides.style.webkitTransform = 'scale(' + slidesScale + ')';
+    slidesIframe.style.webkitTransform = 'scale(' + slidesScale + ')';
 
     // position the notes (if landscape, this means setting width):
     if (viewportWider) {
-        notes.style.marginTop = '';
-        notes.style.width =
+        notesElmt.style.marginTop = '';
+        notesElmt.style.width =
             Math.ceil(viewportWidth - slidesScale * SLIDES_WIDTH) + 'px';
     } else {
-        notes.style.width = '';
-        notes.style.marginTop =
+        notesElmt.style.width = '';
+        notesElmt.style.marginTop =
             -Math.ceil(SLIDES_HEIGHT - slidesScale * SLIDES_HEIGHT) + 'px';
     }
 }
 
 window.addEventListener('resize', render);
 render();
+
+
+// BEHAVIOR:
+
+// account for both iframe already loaded and not yet loaded cases:
+if (slidesIframe.contentWindow.Reveal) {
+    initUpdating();
+} else {
+    slidesIframe.addEventListener('load', initUpdating);
+}
+
+// when the iframe has loaded, its Reveal object should be present:
+function initUpdating() {
+    var reveal = slidesIframe.contentWindow.Reveal;
+    var slide = reveal.getCurrentSlide();
+
+    // account for both Reveal ready and not yet ready cases:
+    if (slide) {
+        updateTo(slide);
+    } else {
+        reveal.addEventListener('ready', onRevealEvent);
+    }
+
+    // but either way, listen for slide change events:
+    reveal.addEventListener('slidechanged', onRevealEvent);
+}
+
+function onRevealEvent(event) {
+    if (event.currentSlide) {
+        updateTo(event.currentSlide);
+    }
+}
+
+function updateTo(slide) {
+    var notes = slide.querySelector('aside.notes');
+    notesElmt.innerHTML = notes ? notes.innerHTML : '';
+}
