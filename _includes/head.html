@@ -45,8 +45,15 @@
 
     {% capture pageDescEsc %}{{ page.description | escape }}{% endcapture %}
     {% capture siteDescEsc %}{{ site.description | escape }}{% endcapture %}
+    {% capture descriptionEsc %}{% if page.description %}{{ pageDescEsc }}{% else %}{{ siteDescEsc }}{% endif %}{% endcapture %}
 
-    <meta name="description" content="{% if page.description %}{{ pageDescEsc }}{% else %}{{ siteDescEsc }}{% endif %}" />
+    <meta name="description" content="{{ descriptionEsc }}" />
+
+    {% capture pageURL %}{{ page.url | remove:'.html' }}{% endcapture %}
+    {% capture pageURLAbs %}{{ site.url }}{{ pageURL }}{% endcapture %}
+    {% capture pageURLAbsEsc %}{{ pageURLAbs | escape }}{% endcapture %}
+
+    <link rel="canonical" href="{{ pageURLAbsEsc }}">
 
     <!-- http://developers.facebook.com/docs/opengraph/ -->
     <!-- TODO is there a better liquid way of "if x then x else y"?
@@ -54,11 +61,13 @@
     {% capture ogTitle %}{% if page.title %}{{ pageTitleEsc }}{% elsif page.section %}{{ pageSectionEsc }}{% else %}{{ siteTitleEsc }}{% endif %}{% endcapture %}
     {% capture ogSiteName %}{% if page.title && page.section %}{{ pageSectionEsc }}
         - {% endif %}{{ siteTitleEsc }}{% endcapture %}
+    <meta property="og:url" content="{{ pageURLAbsEsc }}" />
     <meta property="og:title" content="{{ ogTitle }}" />
     <meta property="og:site_name" content="{{ ogSiteName }}" />
     <meta property="og:type" content="{% if page.og_type %}{{ page.og_type | escape }}{% else %}website{% endif %}" />
-    {% if page.og_image %}
-    <meta property="og:image" content="{{ page.og_image | escape }}" />
+    <meta property="og:description" content="{{ descriptionEsc }}" />
+    {% if page.image %}
+    <meta property="og:image" content="{{ site.url | escape }}{{ page.image | escape }}" />
     {% else %}
     <!-- XXX use my Gravatar as default OpenGraph image if none specified? -->
     <meta property="og:image" content="http://gravatar.com/avatar/5af2930e39246c8339fa7ad8e394e96e?s=200">

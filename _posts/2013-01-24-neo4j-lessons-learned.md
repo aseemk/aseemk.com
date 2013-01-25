@@ -2,6 +2,7 @@
 title: "Neo4j lessons learned"
 categories: tech
 description: "For a long time now, I’ve been meaning to write a nice blog post about The Thingdom’s tech stack. Alas, that still hasn’t happened."
+image: /images/neo4j-lessons-learned.png
 layout: post
 ---
 
