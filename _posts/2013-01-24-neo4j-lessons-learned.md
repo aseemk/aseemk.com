@@ -17,7 +17,7 @@ But, this past November, I had the privilege of giving [a talk][qconsf-talk] at 
 
 I really enjoyed preparing and giving that talk, but I never got around to polishing it up for nonverbal/online sharing.
 
-Last week, though, I had the privilege of giving [this talk again][nygraph-talk], this time to my fellow NYC folks at the [NY Graph Meetup][]. And that's given me motivation enough to polish everything up for sharing.
+Last week, though, I had the privilege of giving [this talk again][nygraph-talk], this time to fellow NYC folks at the [NY Graph Meetup][]. And that's given me motivation enough to polish everything up for sharing.
 
 [nygraph-talk]: http://www.meetup.com/nygraph/events/96132372/
 [NY Graph Meetup]: http://www.meetup.com/nygraph/
