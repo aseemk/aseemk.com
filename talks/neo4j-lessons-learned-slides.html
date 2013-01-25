@@ -621,7 +621,7 @@ We made a similar mistake when it came to curation/categorization. What's pictur
 
 Instead, we took the shortcut of adding a category *property* to our thing nodes. After all, we figured that would still let us query and derive things' categories, and we could even (auto-)index that property.
 
-However, we again ran into limitations as we realized that properties are equally not "first-class" citizens of the graph. But besides the abilities of e.g. users being able to follow/like categories, or comment on them, even the simplest things, like renaming a category, were no hard(er) to do, because the categories were duplicated/fragmented all over the place.
+However, we again ran into limitations as we realized that properties are equally not "first-class" citizens of the graph. But besides the abilities of e.g. users being able to follow/like categories, or comment on them, even the simplest things, like renaming a category, were now hard(er) to do, because the categories were duplicated/fragmented all over the place.
 </aside>
 
 <section class="learned">
@@ -655,7 +655,7 @@ This picture shows what we *should* have done: make use of the most basic graph 
 
 The supernode problem still exists for the first relationship, since the user node has many relationships. The Neo4j team has plans to remove this problem by reworking the file format (e.g. storing a node's relationships as a hash table or B-tree instead of a flat list), but until then, you can simply use a global index: for each user, index the "head" relationship for that user to his/her most recent event node.
 
-Hat-tip to [René Pickhardt](http://www.rene-pickhardt.de/) for opening my eyes to this approach through his work on [Graphity](graphity-an-efficient-graph-model-for-retrieving-the-top-k-news-feeds-for-users-in-social-networks/), a project which applies the same idea to *aggregate* feeds as well.
+Hat-tip to [René Pickhardt](http://www.rene-pickhardt.de/) for opening my eyes to this approach through his work on [Graphity](http://www.rene-pickhardt.de/graphity-an-efficient-graph-model-for-retrieving-the-top-k-news-feeds-for-users-in-social-networks/), a project which applies the same idea to *aggregate* feeds as well.
 </aside>
 
 <section class="learned">
@@ -725,12 +725,14 @@ Questions?
 <aside>
 And thanks to [Reveal.js](https://github.com/hakimel/reveal.js) by [Hakim El Hattab](http://hakim.se/about) for the excellent platform on which this presentation was created.
 
-If you want to see how I created this slides+notes combo viewer, don't hesitate to view source. ;)
+If you want to see how I created this slides+notes [combo viewer](https://github.com/hakimel/reveal.js/issues/304), don't hesitate to [view source](http://github.com/aseemk/aseemk.com). ;)
 
 I hope this presentation helped, and I look forward to seeing all the great things you build too!
 
 Cheers,<br/>
 Aseem
+
+P.S. Comments/questions/feedback welcome here: [Neo4j lessons learned](/blog/neo4j-lessons-learned). =)
 </aside>
 
 
