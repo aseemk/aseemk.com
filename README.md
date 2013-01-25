@@ -14,10 +14,10 @@ The website is powered entirely by [Jekyll][], which uses [Markdown][] and
 [GitHub Pages]: http://pages.github.com/
 
 Adding to, updating and deploying this site is as easy as changing this source
-and pushing to the `gh-pages` branch. GitHub [Pages help]() provides more
+and pushing to the `gh-pages` branch. [GitHub Pages help][] provides more
 details, including support for custom domains and error pages.
 
-[Pages help]: https://help.github.com/categories/20/articles
+[GitHub Pages help]: https://help.github.com/categories/20/articles
 
 ## Development
 
