@@ -1,4 +1,4 @@
-# reveal.js
+# reveal.js [![Build Status](https://travis-ci.org/hakimel/reveal.js.png?branch=master)](https://travis-ci.org/hakimel/reveal.js)
 
 A framework for easily creating beautiful presentations using HTML. [Check out the live demo](http://lab.hakim.se/reveal-js/).
 
@@ -23,7 +23,7 @@ Markup heirarchy needs to be ``<div class="reveal"> <div class="slides"> <sectio
 
 ```html
 <div class="reveal">
-	<div class="slides"> 
+	<div class="slides">
 		<section>Single Horizontal Slide</section>
 		<section>
 			<section>Vertical Slide 1</section>
@@ -43,12 +43,11 @@ This is based on [data-markdown](https://gist.github.com/1343518) from [Paul Iri
 <section data-markdown>
 	<script type="text/template">
 		## Page title
-		
+
 		A paragraph with some text and a [link](http://hakim.se).
 	</script>
 </section>
 ```
-
 
 ### Configuration
 
@@ -71,8 +70,14 @@ Reveal.initialize({
 	// Enable the slide overview mode
 	overview: true,
 
+	// Vertical centering of slides
+	center: true,
+
 	// Loop the presentation
 	loop: false,
+
+	// Change the presentation direction to be RTL
+	rtl: false,
 
 	// Number of milliseconds between automatically proceeding to the 
 	// next slide, disabled when set to 0, this value can be overwritten
@@ -80,15 +85,17 @@ Reveal.initialize({
 	autoSlide: 0,
 
 	// Enable slide navigation via mouse wheel
-	mouseWheel: true,
+	mouseWheel: false,
 
 	// Apply a 3D roll to links on hover
 	rollingLinks: true,
 
 	// Transition style
-	transition: 'default' // default/cube/page/concave/zoom/linear/none
+	transition: 'default' // default/cube/page/concave/zoom/linear/fade/none
 });
 ```
+
+Note that the new default vertical centering option will break compatibility with slides that were using transitions with backgrounds (`cube` and `page`). To restore the previous behavior, set `center` to `false`.
 
 ### Dependencies
 
@@ -99,15 +106,22 @@ Reveal.initialize({
 	dependencies: [
 		// Cross-browser shim that fully implements classList - https://github.com/eligrey/classList.js/
 		{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+
 		// Interpret Markdown in <section> elements
 		{ src: 'plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
 		{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+
 		// Syntax highlight for <code> elements
 		{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+
 		// Zoom in and out with Alt+click
 		{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+
 		// Speaker notes
-		{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+		{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+
+		// Remote control your reveal.js presentation using a touch device
+		{ src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
 	]
 });
 ```
@@ -125,7 +139,7 @@ The Reveal class provides a minimal JavaScript API for controlling navigation an
 
 ```javascript
 // Navigation
-Reveal.slide( indexh, indexv );
+Reveal.slide( indexh, indexv, indexf );
 Reveal.left();
 Reveal.right();
 Reveal.up();
@@ -169,6 +183,8 @@ Reveal.addEventListener( 'ready', function( event ) {
 
 An 'slidechanged' event is fired each time the slide is changed (regardless of state). The event object holds the index values of the current slide as well as a reference to the previous and current slide HTML nodes.
 
+Some libraries, like MathJax (see [#226](https://github.com/hakimel/reveal.js/issues/226#issuecomment-10261609)), get confused by the transforms and display states of slides. Often times, this can be fixed by calling their update or render function from this callback.
+
 ```javascript
 Reveal.addEventListener( 'slidechanged', function( event ) {
 	// event.previousSlide, event.currentSlide, event.indexh, event.indexv
@@ -183,8 +199,18 @@ It's easy to link between slides. The first example below targets the index of a
 <a href="#/2/2">Link</a>
 <a href="#/some-slide">Link</a>
 ```
-### Fullscreen mode
-Just press »F« on your keyboard to show your presentation in fullscreen mode. Press the »ESC« key to exit fullscreen mode.
+
+You can also add relative navigation links, similar to the built in reveal.js controls, by appending one of the following classes on any element. Note that each element is automatically given an ```enabled``` class when it's a valid navigation route based on the current slide.
+
+```html
+<a href="#" class="navigate-left">
+<a href="#" class="navigate-right">
+<a href="#" class="navigate-up">
+<a href="#" class="navigate-down">
+<a href="#" class="navigate-prev"> <!-- Previous vertical or horizontal slide -->
+<a href="#" class="navigate-next"> <!-- Next vertical or horizontal slide -->
+```
+
 
 ### Fragments
 Fragments are used to highlight individual elements on a slide. Every elmement with the class ```fragment``` will be stepped through before moving on to the next slide. Here's an example: http://lab.hakim.se/reveal-js/#/16
@@ -203,6 +229,16 @@ The default fragment style is to start out invisible and fade in. This style can
 </section>
 ```
 
+Multiple fragments can be applied to the same element sequentially by wrapping it, this will fade in the text on the first step and fade it back out on the second.
+
+```html
+<section>
+	<span class="fragment fade-in">
+		<span class="fragment fade-out">I'll fade in, then out</span>
+	</span>
+</section>
+```
+
 ### Fragment events
 
 When a slide fragment is either shown or hidden reveal.js will dispatch an event.
@@ -215,6 +251,39 @@ Reveal.addEventListener( 'fragmenthidden', function( event ) {
 	// event.fragment = the fragment DOM element
 } );
 ```
+
+### Code syntax higlighting
+
+By default, Reveal is configured with [highlight.js](http://softwaremaniacs.org/soft/highlight/en/) for code syntax highlighting. Below is an example with clojure code that will be syntax highlighted:
+
+```html
+<section>
+	<pre><code>
+(def lazy-fib
+  (concat
+   [0 1]
+   ((fn rfib [a b]
+        (lazy-cons (+ a b) (rfib b (+ a b)))) 0 1)))
+	</code></pre>
+</section>
+```
+
+
+### Overview mode
+
+Press "Esc" key to toggle the overview mode on and off. While you're in this mode, you can still navigate between slides,
+as if you were at 1,000 feet above your presentation. The overview mode comes with a few API hooks:
+
+```javascript
+Reveal.addEventListener( 'overviewshown', function( event ) { /* ... */ } );
+Reveal.addEventListener( 'overviewhidden', function( event ) { /* ... */ } );
+
+// Toggle the overview mode programmatically
+Reveal.toggleOverview();
+```
+
+### Fullscreen mode
+Just press »F« on your keyboard to show your presentation in fullscreen mode. Press the »ESC« key to exit fullscreen mode.
 
 
 ## PDF Export
@@ -252,7 +321,7 @@ By default notes are written using standard HTML, see below, but you can add a `
 
 In some cases it can be desirable to run notes on a separate device from the one you're presenting on. The Node.js-based notes plugin lets you do this using the same note definitions as its client side counterpart. Include the requried scripts by adding the following dependencies:
 
-```
+```javascript
 { src: '/socket.io/socket.io.js', async: true },
 { src: 'plugin/notes-server/client.js', async: true }
 ```
@@ -264,15 +333,42 @@ Then:
 3. Run ```node plugin/notes-server```
 
 
-## Folder Structure
+## Theming
+
+The framework comes with a few different themes included:
+
+- default: Gray background, white text, blue links
+- beige: Beige background, dark text, brown links
+- sky: Blue background, thin white text, blue links
+- night: Black background, thick white text, orange links
+- serif: Cappuccino background, gray text, brown links
+- simple: White background, black text, blue links
+
+Each theme is available as a separate stylesheet. To change theme you will need to replace **default** below with your desired theme name in index.html:
+
+```html
+<link rel="stylesheet" href="css/theme/default.css" id="theme">
+```
+
+If you want to add a theme of your own see the instructions here: [/css/theme/README.md](https://github.com/hakimel/reveal.js/blob/master/css/theme/README.md).
+
+
+## Development Environment
+
+reveal.js is built using the task-based command line build tool [grunt.js](http://gruntjs.com) ([installation instructions](https://github.com/gruntjs/grunt#installing-grunt)). With Node.js and grunt.js installed, you need to start by running ```npm install``` in the reveal.js root. When the dependencies have been installed you should run ```grunt watch``` to start monitoring files for changes.
+
+If you want to customise reveal.js without running grunt.js you can alter the HTML to point to the uncompressed source files (css/reveal.css & js/reveal.js).
+
+### Folder Structure
 - **css/** Core styles without which the project does not function
 - **js/** Like above but for JavaScript
 - **plugin/** Components that have been developed as extensions to reveal.js
 - **lib/** All other third party assets (JavaScript, CSS, fonts)
 
+
 ## License
 
 MIT licensed
 
-Copyright (C) 2011-2012 Hakim El Hattab, http://hakim.se
+Copyright (C) 2011-2013 Hakim El Hattab, http://hakim.se
 
