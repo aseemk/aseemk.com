@@ -137,7 +137,7 @@ It's not all bad, though. In fact, GitHub Pages has some great features that wer
 
 Most useful is that it has simple support for [clean URLs][gh-pages-clean-urls] baked right in: a file at `/foo.html` can also be accessed at `/foo` (no trailing slash), as long as no folder `/foo/` exists. This site takes advantage of that.
 
-[gh-pages-clean-urls]: http://gh-pages-test.aseemk.com/
+[gh-pages-clean-urls]: http://aseemk.github.io/gh-pages-test/
 
 I've also been impressed by the thoroughness and thought that's gone into GitHub Pages. MIME types, HTTP headers, even details like making sure HTML5 cache manifest files are never cached --- good stuff.
 
