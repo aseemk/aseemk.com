@@ -54,9 +54,10 @@ So using *some* sort of server-side scripting/templating language felt "right", 
 
 I thus settled on using **PHP** with **Apache**: available by default on Mac OS X, always "running", no build/compile step, and despite both their flaws, they're both straightforward and simple to use for a case like this.
 
-Part of the motivation for that was also that my domain, purchased from **GoDaddy**, came with **free PHP hosting**. (I'm not linking to GoDaddy for good reasons --- I fully intend to move off at some point.) I just had to use **FTP** for deploying, which wasn't a big deal as I used **[Coda][]** at the time.
+Part of the motivation for that was also that my domain, purchased from **GoDaddy**, came with **free PHP hosting**. (I'm not linking to GoDaddy for good reasons --- I've happily moved to [Hover][].) I just had to use **FTP** for deploying, which wasn't a big deal as I used **[Coda][]** at the time.
 
 [Coda]: http://panic.com/coda/
+[Hover]: http://www.hover.com/
 
 Unfortunately, Jekyll didn't play completely nicely with PHP, and the result meant a build step (a small one, but a build step nonetheless). Despite that, I went with it, and this Jekyll+PHP mashup worked for a while.
 
@@ -137,7 +138,7 @@ It's not all bad, though. In fact, GitHub Pages has some great features that wer
 
 Most useful is that it has simple support for [clean URLs][gh-pages-clean-urls] baked right in: a file at `/foo.html` can also be accessed at `/foo` (no trailing slash), as long as no folder `/foo/` exists. This site takes advantage of that.
 
-[gh-pages-clean-urls]: http://gh-pages-test.aseemk.com/
+[gh-pages-clean-urls]: http://aseemk.github.io/gh-pages-test/
 
 I've also been impressed by the thoroughness and thought that's gone into GitHub Pages. MIME types, HTTP headers, even details like making sure HTML5 cache manifest files are never cached --- good stuff.
 
