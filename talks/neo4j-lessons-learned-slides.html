@@ -207,6 +207,7 @@ For example, we were able to not only show recommendations for people you might 
 </aside>
 
 <section>
+<script type="text/markdown">
 ```
 START user=node(1), other=node(2)
 MATCH (user) -[r1:has|wants]-> (thing) <-[r2:has|wants]- (other)
@@ -215,6 +216,7 @@ RETURN TYPE(r1), TYPE(r2), thing
 ```
 
 <img class="fragment" src="/images/neo4j-lessons-learned/thingdom-mutual-things.png" />
+</script>
 </section>
 <aside>
 We were also able to easily implement more advanced features (even if we never got around to implementing the UI/UX for those features -- that was always the hard part and the bottleneck for us), like helping you discovering things you have that another person wants (or vice versa).
@@ -254,7 +256,7 @@ I should pause at this point and give credit where credit's very much due: it wa
 </section>
 
 <section class="small-img-landscape">
-![](http://upload.wikimedia.org/wikipedia/commons/3/3a/GraphDatabase_PropertyGraph.png)
+![](/images/neo4j-lessons-learned/GraphDatabase_PropertyGraph.png)
 </section>
 <aside>
 "Graph database" obviously implies that the database stores data in a graph format or that it's optimized for graph operations.
@@ -268,6 +270,7 @@ Graph datbases also generally label relationships -- it's the one "type" or "sch
 </aside>
 
 <section id="graph-representations">
+<script type="text/markdown">
 &nbsp;
 
     # adjacency list:
@@ -281,6 +284,7 @@ Graph datbases also generally label relationships -- it's the one "type" or "sch
     connections[node1][node2] = true
 
 &nbsp;
+</script>
 </section>
 <aside>
 There are generally two main ways to represent a graph, and indeed, a graph
@@ -325,6 +329,15 @@ Graph data can also be stored in a relational database, of course. Here's how a 
 (Slide from [Andreas Kollegger](https://twitter.com/akollegger) I believe, another Neo4j engineer; retrieved from [systay.github.com](http://systay.github.com/blog/2011/11/06/cypher---a-view-from-a-recovering-sql-dba/))
 </aside>
 
+<section class="small-img-landscape">
+![](/images/neo4j-lessons-learned/meme-joins.jpg)
+</section>
+<aside>
+I can't speak to this, but I've also heard that you should consider using a graph database if you find yourself doing multiple or complex JOINs like this. =)
+
+(Pic from [yobriefca.se](http://yobriefca.se/blog/2012/11/02/neo4j-talk-in-november/))
+</aside>
+
 <section>
 <blockquote>
 By definition, a graph database is any storage system that provides <strong>index-free adjacency</strong>.
@@ -340,15 +353,6 @@ This means that every element contains a <strong>direct pointer</strong> to its 
 And here's where we get to the "formal" definition of a graph database: it's a database that provides *"index-free adjacency"*. Every element contains a direct pointer to its neighbors, not requiring a global index lookup in between. You could also think of these as "local" indices.
 
 (Quotes from [Wikipedia](http://en.wikipedia.org/wiki/Graph_database))
-</aside>
-
-<section class="small-img-landscape">
-![](/images/neo4j-lessons-learned/meme-joins.jpg)
-</section>
-<aside>
-I can't speak to this, but I've also heard that you should consider using a graph database if you find yourself doing multiple or complex JOINs like this. =)
-
-(Pic from [yobriefca.se](http://yobriefca.se/blog/2012/11/02/neo4j-talk-in-november/))
 </aside>
 
 <section>
