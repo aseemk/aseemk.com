@@ -4,9 +4,9 @@
     <head>
         <meta charset="utf-8">
 
-        <title>Betting the Company (Literally) on a Graph Database – Talks – Aseem Kishore</title>
+        <title>Graph All The Things! With Node.js and Neo4j – Talks – Aseem Kishore</title>
 
-        <meta name="description" content="The Thingdom was a social network around products, and it was built on Node.js and Neo4j. This talk details why we chose to build on a graph database, how we did it, and what we learned.">
+        <meta name="description" content="Through this talk, I share an intro to graph databases generally and Neo4j specifically, walk through Neo4j usage from Node.js, and share my experiences and lessons learned building a startup on top of both.">
         <meta name="author" content="Aseem Kishore">
 
         <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -30,15 +30,14 @@
 <!-- custom styles for the slides! written in Stylus for convenience. -->
 <style type="text/stylus">
 
-// optimize for 1024x768 presentation:
+// XXX remove unnecessary padding:
 
-div.reveal > div.slides
-    width 90%   // default 80%
-    height 80%  // default 60%
+div.reveal > div.slides > section
+    padding 0
 
 // optimize for big, centered images:
 
-div.reveal > div.slides section img
+div.reveal > div.slides > section img
     margin 0
     border none
     max-width 100%
@@ -46,13 +45,15 @@ div.reveal > div.slides section img
 
 // some general colors (hacky overrides, requires shadows too):
 
-h1 span.positive
+span.positive
     color #8f8
-    text-shadow 0 5px 0 #080
+    h1 &
+        text-shadow 0 5px 0 #080
 
-h1 span.negative
+span.negative
     color #f88
-    text-shadow 0 5px 0 #800
+    h1 &
+        text-shadow 0 5px 0 #800
 
 strong
     color #bbf
@@ -84,13 +85,23 @@ section.small-img-landscape
 // slide-specific overrides:
 
 section#title
+    h1 span
+        font-size 0.75em
+        line-height 1.1
     h3
-        margin 1em 0
+        margin 0.5em 0
 
 section#neo4j-file-format
+    position relative
+    width 100%
+    height 100%
+
     img
         position absolute
-        left 0
+        top 0
+        left 0  // XXX FIXME this should be horizontally centered
+        max-width 100%
+        max-height 100%
 
 section#graph-representations
     pre
@@ -130,21 +141,17 @@ section#graph-representations
 <!-- INTRO -->
 
 <section id="title">
-# <span class="negative">Betting the Company</span>
-## (Literally) on a
-# <span class="positive">Graph Database</span>
-
-### Tips, Tricks, and Lessons Learned
-
-[Aseem Kishore](http://aseemk.com/)<br/>
-Jan 2013<br/>
+# <span class="positive">Graph All The Things!</span>
+<img src="/images/neo4j-with-nodejs/x-all-the-things-template.png">
+### <span class="negative">With Node.js and Neo4j</span>
+#### <a href="http://aseemk.com/" target="_blank">Aseem Kishore</a> / <a href="http://www.meetup.com/nodejs/events/109305232/" target="_blank">Apr 2013</a>
 </section>
 <aside>
 Hi guys. My name is [Aseem Kishore](http://aseemk.com/). I'm a developer at a startup here in NYC called [FiftyThree](http://www.fiftythree.com/). We make an iPad app called [Paper](http://www.fiftythree.com/paper).
 
-Before I joined FiftyThree, I built a startup with a friend called [The Thingdom](http://www.thethingdom.com/), which was a social network around products. Early on in The Thingdom's life, we decided to build on [Neo4j](http://www.neo4j.org/), a graph database. And since every choice you make when you're a startup (especially early on) is literally "betting the company", choosing to build on a graph database was definitely a significant one.
+I'm here to share an intro to graph databases generally and [Neo4j](http://www.neo4j.org/) specifically, walk through Neo4j usage from Node.js, and share my experiences and lessons learned building a startup on top of both!
 
-Over this talk, I'll share some of the lessons we learned along the way, but I'll also cover the basics around graph databases generally and Neo4j specifically.
+(Image from [drupal.org](http://drupal.org/project/all_the_things))
 </aside>
 
 <section>
@@ -160,9 +167,7 @@ It's worth noting that I can't take any of the credit for Paper's quality or suc
 [![](/images/neo4j-lessons-learned/thingdom-hp-gasi.png)](http://www.thethingdom.com/)
 </section>
 <aside>
-This was [The Thingdom](http://www.thethingdom.com/). Check it out, too, to get a sense of what it was.
-
-I built The Thingdom with my friend and co-founder, [Daniel Gasienica](http://gasi.ch/). This is him (and his photography gear) pictured here.
+Before I joined FiftyThree, I built a startup called [The Thingdom](http://www.thethingdom.com/), which was a social network around products. I built this with my friend and co-founder, [Daniel Gasienica](http://gasi.ch/). This is him (and his photography gear) pictured here.
 </aside>
 
 <section>
@@ -436,6 +441,8 @@ This is how we used Neo4j.
 </section>
 <aside>
 And when we started, there wasn't a formal Neo4j client library for Node.js, so we built and open-sourced our own. Check it out if you're interested: [thingdom/node-neo4j](https://github.com/thingdom/node-neo4j). Feedback, pull requests, etc. always welcome.
+
+It was at this point in the presentation that I gave a code walkthrough and demo of a node-neo4j sample app, [aseemk/node-neo4j-template](https://github.com/aseemk/node-neo4j-template), as well as demoed and explained some sample queries on [console.neo4j.org](http://console.neo4j.org/).
 </aside>
 
 <section>
@@ -772,6 +779,16 @@ var sections = document.getElementsByTagName('section');
             Reveal.initialize({
                 history: true,
                 rollingLinks: false,
+
+                // we'd normally like this, it wasn't there when this
+                // presentation was authored, so...
+                center: false,
+
+                // this presentation was authored for 1024x768, but at the
+                // time, Reveal set a max-width of 900, and we set the slides
+                // container to 90%x80%... this is what it somehow came to:
+                width: 900,
+                height: 654,
 
                 // Optional libraries used to extend on reveal.js
                 dependencies: [
