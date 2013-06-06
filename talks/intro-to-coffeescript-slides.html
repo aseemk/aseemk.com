@@ -1,0 +1,1992 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title>You Don't Know Beans About CoffeeScript – Talks – Aseem Kishore</title>
+
+        <meta name="description" content="You've heard of CoffeeScript. But do you really *know* it? This talk surveys the astounding breadth of features that make CoffeeScript rich, expressive, and robust.">
+        <meta name="author" content="Aseem Kishore">
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+        <link rel="stylesheet" href="css/reveal.css">
+        <link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="lib/css/zenburn.css">
+
+        <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+        <script>
+            document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+        </script>
+
+        <!--[if lt IE 9]>
+        <script src="lib/js/html5shiv.js"></script>
+        <![endif]-->
+
+<!-- custom styles for the slides! written in Stylus for convenience. -->
+<style type="text/stylus">
+
+// XXX remove unnecessary padding:
+
+div.reveal > div.slides > section
+    padding 0
+
+// optimize for big, centered images:
+
+div.reveal > div.slides > section img
+    margin 0
+    border none
+    max-width 100%
+    max-height 100%
+
+// some general colors (hacky overrides, requires shadows too):
+
+span.positive
+    color #8f8
+    h1 &
+        text-shadow 0 5px 0 #080
+
+span.negative
+    color #f88
+    h1 &
+        text-shadow 0 5px 0 #800
+
+strong
+    color #bbf
+
+// some general layout tweaks:
+
+pre code
+    padding 0.5em
+
+section.small-img-portrait
+    img
+        height 100%
+
+section.small-img-landscape
+    img
+        width 100%
+
+// XXX explicit specificity needed;
+.reveal section li
+    font-size 1.5em
+    line-height 1em
+    margin 0.5em auto
+
+    // remember to cancel out nested li's, but here we want them even smaller:
+    li
+        font-size 0.5em
+        margin 0.25em auto
+
+// don't stifle code blocks; specificity needed here too
+.reveal code
+    max-height 90%
+
+.lots-of-code code
+    font-size 0.5em
+    line-height 1.5
+
+.side-by-side pre
+    width 48%
+    float right
+    &:first-of-type
+        float left
+
+// to prevent weird breaking in long lines, esp JS:
+.reveal pre
+    white-space pre-wrap
+
+.reveal blockquote
+    width auto
+
+section.long-title h1
+    font-size 3.5em // as opposed to 3.77em
+
+section.longer-title h1
+    font-size 3em
+
+// slide-specific overrides:
+
+section#title
+    .negative
+        font-size 0.8em
+    h2
+        margin-top 0.5em
+    h4
+        margin-top 1.5em
+
+section#coffeescript-logo
+    padding-top: 20%
+
+</style>
+
+<script src="/scripts/stylus.js"></script>
+<script>
+    var styles = document.querySelectorAll('style[type="text/stylus"]');
+    [].slice.call(styles).forEach(function (style) {
+        style.setAttribute('type', 'text/css');
+        stylus(style.innerHTML).render(function (err, str) {
+            if (err) return console.error(err);
+            style.innerHTML = str;
+        });
+    });
+</script>
+
+    </head>
+
+    <body>
+
+<div class="reveal">
+<div class="slides">
+
+<!--
+    all of the sections (slides) below are written in Markdown;
+    we wrap them in proper script tags, etc. at the bottom via script.
+    same for the asides (speaker notes).
+-->
+
+
+<!-- INTRO -->
+
+<section id="title">
+# <span class="negative">You Don't Know Beans</span>
+# <span class="positive">About CoffeeScript</span>
+## (This'll Give You A Taste)
+## &nbsp;
+#### <a href="http://aseemk.com/" target="_blank">Aseem Kishore</a> / <a href="https://qconnewyork.com/node/293" target="_blank">June 2013</a>
+</section>
+<aside>
+Hi guys. My name is [Aseem Kishore](http://aseemk.com/), and I'm here to talk
+about CoffeeScript.
+
+TODO
+</aside>
+
+<section>
+[![](/images/neo4j-lessons-learned/fiftythree-hp.png)](http://www.fiftythree.com/)
+</section>
+<aside>
+I'm a developer at a startup here in NYC called [FiftyThree](http://www.fiftythree.com/). We make an iPad app called [Paper](http://www.fiftythree.com/paper).
+
+TODO
+
+It's worth noting that I can't take any of the credit for Paper's quality or success. That's all the amazing work of the other folks at FiftyThree. I'm leading the development of our next product, which we haven't announced yet.
+</aside>
+
+<section>
+[![](/images/neo4j-lessons-learned/thingdom-hp-gasi.png)](http://www.thethingdom.com/)
+</section>
+<aside>
+Before I joined FiftyThree, I built a startup called [The Thingdom](http://www.thethingdom.com/), which was a social network around products. I built this with my friend and co-founder, [Daniel Gasienica](http://gasi.ch/). This is him (and his photography gear) pictured here.
+</aside>
+
+<section>
+[![](/images/neo4j-lessons-learned/zoomit-hp.png)](http://zoom.it/)
+</section>
+<aside>
+(TODO) we had built this "bit.ly for high-res images" type of site and service called [Zoom.it](http://zoom.it/).
+</aside>
+
+<section id="coffeescript-logo">
+[![](/images/coffeescript-talk/coffeescript-logo.png)](http://coffeescript.org/)
+</section>
+<aside>
+</aside>
+
+<section>
+&nbsp;
+
+```
+class Person
+    constructor: (@name) ->
+
+    toString: ->
+        @name
+
+class Employee extends Person
+    constructor: (name, @department) ->
+        super name
+
+    toString: ->
+        "#{@name} in #{@department}"
+
+alice = new Employee 'Alice Jenkins', 'Engineering'
+bob = new Employee 'Bob Spoth', 'Marketing'
+
+console.log "Our employees are #{alice} and #{bob}."
+```
+</section>
+
+<section class="lots-of-code">
+```
+var Employee, Person, alice, bob,
+  __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+Person = (function() {
+  function Person(name) {
+    this.name = name;
+  }
+
+  Person.prototype.toString = function() {
+    return this.name;
+  };
+
+  return Person;
+
+})();
+
+Employee = (function(_super) {
+  __extends(Employee, _super);
+
+  function Employee(name, department) {
+    this.department = department;
+    Employee.__super__.constructor.call(this, name);
+  }
+
+  Employee.prototype.toString = function() {
+    return "" + this.name + " in " + this.department;
+  };
+
+  return Employee;
+
+})(Person);
+
+alice = new Employee('Alice Jenkins', 'Engineering');
+
+bob = new Employee('Bob Spoth', 'Marketing');
+
+console.log("Our employees are " + alice + " and " + bob + ".");
+```
+</section>
+
+<section>
+# CoffeeScript is...
+
+<ul>
+<li class="fragment">"Just" JavaScript</li>
+<li class="fragment">A strict subset of JS</li>
+<li class="fragment">A <a href="https://twitter.com/jashkenas" target="_blank">@jashkenas</a> production</li>
+<li class="fragment">Open-source, active, stable</li>
+</ul>
+</section>
+<aside>
+- 1:1 w/ JS
+- Jeremy Ashkenas is the author of Backbone and Underscore as well.
+</aside>
+
+<section>
+# CoffeeScript is...
+
+![The 10th most popular language on GitHub!](/images/coffeescript-talk/github-langs-coffeescript.png)
+</section>
+<aside>
+That's more than Objective-C, C#, ActionScript, any other -to-JS lang, Clojure, Go, Groovy, Scala, ...
+</aside>
+
+<!-- TODO slide with logos of companies using it? e.g. Dropbox, GitHub, etc. -->
+
+<section>
+# Why
+
+<ul>
+<li class="fragment">Syntax</li>
+<li class="fragment">Convenience</li>
+<li class="fragment">Productivity</li>
+<li class="fragment">Robustness</li>
+<li class="fragment">ES6</li>
+</ul>
+</section>
+<aside>
+Also, elegance, but that's subjective.
+</aside>
+
+<section>
+# Why Not
+
+<ul>
+<li class="fragment">Syntax</li>
+<li class="fragment">Abstraction</li>
+<li class="fragment">Interop</li>
+<li class="fragment">Compilation</li>
+<li class="fragment">Debugging</li>
+</ul>
+</section>
+
+<section>
+![O RLY?](/images/coffeescript-talk/orly-owl.jpg)
+</section>
+<aside>
+http://www.tumblr.com/tagged/orly%20owl
+</aside>
+
+<section>
+# Mythbusters
+
+<ul>
+<li class="fragment">(Syntax)</li>
+<li class="fragment">1:1 semantics</li>
+<li class="fragment">Same APIs</li>
+<li class="fragment">Many integrations</li>
+<li class="fragment">Source maps</li>
+</ul>
+</section>
+
+
+<!-- SYNTAX -->
+
+<section class="side-by-side">
+# Syntax
+
+&nbsp;
+
+<pre class="fragment"><code class="coffeescript">sum = (a, b) ->
+    a + b
+
+x = 5
+y = 10
+
+alert sum x, y
+</code></pre>
+
+<pre class="fragment"><code class="javascript">var sum, x, y;
+
+sum = function(a, b) {
+  return a + b;
+};
+
+x = 5;
+y = 10;
+
+alert(sum(x, y));
+</code></pre>
+</section>
+<aside>
+</aside>
+
+<section>
+# Syntax
+
+- Significant whitespace
+- Arrows for functions
+- Implicit parentheses
+- Implicit <code>return</code>s
+- No <code>var</code>s
+</section>
+
+<section>
+&nbsp;
+
+![Red pill, blue pill](/images/coffeescript-talk/matrix-red-pill-blue-pill.jpg)
+</section>
+<aside>
+Can def take getting used to. Take your time.
+
+http://ospreydream.blogspot.com/2013/03/the-matrix-blue-pill-or-red-pill.html
+</aside>
+
+<section class="side-by-side">
+# Aside
+
+&nbsp;
+
+<pre><code class="javascript">// Why this?
+
+var sum;
+
+sum = function(a, b) {
+  return a + b;
+};
+</code></pre>
+
+<pre><code class="javascript">// And not this?
+
+function sum(a, b) {
+  return a + b;
+}
+</code></pre>
+</section>
+
+<section>
+# Aside
+
+&nbsp;
+
+<blockquote>Originally every function that could have a sensible name retrieved for it was given one, but IE versions 8 and down have scoping issues where the named function is treated as both a declaration and an expression. See <a href="http://kangax.github.io/nfe/#jscript-memory-management" target="_blank">this</a> for more information.</blockquote>
+
+&nbsp;
+
+— [CoffeeScript FAQ](https://github.com/jashkenas/coffee-script/wiki/FAQ#functions)
+</section>
+
+<section class="small-img-portrait">
+![Robust!](/images/coffeescript-talk/robust-coffee-lounge.jpg)
+</section>
+<aside>
+Pic from http://levonsobsessions.com/2012/09/13/robust-coffee-lounge-chicago-il/
+</aside>
+
+
+<!-- DIFFERENCES -->
+
+<section class="side-by-side">
+# Differences
+
+&nbsp;
+
+<pre class="fragment"><code class="coffeescript">if not found
+    lost()
+
+if father instanceof Asian and
+   grade isnt 'A'
+    disappoint()
+</code></pre>
+
+<pre class="fragment"><code class="javascript">if (!found) {
+  lost();
+}
+
+if (father instanceof Asian && grade !== 'A') {
+  disappoint();
+}
+</code></pre>
+</section>
+<aside>
+Operators: is, isnt, not
+</aside>
+
+<section>
+&nbsp;
+
+![High expectation Asian father meme](/images/coffeescript-talk/asian-dad-meme.jpg)
+</section>
+<aside>
+Pic from http://highexpectationsasianfather.tumblr.com/post/23419996360
+</aside>
+
+<section class="side-by-side">
+# Differences
+
+&nbsp;
+
+<pre class="fragment"><code class="coffeescript">switch grade
+    when 'A', 'B', 'C'
+        pass()
+    when 'D'
+        warn()
+        pass()
+    else
+        fail()
+</code></pre>
+
+<pre class="fragment"><code class="javascript">switch (grade) {
+  case 'A':
+  case 'B':
+  case 'C':
+    pass();
+    break;
+  case 'D':
+    warn();
+    pass();
+    break;
+  default:
+    fail();
+}
+</code></pre>
+</section>
+<aside>
+switch-when
+</aside>
+
+<section class="side-by-side">
+# Differences
+
+&nbsp;
+
+<pre><code class="coffeescript">if elmt in array
+    alert 'found!'
+
+if key of obj
+    alert 'found!'
+</code></pre>
+
+<pre class="fragment"><code class="javascript">var __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
+
+if (__indexOf.call(array, elmt) >= 0) {
+  alert('found!');
+}
+
+if (key in obj) {
+  alert('found!');
+}
+</code></pre>
+</section>
+<aside>
+if-in and if-of
+</aside>
+
+<section class="side-by-side">
+# Differences
+
+&nbsp;
+
+<pre><code class="coffeescript">for elmt in array
+    console.log elmt
+
+for key, val of obj
+    console.log key, val
+</code></pre>
+
+<pre class="fragment"><code class="javascript">var elmt, key, val, _i, _len;
+
+for (_i = 0, _len = array.length; _i < _len; _i++) {
+  elmt = array[_i];
+  console.log(elmt);
+}
+
+for (key in obj) {
+  val = obj[key];
+  console.log(key, val);
+}
+</code></pre>
+</section>
+<aside>
+for-in and for-of
+</aside>
+
+<section>
+![Danger](/images/coffeescript-talk/danger.jpg)
+</section>
+<aside>
+in vs. of
+
+Pic from http://pipsylou.blogspot.com/2012/05/i-see-danger-everywhere.html
+</aside>
+
+
+<!-- CONVENIENCES -->
+
+<section>
+# &nbsp;
+# Let's talk...
+# <span class="positive">Conveniences</span>
+</section>
+<aside>
+</aside>
+
+<section class="side-by-side">
+# Iterate
+
+<pre><code class="coffeescript">for elmt, i in array
+    console.log i, elmt
+
+for own key, val of obj
+    console.log key, val
+</code></pre>
+
+<pre class="fragment"><code class="javascript">var elmt, i, key, val, _i, _len,
+  __hasProp = {}.hasOwnProperty;
+
+for (i = _i = 0, _len = array.length; _i < _len; i = ++_i) {
+  elmt = array[i];
+  console.log(i, elmt);
+}
+
+for (key in obj) {
+  if (!__hasProp.call(obj, key)) continue;
+  val = obj[key];
+  console.log(key, val);
+}
+</code></pre>
+</section>
+<aside>
+</aside>
+
+<section class="side-by-side">
+# Commas Optional
+
+<pre><code class="coffeescript">user =
+    name: 'John Smith'
+    username: 'john'
+
+    ids:
+        facebook: 1234
+        twitter: 5678
+        google: 9012
+
+    emails: [
+        'john@smith.com'
+        'jsmith@acme.com'
+        'john.smith@gmail.com'
+    ]
+</code></pre>
+
+<pre class="fragment"><code class="javascript">var user;
+
+user = {
+  name: 'John Smith',
+  username: 'john',
+  ids: {
+    facebook: 1234,
+    twitter: 5678,
+    google: 9012
+  },
+  emails: ['john@smith.com', 'jsmith@acme.com', 'john.smith@gmail.com']
+};
+</code></pre>
+</section>
+<aside>
+No commas.
+</aside>
+
+<section class="side-by-side">
+# Chain Them 'Rators
+
+<pre><code class="coffeescript">if width <= 320
+    mobilePortrait()
+
+else if 321 <= width <= 480
+    mobileLandscape()
+
+else if 481 <= width <= 768
+    tabletPortrait()
+
+else if 769 <= width <= 1024
+    tabletLandscape()
+
+else
+    desktop()
+</code></pre>
+
+<pre class="fragment"><code class="javascript">if (width <= 320) {
+  mobilePortrait();
+} else if ((321 <= width && width <= 480)) {
+  mobileLandscape();
+} else if ((481 <= width && width <= 768)) {
+  tabletPortrait();
+} else if ((769 <= width && width <= 1024)) {
+  tabletLandscape();
+} else {
+  desktop();
+}
+</code></pre>
+</section>
+<aside>
+chained comparison operators
+</aside>
+
+
+<!-- @ AND => OPERATORS -->
+
+<section class="side-by-side">
+# Where You @
+
+&nbsp;
+
+<pre><code class="coffeescript">$('a').on 'click', ->
+    trackLink @href
+</code></pre>
+
+<pre class="fragment"><code class="javascript">$('a').on('click', function() {
+  return trackLink(this.href);
+});
+</code></pre>
+</section>
+<aside>
+@
+</aside>
+
+<section class="side-by-side">
+# You So Fat
+
+&nbsp;
+
+<pre><code class="coffeescript">$('a').on 'click', (evt) ->
+    trackLink @href
+    evt.preventDefault()
+
+    # suck it, users:
+    setTimeout =>
+        window.open @href
+    , 1
+</code></pre>
+
+<pre class="fragment"><code class="javascript">$('a').on('click', function(evt) {
+  var _this = this;
+
+  trackLink(this.href);
+  evt.preventDefault();
+
+  return setTimeout(function() {
+    return window.open(_this.href);
+  }, 1);
+});
+</code></pre>
+</section>
+<aside>
+=>
+</aside>
+
+
+<!-- DO OPERATOR -->
+
+<section class="side-by-side">
+# Do (Be Do Be Do)
+
+&nbsp;
+
+<pre><code class="coffeescript">do ->
+    willy = 'nilly'
+
+alert typeof willy
+</code></pre>
+
+<pre class="fragment"><code class="javascript">(function() {
+  var willy;
+  return willy = 'nilly';
+})();
+
+alert(typeof willy);
+</code></pre>
+</section>
+<aside>
+do
+</aside>
+
+<section class="side-by-side">
+# Do (Be Do Be Do)
+
+&nbsp;
+
+<pre><code class="coffeescript">results = {}
+
+for url in urls
+    $.get url, (data) ->
+        results[url] = data
+
+# oops, closure problem!
+</code></pre>
+
+<pre class="fragment"><code class="javascript">var results, url, _i, _len;
+
+results = {};
+
+for (_i = 0, _len = urls.length; _i < _len; _i++) {
+  url = urls[_i];
+  $.get(url, function(data) {
+    return results[url] = data;
+  });
+}
+</code></pre>
+</section>
+<aside>
+do for loop closures
+</aside>
+
+<section class="side-by-side">
+# Do (Be Do Be Do)
+
+&nbsp;
+
+<pre><code class="coffeescript">results = {}
+
+for url in urls
+    do (url) ->
+        $.get url, (data) ->
+            results[url] = data
+</code></pre>
+
+<pre class="fragment"><code class="javascript">var results, url, _fn, _i, _len;
+
+results = {};
+
+_fn = function(url) {
+  return $.get(url, function(data) {
+    return results[url] = data;
+  });
+};
+
+for (_i = 0, _len = urls.length; _i < _len; _i++) {
+  url = urls[_i];
+  _fn(url);
+}
+</code></pre>
+</section>
+<aside>
+do for loop closures
+</aside>
+
+<section class="side-by-side">
+# Do (Be Do Be Do)
+
+&nbsp;
+
+<pre><code class="coffeescript">numTimeouts = 0
+
+do (orig=setTimeout) ->
+    setTimeout = (func, ms) ->
+        numTimeouts++
+        orig func, ms
+</code></pre>
+
+<pre class="fragment"><code class="javascript">var numTimeouts;
+
+numTimeouts = 0;
+
+(function(orig) {
+  var setTimeout;
+  return setTimeout = function(func, ms) {
+    numTimeouts++;
+    return orig(func, ms);
+  };
+})(setTimeout);
+</code></pre>
+</section>
+<aside>
+do for wrapping
+</aside>
+
+
+<!-- DESTRUCTURING / RESTRUCTURING -->
+
+<section class="side-by-side long-title">
+# Destructure Me, Bro
+
+&nbsp;
+
+<pre><code class="coffeescript">[x, y] = coords
+
+{count, offset} = opts
+</code></pre>
+
+<pre class="fragment"><code class="javascript">var count, offset, x, y;
+
+x = coords[0], y = coords[1];
+
+count = opts.count, offset = opts.offset;
+</code></pre>
+</section>
+<aside>
+</aside>
+
+<section class="side-by-side long-title">
+# Restructure Me, Bro
+
+&nbsp;
+
+<pre><code class="coffeescript">res.render 'profile', {
+    user
+    photos
+    csrfToken: req._csrf
+}
+</code></pre>
+
+<pre class="fragment"><code class="javascript">res.render('profile', {
+  user: user,
+  photos: photos,
+  csrfToken: req._csrf
+});
+</code></pre>
+</section>
+<aside>
+</aside>
+
+<section class="side-by-side long-title">
+# Both Together
+
+&nbsp;
+
+<pre><code class="coffeescript">lookup = (lat, lng) ->
+    # ...
+    return [city, state]
+
+for {text, geo} in tweets
+    [lat, lng] = geo
+    [city] = lookup lat, lng
+</code></pre>
+
+<pre class="fragment"><code class="javascript">var city, geo, lat, lng, lookup, text, _i, _len, _ref;
+
+lookup = function(lat, lng) {
+  return [city, state];
+};
+
+for (_i = 0, _len = tweets.length; _i < _len; _i++) {
+  _ref = tweets[_i], text = _ref.text, geo = _ref.geo;
+  lat = geo[0], lng = geo[1];
+  city = lookup(lat, lng)[0];
+}
+</code></pre>
+</section>
+<aside>
+</aside>
+
+
+
+<!-- EXISTENTIAL OPERATOR -->
+
+<section class="side-by-side">
+# Existential Crisis
+
+&nbsp;
+
+<pre><code class="coffeescript">if cat?
+    takePicture()
+else
+    buyCat()
+</code></pre>
+
+<pre class="fragment"><code class="javascript">if (typeof cat !== "undefined" && cat !== null) {
+  takePicture();
+} else {
+  buyCat();
+}
+</code></pre>
+</section>
+<aside>
+</aside>
+
+<section class="side-by-side">
+# Existential Crisis
+
+&nbsp;
+
+<pre><code class="coffeescript">setProp = (key, val) ->
+    if val?
+        _props[key] = val
+    else
+        delete _props[key]
+</code></pre>
+
+<pre class="fragment"><code class="javascript">var setProp;
+
+setProp = function(key, val) {
+  if (val != null) {
+    return _props[key] = val;
+  } else {
+    return delete _props[key];
+  }
+};
+</code></pre>
+</section>
+<aside>
+</aside>
+
+<section class="side-by-side">
+# Existential Crisis
+
+&nbsp;
+
+<pre><code class="coffeescript">payToll = (numAxes) ->
+    numAxes = numAxes ? 2
+    return 0.25 * numAxes
+
+payToll()   # 0.50
+payToll 0   # 0
+</code></pre>
+
+<pre class="fragment"><code class="javascript">var payToll;
+
+payToll = function(numAxes) {
+  numAxes = numAxes != null ? numAxes : 2;
+  return 0.25 * numAxes;
+};
+</code></pre>
+</section>
+<aside>
+DANGER: watch out -- this is not the ternary operator
+</aside>
+
+<section class="side-by-side">
+# Existential Crisis
+
+&nbsp;
+
+<pre><code class="coffeescript">payToll = (numAxes) ->
+    numAxes ?= 2
+    return 0.25 * numAxes
+
+payToll()   # 0.50
+payToll 0   # 0
+</code></pre>
+
+<pre class="fragment"><code class="javascript">var payToll;
+
+payToll = function(numAxes) {
+  if (numAxes == null) {
+    numAxes = 2;
+  }
+  return 0.25 * numAxes;
+};
+</code></pre>
+</section>
+<aside>
+</aside>
+
+<section class="side-by-side">
+# When In Greece
+
+&nbsp;
+
+<pre><code class="coffeescript">payToll = (numAxes=2) ->
+    return 0.25 * numAxes
+
+payToll()   # 0.50
+payToll 0   # 0
+</code></pre>
+
+<pre class="fragment"><code class="javascript">var payToll;
+
+payToll = function(numAxes) {
+  if (numAxes == null) {
+    numAxes = 2;
+  }
+  return 0.25 * numAxes;
+};
+</code></pre>
+</section>
+<aside>
+</aside>
+
+<section class="side-by-side">
+# When In Greece
+
+&nbsp;
+
+<pre><code class="coffeescript">fetch = (opts={}) ->
+    {count, offset} = opts
+    count or= 10
+    offset or= 0
+
+    # ...
+</code></pre>
+
+<pre class="fragment"><code class="javascript">var fetch;
+
+fetch = function(opts) {
+  var count, offset;
+  if (opts == null) {
+    opts = {};
+  }
+  count = opts.count, offset = opts.offset;
+  count || (count = 10);
+  offset || (offset = 0);
+};
+</code></pre>
+</section>
+<aside>
+</aside>
+
+<section class="side-by-side">
+# Dry Things Up...
+
+&nbsp;
+
+<pre><code class="coffeescript">if console? and console.log?
+    console.log 'enabled'
+</code></pre>
+
+<pre class="fragment"><code class="javascript">if ((typeof console !== "undefined" && console !== null) && (console.log != null)) {
+  console.log('enabled');
+}
+</code></pre>
+</section>
+<aside>
+</aside>
+
+<section class="side-by-side">
+# Like A Sponge
+
+&nbsp;
+
+<pre><code class="coffeescript">console?.log? 'enabled'
+</code></pre>
+
+<pre class="fragment"><code class="javascript">if (typeof console !== "undefined" && console !== null) {
+  if (typeof console.log === "function") {
+    console.log('enabled');
+  }
+}
+</code></pre>
+</section>
+<aside>
+</aside>
+
+<section class="side-by-side">
+# Like A Sponge
+
+&nbsp;
+
+<pre><code class="coffeescript">sync = (callback) ->
+    # ...
+    callback? results
+</code></pre>
+
+<pre class="fragment"><code class="javascript">var sync;
+
+sync = function(callback) {
+  return typeof callback === "function" ? callback(results) : void 0;
+};
+</code></pre>
+</section>
+<aside>
+</aside>
+
+<section class="side-by-side">
+# Like A Sponge
+
+&nbsp;
+
+<pre><code class="coffeescript">items?[0]
+</code></pre>
+
+<pre class="fragment"><code class="javascript">if (typeof items !== "undefined" && items !== null) {
+  items[0];
+}
+</code></pre>
+</section>
+<aside>
+</aside>
+
+
+<!-- HEREDOC STRINGS, ETC. -->
+
+<section class="side-by-side">
+# Interpol Action
+
+&nbsp;
+
+<pre><code class="coffeescript">"#{name} is #{age} years old."
+</code></pre>
+
+<pre class="fragment"><code class="javascript">"" + name + " is " + age + " years old.";
+</code></pre>
+</section>
+<aside>
+</aside>
+
+<section class="side-by-side">
+# Interpol Action
+
+&nbsp;
+
+<pre><code class="coffeescript">"/api/#{users[0].id}/info"
+</code></pre>
+
+<pre class="fragment"><code class="javascript">"/api/" + users[0].id + "/info"
+</code></pre>
+</section>
+<aside>
+</aside>
+
+<section class="side-by-side">
+# Line 'Em Up
+
+&nbsp;
+
+<pre><code class="coffeescript">$(user).html """
+  &lt;a href="#{user.url}"&gt;
+    &lt;img alt="#{user.name}"
+      src="#{user.avatar}"&gt;
+  &lt;/a&gt;
+"""
+</code></pre>
+
+<pre class="fragment"><code class="javascript">$(user).html("&lt;a href=\"" + user.url + "\"&gt;\n    &lt;img alt=\"" + user.name + "\"\n        src=\"" + user.avatar + "\"&gt;\n&lt;/a&gt;");
+</code></pre>
+</section>
+<aside>
+</aside>
+
+<section class="side-by-side longer-title">
+# Irregular Expressions
+
+&nbsp;
+
+<pre><code class="coffeescript">url.match ///
+    # absolute; SSL optional:
+    https?://
+
+    # simplified domain:
+    [a-zA-Z0-9-.]+
+
+    # simplified path:
+    /.*
+///
+</code></pre>
+
+<pre class="fragment"><code class="javascript">url.match(/https?:\/\/[a-zA-Z0-9-.]+\/.*/);
+</code></pre>
+</section>
+<aside>
+</aside>
+
+
+
+<!-- POWER FEATURES -->
+
+<section>
+# &nbsp;
+
+![Sugar, but looks like cocaine](/images/coffeescript-talk/sugar-cocaine.jpg)
+</section>
+<aside>
+Pic from http://spreadlove.org/how-to-lose-weight/
+</aside>
+
+<section>
+&nbsp;
+
+![Sugar cocaine police incident](/images/coffeescript-talk/sugar-cocaine-incident.jpg)
+</section>
+<aside>
+Pic from http://www.thesmokinggun.com/buster/woman-complains-about-crack-dealer-765412
+</aside>
+
+<section>
+# &nbsp;
+# <span class="positive">More...</span>
+# <span class="negative">Power...</span>
+</section>
+<aside>
+</aside>
+
+
+<!-- EXPRESSIONS -->
+
+<section>
+### &nbsp;
+
+![Everything is an expression](/images/coffeescript-talk/everything-is-an-expression-meme.jpg)
+</section>
+
+<section class="side-by-side">
+# The Ternary Point
+
+&nbsp;
+
+<pre><code class="coffeescript">view =
+    if loggedIn
+        'home'
+    else
+        'landing'
+</code></pre>
+
+<pre class="fragment"><code class="javascript">var view;
+
+view = loggedIn ? 'home' : 'landing';
+</code></pre>
+</section>
+<aside>
+</aside>
+
+<section class="side-by-side">
+# The Ternary Point
+
+&nbsp;
+
+<pre><code class="coffeescript">view = (if loggedIn then 'home' else 'landing')
+</code></pre>
+
+<pre class="fragment"><code class="javascript">var view;
+
+view = loggedIn ? 'home' : 'landing';
+</code></pre>
+</section>
+<aside>
+</aside>
+
+<section class="side-by-side">
+# The 'Ol Switcharoo
+
+<pre><code class="coffeescript">func = switch req.method
+    when 'GET'
+        'show'
+    when 'POST', 'PATCH'
+        'update'
+    when 'PUT'
+        'replace'
+    when 'DELETE'
+        'destroy'
+    else
+        'handle'
+</code></pre>
+
+<pre class="fragment"><code class="javascript">var func;
+
+func = (function() {
+  switch (req.method) {
+    case 'GET':
+      return 'show';
+    case 'POST':
+    case 'PATCH':
+      return 'update';
+    case 'PUT':
+      return 'replace';
+    case 'DELETE':
+      return 'destroy';
+    default:
+      return 'handle';
+  }
+})();
+</code></pre>
+</section>
+<aside>
+</aside>
+
+<section class="side-by-side">
+# Try It Out
+
+&nbsp;
+
+<pre><code class="coffeescript">result =
+    try
+        readFromCache()
+    catch
+        generate()
+</code></pre>
+
+<pre class="fragment"><code class="javascript">var result;
+
+result = (function() {
+  try {
+    return readFromCache();
+  } catch (_error) {
+    return generate();
+  }
+})();
+</code></pre>
+</section>
+<aside>
+</aside>
+
+<section class="side-by-side">
+# Try It Out
+
+&nbsp;
+
+<pre><code class="coffeescript">result = try
+    readFromCache()
+
+result or= generate()
+</code></pre>
+
+<pre class="fragment"><code class="javascript">var result;
+
+result = (function() {
+  try {
+    return readFromCache();
+  } catch (_error) {}
+})();
+
+result || (result = generate());
+</code></pre>
+</section>
+<aside>
+</aside>
+
+<section class="side-by-side">
+# Map It Out
+
+&nbsp;
+
+<pre><code class="coffeescript">names =
+    for user in users
+        user.name
+</code></pre>
+
+<pre class="fragment"><code class="javascript">var names, user;
+
+names = (function() {
+  var _i, _len, _results;
+  _results = [];
+  for (_i = 0, _len = users.length; _i < _len; _i++) {
+    user = users[_i];
+    _results.push(user.name);
+  }
+  return _results;
+})();
+</code></pre>
+</section>
+<aside>
+</aside>
+
+<section class="side-by-side">
+# Instagram It
+
+&nbsp;
+
+<pre><code class="coffeescript">names =
+  for u in users when u.isAdmin
+    u.name
+</code></pre>
+
+<pre class="fragment"><code class="javascript">var names, u;
+
+names = (function() {
+  var _i, _len, _results;
+  _results = [];
+  for (_i = 0, _len = users.length; _i < _len; _i++) {
+    u = users[_i];
+    if (u.isAdmin) {
+      _results.push(u.name);
+    }
+  }
+  return _results;
+})();
+</code></pre>
+</section>
+<aside>
+</aside>
+
+<section class="side-by-side">
+# Comprehend Me?
+
+&nbsp;
+
+<pre><code class="coffeescript">names = (
+  user.name for user in users
+)
+</code></pre>
+
+<pre class="fragment"><code class="javascript">var names, user;
+
+names = (function() {
+  var _i, _len, _results;
+  _results = [];
+  for (_i = 0, _len = users.length; _i < _len; _i++) {
+    user = users[_i];
+    _results.push(user.name);
+  }
+  return _results;
+})();
+</code></pre>
+</section>
+<aside>
+</aside>
+
+<section class="side-by-side">
+# Watch the Order
+
+&nbsp;
+
+<pre><code class="coffeescript">names = u.name for u in users
+
+# ==
+
+for u in users
+    names = u.name
+</code></pre>
+
+<pre class="fragment"><code class="javascript">var names, u, _i, _len;
+
+for (_i = 0, _len = users.length; _i < _len; _i++) {
+  u = users[_i];
+  names = u.name;
+}
+</code></pre>
+</section>
+<aside>
+</aside>
+
+<section class="side-by-side">
+# Reverse Maps
+
+&nbsp;
+
+<pre><code class="coffeescript">map = {}
+map[u.id] = u for u in users
+</code></pre>
+
+<pre class="fragment"><code class="javascript">var map, u, _i, _len;
+
+map = {};
+
+for (_i = 0, _len = users.length; _i < _len; _i++) {
+  u = users[_i];
+  map[u.id] = u;
+}
+</code></pre>
+</section>
+<aside>
+</aside>
+
+
+
+<!-- CLASSES -->
+
+<section>
+# Ready For More?
+
+&nbsp;
+
+<img class="fragment" src="/images/coffeescript-talk/are-you-ready-text.png">
+</section>
+<aside>
+Pic from http://www.lolriot.com/2012/06/28/lol-pics-59-30-images/
+</aside>
+
+<section>
+# &nbsp;
+# <span class="positive">Time To Get</span>
+# <span class="negative">Classy</span>
+</section>
+
+<section>
+# Prototypical
+
+&nbsp;
+
+<pre><code class="javascript">function Person(name) {
+    this.name = name;
+}
+
+Person.prototype.toString = function () {
+    return this.name;
+};
+</code></pre>
+</section>
+<aside>
+</aside>
+
+<section class="side-by-side">
+# A Little Classier
+
+<pre><code class="coffeescript">class Person
+
+    constructor: (@name) ->
+
+    toString: ->
+        @name
+</code></pre>
+
+<pre class="fragment"><code class="javascript">var Person;
+
+Person = (function() {
+  function Person(name) {
+    this.name = name;
+  }
+
+  Person.prototype.toString = function() {
+    return this.name;
+  };
+
+  return Person;
+
+})();
+</code></pre>
+</section>
+<aside>
+</aside>
+
+<section>
+# Prototypical
+
+<pre><code class="javascript">function Person(name) {
+    this.name = name;
+}
+
+Person.prototype.toString = function () {
+    return this.name;
+};
+
+function Employee(name, dept) {
+    Person.call(this, name);
+    this.dept = dept;
+}
+
+Employee.prototype = new Person();
+
+Employee.prototype.toString = function () {
+    return Person.prototype.toString.call(this) +
+        ' (' + this.dept + ')';
+};
+</code></pre>
+</section>
+<aside>
+</aside>
+
+<section class="side-by-side">
+# A Little Classier
+
+<pre><code class="coffeescript">class Person
+
+  constructor: (@name) ->
+
+  toString: ->
+    @name
+
+class Employee extends Person
+
+  constructor: (name, @dept) ->
+    super name
+
+  toString: ->
+    "#{super} (#{@dept})"
+</code></pre>
+
+<pre class="fragment lots-of-code"><code class="javascript">var Employee, Person,
+  __hasProp = {}.hasOwnProperty,
+  __extends = // ...
+
+Person = (function() {
+  function Person(name) {
+    this.name = name;
+  }
+
+  Person.prototype.toString = function() {
+    return this.name;
+  };
+
+  return Person;
+
+})();
+
+Employee = (function(_super) {
+  __extends(Employee, _super);
+
+  function Employee(name, dept) {
+    this.dept = dept;
+    Employee.__super__.constructor.call(this, name);
+  }
+
+  Employee.prototype.toString = function() {
+    return "" + Employee.__super__.toString.apply(this, arguments) + " (" + this.dept + ")";
+  };
+
+  return Employee;
+
+})(Person);
+</code></pre>
+</section>
+<aside>
+</aside>
+
+<section>
+# Extend Yourself
+
+<pre><code class="javascript">var __extends = function(child, parent) {
+
+    for (var key in parent) {
+        if (__hasProp.call(parent, key))
+            child[key] = parent[key];
+    }
+
+    function ctor() {
+        this.constructor = child;
+    }
+
+    ctor.prototype = parent.prototype;
+    child.prototype = new ctor();
+    child.__super__ = parent.prototype;
+
+    return child;
+
+};
+</code></pre>
+</section>
+<aside>
+</aside>
+
+<section class="side-by-side long-title">
+# Statics & Dynamics
+
+<pre><code class="coffeescript">class Model
+  @TYPE: null
+  constructor: (@elmt) ->
+    @type = @constructor.TYPE
+
+class User extends Model
+  @TYPE: 'user'
+
+class Photo extends Model
+  @TYPE: 'photo'
+</code></pre>
+
+<pre class="fragment lots-of-code"><code class="javascript">var // ...
+
+Model = (function() {
+  Model.TYPE = null;
+
+  function Model(elmt) {
+    this.elmt = elmt;
+    this.type = this.constructor.TYPE;
+  }
+
+  return Model;
+
+})();
+
+User = (function(_super) {
+  __extends(User, _super);
+
+  function User() {
+    _ref = User.__super__.constructor.apply(this, arguments);
+    return _ref;
+  }
+
+  User.TYPE = 'user';
+
+  return User;
+
+})(Model);
+
+Photo = // ...
+</code></pre>
+</section>
+<aside>
+</aside>
+
+<section class="side-by-side long-title">
+# Statics & Dynamics
+
+<pre><code class="coffeescript">class Model
+  @TYPE: null
+  constructor: (@elmt) ->
+    @type = @constructor.TYPE
+
+  @all: ->
+    if @TYPE
+      db.lookup 'type', @TYPE
+    else
+      db.all()
+
+class User extends Model
+  @TYPE: 'user'
+
+class Photo extends Model
+  @TYPE: 'photo'
+</code></pre>
+
+<pre class="fragment lots-of-code"><code class="javascript">var // ...
+
+Model = (function() {
+  Model.TYPE = null;
+
+  function Model(elmt) {
+    this.elmt = elmt;
+    this.type = this.constructor.TYPE;
+  }
+
+  Model.all = function() {
+    if (this.TYPE) {
+      return db.lookup('type', this.TYPE);
+    } else {
+      return db.all();
+    }
+  };
+
+  return Model;
+
+})();
+
+User = // ...
+
+Photo = // ...
+</code></pre>
+</section>
+<aside>
+Now `Model.all()` will return all models, but `User.all()` and `Photo.all()` also exist -- and they'll return just users and photos. No need to duplicate those methods. Takes advantage of static members getting copied too.
+
+Techniques like this are very useful in MVC setups, e.g. Backbone models and views.
+</aside>
+
+<section class="side-by-side long-title">
+# Executive Branch
+
+<pre><code class="coffeescript">class Model
+  @_attrs: null
+  @attr = (name, type) ->
+    @_attrs or= {}
+    @_attrs[name] = type
+    @::[name] = null
+
+class User extends Model
+  @attr 'name', String
+  @attr 'age', Number
+
+class Photo extends Model
+  @attr 'caption', String
+</code></pre>
+
+<pre class="fragment lots-of-code"><code class="javascript">var // ...
+
+Model = (function() {
+  function Model() {}
+
+  Model._attrs = null;
+
+  Model.attr = function(name, type) {
+    this._attrs || (this._attrs = {});
+    this._attrs[name] = type;
+    return this.prototype[name] = null;
+  };
+
+  return Model;
+
+})();
+
+User = (function(_super) {
+  __extends(User, _super);
+
+  function User() {
+    _ref = User.__super__.constructor.apply(this, arguments);
+    return _ref;
+  }
+
+  User.attr('name', String);
+
+  User.attr('age', Number);
+
+  return User;
+
+})(Model);
+
+Photo = // ...
+</code></pre>
+</section>
+<aside>
+</aside>
+
+<section class="long-title">
+# Executive Branch
+
+<pre><code class="coffeescript">class Person
+
+  get = (props) =>
+    @::__defineGetter__ name, func for name, func of props
+
+  set = (props) =>
+    @::__defineSetter__ name, func for name, func of props
+
+  get age: -> (Date.now() - @birthdate) / MILLIS_PER_YEAR
+
+  get birthdate: -> @_birthdate
+
+  set birthdate: (val) ->
+    throw new Error 'Birthdates are immutable.'
+
+</code></pre>
+
+<a href="https://gist.github.com/aseemk/2506270" target="_blank">...</a>
+</section>
+<aside>
+</aside>
+
+
+
+<!-- OUTRO -->
+
+<section>
+&nbsp;
+
+![Phew!](/images/coffeescript-talk/phew-businessman.jpg)
+</section>
+<aside>
+Pic from http://www.istockphoto.com/stock-photo-2564471-business-man-says-phew.php
+</aside>
+
+<section>
+[![](/images/coffeescript-talk/coffeescript-hp.png)](http://coffeescript.org/)
+</section>
+<aside>
+</aside>
+
+<section>
+[![](/images/neo4j-lessons-learned/fiftythree-hp.png)](http://www.fiftythree.com/)
+</section>
+<aside>
+And that's that!
+
+So check out [FiftyThree](http://www.fiftythree.com/) and [Paper](http://www.fiftythree.com/paper) again if you haven't already. We're very much looking forward to shipping what we're building with this tech.
+</aside>
+
+<section>
+# Thanks!
+
+&nbsp;
+
+### Twitter: [@aseemk](https://twitter.com/aseemk)
+### GitHub: [@aseemk](https://github.com/aseemk)
+### Email: [aseem@fiftythree.com](mailto:aseem@fiftythree.com)
+
+&nbsp;
+
+Questions?
+</section>
+<aside>
+And thanks to [Reveal.js](https://github.com/hakimel/reveal.js) by [Hakim El Hattab](http://hakim.se/about) for the excellent platform on which this presentation was created.
+
+If you want to see how I created this slides+notes [combo viewer](https://github.com/hakimel/reveal.js/issues/304), don't hesitate to [view source](http://github.com/aseemk/aseemk.com). ;)
+
+I hope this presentation helped, and I look forward to seeing all the great things you build too!
+
+Cheers,<br/>
+Aseem
+
+P.S. Comments/questions/feedback welcome here: [Neo4j lessons learned](/blog/neo4j-lessons-learned). =)
+</aside>
+
+
+</div>  <!-- .slides -->
+</div>  <!-- .reveal -->
+
+<script>
+// add data-markdown attributes to all slides and speaker notes,
+// and insert the speaker notes into the slides, as reveal needs:
+// (important: the reveal documentation says to wrap the markdown in script
+// tags, but this is both unnecessary and error-prone w/ speaker nodes!)
+var sections = document.getElementsByTagName('section');
+[].slice.call(sections).forEach(function (section) {
+    section.setAttribute('data-markdown', 'true');
+
+    // does this slide have speaker notes?
+    var aside = section.nextElementSibling;
+    if (aside && aside.tagName === 'ASIDE') {
+        aside.className = 'notes';
+        aside.setAttribute('data-markdown',  'true');
+        section.appendChild(aside);
+    }
+});
+</script>
+
+        <script src="lib/js/head.min.js"></script>
+        <script src="js/reveal.min.js"></script>
+
+        <script>
+
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                history: true,
+                rollingLinks: false,
+
+                // we'd normally like this, it wasn't there when this
+                // presentation was authored, so...
+                center: false,
+
+                // this presentation was authored for 1024x768, but at the
+                // time, Reveal set a max-width of 900, and we set the slides
+                // container to 90%x80%... this is what it somehow came to:
+                width: 900,
+                height: 654,
+
+                // Optional libraries used to extend on reveal.js
+                dependencies: [
+                    { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    { src: 'plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+                    { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+                ]
+            });
+
+        </script>
+
+    </body>
+</html>
