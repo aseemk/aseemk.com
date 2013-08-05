@@ -1,0 +1,2309 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title>You Don't Know Beans About CoffeeScript – Talks – Aseem Kishore</title>
+
+        <!-- Open all links in a new tab when viewing these slides: -->
+        <base target="_blank">
+
+        <meta name="description" content="You've heard of CoffeeScript. But do you really *know* it? This talk surveys the astounding breadth of features that make CoffeeScript rich, expressive, and robust.">
+        <meta name="author" content="Aseem Kishore">
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+        <link rel="stylesheet" href="css/reveal.css">
+        <link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="lib/css/zenburn.css">
+
+        <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+        <script>
+            document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+        </script>
+
+        <!--[if lt IE 9]>
+        <script src="lib/js/html5shiv.js"></script>
+        <![endif]-->
+
+<!-- custom styles for the slides! written in Stylus for convenience. -->
+<style type="text/stylus">
+
+// XXX remove unnecessary padding:
+
+div.reveal > div.slides > section
+    padding 0
+
+// optimize for big, centered images:
+
+div.reveal > div.slides > section img
+    margin 0
+    border none
+    max-width 100%
+    max-height 100%
+
+// some general colors (hacky overrides, requires shadows too):
+
+span.positive
+    color #8f8
+    h1 &
+        text-shadow 0 5px 0 #080
+
+        // XXX workaround for firefox:
+        font-size 95%
+
+span.negative
+    color #f88
+    h1 &
+        text-shadow 0 5px 0 #800
+
+strong
+    color #bbf
+
+// some general layout tweaks:
+
+pre code
+    padding 0.5em
+
+section.small-img-portrait
+    img
+        height 100%
+
+section.small-img-landscape
+    img
+        width 100%
+
+// XXX explicit specificity needed;
+.reveal section li
+    font-size 1.5em
+    line-height 1em
+    margin 0.5em auto
+
+    // remember to cancel out nested li's, but here we want them even smaller:
+    li
+        font-size 0.5em
+        margin 0.25em auto
+
+// don't stifle code blocks; specificity needed here too
+.reveal code
+    max-height 90%
+
+.lots-of-code code
+    font-size 0.5em
+    line-height 1.5
+
+.side-by-side pre
+    width 48%
+    float right
+    &:first-of-type
+        float left
+
+// to prevent weird breaking in long lines, esp JS:
+.reveal pre
+    white-space pre-wrap
+
+.reveal blockquote
+    width auto
+
+section.long-title h1
+    font-size 3.5em // as opposed to 3.77em
+
+section.longer-title h1
+    font-size 3em
+
+// slide-specific overrides:
+
+section#title
+    .negative
+        font-size 0.8em
+    h2
+        margin-top 0.5em
+    h4
+        margin-top 1.5em
+
+section#coffeescript-logo
+    padding-top: 20%
+
+</style>
+
+<script src="/scripts/stylus.js"></script>
+<script>
+    var styles = document.querySelectorAll('style[type="text/stylus"]');
+    [].slice.call(styles).forEach(function (style) {
+        style.setAttribute('type', 'text/css');
+        stylus(style.innerHTML).render(function (err, str) {
+            if (err) return console.error(err);
+            style.innerHTML = str;
+        });
+    });
+</script>
+
+    </head>
+
+    <body>
+
+<div class="reveal">
+<div class="slides">
+
+<!--
+    all of the sections (slides) below are written in Markdown;
+    we wrap them in proper script tags, etc. at the bottom via script.
+    same for the asides (speaker notes).
+-->
+
+
+<!-- INTRO -->
+
+<section id="title">
+# <span class="negative">You Don't Know Beans</span>
+# <span class="positive">About CoffeeScript</span>
+## (This'll Give You A Taste)
+## &nbsp;
+#### <a href="http://aseemk.com/" target="_blank">Aseem Kishore</a> / <a href="https://qconnewyork.com/node/293" target="_blank">June 2013</a>
+</section>
+<aside>
+Hi guys. My name is [Aseem Kishore](http://aseemk.com/), and I'm here to talk to you about CoffeeScript.
+
+You've heard of CoffeeScript, and you've probably seen some code in it. But do you really *know* it? Unless you've written something substantial in it, I contend that you don't.
+
+Over this talk, I'll survey the astounding breadth of features that make CoffeeScript rich, expressive, and robust.
+</aside>
+
+<section>
+[![](/images/neo4j-lessons-learned/fiftythree-hp.png)](http://www.fiftythree.com/)
+</section>
+<aside>
+A little bit of info on me:
+
+I'm a developer at a startup here in NYC called [FiftyThree](http://www.fiftythree.com/). We make an iPad app called [Paper](http://www.fiftythree.com/paper).
+
+I can't take any of the credit for Paper's quality or success. That's all the amazing work of the other folks at FiftyThree.
+
+I'm helping build our next product, which we haven't announced yet, but which has something to do with the web. And we're writing it entirely in CoffeeScript.
+</aside>
+
+<section>
+[![](/images/neo4j-lessons-learned/thingdom-hp-gasi.png)](http://www.thethingdom.com/)
+</section>
+<aside>
+Before I joined FiftyThree, I co-founded [The Thingdom](http://www.thethingdom.com/), a social network around products. We built this entirely in CoffeeScript, too. (Both the browser front-end and the Node.js backend.)
+</aside>
+
+<section>
+[![](/images/neo4j-lessons-learned/zoomit-hp.png)](http://zoom.it/)
+</section>
+<aside>
+And before that, I worked at [Microsoft Live Labs](http://en.wikipedia.org/wiki/Microsoft_Live_Labs), where I built some HTML5 image streaming/zooming technology ([Seadragon Ajax](https://github.com/aseemk/seadragon-ajax)) and a web service that used it ([Zoom.it](http://zoom.it/)).
+
+CoffeeScript wasn't invented yet, but this is where I cut my teeth on JavaScript. Building an embeddable graphics library for browsers as old as IE6 was no small task. =)
+</aside>
+
+<section id="coffeescript-logo">
+[![](/images/coffeescript-talk/coffeescript-logo.png)](http://coffeescript.org/)
+</section>
+<aside>
+With that, let's get back to the topic at hand.
+</aside>
+
+<section>
+&nbsp;
+
+```
+class Person
+    constructor: (@name) ->
+
+    toString: ->
+        @name
+
+class Employee extends Person
+    constructor: (name, @department) ->
+        super name
+
+    toString: ->
+        "#{@name} in #{@department}"
+
+alice = new Employee 'Alice Jenkins', 'Engineering'
+bob = new Employee 'Bob Spoth', 'Marketing'
+
+console.log "Our employees are #{alice} and #{bob}."
+```
+</section>
+<aside>
+So here's a simple and typical CoffeeScript example you might see...
+</aside>
+
+<section class="lots-of-code">
+```
+var Employee, Person, alice, bob,
+  __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+Person = (function() {
+  function Person(name) {
+    this.name = name;
+  }
+
+  Person.prototype.toString = function() {
+    return this.name;
+  };
+
+  return Person;
+
+})();
+
+Employee = (function(_super) {
+  __extends(Employee, _super);
+
+  function Employee(name, department) {
+    this.department = department;
+    Employee.__super__.constructor.call(this, name);
+  }
+
+  Employee.prototype.toString = function() {
+    return "" + this.name + " in " + this.department;
+  };
+
+  return Employee;
+
+})(Person);
+
+alice = new Employee('Alice Jenkins', 'Engineering');
+
+bob = new Employee('Bob Spoth', 'Marketing');
+
+console.log("Our employees are " + alice + " and " + bob + ".");
+```
+</section>
+<aside>
+...And here's the JavaScript it compiles to. So even though this JS is fairly human-readable and all understandable, it's clearly not the same JS that you would write by hand.
+
+It's good to get that out of the way right away: CoffeeScript's JS isn't always what you'd write by hand. But that's okay: as we'll see, that's often for good reason.
+</aside>
+
+<section>
+# CoffeeScript is...
+
+<ul>
+<li class="fragment">"Just" JavaScript</li>
+<li class="fragment">A strict subset of JS</li>
+<li class="fragment">A <a href="https://twitter.com/jashkenas" target="_blank">@jashkenas</a> production</li>
+<li class="fragment">Open-source, active, stable</li>
+</ul>
+</section>
+<aside>
+Some high-level notes on CoffeeScript:
+
+- Importantly, it's a language explicitly meant for compilation to JS. So everything in CoffeeScript maps to JS. We'll get back to why this is important.
+
+- It also exposes only the ES5 "strict mode" subset (AKA the "good parts") of JavaScript. That means no `with` statement, no loose equality checking, etc.
+
+- Jeremy Ashkenas is also the author of [Backbone](http://backbonejs.org/) and [Underscore](http://underscorejs.org/), of course.
+
+- CoffeeScript is quite mature and stable, yet under regular refinement — exactly the best-of-both-worlds status you want to see in projects you use (especially open-source ones).
+</aside>
+
+<section>
+# CoffeeScript is...
+
+![The 10th most popular language on GitHub!](/images/coffeescript-talk/github-langs-coffeescript.png)
+</section>
+<aside>
+And as of July 2013, it's also the tenth most popular language on GitHub!
+
+That's more than Objective-C, ActionScript, C#, Clojure, Go, Groovy, Scala, ...
+</aside>
+
+<section>
+# Why
+
+<ul>
+<li class="fragment">Syntax</li>
+<li class="fragment">Convenience</li>
+<li class="fragment">Productivity</li>
+<li class="fragment">Robustness</li>
+<li class="fragment">ES6</li>
+</ul>
+</section>
+<aside>
+So why should you use CoffeeScript? Here's a simple list of five potential reasons why.
+
+- First and foremost, syntax. So much visual noise just disappears: no more unnecessary parentheses, braces, or semicolons. The essence of the code emerges.
+
+- Convenience can't be understated...
+
+- ...And the natural extension of that is productivity. CoffeeScript saves you a ton of keystrokes and time.
+
+- And the code it produces is pretty much always better than what you'd write by hand. Don't worry, we'll substantiate all these claims. =)
+
+- But perhaps most powerful is the fact that most of CoffeeScript's features have inspired — often directly — equivalent features in ECMAScript 6. This means progress is coming either way! Experience the benefits today with CoffeeScript. =)
+</aside>
+
+<section>
+# Why Not
+
+<ul>
+<li class="fragment">Syntax</li>
+<li class="fragment">Abstraction</li>
+<li class="fragment">Interop</li>
+<li class="fragment">Compilation</li>
+<li class="fragment">Debugging</li>
+</ul>
+</section>
+<aside>
+Why might you *not* want to use CoffeeScript? Here are five common reasons people tend to say.
+
+- Syntax is on both lists because it's admittedly subjective. I've personally come to love the eliminated visual noise, but I understand you might not.
+
+- You might think it's silly to use any abstraction over JavaScript. Haven't we learned our lesson from GWT and its likes?
+
+- You might worry (as I originally did) that CoffeeScript won't work well with other third-party libraries you use, like jQuery.
+
+- You (rightly) don't want to introduce a compilation step into your workflow. The web is all about save-and-refresh, after all.
+
+- You (also rightly) might worry about debugging. How in the heck are you supposed to debug machine-generated JS outputted by a compiler?
+</aside>
+
+<section>
+![O RLY?](/images/coffeescript-talk/orly-owl.jpg)
+</section>
+<aside>
+But...
+
+(Pic from [tumblr.com](http://www.tumblr.com/tagged/orly%20owl))
+</aside>
+
+<section>
+# Mythbusters
+
+<ul>
+<li class="fragment">(Syntax)</li>
+<li class="fragment">1:1 semantics</li>
+<li class="fragment">Same APIs</li>
+<li class="fragment">Many integrations</li>
+<li class="fragment"><a href="http://www.html5rocks.com/en/tutorials/developertools/sourcemaps/" target="_blank">Source maps</a></li>
+</ul>
+</section>
+<aside>
+...Those are mostly myths.
+
+- Well, syntax might not be a "myth" per se, but I can convey from personal experience: I actively disliked its syntax, too, at first, and had to have it forced down my throat, but after actually *working* with it for a while, I've come to really love it.
+
+- CoffeeScript is entirely 1:1 with JavaScript's semantics. This virtually eliminates leaky abstractions; there's nothing in CoffeeScript that doesn't have a direct equivalent in JavaScript. So don't worry, this isn't another GWT. ;)
+
+- That also means that CoffeeScript-generated JS uses and exposes the same, exact APIs as handwritten JS would. So use jQuery and the like to your heart's content; you have full interoperability.
+
+- For compilation, the good news is that there are a ton of integrations into web server frameworks, browsers, IDEs, and the like, so you shouldn't have to introduce an explicit or manual compile step. I can't remember the last time I needed to explicitly compile CoffeeScript myself.
+
+- Finally, and most exciting, CoffeeScript supports the (relatively new) source maps standard. This means that in modern JS runtimes (Chrome, Firefox, Node.js), you can debug your original CoffeeScript, exactly as you wrote it. That's pretty killer.
+</aside>
+
+
+<!-- SYNTAX -->
+
+<section class="side-by-side">
+# Syntax
+
+&nbsp;
+
+<pre class="fragment"><code class="coffeescript">sum = (a, b) ->
+    a + b
+
+x = 5
+y = 10
+
+alert sum x, y
+</code></pre>
+
+<pre class="fragment"><code class="javascript">var sum, x, y;
+
+sum = function(a, b) {
+  return a + b;
+};
+
+x = 5;
+y = 10;
+
+alert(sum(x, y));
+</code></pre>
+</section>
+<aside>
+Okay, let's get to the meat of the language itself, starting with syntax.
+
+Taking this simple example right from the CoffeeScript.org homepage...
+</aside>
+
+<section>
+# Syntax
+
+- Significant whitespace
+- Arrows for functions
+- Implicit parentheses
+- Implicit <code>return</code>s
+- No <code>var</code>s
+
+</section>
+<aside>
+...We can see a few obvious things.
+
+- Instead of blocks marked by braces, the indentation signals blocks, like Python. No Ruby-like `end` statements either.
+
+- Instead of the verbose `function (args) {...}`, a function is just an arrow sign in CoffeeScript. The parameters precede it, and the body follows it. This mimics the mathematical view of functions too: they take inputs and return outputs.
+
+- You also don't need parentheses for function calls in CoffeeScript, like Ruby. So it reads like English.
+
+- You similarly don't need explicit `return` statements, again like Ruby, and also like Python lambdas. Going by the mathematical view of functions again, functions transform inputs to outputs, so CoffeeScript just returns the last statement of your function. (You can still have an explicit `return` if you want, including to return `undefined`.)
+
+- You don't need to explicitly declare your variables, like Python and Ruby again. CoffeeScript automatically declares variables it hasn't seen yet as local variables in the current scope (and hoists those declarations), and updates variables it has seen before in outer scopes.
+</aside>
+
+<section>
+&nbsp;
+
+![Red pill, blue pill](/images/coffeescript-talk/matrix-red-pill-blue-pill.jpg)
+</section>
+<aside>
+There's no question that if you've been writing JavaScript for a while, this difference in syntax can take some getting used to.
+
+Believe me, though, the red pill is worth it. =)
+
+(And how fitting that the red pill is on the left, like the CoffeeScript code in these slides!)
+
+(Pic from [ospreydream.blogspot.com](http://ospreydream.blogspot.com/2013/03/the-matrix-blue-pill-or-red-pill.html))
+</aside>
+
+<section class="side-by-side">
+# Aside
+
+&nbsp;
+
+<pre><code class="javascript">// Why this?
+
+var sum;
+
+sum = function(a, b) {
+  return a + b;
+};
+</code></pre>
+
+<pre><code class="javascript">// And not this?
+
+function sum(a, b) {
+  return a + b;
+}
+</code></pre>
+</section>
+<aside>
+Some of you may have noticed in the compiled JS from the last example that the `sum` function was named as a variable, rather than declared as a function "expression".
+
+The very first time I saw CoffeeScript, this was the first thing I noticed, and I hated it. I would never write my functions like that. Why does it do that?
+</aside>
+
+<section>
+# Aside
+
+&nbsp;
+
+<blockquote>Originally every function that could have a sensible name retrieved for it was given one, but IE versions 8 and down have scoping issues where the named function is treated as both a declaration and an expression. See <a href="http://kangax.github.io/nfe/#jscript-memory-management" target="_blank">this</a> for more information.</blockquote>
+
+&nbsp;
+
+— [CoffeeScript FAQ](https://github.com/jashkenas/coffee-script/wiki/FAQ#functions)
+</section>
+<aside>
+It turns out there are very good reasons why it does that.
+
+If you follow the link in the quote, you'll find some very deep research that has gone into this. And CoffeeScript has built on that research to generate the most optimal JS for functions that it can, to prevent potential memory leaks in IE8 and below.
+</aside>
+
+<section class="small-img-portrait">
+![Robust!](/images/coffeescript-talk/robust-coffee-lounge.jpg)
+</section>
+<aside>
+And this is a perfect example of CoffeeScript's robustness in action.
+
+CoffeeScript is written and vetted by serious JavaScript experts. You can trust that they know what they're doing.
+
+(Pic from [levonsobsessions.com](http://levonsobsessions.com/2012/09/13/robust-coffee-lounge-chicago-il/))
+</aside>
+
+
+<!-- DIFFERENCES -->
+
+<section class="side-by-side">
+# Differences
+
+&nbsp;
+
+<pre class="fragment"><code class="coffeescript">if not found
+    lost()
+
+if father instanceof Asian and
+   grade isnt 'A'
+    disappoint()
+</code></pre>
+
+<pre class="fragment"><code class="javascript">if (!found) {
+  lost();
+}
+
+if (father instanceof Asian && grade !== 'A') {
+  disappoint();
+}
+</code></pre>
+</section>
+<aside>
+Besides the obvious syntax stuff, CoffeeScript differs from JavaScript in a few ways.
+
+The first is operators. You can write `===`, `!==`, and `!`, but it's more idiomatic in CoffeeScript to use the equivalent `is`, `isnt`, and `not` keywords.
+
+Same with <code>&&</code> and `||`; CoffeeScript provides `and` and `or`.
+
+(You can't write loose `==` and `!=`, since CoffeeScript implements the strict subset of JavaScript, as mentioned.)
+</aside>
+
+<section>
+&nbsp;
+
+![High expectation Asian father meme](/images/coffeescript-talk/asian-dad-meme.jpg)
+</section>
+<aside>
+If you got the joke in the last example, good for you.
+
+I worked at a Burger King in high school. =)
+
+(Pic from [highexpectationsasianfather.tumblr.com](http://highexpectationsasianfather.tumblr.com/post/23419996360))
+</aside>
+
+<section class="side-by-side">
+# Differences
+
+&nbsp;
+
+<pre class="fragment"><code class="coffeescript">switch grade
+    when 'A', 'B', 'C'
+        pass()
+    when 'D'
+        warn()
+        pass()
+    else
+        fail()
+</code></pre>
+
+<pre class="fragment"><code class="javascript">switch (grade) {
+  case 'A':
+  case 'B':
+  case 'C':
+    pass();
+    break;
+  case 'D':
+    warn();
+    pass();
+    break;
+  default:
+    fail();
+}
+</code></pre>
+</section>
+<aside>
+Another difference is the `switch` statement. CoffeeScript uses `when` and `else` for keywords instead of `case` and `default`, and adds `break` statements for you automatically.
+
+This also means you can't have partial `case` fall-throughs, but that's again on purpose, since that's usually a bug and not a best practice.
+</aside>
+
+<section class="side-by-side">
+# Differences
+
+&nbsp;
+
+<pre><code class="coffeescript">if elmt in array
+    alert 'found!'
+
+if key of obj
+    alert 'found!'
+</code></pre>
+
+<pre class="fragment"><code class="javascript">var __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
+
+if (__indexOf.call(array, elmt) >= 0) {
+  alert('found!');
+}
+
+if (key in obj) {
+  alert('found!');
+}
+</code></pre>
+</section>
+<aside>
+The last difference is a big one: CoffeeScript's `in` deals with array elements, *not* object keys like JavaScript's `in`.
+
+CoffeeScript provides `of` for object keys. JavaScript has no simple keyword for array elements, so CoffeeScript compiles to an `indexOf()` lookup (and polyfills it for IE7-).
+</aside>
+
+<section class="side-by-side">
+# Differences
+
+&nbsp;
+
+<pre><code class="coffeescript">for elmt in array
+    console.log elmt
+
+for key, val of obj
+    console.log key, val
+</code></pre>
+
+<pre class="fragment"><code class="javascript">var elmt, key, val, _i, _len;
+
+for (_i = 0, _len = array.length; _i < _len; _i++) {
+  elmt = array[_i];
+  console.log(elmt);
+}
+
+for (key in obj) {
+  val = obj[key];
+  console.log(key, val);
+}
+</code></pre>
+</section>
+<aside>
+This translates to loops as well, which is *extremely* convenient, because looping over an array is so extremely common in JavaScript.
+
+This alone will save you thousands of keystrokes.
+
+At this point, most anti-CoffeeScript-ers will say that ES5 has `forEach`. No doubt, but let's compare:
+
+<pre><code class="javascript">array.forEach(function (elmt) {
+    // ...
+});
+</code></pre>
+
+vs.
+
+<pre><code class="coffeescript">for elmt in array
+    # ...
+</code></pre>
+
+I'll take the latter, personally. =)
+</aside>
+
+<section>
+![Danger](/images/coffeescript-talk/danger.jpg)
+</section>
+<aside>
+As mentioned, this is a very significant difference, because the `in` keyword carries over from JavaScript — but means something different.
+
+This is one of the few things that can trip you up if you're new. It definitely did to me, so watch out for it.
+
+The good news is that you get used to it pretty quickly, and then you understand why it's the case: it's way more intuitive to say something is "in" an array than "of" it, and vice versa for object keys.
+
+(Pic from [pipsylou.blogspot.com](http://pipsylou.blogspot.com/2012/05/i-see-danger-everywhere.html))
+</aside>
+
+
+<!-- CONVENIENCES -->
+
+<section>
+# &nbsp;
+# Let's talk...
+# <span class="positive">Conveniences</span>
+</section>
+<aside>
+</aside>
+
+<section class="side-by-side">
+# Iterate
+
+<pre><code class="coffeescript">for elmt, i in array
+    console.log i, elmt
+
+for own key, val of obj
+    console.log key, val
+</code></pre>
+
+<pre class="fragment"><code class="javascript">var elmt, i, key, val, _i, _len,
+  __hasProp = {}.hasOwnProperty;
+
+for (i = _i = 0, _len = array.length; _i < _len; i = ++_i) {
+  elmt = array[i];
+  console.log(i, elmt);
+}
+
+for (key in obj) {
+  if (!__hasProp.call(obj, key)) continue;
+  val = obj[key];
+  console.log(key, val);
+}
+</code></pre>
+</section>
+<aside>
+As mentioned, looping with `for-in` is a big convenience in CoffeeScript. You can also get the array index if you want.
+
+For object key iteration, a widely-known best practice is to filter your object keys with a `hasOwnProperty()` check, in case the `Object` prototype has been modified. (You don't usually have to worry about this if you're writing your own application code, but you definitely do if you're writing library code.)
+
+CoffeeScript provides an `own` keyword that makes doing that really easy, too.
+
+This is a great example of how CoffeeScript's conveniences can also again help you write more robust code. It's not that adding this check is hard; it's that it's tedious. By making these kinds of things easier, CoffeeScript makes it more likely that you'll write better code.
+</aside>
+
+<section class="side-by-side">
+# Commas Optional
+
+<pre><code class="coffeescript">user =
+    name: 'John Smith'
+    username: 'john'
+
+    ids:
+        facebook: 1234
+        twitter: 5678
+        google: 9012
+
+    emails: [
+        'john@smith.com'
+        'jsmith@acme.com'
+        'john.smith@gmail.com'
+    ]
+</code></pre>
+
+<pre class="fragment"><code class="javascript">var user;
+
+user = {
+  name: 'John Smith',
+  username: 'john',
+  ids: {
+    facebook: 1234,
+    twitter: 5678,
+    google: 9012
+  },
+  emails: ['john@smith.com', 'jsmith@acme.com', 'john.smith@gmail.com']
+};
+</code></pre>
+</section>
+<aside>
+Another convenience is that in array and object declarations, you don't have to write commas if you put things on their own lines.
+
+Forget "trailing commas"; CoffeeScript is all like, "no commas, yo!"
+
+Braces are optional, too, for object declarations. CoffeeScript can "just tell" that you're writing an object.
+</aside>
+
+<section class="side-by-side long-title">
+# Chain Them 'Rators
+
+<pre><code class="coffeescript">if width <= 320
+    mobilePortrait()
+
+else if 321 <= width <= 480
+    mobileLandscape()
+
+else if 481 <= width <= 768
+    tabletPortrait()
+
+else if 769 <= width <= 1024
+    tabletLandscape()
+
+else
+    desktop()
+</code></pre>
+
+<pre class="fragment"><code class="javascript">if (width <= 320) {
+  mobilePortrait();
+} else if ((321 <= width && width <= 480)) {
+  mobileLandscape();
+} else if ((481 <= width && width <= 768)) {
+  tabletPortrait();
+} else if ((769 <= width && width <= 1024)) {
+  tabletLandscape();
+} else {
+  desktop();
+}
+</code></pre>
+</section>
+<aside>
+Chained comparison operators is another nice convenience. Python has these too.
+
+Another example of both saving you keystrokes and eliminating noise, making the code more clear and simple.
+</aside>
+
+
+<!-- @ AND => OPERATORS -->
+
+<section class="side-by-side">
+# Where You @
+
+&nbsp;
+
+<pre><code class="coffeescript">$('a').on 'click', ->
+    trackLink @href
+</code></pre>
+
+<pre class="fragment"><code class="javascript">$('a').on('click', function() {
+  return trackLink(this.href);
+});
+</code></pre>
+</section>
+<aside>
+A big convenience is the `@` symbol (called a `sigil`; comes from Ruby) as a shorthand for `this` and `this` property accesses.
+</aside>
+
+<section class="side-by-side">
+# You So Fat
+
+&nbsp;
+
+<pre><code class="coffeescript">$('a').on 'click', (evt) ->
+    trackLink @href
+    evt.preventDefault()
+
+    # suck it, users:
+    setTimeout =>
+        window.open @href
+    , 1
+</code></pre>
+
+<pre class="fragment"><code class="javascript">$('a').on('click', function(evt) {
+  var _this = this;
+
+  trackLink(this.href);
+  evt.preventDefault();
+
+  return setTimeout(function() {
+    return window.open(_this.href);
+  }, 1);
+});
+</code></pre>
+</section>
+<aside>
+Another one is the "fat arrow" for binding a function to the current value of `this`.
+
+JavaScript'ers typically do this either via ES5's `bind()`, or by `self`/`that`/`_this` variables. CoffeeScript makes it easier.
+
+(It's also smart: it knows when to use one approach vs. the other, e.g. when a closure is readily available vs. when it needs to create one.)
+</aside>
+
+
+<!-- DO OPERATOR -->
+
+<section class="side-by-side">
+# Do (Be Do Be Do)
+
+&nbsp;
+
+<pre><code class="coffeescript">do ->
+    willy = 'nilly'
+
+# alerts 'undefined'
+alert typeof willy
+</code></pre>
+
+<pre class="fragment"><code class="javascript">(function() {
+  var willy;
+  return willy = 'nilly';
+})();
+
+alert(typeof willy);
+</code></pre>
+</section>
+<aside>
+Another solid convenience is the `do` keyword, for invoking a function. When used in conjunction with an arrow sign to define a function, you get the very common [IIFE](http://en.wikipedia.org/wiki/Immediately-invoked_function_expression).
+</aside>
+
+<section class="side-by-side">
+# Do (Be Do Be Do)
+
+&nbsp;
+
+<pre><code class="coffeescript">results = {}
+
+for url in urls
+    $.get url, (data) ->
+        results[url] = data
+
+# oops, closure problem!
+</code></pre>
+
+<pre class="fragment"><code class="javascript">var results, url, _i, _len;
+
+results = {};
+
+for (_i = 0, _len = urls.length; _i < _len; _i++) {
+  url = urls[_i];
+  $.get(url, function(data) {
+    return results[url] = data;
+  });
+}
+</code></pre>
+</section>
+<aside>
+That comes in super handy when you deal with common loop closure bugs.
+
+You all probably recognize this case. You're looping over something, and the body of the loop defines a function, and the function body references a loop variable. Well, if that function is called asynchronously, by the time it runs, the loop variable may have changed.
+</aside>
+
+<section class="side-by-side">
+# Do (Be Do Be Do)
+
+&nbsp;
+
+<pre><code class="coffeescript">results = {}
+
+for url in urls
+    do (url) ->
+        $.get url, (data) ->
+            results[url] = data
+</code></pre>
+
+<pre class="fragment"><code class="javascript">var results, url, _fn, _i, _len;
+
+results = {};
+
+_fn = function(url) {
+  return $.get(url, function(data) {
+    return results[url] = data;
+  });
+};
+
+for (_i = 0, _len = urls.length; _i < _len; _i++) {
+  url = urls[_i];
+  _fn(url);
+}
+</code></pre>
+</section>
+<aside>
+The solution to that is to create a closure to "trap" or "remember" the loop variable — and `do` makes this super easy.
+
+You can pass your loop variable (and anything else) as parameters to the function, and `do` will pass those same parameters, with their current values, in its call.
+</aside>
+
+<section class="side-by-side">
+# Do (Be Do Be Do)
+
+&nbsp;
+
+<pre><code class="coffeescript">numTimeouts = 0
+
+do (orig=setTimeout) ->
+    setTimeout = (func, ms) ->
+        numTimeouts++
+        orig func, ms
+</code></pre>
+
+<pre class="fragment"><code class="javascript">var numTimeouts;
+
+numTimeouts = 0;
+
+(function(orig) {
+  var setTimeout;
+  return setTimeout = function(func, ms) {
+    numTimeouts++;
+    return orig(func, ms);
+  };
+})(setTimeout);
+</code></pre>
+</section>
+<aside>
+`do` also comes in handy for wrapping functions, because for any function parameters you declare, you can also specify what value they should get in the call.
+</aside>
+
+
+<!-- DESTRUCTURING / RESTRUCTURING -->
+
+<section class="side-by-side long-title">
+# Destructure Me, Bro
+
+&nbsp;
+
+<pre><code class="coffeescript">[x, y] = coords
+
+{count, offset} = opts
+</code></pre>
+
+<pre class="fragment"><code class="javascript">var count, offset, x, y;
+
+x = coords[0], y = coords[1];
+
+count = opts.count, offset = opts.offset;
+</code></pre>
+</section>
+<aside>
+Destructuring is another very convenient feature of CoffeeScript, and a good example of something that's also coming in ES6.
+
+It's simply shorthand for extracting properties from objects or elements from arrays, saving you both keystrokes and repetition.
+</aside>
+
+<section class="side-by-side long-title">
+# Restructure Me, Bro
+
+&nbsp;
+
+<pre><code class="coffeescript">res.render 'profile', {
+    user
+    photos
+    csrfToken: req._csrf
+}
+</code></pre>
+
+<pre class="fragment"><code class="javascript">res.render('profile', {
+  user: user,
+  photos: photos,
+  csrfToken: req._csrf
+});
+</code></pre>
+</section>
+<aside>
+And it works the other way too: you can construct objects without specifying the values; the key names will get used as the variable names for those values.
+</aside>
+
+<section class="side-by-side long-title">
+# Both Together
+
+&nbsp;
+
+<pre><code class="coffeescript">lookup = (lat, lng) ->
+    # ...
+    return [city, state]
+
+for {text, geo} in tweets
+    [lat, lng] = geo
+    [city] = lookup lat, lng
+</code></pre>
+
+<pre class="fragment"><code class="javascript">var city, geo, lat, lng, lookup, text, _i, _len, _ref;
+
+lookup = function(lat, lng) {
+  return [city, state];
+};
+
+for (_i = 0, _len = tweets.length; _i < _len; _i++) {
+  _ref = tweets[_i], text = _ref.text, geo = _ref.geo;
+  lat = geo[0], lng = geo[1];
+  city = lookup(lat, lng)[0];
+}
+</code></pre>
+</section>
+<aside>
+Combining destructuring and restructuring gives you a pretty powerful arsenal for writing concise, DRY code.
+
+Here's an example of extracting info from arrays and objects and piecing things together.
+</aside>
+
+
+
+<!-- EXISTENTIAL OPERATOR -->
+
+<section class="side-by-side">
+# Existential Crisis
+
+&nbsp;
+
+<pre><code class="coffeescript">if obj?
+    obj.id = getNextId()
+</code></pre>
+
+<pre class="fragment"><code class="javascript">if (typeof obj !== "undefined" && obj !== null) {
+  obj.id = getNextId();
+}
+</code></pre>
+</section>
+<aside>
+Another convenience feature of CoffeeScript is the exisential operator.
+
+JavaScript uses type coercion when you test something for "truthiness": `undefined`, `null`, `false`, `0`, and `''` all evaluate to falsy. Sometimes, that's what you want. But other times, you specifically want to know if something is non-`null`/`undefined`. That's what the existential operator checks.
+
+And CoffeeScript is smart: it knows here that we're testing a variable we haven't declared ourselves, so it can't reference the variable directly, lest we get a `ReferenceError`. So it checks `typeof` instead.
+</aside>
+
+<section class="side-by-side">
+# Existential Crisis
+
+&nbsp;
+
+<pre><code class="coffeescript">setProp = (key, val) ->
+    if val?
+        _props[key] = val
+    else
+        delete _props[key]
+</code></pre>
+
+<pre class="fragment"><code class="javascript">var setProp;
+
+setProp = function(key, val) {
+  if (val != null) {
+    return _props[key] = val;
+  } else {
+    return delete _props[key];
+  }
+};
+</code></pre>
+</section>
+<aside>
+Here's a typical example of where you might use the existential operator: managing a data model. E.g. we don't want to save `null`/`undefined` values in our key-value store, so we simply delete keys with such values.
+
+And this shows the other way CoffeeScript compiles this: since we're performing this check on a declared variable (a function parameter), it knows it can safely reference the variable directly. (`x != null` catches `undefined`, too, but nothing else.)
+</aside>
+
+<section class="side-by-side">
+# Existential Crisis
+
+&nbsp;
+
+<pre><code class="coffeescript">payToll = (numAxes) ->
+    numAxes = numAxes ? 2
+    return 0.25 * numAxes
+
+payToll()   # 0.50
+payToll 0   # 0
+</code></pre>
+
+<pre class="fragment"><code class="javascript">var payToll;
+
+payToll = function(numAxes) {
+  numAxes = numAxes != null ? numAxes : 2;
+  return 0.25 * numAxes;
+};
+</code></pre>
+</section>
+<aside>
+You can use the existential operator as a binary operator, too, like `or`. That's good for default values where you don't want to override `0`, `false`, or `''`.
+
+But watch out — this looks like JavaScript's ternary operator, but isn't. We'll get to ternary expressions in CoffeeScript further on.
+</aside>
+
+<section class="side-by-side">
+# Existential Crisis
+
+&nbsp;
+
+<pre><code class="coffeescript">payToll = (numAxes) ->
+    numAxes ?= 2
+    return 0.25 * numAxes
+
+payToll()   # 0.50
+payToll 0   # 0
+</code></pre>
+
+<pre class="fragment"><code class="javascript">var payToll;
+
+payToll = function(numAxes) {
+  if (numAxes == null) {
+    numAxes = 2;
+  }
+  return 0.25 * numAxes;
+};
+</code></pre>
+</section>
+<aside>
+And just like how `x += 1` is a convenient shorthand for `x = x + 1`, CoffeeScript lets you write `x ?= 1` as a convenient shorthand for  `x = x ? 1`.
+
+(This in fact works for `and` and `or` in CoffeeScript, too, which is killer. You'll find yourself writing `and=` and `or=` pretty frequently.)
+</aside>
+
+<section class="side-by-side">
+# When In Greece
+
+&nbsp;
+
+<pre><code class="coffeescript">payToll = (numAxes=2) ->
+    return 0.25 * numAxes
+
+payToll()   # 0.50
+payToll 0   # 0
+</code></pre>
+
+<pre class="fragment"><code class="javascript">var payToll;
+
+payToll = function(numAxes) {
+  if (numAxes == null) {
+    numAxes = 2;
+  }
+  return 0.25 * numAxes;
+};
+</code></pre>
+</section>
+<aside>
+And it gets even better: CoffeeScript has a shorthand for this common case of default parameter values. Just include the default value in the function signature. This is just like Python and Ruby.
+</aside>
+
+<section class="side-by-side">
+# When In Greece
+
+&nbsp;
+
+<pre><code class="coffeescript">fetch = (opts={}) ->
+    {count, offset} = opts
+    count or= 10
+    offset or= 0
+
+    # ...
+</code></pre>
+
+<pre class="fragment"><code class="javascript">var fetch;
+
+fetch = function(opts) {
+  var count, offset;
+  if (opts == null) {
+    opts = {};
+  }
+  count = opts.count, offset = opts.offset;
+  count || (count = 10);
+  offset || (offset = 0);
+
+  // ...
+};
+</code></pre>
+</section>
+<aside>
+Here's a pattern I frequently use and love that takes advantage of this feature (and destructuring) for option-based APIs.
+</aside>
+
+<section class="side-by-side">
+# Dry Things Up...
+
+&nbsp;
+
+<pre><code class="coffeescript">if console? and console.log?
+    console.log 'enabled'
+</code></pre>
+
+<pre class="fragment"><code class="javascript">if ((typeof console !== "undefined" && console !== null) && (console.log != null)) {
+  console.log('enabled');
+}
+</code></pre>
+</section>
+<aside>
+Another use case of the existential operator is to check that things exist before you dereference them (i.e. access their properties or methods).
+
+Here's an example you might write if you need to worry about IE7-.
+</aside>
+
+<section class="side-by-side">
+# Like A Sponge
+
+&nbsp;
+
+<pre><code class="coffeescript">console?.log? 'enabled'
+</code></pre>
+
+<pre class="fragment"><code class="javascript">if (typeof console !== "undefined" && console !== null) {
+  if (typeof console.log === "function") {
+    console.log('enabled');
+  }
+}
+</code></pre>
+</section>
+<aside>
+And here too, CoffeeScript has a shorthand for this common case that lets you DRY your code up again!
+
+This feature is called "soaking" — you're soaking all the `null`/`undefined` references up.
+
+And notice how it works for function calls too: CoffeeScript even checks that the property not just exists, but is callable!
+</aside>
+
+<section class="side-by-side">
+# Like A Sponge
+
+&nbsp;
+
+<pre><code class="coffeescript">sync = (callback) ->
+    # ...
+    callback? results
+</code></pre>
+
+<pre class="fragment"><code class="javascript">var sync;
+
+sync = function(callback) {
+  return typeof callback === "function" ? callback(results) : void 0;
+};
+</code></pre>
+</section>
+<aside>
+This works well for callback-based APIs: just one extra character makes your code robust to callers not passing in a callback.
+
+Talk about bang for your buck!
+</aside>
+
+<section class="side-by-side">
+# Like A Sponge
+
+&nbsp;
+
+<pre><code class="coffeescript">items?[0]
+</code></pre>
+
+<pre class="fragment"><code class="javascript">if (typeof items !== "undefined" && items !== null) {
+  items[0];
+}
+</code></pre>
+</section>
+<aside>
+Finally, soaking works with dynamic property lookups too, e.g. array indices.
+</aside>
+
+
+<!-- HEREDOC STRINGS, ETC. -->
+
+<section class="side-by-side">
+# Interpol Action
+
+&nbsp;
+
+<pre><code class="coffeescript">"#{name} is #{age} years old."
+</code></pre>
+
+<pre class="fragment"><code class="javascript">"" + name + " is " + age + " years old."
+</code></pre>
+</section>
+<aside>
+Another hugely convenient CoffeeScript feature is string interpolation. No longer do you have to concatenate strings yourself.
+
+And here's another example of CoffeeScript's robustness: it knows to begin the generated string concatenation with an empty string, since the meaning of the `+` operator depends on the type of the first operand.
+
+You enable interpolation by using double quotes instead of single quotes. This is like most other languages that have interpolation.
+</aside>
+
+<section class="side-by-side">
+# Interpol Action
+
+&nbsp;
+
+<pre><code class="coffeescript">"/api/#{users[0].id}/info"
+</code></pre>
+
+<pre class="fragment"><code class="javascript">"/api/" + users[0].id + "/info"
+</code></pre>
+</section>
+<aside>
+And you can use *any* expression inside the interpolations. You're not restricted to just variable names.
+</aside>
+
+<section class="side-by-side">
+# Line 'Em Up
+
+&nbsp;
+
+<pre><code class="coffeescript">$(user).html """
+  &lt;a href="#{user.url}"&gt;
+    &lt;img alt="#{user.name}"
+      src="#{user.avatar}"&gt;
+  &lt;/a&gt;
+"""
+</code></pre>
+
+<pre class="fragment"><code class="javascript">$(user).html("&lt;a href=\"" + user.url + "\"&gt;\n    &lt;img alt=\"" + user.name + "\"\n        src=\"" + user.avatar + "\"&gt;\n&lt;/a&gt;");
+</code></pre>
+</section>
+<aside>
+CoffeeScript also supports multi-line, indentation-aware, "heredoc" strings. This is extremely convenient for things like HTML, detailed error logs, usage instructions, and more. No more `[...].join('\n')` or similar.
+
+Like normal strings, double quotes enables interpolation while single quotes don't. Unlike normal strings, you can also leave (up to two consecutive) quote characters unescaped within heredoc strings.
+</aside>
+
+<section class="side-by-side longer-title">
+# Irregular Expressions
+
+&nbsp;
+
+<pre><code class="coffeescript">url.match ///
+    # absolute; SSL optional:
+    https?://
+
+    # simplified domain:
+    [a-zA-Z0-9-.]+
+
+    # simplified path:
+    /.*
+///
+</code></pre>
+
+<pre class="fragment"><code class="javascript">url.match(/https?:\/\/[a-zA-Z0-9-.]+\/.*/);
+</code></pre>
+</section>
+<aside>
+CoffeeScript also has a similar feature for regular expressions, which is huge for maintainability if you use any level of non-trivial regular expressions.
+
+"Heregexes" allow arbitrary whitespace and inline comments, both of which get stripped out in the compiled JS. And here, too, no need to escape (up to two consecutive) forward slash characters within heregexes.
+</aside>
+
+
+
+<!-- POWER FEATURES -->
+
+<section>
+# &nbsp;
+
+![Sugar, but looks like cocaine](/images/coffeescript-talk/sugar-cocaine.jpg)
+</section>
+<aside>
+All of what I've just shown you is fantastic, and adds a ton of convenience and productivity, but all of it so far has just been syntactic sugar.
+
+There's been nothing there that significantly changes the expressiveness or power of the language.
+
+(Pic from [spreadlove.org](http://spreadlove.org/how-to-lose-weight/))
+</aside>
+
+<section>
+&nbsp;
+
+![Sugar cocaine police incident](/images/coffeescript-talk/sugar-cocaine-incident.jpg)
+</section>
+<aside>
+Aside: when I was looking for a graphic for "sugar", I came across this hilarious image. Enjoy.
+
+(Pic from [thesmokinggun.com](http://www.thesmokinggun.com/buster/woman-complains-about-crack-dealer-765412))
+</aside>
+
+<section>
+# &nbsp;
+# <span class="positive">More...</span>
+# <span class="negative">Power...</span>
+</section>
+<aside>
+So let's turn up the power!
+</aside>
+
+
+<!-- EXPRESSIONS -->
+
+<section>
+### &nbsp;
+
+![Everything is an expression](/images/coffeescript-talk/everything-is-an-expression-meme.jpg)
+</section>
+<aside>
+I mentioned "expressiveness". With languages, that refers to how easily, clearly, and succintly the language lets you express your intentions.
+
+The big way that CoffeeScript adds significant expressiveness to JavaScript is by making virtually every language statement a valid expression.
+
+What does that mean? It means that in CoffeeScript, wherever you can use a variable or a literal, you can use virtually any other statement, as well.
+
+(I say "virtually" because there are literally only three statements that aren't valid expressions: `return`, `break`, and `continue`.)
+</aside>
+
+<section class="side-by-side">
+# The Ternary Point
+
+&nbsp;
+
+<pre><code class="coffeescript">view =
+    if loggedIn
+        'home'
+    else
+        'landing'
+</code></pre>
+
+<pre class="fragment"><code class="javascript">var view;
+
+view = loggedIn ? 'home' : 'landing';
+</code></pre>
+</section>
+<aside>
+So for example, `if` (and `else`) statements are usable as expressions — and this is how you get the equivalent of JavaScript's ternary operator.
+</aside>
+
+<section class="side-by-side">
+# The Ternary Point
+
+&nbsp;
+
+<pre><code class="coffeescript">view = (if loggedIn then 'home' else 'landing')
+</code></pre>
+
+<pre class="fragment"><code class="javascript">var view;
+
+view = loggedIn ? 'home' : 'landing';
+</code></pre>
+</section>
+<aside>
+You can write `if` statements on one line, by the way, by using the `then` keyword.
+
+(You don't need the parentheses here; I sometimes put them for clarity, to differentiate from CoffeeScript's postfix form.)
+</aside>
+
+<section class="side-by-side">
+# The 'Ol Switcharoo
+
+<pre><code class="coffeescript">func = switch req.method
+    when 'GET'
+        'show'
+    when 'POST', 'PATCH'
+        'update'
+    when 'PUT'
+        'replace'
+    when 'DELETE'
+        'destroy'
+    else
+        'handle'
+</code></pre>
+
+<pre class="fragment"><code class="javascript">var func;
+
+func = (function() {
+  switch (req.method) {
+    case 'GET':
+      return 'show';
+    case 'POST':
+    case 'PATCH':
+      return 'update';
+    case 'PUT':
+      return 'replace';
+    case 'DELETE':
+      return 'destroy';
+    default:
+      return 'handle';
+  }
+})();
+</code></pre>
+</section>
+<aside>
+But that wasn't anything new. A better example is the `switch` statement. This is how you might do some RESTful routing, for example.
+
+Notice how since JavaScript doesn't offer this expressiveness in the language directly, CoffeeScript achieves it by using an IIFE. CoffeeScript is also smart here: if you reference `this` or `arguments` in the body, it'll maintain those things in the IIFE via `call` or `apply`, respectively.
+</aside>
+
+<section class="side-by-side">
+# Try It Out
+
+&nbsp;
+
+<pre><code class="coffeescript">result =
+    try
+        readFromCache()
+    catch
+        generate()
+</code></pre>
+
+<pre class="fragment"><code class="javascript">var result;
+
+result = (function() {
+  try {
+    return readFromCache();
+  } catch (_error) {
+    return generate();
+  }
+})();
+</code></pre>
+</section>
+<aside>
+But my favorite example is `try`/`catch`. Often, you want your code to be robust to certain kinds of failures, but you still need some value to proceed either way. Using a try-catch as an expression lets you express that clearly.
+</aside>
+
+<section class="side-by-side">
+# Try It Out
+
+&nbsp;
+
+<pre><code class="coffeescript">result = try
+    readFromCache()
+
+result or= generate()
+</code></pre>
+
+<pre class="fragment"><code class="javascript">var result;
+
+result = (function() {
+  try {
+    return readFromCache();
+  } catch (_error) {}
+})();
+
+result || (result = generate());
+</code></pre>
+</section>
+<aside>
+And it gets better — you can use `try` as an expression by itself, without `catch`.
+
+I often combine that with a default value for safety, in this case to achieve robustness to a falsy value getting into the cache.
+</aside>
+
+<section class="side-by-side">
+# Map It Out
+
+&nbsp;
+
+<pre><code class="coffeescript">names =
+    for user in users
+        user.name
+</code></pre>
+
+<pre class="fragment"><code class="javascript">var names, user;
+
+names = (function() {
+  var _i, _len, _results;
+  _results = [];
+  for (_i = 0, _len = users.length; _i < _len; _i++) {
+    user = users[_i];
+    _results.push(user.name);
+  }
+  return _results;
+})();
+</code></pre>
+</section>
+<aside>
+But the classic use case for everything-is-an-expression is comprehensions: all loops evaluate to arrays, if you use them as expressions.
+
+This lets you achieve the common functional programming `map` function directly in the language.
+</aside>
+
+<section class="side-by-side">
+# Instagram It
+
+&nbsp;
+
+<pre><code class="coffeescript">names =
+  for u in users when u.isAdmin
+    u.name
+</code></pre>
+
+<pre class="fragment"><code class="javascript">var names, u;
+
+names = (function() {
+  var _i, _len, _results;
+  _results = [];
+  for (_i = 0, _len = users.length; _i < _len; _i++) {
+    u = users[_i];
+    if (u.isAdmin) {
+      _results.push(u.name);
+    }
+  }
+  return _results;
+})();
+</code></pre>
+</section>
+<aside>
+And if you add a `when` clause, you get a `filter` equivalent built-in, too.
+</aside>
+
+<section class="side-by-side">
+# Comprehend Me?
+
+&nbsp;
+
+<pre><code class="coffeescript">names = (
+  user.name for user in users
+)
+</code></pre>
+
+<pre class="fragment"><code class="javascript">var names, user;
+
+names = (function() {
+  var _i, _len, _results;
+  _results = [];
+  for (_i = 0, _len = users.length; _i < _len; _i++) {
+    user = users[_i];
+    _results.push(user.name);
+  }
+  return _results;
+})();
+</code></pre>
+</section>
+<aside>
+And indeed, you can write comprehensions on one line, similar to Python and Ruby, using a postfix form.
+</aside>
+
+<section class="side-by-side">
+# Watch the Order
+
+&nbsp;
+
+<pre><code class="coffeescript">names = u.name for u in users
+
+# equivalent to:
+
+for u in users
+    names = u.name
+</code></pre>
+
+<pre class="fragment"><code class="javascript">var names, u, _i, _len;
+
+for (_i = 0, _len = users.length; _i < _len; _i++) {
+  u = users[_i];
+  names = u.name;
+}
+</code></pre>
+</section>
+<aside>
+But do note that order matters here: to support the postfix form, everything before the loop clause gets evaluated as one group, which means on each iteration.
+
+This is why it's good to wrap one-line comprehensions and expressions in parentheses.
+</aside>
+
+<section class="side-by-side">
+# Reverse Maps
+
+&nbsp;
+
+<pre><code class="coffeescript">map = {}
+map[u.id] = u for u in users
+</code></pre>
+
+<pre class="fragment"><code class="javascript">var map, u, _i, _len;
+
+map = {};
+
+for (_i = 0, _len = users.length; _i < _len; _i++) {
+  u = users[_i];
+  map[u.id] = u;
+}
+</code></pre>
+</section>
+<aside>
+But, you can take advantage of that order of precedence in cases where you *do* want to perform an assignment on each iteration, like creating a dictionary for reverse lookups.
+</aside>
+
+
+
+<!-- CLASSES -->
+
+<section>
+# Ready For More?
+
+&nbsp;
+
+<img src="/images/coffeescript-talk/are-you-ready-text.png">
+</section>
+<aside>
+(Pic from [lolriot.com](http://www.lolriot.com/2012/06/28/lol-pics-59-30-images/))
+</aside>
+
+<section>
+# &nbsp;
+# <span class="positive">Time To Get</span>
+# <span class="negative">Classy</span>
+</section>
+<aside>
+Let's talk about perhaps CoffeeScript's biggest addition to the language: its class system.
+</aside>
+
+<section>
+# Prototypical
+
+&nbsp;
+
+<pre><code class="javascript">function Person(name) {
+    this.name = name;
+}
+
+Person.prototype.toString = function () {
+    return this.name;
+};
+</code></pre>
+</section>
+<aside>
+This is how one typically writes a "class" in JavaScript: by creating a constructor function, assigning instances properties inside it, and extending its prototype to get instance methods.
+</aside>
+
+<section class="side-by-side">
+# A Little Classier
+
+<pre><code class="coffeescript">class Person
+
+    constructor: (@name) ->
+
+    toString: ->
+        @name
+</code></pre>
+
+<pre class="fragment"><code class="javascript">var Person;
+
+Person = (function() {
+  function Person(name) {
+    this.name = name;
+  }
+
+  Person.prototype.toString = function() {
+    return this.name;
+  };
+
+  return Person;
+
+})();
+</code></pre>
+</section>
+<aside>
+CoffeeScript has a `class` keyword that lets you do that with a little less code, but ultimately it's the same thing.
+
+You write the class's `constructor` function and instance methods in object syntax inside the `class` body, and it maps those to the constructor function's prototype.
+
+(Notice the shorthand for assigning instance properties with the same name as the constructor function's parameters, by prefixing them with `@` in the signature. Yet another feature in CoffeeScript to DRY your code.)
+
+The compiled JS uses an IIFE with the constructor function defined as a function expression inside the IIFE; this harks back to the cross-browser robustness we saw near the beginning.
+
+(It also keeps CoffeeScript purely top-down; there is no function hoisting in the outer scope even for these constructor functions. You never have to worry in CoffeeScript that there may be things defined at the bottom of the file when you're at the top.)
+</aside>
+
+<section>
+# Prototypical
+
+<pre><code class="javascript">function Person(name) {
+    this.name = name;
+}
+
+Person.prototype.toString = function () {
+    return this.name;
+};
+
+function Employee(name, dept) {
+    Person.call(this, name);
+    this.dept = dept;
+}
+
+Employee.prototype = new Person();
+
+Employee.prototype.toString = function () {
+    return Person.prototype.toString.call(this) +
+        ' (' + this.dept + ')';
+};
+</code></pre>
+</section>
+<aside>
+Let's go back to JavaScript. If we want to extend a class, this is how most JavaScript'ers do so: by assigning the subclass's prototype to an *instance* of the superclass, and calling the superclass's constructor inside the subclass's.
+
+And calling a superclass method from a subclass one is achieved by referencing the method on the superclass's prototype. And like calling the constructor function, you have to make sure to use `call` or `apply` so you maintain `this`.
+
+The code's a little redundant, but the bigger deal is that it's not robust. Instantiating the superclass might have side effects; it doesn't let you require parameters; and it's brittle to subtle changes in either.
+</aside>
+
+<section class="side-by-side">
+# A Little Classier
+
+<pre><code class="coffeescript">class Person
+
+  constructor: (@name) ->
+
+  toString: ->
+    @name
+
+class Employee extends Person
+
+  constructor: (name, @dept) ->
+    super name
+
+  toString: ->
+    "#{super} (#{@dept})"
+</code></pre>
+
+<pre class="fragment lots-of-code"><code class="javascript">var Employee, Person,
+  __hasProp = {}.hasOwnProperty,
+  __extends = // ...
+
+Person = (function() {
+  function Person(name) {
+    this.name = name;
+  }
+
+  Person.prototype.toString = function() {
+    return this.name;
+  };
+
+  return Person;
+
+})();
+
+Employee = (function(_super) {
+  __extends(Employee, _super);
+
+  function Employee(name, dept) {
+    this.dept = dept;
+    Employee.__super__.constructor.call(this, name);
+  }
+
+  Employee.prototype.toString = function() {
+    return "" + Employee.__super__.toString.apply(this, arguments) + " (" + this.dept + ")";
+  };
+
+  return Employee;
+
+})(Person);
+</code></pre>
+</section>
+<aside>
+CoffeeScript has `extends` and `super` keywords which take care of all of that. You only have to write the superclass name once, and from there on you can reference it via `super`.
+
+And it's smart: if you reference it as a call inside a subclass function, it maps to the corresponding superclass function. And if you don't specify any arguments explicitly, it'll pass the subclass function's arguments.
+
+Compare how much simpler and clearer the overridden `toString` method is here vs. the last slide.
+
+But the real benefit is robustness. CoffeeScript does the extending via that `__extends` helper function that I've omitted for conciseness.
+</aside>
+
+<section>
+# Extend Yourself
+
+<pre><code class="javascript">var __extends = function(child, parent) {
+
+    for (var key in parent) {
+        if (__hasProp.call(parent, key))
+            child[key] = parent[key];
+    }
+
+    function ctor() {
+        this.constructor = child;
+    }
+
+    ctor.prototype = parent.prototype;
+    child.prototype = new ctor();
+    child.__super__ = parent.prototype;
+
+    return child;
+
+};
+</code></pre>
+</section>
+<aside>
+This is what that function looks like. It achieves extension by creating and instantiating an *intermediate* constructor, which has no side effects, and setting that constructor's prototype to the superclass's *prototype*.
+
+The end result gets you all the same benefits of chained prototypes, but in a much more robust way.
+
+It also adds some conveniences, like the `__super__` reference that the `super` keyword ultimately maps to, and a `constructor` property back to the subclass constructor.
+
+The top part of the code copies all static properties/methods of the superclass to the subclass, which is also convenient, but it starts getting us into some of the power CoffeeScript's class system provides...
+</aside>
+
+<section class="side-by-side long-title">
+# Statics & Dynamics
+
+<pre><code class="coffeescript">class Model
+  @TYPE: null
+  constructor: (@elmt) ->
+    @type = @constructor.TYPE
+
+class User extends Model
+  @TYPE: 'user'
+
+class Photo extends Model
+  @TYPE: 'photo'
+</code></pre>
+
+<pre class="fragment lots-of-code"><code class="javascript">var // ...
+
+Model = (function() {
+  Model.TYPE = null;
+
+  function Model(elmt) {
+    this.elmt = elmt;
+    this.type = this.constructor.TYPE;
+  }
+
+  return Model;
+
+})();
+
+User = (function(_super) {
+  __extends(User, _super);
+
+  function User() {
+    _ref = User.__super__.constructor.apply(this, arguments);
+    return _ref;
+  }
+
+  User.TYPE = 'user';
+
+  return User;
+
+})(Model);
+
+Photo = // ...
+</code></pre>
+</section>
+<aside>
+Take this example, where we have a `Model` base class, and two `User` and `Photo` subclasses.
+
+We can use the `constructor` property in the superclass to reference an instance's *subclass* constructor, which means our superclass constructor and instance methods can access *subclasses'* runtime static properties.
+
+So here, if we want all of our models to have a `type` instance property, we only need to set that propery in the superclass constructor, referencing the runtime subclass's static `TYPE` property.
+</aside>
+
+<section class="side-by-side long-title">
+# Statics & Dynamics
+
+<pre><code class="coffeescript">class Model
+  @TYPE: null
+  constructor: (@elmt) ->
+    @type = @constructor.TYPE
+
+  @all: ->
+    if @TYPE
+      db.lookup 'type', @TYPE
+    else
+      db.all()
+
+class User extends Model
+  @TYPE: 'user'
+
+class Photo extends Model
+  @TYPE: 'photo'
+</code></pre>
+
+<pre class="fragment lots-of-code"><code class="javascript">var // ...
+
+Model = (function() {
+  Model.TYPE = null;
+
+  function Model(elmt) {
+    this.elmt = elmt;
+    this.type = this.constructor.TYPE;
+  }
+
+  Model.all = function() {
+    if (this.TYPE) {
+      return db.lookup('type', this.TYPE);
+    } else {
+      return db.all();
+    }
+  };
+
+  return Model;
+
+})();
+
+User = // ...
+
+Photo = // ...
+</code></pre>
+</section>
+<aside>
+A more powerful example is implementing static superclass functions that use static *subclass* properties, like this static lookup function.
+
+Because CoffeeScript copies static properties and methods, both subclasses also get this static lookup function. And so you can call it from any class, and it'll know which type of object you want.
+
+```coffee
+Model.all()  # fetch all models
+User.all()   # fetch all users
+Photo.all()  # fetch all photos
+```
+
+No need to duplicate those methods, or have boilerplate method overrides that pass a parameter.
+
+Techniques like this are very useful in MVC setups. Our own ORM layer, in fact, has almost this exact code.
+</aside>
+
+<section class="side-by-side long-title">
+# Executive Branch
+
+<pre><code class="coffeescript">class Model
+  @_attrs: null
+  @_attr: (name, type) ->
+    @_attrs or= {}
+    @_attrs[name] = type
+    @::[name] = null
+
+class User extends Model
+  @_attr 'name', String
+  @_attr 'age', Number
+
+class Photo extends Model
+  @_attr 'caption', String
+</code></pre>
+
+<pre class="fragment lots-of-code"><code class="javascript">var // ...
+
+Model = (function() {
+  function Model() {}
+
+  Model._attrs = null;
+
+  Model._attr = function(name, type) {
+    this._attrs || (this._attrs = {});
+    this._attrs[name] = type;
+    return this.prototype[name] = null;
+  };
+
+  return Model;
+
+})();
+
+User = (function(_super) {
+  __extends(User, _super);
+
+  function User() {
+    _ref = User.__super__.constructor.apply(this, arguments);
+    return _ref;
+  }
+
+  User._attr('name', String);
+
+  User._attr('age', Number);
+
+  return User;
+
+})(Model);
+
+Photo = // ...
+</code></pre>
+</section>
+<aside>
+I didn't explicitly call it out, but you probably noticed that defining static properties and methods in CoffeeScript classes is achieved by prefixing the property and method names with `@`.
+
+That's indeed because inside a `class` body, CoffeeScript assigns `this` to the constructor function, so `@foo` means `Person.foo` inside the `Person` class body.
+
+But it gets better: CoffeeScript lets you write and run arbitrary code inside class bodies, so you can take advantage of `@` being the constructor function to do some pretty neat stuff.
+
+Here's another example taken from our ORM layer: a powerful and DRY object attribute system. This code lets us declaratively define our subclasses' object attributes, by calling (copied) static functions in our subclasses' class bodies.
+
+(`::` is a CoffeeScript shorthand operator for `.prototype`, like `@` is for `this`.)
+
+This is a simplified example; our own `_attr` function lets subclasses specify indexing and validation rules, register custom getters and setters, and more.
+</aside>
+
+<section class="long-title">
+# Executive Branch
+
+<pre><code class="coffeescript">class Person
+
+  get = (props) =>
+    @::__defineGetter__ name, func for name, func of props
+
+  set = (props) =>
+    @::__defineSetter__ name, func for name, func of props
+
+  get age: -> (Date.now() - @birthdate) / MILLIS_PER_YEAR
+
+  get birthdate: -> @_birthdate
+
+  set birthdate: (val) ->
+    throw new Error 'Birthdates are immutable.'
+
+</code></pre>
+
+<a href="https://gist.github.com/aseemk/2506270" target="_blank">...</a>
+</section>
+<aside>
+But I want to wrap up with a *really* powerful example, and my favorite.
+
+CoffeeScript doesn't have native getters and setters, because (for better or worse) CoffeeScript strives to support IE8, IE7, and even IE6, none of which have (full) getter/setter support.
+
+But that doesn't have to stop you. By taking advantage of executable class bodies, you can define helper `get` and `set` functions that look and feel *just* like native keywords.
+
+(This example uses `__defineGetter__` and `__defineSetter__` for simplicity, but you can achieve the same thing with ES5's `Object.defineProperty`.)
+
+Be sure to view <a href="https://gist.github.com/aseemk/2506270" target="_blank">the full code</a> for a real-world example: a mutable `URL` class for Node.js that keeps state consistent.
+
+I love this example because it shows CoffeeScript's greatest power: being able to extend the language itself in significant ways. It's almost reminiscent of <a href="http://www.paulgraham.com/avg.html" target="_blank">Lisp macros</a>...
+</aside>
+
+
+
+<!-- OUTRO -->
+
+<section>
+&nbsp;
+
+![Phew!](/images/coffeescript-talk/phew-businessman.jpg)
+</section>
+<aside>
+Phew! We've covered a lot.
+
+(I love this ridiculous stock photo.)
+
+(Pic from [istockphoto.com](http://www.istockphoto.com/stock-photo-2564471-business-man-says-phew.php))
+</aside>
+
+<section>
+[![](/images/coffeescript-talk/coffeescript-hp.png)](http://coffeescript.org/)
+</section>
+<aside>
+I hope you've come to agree that CoffeeScript adds a ton to JavaScript. Convenience, productivity, robustness, expressiveness, power...
+
+I encourage you to try it out if you haven't already! Give it a go on your next project, or even your next file within an existing JavaScript project, and don't look back. I bet within no time, you'll be hooked.
+</aside>
+
+<section>
+[![](/images/neo4j-lessons-learned/fiftythree-hp.png)](http://www.fiftythree.com/)
+</section>
+<aside>
+And that's that!
+
+As a reminder, we at [FiftyThree](http://www.fiftythree.com/) are building our next product entirely in CoffeeScript, and I can't wait to ship it. Reach out if you're interested.
+</aside>
+
+<section>
+# Thanks!
+
+&nbsp;
+
+### Twitter: [@aseemk](https://twitter.com/aseemk)
+### GitHub: [@aseemk](https://github.com/aseemk)
+### Email: [aseem.kishore@gmail.com](mailto:aseem.kishore@gmail.com)
+
+&nbsp;
+
+Questions?
+</section>
+<aside>
+So thanks for reading! Reach out if you have any questions or comments.
+
+Thanks also to my excellent colleagues [Dave Stern](https://twitter.com/davestern1), [G. Scott Olson](https://twitter.com/gscottolson), and [Tara Feener](https://twitter.com/tfeener) for sitting through an early, unpolished draft of this and giving me some great feedback (including the title).
+
+While I'm thanking people, thanks also to my friend and Thingdom co-founder [Daniel Gasienica](https://twitter.com/gasi) for <s>making</s> forcing me to try CoffeeScript in the first place. Similarly, thanks to all the [people behind CoffeeScript](https://github.com/jashkenas/coffee-script/contributors) for producing this awesome language in the first place!
+
+Finally, thanks to [Hakim El Hattab](http://hakim.se/about) for the excellent [platform](https://github.com/hakimel/reveal.js) on which this presentation was created. (If you want to see how I created this slides+notes [combo viewer](https://github.com/hakimel/reveal.js/issues/304), don't hesitate to [view source](http://github.com/aseemk/aseemk.com)!)
+
+I hope this presentation helped, and I look forward to seeing all the great things you build, too!
+
+Cheers,<br/>
+Aseem
+
+P.S. Comments/questions/feedback welcome here: [Intro to CoffeeScript](/blog/intro-to-coffeescript).
+</aside>
+
+
+</div>  <!-- .slides -->
+</div>  <!-- .reveal -->
+
+<script>
+// add data-markdown attributes to all slides and speaker notes,
+// and insert the speaker notes into the slides, as reveal needs:
+// (important: the reveal documentation says to wrap the markdown in script
+// tags, but this is both unnecessary and error-prone w/ speaker nodes!)
+var sections = document.getElementsByTagName('section');
+[].slice.call(sections).forEach(function (section) {
+    section.setAttribute('data-markdown', 'true');
+
+    // does this slide have speaker notes?
+    var aside = section.nextElementSibling;
+    if (aside && aside.tagName === 'ASIDE') {
+        aside.className = 'notes';
+        aside.setAttribute('data-markdown',  'true');
+        section.appendChild(aside);
+    }
+});
+</script>
+
+        <script src="lib/js/head.min.js"></script>
+        <script src="js/reveal.min.js"></script>
+
+        <script>
+
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                history: true,
+                rollingLinks: false,
+
+                // we'd normally like this, it wasn't there when this
+                // presentation was authored, so...
+                center: false,
+
+                // this presentation was authored for 1024x768, but at the
+                // time, Reveal set a max-width of 900, and we set the slides
+                // container to 90%x80%... this is what it somehow came to:
+                width: 900,
+                height: 654,
+
+                // Optional libraries used to extend on reveal.js
+                dependencies: [
+                    { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    { src: 'plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+                    { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+                ]
+            });
+
+        </script>
+
+    </body>
+</html>

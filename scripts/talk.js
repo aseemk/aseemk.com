@@ -156,4 +156,7 @@ function update() {
     var slide = slidesReveal.getCurrentSlide();
     var notes = slide.querySelector('aside.notes');
     notesElmt.innerHTML = notes ? notes.innerHTML : '';
+
+    // also reset the scroll to the top, in case the reader scrolled down:
+    scrollTo(0, 1);     // y=1 for iOS
 }
