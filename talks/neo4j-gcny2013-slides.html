@@ -99,6 +99,11 @@ section#graph-representations
 .reveal section.learned li
     font-size 1.25em
 
+section#linked-list-feed
+    img
+        position absolute
+        left 0
+
 section#dave-shout-out
     h1
         margin 0.5em 0
@@ -206,7 +211,7 @@ In fact, I've often said that this decision was probably the *best* technology c
 </aside>
 
 <section>
-![](/images/neo4j-lessons-learned/thingdom-graph1.jpg)
+![](/images/neo4j-lessons-learned/thingdom-graph-basic.png)
 </section>
 <aside>
 It sounds cliche, but we were truly able to translate whiteboard sketches directly to our data model, with no (or minimal) futzing in between. And that meant that we were able to crank out features and iterate rapidly on them. The simple programming model and schemaless structure were key factors here.
@@ -410,7 +415,7 @@ And when we started, there wasn't a formal Neo4j client library for Node.js, so 
 </aside>
 
 <section>
-![](/images/neo4j-lessons-learned/thingdom-graph1.jpg)
+![](/images/neo4j-lessons-learned/thingdom-graph-basic.png)
 </section>
 <aside>
 Here's the basic social graph for The Thingdom. It's pretty straightforward, but note how the relationship names are unique and expressive -- they tell you how two nodes relate, and they let you easily find one type of node from another.
@@ -435,7 +440,21 @@ And again, the way Neo4j stores data on disk, the relationship type is the only 
 ![](/images/neo4j-lessons-learned/thingdom-people-stats.png)
 </section>
 <aside>
-Like any social network, we also obviously wanted to show users' stats whenever we showed a list of users. But it obviously wouldn't be performant to fetch all these followers and things for each user everytime. So we cached those numbers as properties on user nodes, e.g. `numFollowers` and `numThings`.
+Like any social network, we also obviously wanted to show users' stats whenever we showed a list of users.
+</aside>
+
+<section>
+![](/images/neo4j-lessons-learned/thingdom-graph-stats.png)
+</section>
+<aside>
+But it obviously wouldn't be performant to fetch all these followers and things for each user every time.
+</aside>
+
+<section class="small-img-landscape">
+![](/images/neo4j-lessons-learned/webadmin-user-stats.png)
+</section>
+<aside>
+So we cached those numbers as properties on user nodes, e.g. `numFollowers` and `numThings`.
 </aside>
 
 <section class="learned">
@@ -455,7 +474,7 @@ Avoid expensive traversals and aggregations wherever you can.
 </aside>
 
 <section>
-![](/images/neo4j-lessons-learned/thingdom-graph2.jpg)
+![](/images/neo4j-lessons-learned/thingdom-graph-events.png)
 </section>
 <aside>
 I showed earlier that our basic graph was that users were connected to things through `has` and `wants` relationships. That worked fine for the present -- this moment in time -- but how does that work over time, when those relationships can change?
@@ -485,7 +504,7 @@ So if that works for your domain too, consider keeping relationships lean in num
 </aside>
 
 <section>
-![](/images/neo4j-lessons-learned/thingdom-graph3.jpg)
+![](/images/neo4j-lessons-learned/thingdom-graph-suggestions.png)
 </section>
 <aside>
 But we also learned another lesson from that experience: we noticed that these event nodes let us (and our users) do things we couldn't do with the simple `has` and `wants` relationships. Other users could "like" an event node, or comment on it, or be @mentioned by a decsription on it.
@@ -512,14 +531,21 @@ So remember that relationships are limited to connecting just two nodes. If you'
 </aside>
 
 <section>
-![](/images/neo4j-lessons-learned/thingdom-graph4.jpg)
+![](/images/neo4j-lessons-learned/webadmin-thing-categories.png)
 </section>
 <aside>
-We made a similar mistake when it came to curation/categorization. What's pictured here is what we *should* have done: have nodes for categories (and in this case, e.g. brands too), and have thing nodes connected to those category nodes. That would have let us even have a hierarchy of categories/subcategories, like pictured here.
+We made a similar mistake when it came to curation/categorization: we took the shortcut of adding a category *property* (and in this case, a brand property, too) to our thing nodes. After all, we figured that would still let us query and derive things' categories, and we could even (auto-)index those properties.
 
-Instead, we took the shortcut of adding a category *property* to our thing nodes. After all, we figured that would still let us query and derive things' categories, and we could even (auto-)index that property.
+However, we again ran into limitations as we realized that properties are equally not "first-class" citizens of the graph. At one point, we wanted to rename a category (from "Movies & TV" to "Movies/TV"); that rename meant a forklift effort of updating every node with that property value, and deploying code that could read the old name but wrote the new name, etc.
+</aside>
 
-However, we again ran into limitations as we realized that properties are equally not "first-class" citizens of the graph. But besides the abilities of e.g. users being able to follow/like categories, or comment on them, even the simplest things, like renaming a category, were now hard(er) to do, because the categories were duplicated/fragmented all over the place.
+<section>
+![](/images/neo4j-lessons-learned/thingdom-graph-categories.png)
+</section>
+<aside>
+What's pictured here is what we *should* have done: have nodes for categories (and brands), and have thing nodes connected to those category nodes. That would have let us even have a hierarchy of categories/subcategories, like pictured here.
+
+With this, renaming that category would have been as simple as updating one node — with no code changes. But there would have been other benefits too: e.g. users could then like or follow brands or categories, have discussions under them, etc.
 </aside>
 
 <section class="learned">
@@ -537,8 +563,9 @@ However, we again ran into limitations as we realized that properties are equall
 So again, if something in your data model is important enough to warrant working with, consider making it a "first-class" node. But in this case, if it's also *connected* data, like our categories were, it should definitely be a node, not a property.
 </aside>
 
-<section>
-![](/images/neo4j-lessons-learned/thingdom-graph5.jpg)
+<section id="linked-list-feed">
+<img src="/images/neo4j-lessons-learned/thingdom-graph-feed-1.png" />
+<img class="fragment" src="/images/neo4j-lessons-learned/thingdom-graph-feed-2.png" />
 </section>
 <aside>
 Finally, maybe the most important lesson we learned was around our activity feed implementation. This was probably the most important lesson because it's not necessarily obvious if you're new to graphs / graph databases, but it's also one of the most fundamental.
