@@ -137,7 +137,7 @@ section#graph-representations
 ### Tips, Tricks, and Lessons Learned
 
 [Aseem Kishore](http://aseemk.com/)<br/>
-Jan 2013<br/>
+Nov 2013<br/>
 </section>
 <aside>
 Hi guys. My name is [Aseem Kishore](http://aseemk.com/). I'm a developer at a startup here in NYC called [FiftyThree](http://www.fiftythree.com/). We make an iPad app called [Paper](http://www.fiftythree.com/paper).
@@ -329,23 +329,16 @@ Graph data can also be stored in a relational database, of course. Here's how a 
 (Slide from [Andreas Kollegger](https://twitter.com/akollegger) I believe, another Neo4j engineer; retrieved from [systay.github.com](http://systay.github.com/blog/2011/11/06/cypher---a-view-from-a-recovering-sql-dba/))
 </aside>
 
-<section class="small-img-landscape">
-![](/images/neo4j-lessons-learned/meme-joins.jpg)
-</section>
-<aside>
-I can't speak to this, but I've also heard that you should consider using a graph database if you find yourself doing multiple or complex JOINs like this. =)
-
-(Pic from [yobriefca.se](http://yobriefca.se/blog/2012/11/02/neo4j-talk-in-november/))
-</aside>
-
 <section>
+&nbsp;
+
 <blockquote>
 By definition, a graph database is any storage system that provides <strong>index-free adjacency</strong>.
 </blockquote>
 
 &nbsp;
 
-<blockquote>
+<blockquote class="fragment">
 This means that every element contains a <strong>direct pointer</strong> to its adjacent element and no index lookups are necessary.
 </blockquote>
 </section>
@@ -355,61 +348,26 @@ And here's where we get to the "formal" definition of a graph database: it's a d
 (Quotes from [Wikipedia](http://en.wikipedia.org/wiki/Graph_database))
 </aside>
 
-<section>
-# Querying
-
-<ol>
-<li class="fragment"><strong>Start</strong> somewhere</li>
-<li class="fragment"><strong>Traverse</strong> elsewhere</li>
-</ol>
+<section class="small-img-landscape">
+![](/images/neo4j-lessons-learned/meme-joins.jpg)
 </section>
 <aside>
-This is how you query a graph database in general...
+I can't speak to this, but I've also heard that you should consider using a graph database if you find yourself doing multiple or complex JOINs like this. =)
+
+(Pic from [yobriefca.se](http://yobriefca.se/blog/2012/11/02/neo4j-talk-in-november/))
 </aside>
 
-<section>
-# Querying in Neo4j
 
-<ol>
-<li>
-    <strong>Start</strong> somewhere
-    <ul class="fragment">
-    <li>Root node</li>
-    <li>ID directly (file offset)</li>
-    <li>Lucene index</li>
-    </ul>
-</li>
-<li class="fragment">
-    <strong>Traverse</strong> elsewhere
-    <ul class="fragment">
-    <li>Traversal APIs</li>
-    <li>Cypher patterns</li>
-    <li>Built-in graph algos (Djikstra, A*, etc.)</li>
-    </ul>
-</li>
-</ol>
-</section>
-<aside>
-...And this is how that translates to options in Neo4j.
-</aside>
+<!-- WHAT WE LEARNED -->
 
 <section>
-# Neo4j usage
-
-<ul>
-<li class="fragment"><strong>Embedded</strong> mode (Java API)</li>
-<li class="fragment"><strong>Server</strong> mode (REST API)</li>
-<li class="fragment"><strong>Cypher</strong> query language (both)</li>
-</ul>
+# Okay...
+## &nbsp;
+# Let's talk about
+# <span class="positive">what we learned</span>
 </section>
 <aside>
-This is how you can use Neo4j.
-
-- Embedded more is essentially a JAR you include in your Java app, and that gives you a Java API for working with a local Neo4j database. This is the richest, most performant and flexible way of using Neo4j.
-
-- Running it as a server originally meant writing your own Java server, but today Neo4j comes bundled with a (Jetty-powered) server. This exposes a documented REST (JSON) API that maps roughly to the Java API, but is a bit more limited and less flexible.
-
-- Finally, you can use Neo4j's query language, Cypher, through both the Java API and the REST API. There's also the choice of Gremlin, another query language, but whereas Cypher is declarative, Gremlin is procedural.
+We'll do this by going through a few examples of things we ran into when designing various features.
 </aside>
 
 <section>
@@ -436,83 +394,6 @@ This is how we used Neo4j.
 </section>
 <aside>
 And when we started, there wasn't a formal Neo4j client library for Node.js, so we built and open-sourced our own. Check it out if you're interested: [thingdom/node-neo4j](https://github.com/thingdom/node-neo4j). Feedback, pull requests, etc. always welcome.
-</aside>
-
-<section>
-# Neo4j editions
-
-<ul>
-<li class="fragment">
-    <strong>Community</strong> edition
-    <ul>
-    <li>Single instance</li>
-    <li>Offline backup</li>
-    </ul>
-</li>
-<li class="fragment">
-    <strong>Advanced</strong> edition
-    <ul>
-    <li>Meh</li>
-    </ul>
-</li>
-<li class="fragment">
-    <strong>Enterprise</strong> edition
-    <ul>
-    <li>Multi-instance cluster!</li>
-    <li>Online backup!</li>
-    </ul>
-</li>
-</ul>
-</section>
-<aside>
-Neo4j is open-source, but comes in three different editions.
-
-- The community edition is completely free to use, but doesn't have advanced features like clustering or online backup.
-
-- The enterprise edition, on the other hand, is industrial-strength, but requires you to pay if you're not an open-source app.
-
-- The advanced edition is fairly pointless in my view. It doesn't offer much beyond the community edition, but also requires you to pay.
-</aside>
-
-<section>
-# Neo4j scaling
-
-<ul>
-<li class="fragment"><strong>Master-slave</strong> replication</li>
-<li class="fragment"><strong>Cache-based</strong> sharding</li>
-<li class="fragment"><strong>Feature-based</strong> polyglot'ing</li>
-<li class="fragment">
-    <strong>64B limit</strong> on nodes, rels, props
-    <ul>
-    <li>But can be easily upped; just flipping some bits</li>
-    <li>100 props/node (high) ⇒ 640M nodes</li>
-    </ul>
-</li>
-</ul>
-</section>
-<aside>
-And this is how Neo4j scales.
-
-- Since graphs aren't trivially partitionable, Neo4j isn't trivially shardable, so it scales through master-slave replication. Writes all go to a master, while reads can go to any slave; this is typically fine for most applications that have orders of magnitude more reads than writes.
-
-- For advanced scaling, you can "shard" Neo4j's memory cache across slaves by sending queries for different parts of the graph to the same instances each time. This'll increase the likelihood of cache hits for each instance, improving your read throughput.
-
-- Of course, if you *actually* hit walls scaling, at that point, you could/should consider sharding by features, not parts of the graph. So e.g. the parts of your data that aren't connected at all could go into a key-value store, etc.
-
-- Finally, it's good to be aware of the limits on nodes, relationships, and properties, since the graph has to be stored in full on each instance. But these limits are soft limits -- they're determined just by the size of the fixed records on disk, so they can be trivially upped if you need. They're already quite high as is for most apps.
-</aside>
-
-
-<!-- WHAT WE LEARNED -->
-
-<section>
-# Okay...
-## &nbsp;
-# Let's talk about
-# <span class="positive">what we learned</span>
-</section>
-<aside>
-We'll do this by going through a few examples of things we ran into when designing various features.
 </aside>
 
 <section>
@@ -634,8 +515,8 @@ However, we again ran into limitations as we realized that properties are equall
 <ul>
 <li>Unique, expressive <strong>relationship types</strong></li>
 <li><strong>Cache stats</strong> where possible</li>
-<li>First-class objects ⇒ <strong>nodes</strong>, not rels</li>
 <li>Capture history through <strong>event nodes</strong></li>
+<li>First-class objects ⇒ <strong>nodes</strong>, not rels</li>
 <li>Connected data ⇒ <strong>nodes</strong>, not props</li>
 </ul>
 </section>
@@ -668,8 +549,8 @@ Hat-tip to [René Pickhardt](http://www.rene-pickhardt.de/) for opening my eyes 
 <ul>
 <li>Unique, expressive <strong>relationship types</strong></li>
 <li><strong>Cache stats</strong> where possible</li>
-<li>First-class objects ⇒ <strong>nodes</strong>, not rels</li>
 <li>Capture history through <strong>event nodes</strong></li>
+<li>First-class objects ⇒ <strong>nodes</strong>, not rels</li>
 <li>Connected data ⇒ <strong>nodes</strong>, not props</li>
 <li>Maintain <strong>linked lists</strong> for O(1) queries</li>
 </ul>
@@ -679,25 +560,25 @@ And that's the last major lesson we learned for making the most of a graph datab
 </aside>
 
 <section>
-# Neo4j Roadmap
+# Neo4j 2.0+
 
 <ul>
-<li class="fragment">Overhaul of indexing API</li>
+<li class="fragment">Labels & constraints</li>
 <li class="fragment">Relationship type grouping</li>
-<li class="fragment">Socket and/or binary protocol</li>
+<li class="fragment">Transactional Cypher</li>
 <li class="fragment">Automatic sharding?</li>
 </ul>
 </section>
 <aside>
-Going forward, we're pretty excited for a few improvements and developments to Neo4j specifically.
+Going forward, we're pretty excited for a few improvements and developments coming down the pipe in Neo4j 2.0 and beyond.
 
-- They plan to integrate indexing much more tightly into the data model, like letting you specify primary and secondary keys to index on for different "types" of nodes. This'll also let you write to indexes via Cypher, which will be nice.
+- Nodes will be able to have optional "labels" (analagous to relationship types), and auto-indexing will be much more tightly integrated into the database with "constraints" attached to labels. This'll be huge.
 
 - They're aware of the supernode problem and have plans to fix it, as I mentioned. Storing relationships as a map or B-tree will go a long way, but I understand there are trade-offs to any representation.
 
-- Right now, the only APIs to Neo4j are Java and REST. HTTP has lots of overhead, so they're actively exploring a binary protocol. This apparently already shows huge performance improvements, and could be a transparent upgrade to Cypher usage.
+- Cypher continues to improve at an impressive pace, but with 2.0, you're able to group multiple Cypher queries — potentially even across multiple HTTP/REST requests — into a single transaction. This is big for consistency and robustness.
 
-- Graphs aren't trivially partitionable, as I mentioned, but if anyone has the knowledge to figure out how to do it heuristically -- and connect the pieces together -- it should be a graph database. I believe they're already working on this problem, which is pretty cool.
+- Graphs aren't trivially partitionable, as I mentioned, but if anyone has the knowledge to figure out how to do it heuristically — and connect the pieces together — it should be a graph database. I believe they're already working on this problem, which is pretty cool.
 
 Overall, it's been great to grow with Neo4j and be a part of the community, and we're still as excited as ever for its future.
 
@@ -720,7 +601,7 @@ So check out [FiftyThree](http://www.fiftythree.com/) and [Paper](http://www.fif
 
 ### Twitter: [@aseemk](https://twitter.com/aseemk)
 ### GitHub: [@aseemk](https://github.com/aseemk)
-### Email: [aseem.kishore@gmail.com](mailto:aseem.kishore@gmail.com)
+### Email: [aseem@fiftythree.com](mailto:aseem@fiftythree.com)
 
 &nbsp;
 
