@@ -99,6 +99,24 @@ section#graph-representations
 .reveal section.learned li
     font-size 1.25em
 
+section#linked-list-feed
+    img
+        position absolute
+        left 0
+
+section#dave-shout-out
+    h1
+        margin 0.5em 0
+        text-transform none
+        small
+            text-transform uppercase
+    .mysql
+        color #ffa500
+        text-shadow 0 5px 0 #840
+    .neo4j
+        color #8f8
+        text-shadow 0 5px 0 #080
+
 </style>
 
 <script src="/scripts/stylus.js"></script>
@@ -137,7 +155,7 @@ section#graph-representations
 ### Tips, Tricks, and Lessons Learned
 
 [Aseem Kishore](http://aseemk.com/)<br/>
-Jan 2013<br/>
+Jan–Nov 2013<br/>
 </section>
 <aside>
 Hi guys. My name is [Aseem Kishore](http://aseemk.com/). I'm a developer at a startup here in NYC called [FiftyThree](http://www.fiftythree.com/). We make an iPad app called [Paper](http://www.fiftythree.com/paper).
@@ -193,7 +211,7 @@ In fact, I've often said that this decision was probably the *best* technology c
 </aside>
 
 <section>
-![](/images/neo4j-lessons-learned/thingdom-graph1.jpg)
+![](/images/neo4j-lessons-learned/thingdom-graph-basic.png)
 </section>
 <aside>
 It sounds cliche, but we were truly able to translate whiteboard sketches directly to our data model, with no (or minimal) futzing in between. And that meant that we were able to crank out features and iterate rapidly on them. The simple programming model and schemaless structure were key factors here.
@@ -329,23 +347,16 @@ Graph data can also be stored in a relational database, of course. Here's how a 
 (Slide from [Andreas Kollegger](https://twitter.com/akollegger) I believe, another Neo4j engineer; retrieved from [systay.github.com](http://systay.github.com/blog/2011/11/06/cypher---a-view-from-a-recovering-sql-dba/))
 </aside>
 
-<section class="small-img-landscape">
-![](/images/neo4j-lessons-learned/meme-joins.jpg)
-</section>
-<aside>
-I can't speak to this, but I've also heard that you should consider using a graph database if you find yourself doing multiple or complex JOINs like this. =)
-
-(Pic from [yobriefca.se](http://yobriefca.se/blog/2012/11/02/neo4j-talk-in-november/))
-</aside>
-
 <section>
+&nbsp;
+
 <blockquote>
 By definition, a graph database is any storage system that provides <strong>index-free adjacency</strong>.
 </blockquote>
 
 &nbsp;
 
-<blockquote>
+<blockquote class="fragment">
 This means that every element contains a <strong>direct pointer</strong> to its adjacent element and no index lookups are necessary.
 </blockquote>
 </section>
@@ -355,61 +366,26 @@ And here's where we get to the "formal" definition of a graph database: it's a d
 (Quotes from [Wikipedia](http://en.wikipedia.org/wiki/Graph_database))
 </aside>
 
-<section>
-# Querying
-
-<ol>
-<li class="fragment"><strong>Start</strong> somewhere</li>
-<li class="fragment"><strong>Traverse</strong> elsewhere</li>
-</ol>
+<section class="small-img-landscape">
+![](/images/neo4j-lessons-learned/meme-joins.jpg)
 </section>
 <aside>
-This is how you query a graph database in general...
+I can't speak to this, but I've also heard that you should consider using a graph database if you find yourself doing multiple or complex JOINs like this. =)
+
+(Pic from [yobriefca.se](http://yobriefca.se/blog/2012/11/02/neo4j-talk-in-november/))
 </aside>
 
-<section>
-# Querying in Neo4j
 
-<ol>
-<li>
-    <strong>Start</strong> somewhere
-    <ul class="fragment">
-    <li>Root node</li>
-    <li>ID directly (file offset)</li>
-    <li>Lucene index</li>
-    </ul>
-</li>
-<li class="fragment">
-    <strong>Traverse</strong> elsewhere
-    <ul class="fragment">
-    <li>Traversal APIs</li>
-    <li>Cypher patterns</li>
-    <li>Built-in graph algos (Djikstra, A*, etc.)</li>
-    </ul>
-</li>
-</ol>
-</section>
-<aside>
-...And this is how that translates to options in Neo4j.
-</aside>
+<!-- WHAT WE LEARNED -->
 
 <section>
-# Neo4j usage
-
-<ul>
-<li class="fragment"><strong>Embedded</strong> mode (Java API)</li>
-<li class="fragment"><strong>Server</strong> mode (REST API)</li>
-<li class="fragment"><strong>Cypher</strong> query language (both)</li>
-</ul>
+# Okay...
+## &nbsp;
+# Let's talk about
+# <span class="positive">what we learned</span>
 </section>
 <aside>
-This is how you can use Neo4j.
-
-- Embedded more is essentially a JAR you include in your Java app, and that gives you a Java API for working with a local Neo4j database. This is the richest, most performant and flexible way of using Neo4j.
-
-- Running it as a server originally meant writing your own Java server, but today Neo4j comes bundled with a (Jetty-powered) server. This exposes a documented REST (JSON) API that maps roughly to the Java API, but is a bit more limited and less flexible.
-
-- Finally, you can use Neo4j's query language, Cypher, through both the Java API and the REST API. There's also the choice of Gremlin, another query language, but whereas Cypher is declarative, Gremlin is procedural.
+We'll do this by going through a few examples of things we ran into when designing various features.
 </aside>
 
 <section>
@@ -439,84 +415,7 @@ And when we started, there wasn't a formal Neo4j client library for Node.js, so 
 </aside>
 
 <section>
-# Neo4j editions
-
-<ul>
-<li class="fragment">
-    <strong>Community</strong> edition
-    <ul>
-    <li>Single instance</li>
-    <li>Offline backup</li>
-    </ul>
-</li>
-<li class="fragment">
-    <strong>Advanced</strong> edition
-    <ul>
-    <li>Meh</li>
-    </ul>
-</li>
-<li class="fragment">
-    <strong>Enterprise</strong> edition
-    <ul>
-    <li>Multi-instance cluster!</li>
-    <li>Online backup!</li>
-    </ul>
-</li>
-</ul>
-</section>
-<aside>
-Neo4j is open-source, but comes in three different editions.
-
-- The community edition is completely free to use, but doesn't have advanced features like clustering or online backup.
-
-- The enterprise edition, on the other hand, is industrial-strength, but requires you to pay if you're not an open-source app.
-
-- The advanced edition is fairly pointless in my view. It doesn't offer much beyond the community edition, but also requires you to pay.
-</aside>
-
-<section>
-# Neo4j scaling
-
-<ul>
-<li class="fragment"><strong>Master-slave</strong> replication</li>
-<li class="fragment"><strong>Cache-based</strong> sharding</li>
-<li class="fragment"><strong>Feature-based</strong> polyglot'ing</li>
-<li class="fragment">
-    <strong>64B limit</strong> on nodes, rels, props
-    <ul>
-    <li>But can be easily upped; just flipping some bits</li>
-    <li>100 props/node (high) ⇒ 640M nodes</li>
-    </ul>
-</li>
-</ul>
-</section>
-<aside>
-And this is how Neo4j scales.
-
-- Since graphs aren't trivially partitionable, Neo4j isn't trivially shardable, so it scales through master-slave replication. Writes all go to a master, while reads can go to any slave; this is typically fine for most applications that have orders of magnitude more reads than writes.
-
-- For advanced scaling, you can "shard" Neo4j's memory cache across slaves by sending queries for different parts of the graph to the same instances each time. This'll increase the likelihood of cache hits for each instance, improving your read throughput.
-
-- Of course, if you *actually* hit walls scaling, at that point, you could/should consider sharding by features, not parts of the graph. So e.g. the parts of your data that aren't connected at all could go into a key-value store, etc.
-
-- Finally, it's good to be aware of the limits on nodes, relationships, and properties, since the graph has to be stored in full on each instance. But these limits are soft limits -- they're determined just by the size of the fixed records on disk, so they can be trivially upped if you need. They're already quite high as is for most apps.
-</aside>
-
-
-<!-- WHAT WE LEARNED -->
-
-<section>
-# Okay...
-## &nbsp;
-# Let's talk about
-# <span class="positive">what we learned</span>
-</section>
-<aside>
-We'll do this by going through a few examples of things we ran into when designing various features.
-</aside>
-
-<section>
-![](/images/neo4j-lessons-learned/thingdom-graph1.jpg)
+![](/images/neo4j-lessons-learned/thingdom-graph-basic.png)
 </section>
 <aside>
 Here's the basic social graph for The Thingdom. It's pretty straightforward, but note how the relationship names are unique and expressive -- they tell you how two nodes relate, and they let you easily find one type of node from another.
@@ -541,7 +440,21 @@ And again, the way Neo4j stores data on disk, the relationship type is the only 
 ![](/images/neo4j-lessons-learned/thingdom-people-stats.png)
 </section>
 <aside>
-Like any social network, we also obviously wanted to show users' stats whenever we showed a list of users. But it obviously wouldn't be performant to fetch all these followers and things for each user everytime. So we cached those numbers as properties on user nodes, e.g. `numFollowers` and `numThings`.
+Like any social network, we also obviously wanted to show users' stats whenever we showed a list of users.
+</aside>
+
+<section>
+![](/images/neo4j-lessons-learned/thingdom-graph-stats.png)
+</section>
+<aside>
+But it obviously wouldn't be performant to fetch all these followers and things for each user every time.
+</aside>
+
+<section class="small-img-landscape">
+![](/images/neo4j-lessons-learned/webadmin-user-stats.png)
+</section>
+<aside>
+So we cached those numbers as properties on user nodes, e.g. `numFollowers` and `numThings`.
 </aside>
 
 <section class="learned">
@@ -561,7 +474,7 @@ Avoid expensive traversals and aggregations wherever you can.
 </aside>
 
 <section>
-![](/images/neo4j-lessons-learned/thingdom-graph2.jpg)
+![](/images/neo4j-lessons-learned/thingdom-graph-events.png)
 </section>
 <aside>
 I showed earlier that our basic graph was that users were connected to things through `has` and `wants` relationships. That worked fine for the present -- this moment in time -- but how does that work over time, when those relationships can change?
@@ -591,7 +504,7 @@ So if that works for your domain too, consider keeping relationships lean in num
 </aside>
 
 <section>
-![](/images/neo4j-lessons-learned/thingdom-graph3.jpg)
+![](/images/neo4j-lessons-learned/thingdom-graph-suggestions.png)
 </section>
 <aside>
 But we also learned another lesson from that experience: we noticed that these event nodes let us (and our users) do things we couldn't do with the simple `has` and `wants` relationships. Other users could "like" an event node, or comment on it, or be @mentioned by a decsription on it.
@@ -618,14 +531,21 @@ So remember that relationships are limited to connecting just two nodes. If you'
 </aside>
 
 <section>
-![](/images/neo4j-lessons-learned/thingdom-graph4.jpg)
+![](/images/neo4j-lessons-learned/webadmin-thing-categories.png)
 </section>
 <aside>
-We made a similar mistake when it came to curation/categorization. What's pictured here is what we *should* have done: have nodes for categories (and in this case, e.g. brands too), and have thing nodes connected to those category nodes. That would have let us even have a hierarchy of categories/subcategories, like pictured here.
+We made a similar mistake when it came to curation/categorization: we took the shortcut of adding a category *property* (and in this case, a brand property, too) to our thing nodes. After all, we figured that would still let us query and derive things' categories, and we could even (auto-)index those properties.
 
-Instead, we took the shortcut of adding a category *property* to our thing nodes. After all, we figured that would still let us query and derive things' categories, and we could even (auto-)index that property.
+However, we again ran into limitations as we realized that properties are equally not "first-class" citizens of the graph. At one point, we wanted to rename a category (from "Movies & TV" to "Movies/TV"); that rename meant a forklift effort of updating every node with that property value, and deploying code that could read the old name but wrote the new name, etc.
+</aside>
 
-However, we again ran into limitations as we realized that properties are equally not "first-class" citizens of the graph. But besides the abilities of e.g. users being able to follow/like categories, or comment on them, even the simplest things, like renaming a category, were now hard(er) to do, because the categories were duplicated/fragmented all over the place.
+<section>
+![](/images/neo4j-lessons-learned/thingdom-graph-categories.png)
+</section>
+<aside>
+What's pictured here is what we *should* have done: have nodes for categories (and brands), and have thing nodes connected to those category nodes. That would have let us even have a hierarchy of categories/subcategories, like pictured here.
+
+With this, renaming that category would have been as simple as updating one node — with no code changes. But there would have been other benefits too: e.g. users could then like or follow brands or categories, have discussions under them, etc.
 </aside>
 
 <section class="learned">
@@ -634,8 +554,8 @@ However, we again ran into limitations as we realized that properties are equall
 <ul>
 <li>Unique, expressive <strong>relationship types</strong></li>
 <li><strong>Cache stats</strong> where possible</li>
-<li>First-class objects ⇒ <strong>nodes</strong>, not rels</li>
 <li>Capture history through <strong>event nodes</strong></li>
+<li>First-class objects ⇒ <strong>nodes</strong>, not rels</li>
 <li>Connected data ⇒ <strong>nodes</strong>, not props</li>
 </ul>
 </section>
@@ -643,8 +563,9 @@ However, we again ran into limitations as we realized that properties are equall
 So again, if something in your data model is important enough to warrant working with, consider making it a "first-class" node. But in this case, if it's also *connected* data, like our categories were, it should definitely be a node, not a property.
 </aside>
 
-<section>
-![](/images/neo4j-lessons-learned/thingdom-graph5.jpg)
+<section id="linked-list-feed">
+<img src="/images/neo4j-lessons-learned/thingdom-graph-feed-1.png" />
+<img class="fragment" src="/images/neo4j-lessons-learned/thingdom-graph-feed-2.png" />
 </section>
 <aside>
 Finally, maybe the most important lesson we learned was around our activity feed implementation. This was probably the most important lesson because it's not necessarily obvious if you're new to graphs / graph databases, but it's also one of the most fundamental.
@@ -668,8 +589,8 @@ Hat-tip to [René Pickhardt](http://www.rene-pickhardt.de/) for opening my eyes 
 <ul>
 <li>Unique, expressive <strong>relationship types</strong></li>
 <li><strong>Cache stats</strong> where possible</li>
-<li>First-class objects ⇒ <strong>nodes</strong>, not rels</li>
 <li>Capture history through <strong>event nodes</strong></li>
+<li>First-class objects ⇒ <strong>nodes</strong>, not rels</li>
 <li>Connected data ⇒ <strong>nodes</strong>, not props</li>
 <li>Maintain <strong>linked lists</strong> for O(1) queries</li>
 </ul>
@@ -679,25 +600,25 @@ And that's the last major lesson we learned for making the most of a graph datab
 </aside>
 
 <section>
-# Neo4j Roadmap
+# Neo4j 2.0+
 
 <ul>
-<li class="fragment">Overhaul of indexing API</li>
+<li class="fragment">Labels & constraints</li>
 <li class="fragment">Relationship type grouping</li>
-<li class="fragment">Socket and/or binary protocol</li>
+<li class="fragment">Transactional Cypher</li>
 <li class="fragment">Automatic sharding?</li>
 </ul>
 </section>
 <aside>
-Going forward, we're pretty excited for a few improvements and developments to Neo4j specifically.
+Going forward, we're pretty excited for a few improvements and developments coming down the pipe in Neo4j 2.0 and beyond.
 
-- They plan to integrate indexing much more tightly into the data model, like letting you specify primary and secondary keys to index on for different "types" of nodes. This'll also let you write to indexes via Cypher, which will be nice.
+- Nodes will be able to have optional "labels" (analagous to relationship types), and auto-indexing will be much more tightly integrated into the database with "constraints" attached to labels. This'll be huge.
 
 - They're aware of the supernode problem and have plans to fix it, as I mentioned. Storing relationships as a map or B-tree will go a long way, but I understand there are trade-offs to any representation.
 
-- Right now, the only APIs to Neo4j are Java and REST. HTTP has lots of overhead, so they're actively exploring a binary protocol. This apparently already shows huge performance improvements, and could be a transparent upgrade to Cypher usage.
+- Cypher continues to improve at an impressive pace, but with 2.0, you're able to group multiple Cypher queries — potentially even across multiple HTTP/REST requests — into a single transaction. This is big for consistency and robustness.
 
-- Graphs aren't trivially partitionable, as I mentioned, but if anyone has the knowledge to figure out how to do it heuristically -- and connect the pieces together -- it should be a graph database. I believe they're already working on this problem, which is pretty cool.
+- Graphs aren't trivially partitionable, as I mentioned, but if anyone has the knowledge to figure out how to do it heuristically — and connect the pieces together — it should be a graph database. I believe they're already working on this problem, which is pretty cool.
 
 Overall, it's been great to grow with Neo4j and be a part of the community, and we're still as excited as ever for its future.
 
@@ -711,6 +632,19 @@ Overall, it's been great to grow with Neo4j and be a part of the community, and 
 And that's that!
 
 So check out [FiftyThree](http://www.fiftythree.com/) and [Paper](http://www.fiftythree.com/paper) again if you haven't already. We're very much looking forward to shipping what we're building with this tech.
+</aside>
+
+<section id="dave-shout-out">
+## And check out...
+
+<h1><span class="mysql">(MySQL)</span><small>—[:to]—&gt;</small><span class="neo4j">(Neo4j)</span></h1>
+
+## A DBA Perspective
+
+## <span class="neo4j">Dave Stern</span> @ <span class="mysql">11:30</span>
+</section>
+<aside>
+My friend and colleague [Dave Stern](https://twitter.com/davestern1) gave an excellent talk at GraphConnect NY 2013 on Neo4j from a former MySQL DBA perspective. I'll link it here as soon as the slides and/or video are up.
 </aside>
 
 <section>
