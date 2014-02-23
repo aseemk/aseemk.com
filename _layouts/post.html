@@ -52,14 +52,11 @@ og_type: article
                 (canonical) absolute URL and are customized to be 20px tall.
 
                 links:
-                - http://www.google.com/webmasters/+1/button/
                 - http://developers.facebook.com/docs/reference/plugins/like/
                 - https://dev.twitter.com/docs/tweet-button
 
                 all scripts are at the bottom.
             -->
-
-            <div class="g-plusone" data-size="medium" data-href="{{ postURLAbsEsc }}"></div>
 
             <a href="http://twitter.com/share" class="twitter-share-button" data-via="aseemk" data-related="aseemk"
                 data-url="{{ postURLAbsEsc }}" data-text="{{ page.title | escape }}">Tweet</a>
@@ -84,15 +81,6 @@ og_type: article
         </script>
 
     </article>
-
-    <!-- Google Plus (+1): -->
-    <script type="text/javascript">
-      (function() {
-        var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-        po.src = 'https://apis.google.com/js/plusone.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-      })();
-    </script>
 
     <!-- Facebook SDK: -->
     <div id="fb-root"></div>
