@@ -371,3 +371,42 @@ p#copy {
     color: #888;
     font-style: italic;
 }
+
+p#copy a.external {
+    /* hide the text: */
+    color: transparent;
+    overflow: hidden;
+    text-indent: 99em;
+
+    /* use a background-image instead: */
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    background: transparent no-repeat left center;
+    background-size: contain;
+
+    /* and add some breathing room, but still a hit target: */
+    /* (see below for first-of-type adjustment) */
+    background-clip: padding-box;
+    border: solid transparent;
+    border-width: 0 0.33em;
+
+    /* show them at partial opacity until hover (below): */
+    opacity: 0.5;
+}
+
+p#copy a.external:hover {
+    opacity: 1.0;
+}
+
+p#copy a.external:first-of-type {
+    margin-left: 0.33em;
+}
+
+p#copy a.twitter {
+    background-image: url(/images/twitter/bird_blue_16.png);
+}
+
+p#copy a.feed {
+    background-image: url(/images/feed/feed-icon-14x14.png);
+}
