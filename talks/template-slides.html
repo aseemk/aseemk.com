@@ -6,6 +6,9 @@
 
         <title>reveal.js - The HTML Presentation Framework</title>
 
+        <!-- Open all links in a new tab when viewing these slides: -->
+        <base target="_blank">
+
         <meta name="description" content="A framework for easily creating beautiful presentations using HTML">
         <meta name="author" content="Hakim El Hattab">
 
@@ -15,7 +18,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
         <link rel="stylesheet" href="reveal.js/2.6/css/reveal.min.css">
-        <link rel="stylesheet" href="reveal.js/2.6/css/theme/default.css" id="theme">
+        <link rel="stylesheet" href="reveal.js/2.6/css/theme/default.css">
 
         <!-- For syntax highlighting -->
         <link rel="stylesheet" href="reveal.js/2.6/lib/css/zenburn.css">
@@ -370,12 +373,8 @@ function linkify( selector ) {
                 history: true,
                 center: true,
 
-                theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
-                transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
-
-                // Parallax scrolling
-                // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
-                // parallaxBackgroundSize: '2100px 900px',
+                width: 1024,
+                height: 768,
 
                 // Optional libraries used to extend on reveal.js
                 dependencies: [
@@ -384,7 +383,8 @@ function linkify( selector ) {
                     { src: 'reveal.js/2.6/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
                     { src: 'reveal.js/2.6/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
                     { src: 'reveal.js/2.6/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
-                    { src: 'reveal.js/2.6/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+                    { src: 'reveal.js/2.6/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+                    { src: 'reveal.js/2.6/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
                 ]
             });
 
