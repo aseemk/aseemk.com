@@ -284,9 +284,9 @@ This helped noticeably, but still slow.
 MATCH (me:User {id: {id}})
 MATCH (me) -[:follows]-> (following) -[star:starred]-> (creation)
 
-WITH me, creation, star
+WITH creation, star
 ORDER BY star.createdAt
-WITH me, creation, HEAD(COLLECT(star)) AS star
+WITH creation, HEAD(COLLECT(star)) AS star
 
 WITH creation, star.createdAt AS _recommendedAt
 ORDER BY _recommendedAt DESC
@@ -301,3 +301,44 @@ Ultimately got rid of the extra hop, and worked around differently.
 Had tried a bunch of other stuff too.
 
 Notice now we only fetch creators for O(10) instead of O(N).
+
+
+# Threshold
+
+![Log threshold graph](/images/mix-neo4j/log-threshold-graph.png) <!-- .element: class="fragment" -->
+
+
+<!-- .slide: data-background="/images/mix-neo4j/log-threshold-derivation.jpg" data-background-transition="slide" -->
+
+Notes:
+https://mix.fiftythree.com/aseemk/308673
+
+
+# Threshold
+
+```
+MATCH (me:User {id: {id}})
+
+WITH me, TOFLOAT(CASE WHEN me.numFollowing < 1 THEN 1 ELSE me.numFollowing END) AS `me.numFollowing`
+WITH me, FLOOR(LOG(3 * `me.numFollowing` / 100) / LOG(3)) AS threshold
+WITH me, (CASE WHEN threshold < 0 THEN 0 ELSE TOINT(threshold) END) + 1 AS threshold
+
+MATCH (me) -[:follows]-> (following) -[star:starred]-> (creation)
+
+WITH creation, star, threshold
+ORDER BY star.createdAt
+WITH creation, COLLECT(star) AS stars, threshold
+WHERE LENGTH(stars) >= threshold
+WITH creation, stars[threshold - 1] AS star
+
+WITH creation, star.createdAt AS _recommendedAt
+ORDER BY _recommendedAt DESC
+LIMIT 10
+
+MATCH (creation) -[:creator]-> (creator)
+RETURN creation, creator, _recommendedAt
+```
+<!-- .element: class="fragment" -->
+
+Notes:
+And this adds the log threshold.
