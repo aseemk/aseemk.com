@@ -6,6 +6,13 @@
 Notes:
 https://mix.fiftythree.com/
 
+TODO:
+- colors
+- background
+- lessons learned?
+
+
+<!-- GRAPHCONNECT 2014 + MONSTERS -->
 
 <!-- .slide: data-background="/images/mix-neo4j/graphconnect-2014.jpg" data-background-transition="slide" -->
 
@@ -31,11 +38,71 @@ Notes:
 https://mix.fiftythree.com/391241-Natalia-La-Fey/482993
 
 
+<!-- NEO FAMILY -->
+
+<!-- .slide: data-background="/images/mix-neo4j/mix-neo0.jpg" data-background-transition="slide" -->
+
+Notes:
+https://mix.fiftythree.com/5923-Denis-Kovacs/42774
+
+
+<!-- .slide: data-background="/images/mix-neo4j/mix-neo1.jpg" data-background-transition="none" -->
+
+Notes:
+https://mix.fiftythree.com/35823-Seth-H/42837
+
+
+<!-- .slide: data-background="/images/mix-neo4j/mix-neo2.jpg" data-background-transition="none" -->
+
+Notes:
+https://mix.fiftythree.com/scott/43069
+
+
+<!-- .slide: data-background="/images/mix-neo4j/mix-neo3.jpg" data-background-transition="none" -->
+
+Notes:
+https://mix.fiftythree.com/58879-Maciej/116628
+
+
+<!-- .slide: data-background="/images/mix-neo4j/mix-neo4.jpg" data-background-transition="none" -->
+
+Notes:
+https://mix.fiftythree.com/43408-David-Samaniego/143459
+
+
+<!-- .slide: data-background="/images/mix-neo4j/mix-neo5.jpg" data-background-transition="none" -->
+
+Notes:
+https://mix.fiftythree.com/65597-K-EH/173206
+
+
+<!-- .slide: data-background="/images/mix-neo4j/mix-neo6.jpg" data-background-transition="none" -->
+
+Notes:
+https://mix.fiftythree.com/73470-Deb-Kelly/208037
+
+
+<!-- .slide: data-background="/images/mix-neo4j/mix-neo7.jpg" data-background-transition="none" -->
+
+Notes:
+https://mix.fiftythree.com/198435-Antonio-Ferreira/441055
+
+
+<!-- .slide: data-background="/images/mix-neo4j/mix-neo8.jpg" data-background-transition="none" -->
+
+Notes:
+https://mix.fiftythree.com/74103-Zelo/348930
+
+
+<!-- MIX VIDEO -->
+
 <!-- .slide: data-background="/images/mix-neo4j/mix-background-1024x768.png" data-background-transition="slide" -->
 
 Notes:
 https://vimeo.com/105656434
 
+
+<!-- MIX GRAPHS -->
 
 <!-- .slide: data-background="/images/mix-neo4j/mix-graph0-template.jpg" data-background-transition="slide" -->
 
