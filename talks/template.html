@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="utf-8">
+
+    <!-- TODO: We could/should reuse our _includes here, at least head. -->
+
+    <title>reveal.js - The HTML Presentation Framework</title>
+
+    <!-- Open all links in a new tab when viewing these slides: -->
+    <base target="_blank">
+
+    <meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+    <meta name="author" content="Hakim El Hattab">
+
+    <link rel="stylesheet" href="/styles/talk.css" />
+
+    <!-- Google Analytics, streamlined/optimized a bit: -->
+    <script>
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-22174557-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+
+</head>
+<body class="portrait">
+
+    <noscript>
+        <p>Sorry, JavaScript is needed to view this talk.</p>
+    </noscript>
+
+    <iframe id="slides" src="./template-slides.html" width="1024" height="768"></iframe>
+
+    <div id="notes">Loading…</div>
+
+    <script src="/scripts/talk.js"></script>
+
+</body>
+</html>
