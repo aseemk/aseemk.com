@@ -223,3 +223,81 @@ http://www.markhneedham.com/blog/2013/11/08/neo4j-2-0-0-m06-applying-wes-freeman
 </table>
 
 <aside class="fragment">(On my >3yo MacBook Air, for our ~10x worst-case user.)</aside>
+
+
+# Recommendations
+
+<!-- .slide: data-transition="fade" -->
+
+```
+MATCH (me:User {id: {id}})
+MATCH (me) -[:follows]-> (following) -[star:starred]-> (creation)
+
+WITH me, creation, star
+ORDER BY star.createdAt
+WITH me, creation, HEAD(COLLECT(star)) AS star
+
+MATCH (creation) -[:creator]-> (creator)
+WHERE NOT (me) -[:follows*0..1]-> (creator)
+
+RETURN creation, creator, star.createdAt AS _recommendedAt
+ORDER BY _recommendedAt DESC
+LIMIT 10
+```
+<!-- .element: class="fragment" -->
+
+Notes:
+Our original version. Very slow.
+
+
+# Recommendations
+
+<!-- .slide: data-transition="fade" -->
+
+```
+MATCH (me:User {id: {id}})
+MATCH (me) -[:follows]-> (following) -[star:starred]-> (creation)
+
+WITH me, creation, star
+ORDER BY star.createdAt
+WITH me, creation, HEAD(COLLECT(star)) AS star
+
+MATCH (creation) -[:creator]-> (creator)
+WHERE creator <> me AND NOT((me) -[:follows]-> (creator))
+
+RETURN creation, creator, star.createdAt AS _recommendedAt
+ORDER BY _recommendedAt DESC
+LIMIT 10
+```
+
+Notes:
+Tipped by Cypher team to break up the variable length implicit MATCH in WHERE.
+
+This helped noticeably, but still slow.
+
+
+# Recommendations
+
+<!-- .slide: data-transition="fade" -->
+
+```
+MATCH (me:User {id: {id}})
+MATCH (me) -[:follows]-> (following) -[star:starred]-> (creation)
+
+WITH me, creation, star
+ORDER BY star.createdAt
+WITH me, creation, HEAD(COLLECT(star)) AS star
+
+WITH creation, star.createdAt AS _recommendedAt
+ORDER BY _recommendedAt DESC
+LIMIT 10
+
+MATCH (creation) -[:creator]-> (creator)
+RETURN creation, creator, _recommendedAt
+```
+
+Notes:
+Ultimately got rid of the extra hop, and worked around differently.
+Had tried a bunch of other stuff too.
+
+Notice now we only fetch creators for O(10) instead of O(N).
