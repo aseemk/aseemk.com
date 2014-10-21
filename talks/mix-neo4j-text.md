@@ -93,3 +93,66 @@ https://vimeo.com/105656434
 Notes:
 All of this richness from this simple graph.
 Just two nodes and four relationships.
+
+
+# Query Profiling
+
+```coffee
+for key, query of queries
+    echo "Query '#{key}':"
+
+    # warm-up:
+    neo4j.query query, params, _
+
+    times = []
+    for i in [1..3]
+        start = Date.now()
+        neo4j.query query, params, _
+        times.push Date.now() - start
+
+    # ...
+    echo "Min/median/max: #{min}/#{median}/#{max} ms.
+        Mean: #{Math.round mean} ms."
+```
+<!-- .element: class="fragment" -->
+
+<aside class="fragment">(Hat-tip Mark Needham)</aside>
+
+Notes:
+http://www.markhneedham.com/blog/2013/11/08/neo4j-2-0-0-m06-applying-wes-freemans-cypher-optimisation-tricks/
+
+
+# Home Stream
+
+<table class="profile-times fragment">
+    <tr>
+        <td><code>0-following-ids</code></td>
+        <td class="fragment">27 ms</td>
+    </tr>
+    <tr>
+        <td><code>1-following-shares</code></td>
+        <td class="fragment bad">581 ms</td>
+    </tr>
+    <tr>
+        <td><code>2-following-features</code></td>
+        <td class="fragment">77 ms</td>
+    </tr
+    <tr>
+        <td><code>3-following-stars</code></td>
+        <td class="fragment bad">1386 ms</td>
+    </tr>
+    <tr>
+        <td><code>4-stars-remixes</code></td>
+        <td class="fragment">189 ms</td>
+    </tr>
+    <tr>
+        <td><code>5-shares-remixes</code></td>
+        <td class="fragment">81 ms</td>
+    </tr>
+    <tr class="summary">
+        <td class="fragment">All in parallel</td>
+        <td class="fragment bad">1961 ms</td>
+    </tr>
+</table>
+
+<aside class="fragment">(On my >3yo MacBook Air, for our ~10x worst-case user.)</aside>
