@@ -1,14 +1,18 @@
-## Building
-# Mix by FiftyThree
-## with
-# Neo4j
+<!-- .slide: class="title" -->
+
+# <span class="mix">Mix</span> ![♥](/images/mix-neo4j/mix-remix-heart.svg) <!-- .element: class="mix-remix-heart" --> <span class="graphs">Graphs</span>
+
+### Betting the Company, Part 2
+
+Aseem Kishore<br/>
+Oct 2014<br/>
 
 Notes:
 https://mix.fiftythree.com/
 
 TODO:
-- colors
-- background
+- improve style
+- intro/background
 - lessons learned?
 
 
