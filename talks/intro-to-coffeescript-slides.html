@@ -15,19 +15,19 @@
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
-        <link rel="stylesheet" href="css/reveal.css">
-        <link rel="stylesheet" href="css/theme/default.css" id="theme">
+        <link rel="stylesheet" href="reveal.js/1.5/css/reveal.css">
+        <link rel="stylesheet" href="reveal.js/1.5/css/theme/default.css" id="theme">
 
         <!-- For syntax highlighting -->
-        <link rel="stylesheet" href="lib/css/zenburn.css">
+        <link rel="stylesheet" href="reveal.js/1.5/lib/css/zenburn.css">
 
         <!-- If the query includes 'print-pdf', use the PDF print sheet -->
         <script>
-            document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+            document.write( '<link rel="stylesheet" href="reveal.js/1.5/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
         </script>
 
         <!--[if lt IE 9]>
-        <script src="lib/js/html5shiv.js"></script>
+        <script src="reveal.js/1.5/lib/js/html5shiv.js"></script>
         <![endif]-->
 
 <!-- custom styles for the slides! written in Stylus for convenience. -->
@@ -2271,8 +2271,8 @@ var sections = document.getElementsByTagName('section');
 });
 </script>
 
-        <script src="lib/js/head.min.js"></script>
-        <script src="js/reveal.min.js"></script>
+        <script src="reveal.js/1.5/lib/js/head.min.js"></script>
+        <script src="reveal.js/1.5/js/reveal.min.js"></script>
 
         <script>
 
@@ -2294,12 +2294,12 @@ var sections = document.getElementsByTagName('section');
 
                 // Optional libraries used to extend on reveal.js
                 dependencies: [
-                    { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
-                    { src: 'plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-                    { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-                    { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
-                    { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
-                    { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+                    { src: 'reveal.js/1.5/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    { src: 'reveal.js/1.5/plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'reveal.js/1.5/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'reveal.js/1.5/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    { src: 'reveal.js/1.5/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+                    { src: 'reveal.js/1.5/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
                 ]
             });
 
