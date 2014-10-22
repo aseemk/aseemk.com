@@ -1,24 +1,67 @@
+<!-- TITLE -->
+
 <!-- .slide: class="title" -->
 
-# <span class="mix">Mix</span> ![♥](/images/mix-neo4j/mix-remix-heart.svg) <!-- .element: class="mix-remix-heart" --> <span class="graphs">Graphs</span>
+# <span class="red">Betting the Company</span>
+## (Again) on a
+# <span class="green">Graph Database</span>
 
-### Betting the Company, Part 2
+### The Story Continued…
 
 Aseem Kishore<br/>
 Oct 2014<br/>
 
 Notes:
-https://mix.fiftythree.com/
+http://aseemk.com/talks/neo4j-lessons-learned
 
-TODO:
-- improve style
-- intro/background
-- lessons learned?
+
+<!-- INTRO: THINGDOM -->
+
+<!-- .slide: data-background="/images/neo4j-lessons-learned/thingdom-hp-gasi.png" data-background-transition="convex" -->
+
+Notes:
+http://www.thethingdom.com/
+
+
+<!-- INTRO: FIFTYTHREE -->
+
+<!-- .slide: data-background="/images/neo4j-lessons-learned/fiftythree-hp.png" data-background-transition="convex" -->
+
+Notes:
+http://www.fiftythree.com/
+
+
+<!-- INTRO: TIMELINE -->
+
+<!-- .slide: data-background="/images/mix-neo4j/aseemk-timeline.jpg" data-background-transition="convex" -->
+
+Notes:
+https://mix.fiftythree.com/aseemk/24342
+
+
+<!-- INTRO: MIX -->
+
+<!-- .slide: data-background="/images/mix-neo4j/mix-billboard-1024x768.png" data-background-transition="convex" -->
+
+<p class="stretch"><a href="http://player.vimeo.com/video/105656434?autoplay=1" style="color: transparent; display: block; width: 100%; height: 100%;">&nbsp;</a></p>
+
+Notes:
+https://vimeo.com/105656434
+
+
+<!-- .slide: class="subtitle" -->
+
+# <span class="orange">Mix</span> ![♥](/images/mix-neo4j/mix-remix-heart.svg) <!-- .element: class="mix-remix-heart" --> <span class="green">Graphs</span>
+
+## Bringing Ideas Together
+
+Notes:
+https://mix.fiftythree.com/
 
 
 <!-- GRAPHCONNECT 2014 + MONSTERS -->
 
-<!-- .slide: data-background="/images/mix-neo4j/graphconnect-2014.jpg" data-background-transition="slide" -->
+<!-- .slide: data-background="/images/mix-neo4j/graphconnect-2014.jpg" data-background-transition="default" -->
 
 Notes:
 https://mix.fiftythree.com/GraphConnect/464175
@@ -42,9 +85,14 @@ Notes:
 https://mix.fiftythree.com/391241-Natalia-La-Fey/482993
 
 
+# <span class="orange">Mix</span> ![♥](/images/mix-neo4j/mix-remix-heart.svg) <!-- .element: class="mix-remix-heart" --> <span class="green">Neo<span class="fragment fade-out">4j</a></span>
+
+Notes:
+
+
 <!-- NEO FAMILY -->
 
-<!-- .slide: data-background="/images/mix-neo4j/mix-neo0.jpg" data-background-transition="slide" -->
+<!-- .slide: data-background="/images/mix-neo4j/mix-neo0.jpg" data-background-transition="default" -->
 
 Notes:
 https://mix.fiftythree.com/5923-Denis-Kovacs/42774
@@ -98,17 +146,9 @@ Notes:
 https://mix.fiftythree.com/74103-Zelo/348930
 
 
-<!-- MIX VIDEO -->
-
-<!-- .slide: data-background="/images/mix-neo4j/mix-background-1024x768.png" data-background-transition="slide" -->
-
-Notes:
-https://vimeo.com/105656434
-
-
 <!-- MIX GRAPHS -->
 
-<!-- .slide: data-background="/images/mix-neo4j/mix-graph0-template.jpg" data-background-transition="slide" -->
+<!-- .slide: data-background="/images/mix-neo4j/mix-graph0-template.jpg" data-background-transition="default" -->
 
 
 <!-- .slide: data-background="/images/mix-neo4j/mix-graph1-users.jpg" data-background-transition="none" -->
@@ -312,7 +352,7 @@ Notice now we only fetch creators for O(10) instead of O(N).
 ![Log threshold graph](/images/mix-neo4j/log-threshold-graph.png) <!-- .element: class="fragment" -->
 
 
-<!-- .slide: data-background="/images/mix-neo4j/log-threshold-derivation.jpg" data-background-transition="slide" -->
+<!-- .slide: data-background="/images/mix-neo4j/log-threshold-derivation.jpg" data-background-transition="convex" -->
 
 Notes:
 https://mix.fiftythree.com/aseemk/308673
@@ -346,3 +386,52 @@ RETURN creation, creator, _recommendedAt
 
 Notes:
 And this adds the log threshold.
+
+
+<!-- OUTRO: MIX -->
+
+<!-- .slide: data-background="/images/mix-neo4j/mix-billboard-1024x768.png" data-background-transition="convex" -->
+
+
+<!-- OUTRO: THANKS -->
+
+<!-- .slide: data-background="/images/mix-neo4j/aseemk-thanks.jpg" data-background-transition="convex" -->
+
+Notes:
+https://mix.fiftythree.com/aseemk/103104
+
+
+<!-- OUTRO: CONTACT -->
+
+<!-- .slide: data-background="/images/mix-neo4j/aseemk-contact.jpg" data-background-transition="convex" -->
+
+Notes:
+https://mix.fiftythree.com/aseemk/90628
+
+- Mix: [/aseemk](https://mix.fiftythree.com/aseemk)
+- GitHub: [@aseemk](https://github.com/aseemk)
+- Twitter: [@aseemk](https://twitter.com/aseemk)
+- Email: [aseem.kishore@gmail.com](mailto:aseem.kishore@gmail.com)
+
+
+<!-- OUTRO: INSPIRATION 1 -->
+
+<!-- .slide: data-background="/images/mix-neo4j/inspiration1.jpg" data-background-transition="default" -->
+
+Notes:
+https://mix.fiftythree.com/asa/163393
+
+
+<!-- OUTRO: INSPIRATION 1 -->
+
+<!-- .slide: data-background="/images/mix-neo4j/inspiration2.jpg" data-background-transition="default" -->
+
+Notes:
+https://mix.fiftythree.com/aseemk/170271
+
+
+<!-- FINAL -->
+
+<!-- .slide: data-transition="fade" -->
+
+# Thank ![♥](/images/mix-neo4j/mix-remix-heart.svg) <!-- .element: class="mix-remix-heart" --> You
