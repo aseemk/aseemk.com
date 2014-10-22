@@ -40,6 +40,10 @@
 
         <style>
 
+.reveal {
+    margin: auto;   /* For viewport aspect ratio HACK from JS. */
+}
+
 .reveal .slides > section {
     padding: 0;
 }
@@ -180,6 +184,23 @@ table.profile-times td.bad {
                     { src: 'reveal.js/2.6/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
                 ]
             });
+
+            // HACK: If the viewport's aspect ratio doesn't match our slides',
+            // constrain Reveal to match our slides. We do this for this
+            // presentation since we our backgrounds aren't good full-bleed.
+            // This probably isn't the most robust cross-browser way either...
+
+            var revealElmt = document.querySelector('.reveal');
+            var slidesAspect = 1024 / 768;
+            var viewportWidth = window.innerWidth;
+            var viewportHeight = window.innerHeight;
+            var viewportAspect = viewportWidth / viewportHeight;
+
+            if (viewportAspect < slidesAspect) {
+                revealElmt.style.height = viewportWidth / slidesAspect + 'px';
+            } else if (viewportAspect > slidesAspect) {
+                revealElmt.style.width = viewportHeight * slidesAspect + 'px';
+            }
 
         </script>
 
