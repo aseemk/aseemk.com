@@ -398,7 +398,7 @@ function linkify( selector ) {
                     { src: 'reveal.js/2.6/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
                     { src: 'reveal.js/2.6/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
                     { src: 'reveal.js/2.6/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
-                    { src: 'reveal.js/2.6/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+                    { src: 'reveal.js/2.6/plugin/remotes/remotes.js', async: true, condition: function() { return !!location.search.match( /remote/i ); } }
                 ]
             });
 
