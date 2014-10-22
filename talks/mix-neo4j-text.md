@@ -672,13 +672,17 @@ How cool is that? =)
 <!-- .slide: data-background="/images/mix-neo4j/mix-graph6-stars.jpg" data-background-transition="convex" -->
 
 // Notes:
-All of this richness from this simple graph.
-Just two nodes and four relationships.
+So stepping back up, what's incredible is that we've gotten all of this richness from a really simple graph: just two types of nodes, and four types of relationships.
+<p/>
+That's the power of graphs. ;)
 
 
 <!-- OUTRO: MIX -->
 
 <!-- .slide: data-background="/images/mix-neo4j/mix-billboard-1024x768.png" data-background-transition="convex" -->
+
+// Notes:
+So try out Mix if you haven't already! It's a blast. =)
 
 
 <!-- OUTRO: THANKS -->
@@ -686,7 +690,9 @@ Just two nodes and four relationships.
 <!-- .slide: data-background="/images/mix-neo4j/aseemk-thanks.jpg" data-background-transition="convex" -->
 
 // Notes:
-https://mix.fiftythree.com/aseemk/103104
+As with any meaningful product, it was a major collaborative effort by [many amazing people](http://www.fiftythree.com/about) behind the scenes, so I wanted to call them out. I'm lucky to get to work with all of you — thank you!
+<p/>
+[Via](https://mix.fiftythree.com/aseemk/103104)
 
 
 <!-- OUTRO: CONTACT -->
@@ -694,12 +700,13 @@ https://mix.fiftythree.com/aseemk/103104
 <!-- .slide: data-background="/images/mix-neo4j/aseemk-contact.jpg" data-background-transition="convex" -->
 
 // Notes:
-https://mix.fiftythree.com/aseemk/90628
-
-- Mix: [/aseemk](https://mix.fiftythree.com/aseemk)
-- GitHub: [@aseemk](https://github.com/aseemk)
-- Twitter: [@aseemk](https://twitter.com/aseemk)
-- Email: [aseem.kishore@gmail.com](mailto:aseem.kishore@gmail.com)
+<ul>
+<li>Mix: <a href="https://mix.fiftythree.com/aseemk">/aseemk</a></li>
+<li>GitHub: <a href="https://github.com/aseemk">@aseemk</a></li>
+<li>Twitter: <a href="https://twitter.com/aseemk">@aseemk</a></li>
+<li>Email: <a href="mailto:aseem.kishore@gmail.com">aseem.kishore@gmail.com</a></li>
+</ul>
+[Via](https://mix.fiftythree.com/aseemk/90628)
 
 
 <!-- OUTRO: INSPIRATION 1 -->
@@ -707,7 +714,9 @@ https://mix.fiftythree.com/aseemk/90628
 <!-- .slide: data-background="/images/mix-neo4j/inspiration1.jpg" data-background-transition="default" -->
 
 // Notes:
-https://mix.fiftythree.com/asa/163393
+I wanted to close with this inspirational note from our design co-founder, Andrew Allen.
+<p/>
+[Via](https://mix.fiftythree.com/asa/163393)
 
 
 <!-- OUTRO: INSPIRATION 1 -->
@@ -715,7 +724,9 @@ https://mix.fiftythree.com/asa/163393
 <!-- .slide: data-background="/images/mix-neo4j/inspiration2.jpg" data-background-transition="default" -->
 
 // Notes:
-https://mix.fiftythree.com/aseemk/170271
+I remixed it.
+<p/>
+[Via](https://mix.fiftythree.com/aseemk/170271)
 
 
 <!-- FINAL -->
@@ -725,8 +736,11 @@ https://mix.fiftythree.com/aseemk/170271
 # Thank ![♥](/images/mix-neo4j/mix-remix-heart.svg) <!-- .element: class="mix-remix-heart" --> You
 
 // Notes:
+Thank you!
+<p/>
 Appendix / Future topics:
-
-- Programmatic query building/generation
-- Including extra data (e.g. creator, original, optional `?include`s)
-- Different "shapes" of remix families (e.g. birthday sketches)
+<ul>
+<li>Programmatic query building/generation</li>
+<li>Including extra data (e.g. creator, original, optional <code>?include</code>s)</li>
+<li>Different "shapes" of remix families (e.g. birthday sketches)</li>
+</ul>
