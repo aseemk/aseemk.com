@@ -11,32 +11,44 @@
 Aseem Kishore<br/>
 Oct 2014<br/>
 
-Notes:
-http://aseemk.com/talks/neo4j-lessons-learned
+// Notes:
+Hi guys. My name is [Aseem Kishore](http://aseemk.com/). I'm a developer at a startup called [FiftyThree](http://www.fiftythree.com/). We make an iPad app called [Paper](http://www.fiftythree.com/paper). But I'll get to all that and more.
+<p/>
+Some of you may know me, maybe from previous GraphConnects. I've previously given a talk entitled [Betting the Company on a Graph Database](http://aseemk.com/talks/neo4j-lessons-learned), sharing my experiences and lessons learned building a startup on [Neo4j](http://neo4j.org/).
+<p/>
+Today, I'm excited to share the continuation to that story.
 
 
 <!-- INTRO: THINGDOM -->
 
 <!-- .slide: data-background="/images/neo4j-lessons-learned/thingdom-hp-gasi.png" data-background-transition="convex" -->
 
-Notes:
-http://www.thethingdom.com/
+// Notes:
+The startup I built (along with my friend and peer, [Daniel Gasienica](http://gasi.ch/)) was [The Thingdom](http://www.thethingdom.com/), a social network around products.
 
 
 <!-- INTRO: FIFTYTHREE -->
 
 <!-- .slide: data-background="/images/neo4j-lessons-learned/fiftythree-hp.png" data-background-transition="convex" -->
 
-Notes:
-http://www.fiftythree.com/
+// Notes:
+I shared that The Thingdom was acquired by [FiftyThree](http://www.fiftythree.com/), and I joined the team to transform its tech into something new.
+<p/>
+I just couldn't share what that new thing was...
 
 
 <!-- INTRO: TIMELINE -->
 
 <!-- .slide: data-background="/images/mix-neo4j/aseemk-timeline.jpg" data-background-transition="convex" -->
 
-Notes:
-https://mix.fiftythree.com/aseemk/24342
+// Notes:
+We worked in secret on that thing for quite a while. I hit my two-year anniversary at FiftyThree this past March, and I drew this sketch then, promising that we'd ship before the year was up. =)
+<p/>
+(The top line is a reference to the burger chain love of my NYC life, Shake Shack. It blows In 'N Out *out* of the water.)
+<p/>
+Well, I'm extremely pleased to say that we did meet that goal! We shipped this new product last month...
+<p/>
+[Via](https://mix.fiftythree.com/aseemk/24342)
 
 
 <!-- INTRO: MIX -->
@@ -45,8 +57,10 @@ https://mix.fiftythree.com/aseemk/24342
 
 <p class="stretch"><a href="http://player.vimeo.com/video/105656434?autoplay=1" style="color: transparent; display: block; width: 100%; height: 100%;">&nbsp;</a></p>
 
-Notes:
-https://vimeo.com/105656434
+// Notes:
+And here it is! [Mix by FiftyThree](https://mix.fiftythree.com/).
+<p/>
+Be sure to [watch the video](https://vimeo.com/105656434) too. =)
 
 
 <!-- .slide: class="subtitle" -->
@@ -55,127 +69,160 @@ https://vimeo.com/105656434
 
 ## Bringing Ideas Together
 
-Notes:
-https://mix.fiftythree.com/
+// Notes:
 
 
 <!-- GRAPHCONNECT 2014 + MONSTERS -->
 
 <!-- .slide: data-background="/images/mix-neo4j/graphconnect-2014.jpg" data-background-transition="default" -->
 
-Notes:
-https://mix.fiftythree.com/GraphConnect/464175
+// Notes:
+[Via](https://mix.fiftythree.com/GraphConnect/464175)
 
 
 <!-- .slide: data-background="/images/mix-neo4j/gc-monster1.jpg" data-background-transition="none" -->
 
-Notes:
-https://mix.fiftythree.com/391241-Natalia-La-Fey/471737
+// Notes:
+[Via](https://mix.fiftythree.com/391241-Natalia-La-Fey/471737)
 
 
 <!-- .slide: data-background="/images/mix-neo4j/gc-monster2.jpg" data-background-transition="none" -->
 
-Notes:
-https://mix.fiftythree.com/391241-Natalia-La-Fey/474539
+// Notes:
+[Via](https://mix.fiftythree.com/391241-Natalia-La-Fey/474539)
 
 
 <!-- .slide: data-background="/images/mix-neo4j/gc-monster3.jpg" data-background-transition="none" -->
 
-Notes:
-https://mix.fiftythree.com/391241-Natalia-La-Fey/482993
+// Notes:
+[Via](https://mix.fiftythree.com/391241-Natalia-La-Fey/482993)
 
 
 # <span class="orange">Mix</span> ![♥](/images/mix-neo4j/mix-remix-heart.svg) <!-- .element: class="mix-remix-heart" --> <span class="green">Neo<span class="fragment fade-out">4j</a></span>
 
-Notes:
+// Notes:
 
 
 <!-- NEO FAMILY -->
 
 <!-- .slide: data-background="/images/mix-neo4j/mix-neo0.jpg" data-background-transition="default" -->
 
-Notes:
-https://mix.fiftythree.com/5923-Denis-Kovacs/42774
+// Notes:
+[Via](https://mix.fiftythree.com/5923-Denis-Kovacs/42774)
 
 
 <!-- .slide: data-background="/images/mix-neo4j/mix-neo1.jpg" data-background-transition="none" -->
 
-Notes:
-https://mix.fiftythree.com/35823-Seth-H/42837
+// Notes:
+[Via](https://mix.fiftythree.com/35823-Seth-H/42837)
 
 
 <!-- .slide: data-background="/images/mix-neo4j/mix-neo2.jpg" data-background-transition="none" -->
 
-Notes:
-https://mix.fiftythree.com/scott/43069
+// Notes:
+[Via](https://mix.fiftythree.com/scott/43069)
 
 
 <!-- .slide: data-background="/images/mix-neo4j/mix-neo3.jpg" data-background-transition="none" -->
 
-Notes:
-https://mix.fiftythree.com/58879-Maciej/116628
+// Notes:
+[Via](https://mix.fiftythree.com/58879-Maciej/116628)
 
 
 <!-- .slide: data-background="/images/mix-neo4j/mix-neo4.jpg" data-background-transition="none" -->
 
-Notes:
-https://mix.fiftythree.com/43408-David-Samaniego/143459
+// Notes:
+[Via](https://mix.fiftythree.com/43408-David-Samaniego/143459)
 
 
 <!-- .slide: data-background="/images/mix-neo4j/mix-neo5.jpg" data-background-transition="none" -->
 
-Notes:
-https://mix.fiftythree.com/65597-K-EH/173206
+// Notes:
+[Via](https://mix.fiftythree.com/65597-K-EH/173206)
 
 
 <!-- .slide: data-background="/images/mix-neo4j/mix-neo6.jpg" data-background-transition="none" -->
 
-Notes:
-https://mix.fiftythree.com/73470-Deb-Kelly/208037
+// Notes:
+[Via](https://mix.fiftythree.com/73470-Deb-Kelly/208037)
 
 
 <!-- .slide: data-background="/images/mix-neo4j/mix-neo7.jpg" data-background-transition="none" -->
 
-Notes:
-https://mix.fiftythree.com/198435-Antonio-Ferreira/441055
+// Notes:
+[Via](https://mix.fiftythree.com/198435-Antonio-Ferreira/441055)
 
 
 <!-- .slide: data-background="/images/mix-neo4j/mix-neo8.jpg" data-background-transition="none" -->
 
-Notes:
-https://mix.fiftythree.com/74103-Zelo/348930
+// Notes:
+[Via](https://mix.fiftythree.com/74103-Zelo/348930)
 
 
 <!-- MIX GRAPHS -->
 
 # <span class="orange">Mix</span> ![♥](/images/mix-neo4j/mix-remix-heart.svg) <!-- .element: class="mix-remix-heart" --> <span class="green">Graphs</span>
 
+// Notes:
+So let's dive into the Mix graph.
+
 
 <!-- .slide: data-background="/images/mix-neo4j/mix-graph1-users.jpg" data-background-transition="none" -->
+
+// Notes:
+Like any service, we obviously have users...
 
 
 <!-- .slide: data-background="/images/mix-neo4j/mix-graph2-follows.jpg" data-background-transition="none" -->
 
+// Notes:
+And users follow each other, but that's the least interesting part of our graph.
+
 
 <!-- .slide: data-background="/images/mix-neo4j/mix-graph3-creation.jpg" data-background-transition="none" -->
+
+// Notes:
+Users share *creations* (made in Paper), so we add a "creator" relationship from the creation to the user.
+<p/>
+(The relationship goes from creation to user just for convention: creations *need* user creators, but users don't *need* to have any creations.)
 
 
 <!-- .slide: data-background="/images/mix-neo4j/mix-graph4-remix.jpg" data-background-transition="none" -->
 
+// Notes:
+The key piece to our service is that creations can *remix* other creations. So we add a "remix source" relationship from the remix to the source.
+
 
 <!-- .slide: data-background="/images/mix-neo4j/mix-graph5-remixes.jpg" data-background-transition="none" -->
+
+// Notes:
+The real fun happens when creations remix other *remixes*. These remix creations form a tree, much like source code.
+<p/>
+You can imagine that remixes can go in all sorts of directions, and so the corresponding remix trees can take all sorts of shapes. Broad, shallow ones; long, deep chains; or hybrids in between.
 
 
 <!-- .slide: data-background="/images/mix-neo4j/mix-graph6-stars.jpg" data-background-transition="none" -->
 
+// Notes:
+Finally, users can *star* (AKA "favorite") arbitrary creations.
+
 
 <!-- .slide: data-background="/images/mix-neo4j/mix-graph7-user1.jpg" data-background-transition="none" -->
+
+// Notes:
+So let's look at a single user, what the graph looks like from their perspective, fanning out.
 
 
 <!-- .slide: data-background="/images/mix-neo4j/mix-graph8-user2.jpg" data-background-transition="none" -->
 
+// Notes:
+A single user can have many incoming "creator" relationships (by sharing many creations), many outgoing "star" relationships (by starring many creations), and many "follows" relationships, both incoming and outgoing (by following and being followed by other users).
+
 
 <!-- .slide: data-background="/images/mix-neo4j/mix-graph9-user3.jpg" data-background-transition="none" -->
+
+// Notes:
+Aggregating or enumerating these relationships gives us many of the core lists and streams we surface in our UI. A nice 1:1 mapping.
 
 
 # Streams
@@ -189,7 +236,8 @@ MATCH (me) <-[:creator]- (creation)
 RETURN creation
 ```
 
-Notes:
+// Notes:
+Here's what that looks like in a Cypher query. This is the creations stream.
 
 
 # Pagination <span class="red">(Bad)</span>
@@ -206,8 +254,14 @@ SKIP {count} * {page - 1}
 LIMIT {count}
 ```
 
-Notes:
-Because of deletions.
+// Notes:
+Of course, returning every creation you've ever shared isn't a scalable API or UI pattern, so we want to paginate, which implies a meaningful sort.
+<p/>
+Like most other social apps, we sort by time, newest-to-oldest, hence the `ORDER BY ... DESC`.
+<p/>
+This query shows the typical pattern you see for paginating these kinds of aggregations: `SKIP` followed by `LIMIT`.
+<p/>
+The problem is, this is *not* a robust way of paginating — because creations can get deleted (unshared). If you previously returned 10, but then the 7th creation gets deleted, your next `SKIP 10` will cause you to skip the previous 11th creation, which you never returned.
 
 
 # Pagination <span class="green">(Good)</span>
@@ -224,19 +278,40 @@ ORDER BY creation.createdAt DESC
 LIMIT {count}
 ```
 
-Notes:
+// Notes:
+So instead, it's better to paginate using a *cursor* — some property or value that won't be changed or lost by deletes.
+<p/>
+In this case, we can use the time of the last returned creation as the cursor. Our next creation should be the one immediately preceding that cursor time.
 
 
 <!-- .slide: data-background="/images/mix-neo4j/mix-graph10-creation1.jpg" data-background-transition="none" -->
 
+// Notes:
+Before returning to the single user, let's switch perspectives to that of a single *creation*.
+
 
 <!-- .slide: data-background="/images/mix-neo4j/mix-graph11-creation2.jpg" data-background-transition="none" -->
+
+// Notes:
+Creations always have exactly one (direct) creator (the one who shared the creation), so they have exactly one outgoing "creator" relationship.
+<p/>
+Creations may remix other creations, which in turn may remix other creations, and so on; this forms an outgoing "remix source" relationship chain until you get to a root "original" creation.
+<p/>
+Creations may have remixes of their own, which in turn may have remixes of their own, and so on; this forms an *incoming* "remix source" sub-tree, just like the overall remix tree.
+<p/>
+Finally, creations may have many incoming "star" relationships (from many users starring the same creation).
 
 
 <!-- .slide: data-background="/images/mix-neo4j/mix-graph12-creation3.jpg" data-background-transition="none" -->
 
+// Notes:
+Again, aggregating these relationships gives us more of the core concepts we convey in our UI. For attribution, we surface the chain of remix sources. For discovery and fun — and after experimentation and iteration — we settled on considering the entire remix tree as a whole, which we call a remix "family", to shield non-technical users from the details of children/sibling/etc. relationships.
+
 
 <!-- .slide: data-background="/images/mix-neo4j/mix-graph13-creation4.jpg" data-background-transition="none" -->
+
+// Notes:
+It's worth noting that this still leaves us the flexibility to be more precise for our own needs. E.g. in our algorithms for deriving popular/trending creations, we consider only creations' direct remixes, not deeper ones.
 
 
 # Remix Families
@@ -253,10 +328,16 @@ ORDER BY relative.createdAt DESC
 LIMIT {count}
 ```
 
-Notes:
+// Notes:
+This is what our notion of a remix family looks like in a Cypher query. For a given creation, simply traverse any connected "remix source" relationships — both incoming and outgoing, and including the start creation itself.
+<p/>
+We sort family creations newest-to-oldest too, and paginate them the same way as well.
 
 
 <!-- .slide: data-background="/images/mix-neo4j/mix-graph9-user3.jpg" data-background-transition="none" -->
+
+// Notes:
+Let's return to our single user now, and apply the context of a single creation here.
 
 
 <!-- .slide: data-background="/images/mix-neo4j/mix-graph14-user4.jpg" data-background-transition="none" -->
@@ -319,13 +400,13 @@ LIMIT {count}
 
 <!-- .slide: data-background="/images/mix-neo4j/dedupe-holes.jpg" data-background-transition="convex" -->
 
-Notes:
+// Notes:
 https://mix.fiftythree.com/aseemk/329802
 
 
 <!-- .slide: data-background="/images/mix-neo4j/neo4j-union-issue.png" data-background-transition="convex" -->
 
-Notes:
+// Notes:
 https://github.com/neo4j/neo4j/issues/2725
 
 
@@ -364,7 +445,7 @@ ORDER BY _starredAt DESC
 LIMIT {count}
 ```
 
-Notes:
+// Notes:
 Very slow.
 
 
@@ -389,7 +470,7 @@ ORDER BY _starredAt DESC
 LIMIT {count}
 ```
 
-Notes:
+// Notes:
 Tipped by Cypher team to break up the variable length implicit MATCH in WHERE.
 
 This helped noticeably, but still slow.
@@ -420,7 +501,7 @@ for key, query of queries
 
 <aside class="fragment" data-fragment-index="1">(Hat-tip Mark Needham)</aside>
 
-Notes:
+// Notes:
 http://www.markhneedham.com/blog/2013/11/08/neo4j-2-0-0-m06-applying-wes-freemans-cypher-optimisation-tricks/
 
 
@@ -476,7 +557,7 @@ http://www.markhneedham.com/blog/2013/11/08/neo4j-2-0-0-m06-applying-wes-freeman
 
 <!-- .slide: data-background="/images/mix-neo4j/log-threshold-derivation.jpg" data-background-transition="convex" -->
 
-Notes:
+// Notes:
 https://mix.fiftythree.com/aseemk/308673
 
 
@@ -506,7 +587,7 @@ RETURN creation, creator, _starredAt
 ```
 <!-- .element: class="fragment" -->
 
-Notes:
+// Notes:
 And this adds the log threshold.
 
 
@@ -514,7 +595,7 @@ And this adds the log threshold.
 
 <!-- .slide: data-background="/images/mix-neo4j/mix-graph6-stars.jpg" data-background-transition="convex" -->
 
-Notes:
+// Notes:
 All of this richness from this simple graph.
 Just two nodes and four relationships.
 
@@ -528,7 +609,7 @@ Just two nodes and four relationships.
 
 <!-- .slide: data-background="/images/mix-neo4j/aseemk-thanks.jpg" data-background-transition="convex" -->
 
-Notes:
+// Notes:
 https://mix.fiftythree.com/aseemk/103104
 
 
@@ -536,7 +617,7 @@ https://mix.fiftythree.com/aseemk/103104
 
 <!-- .slide: data-background="/images/mix-neo4j/aseemk-contact.jpg" data-background-transition="convex" -->
 
-Notes:
+// Notes:
 https://mix.fiftythree.com/aseemk/90628
 
 - Mix: [/aseemk](https://mix.fiftythree.com/aseemk)
@@ -549,7 +630,7 @@ https://mix.fiftythree.com/aseemk/90628
 
 <!-- .slide: data-background="/images/mix-neo4j/inspiration1.jpg" data-background-transition="default" -->
 
-Notes:
+// Notes:
 https://mix.fiftythree.com/asa/163393
 
 
@@ -557,7 +638,7 @@ https://mix.fiftythree.com/asa/163393
 
 <!-- .slide: data-background="/images/mix-neo4j/inspiration2.jpg" data-background-transition="default" -->
 
-Notes:
+// Notes:
 https://mix.fiftythree.com/aseemk/170271
 
 
@@ -567,7 +648,7 @@ https://mix.fiftythree.com/aseemk/170271
 
 # Thank ![♥](/images/mix-neo4j/mix-remix-heart.svg) <!-- .element: class="mix-remix-heart" --> You
 
-Notes:
+// Notes:
 Appendix / Future topics:
 
 - Programmatic query building/generation
