@@ -178,6 +178,55 @@ https://mix.fiftythree.com/74103-Zelo/348930
 <!-- .slide: data-background="/images/mix-neo4j/mix-graph9-user3.jpg" data-background-transition="none" -->
 
 
+# Streams
+
+<!-- .slide: class="big-code" data-transition="fade" -->
+
+```
+MATCH (me:User {id: {id}})
+MATCH (me) <-[:creator]- (creation)
+
+RETURN creation
+```
+
+Notes:
+
+
+# Pagination <span class="red">(Bad)</span>
+
+<!-- .slide: class="big-code" data-transition="fade" -->
+
+```
+MATCH (me:User {id: {id}})
+MATCH (me) <-[:creator]- (creation)
+
+RETURN creation
+ORDER BY creation.createdAt DESC
+SKIP {count} * {page - 1}
+LIMIT {count}
+```
+
+Notes:
+Because of deletions.
+
+
+# Pagination <span class="green">(Good)</span>
+
+<!-- .slide: class="big-code" data-transition="fade" -->
+
+```
+MATCH (me:User {id: {id}})
+MATCH (me) <-[:creator]- (creation)
+
+WHERE creation.createdAt < {cursorTime}
+RETURN creation
+ORDER BY creation.createdAt DESC
+LIMIT {count}
+```
+
+Notes:
+
+
 <!-- .slide: data-background="/images/mix-neo4j/mix-graph10-creation1.jpg" data-background-transition="none" -->
 
 
@@ -188,6 +237,23 @@ https://mix.fiftythree.com/74103-Zelo/348930
 
 
 <!-- .slide: data-background="/images/mix-neo4j/mix-graph13-creation4.jpg" data-background-transition="none" -->
+
+
+# Remix Families
+
+<!-- .slide: class="big-code" data-transition="fade" -->
+
+```
+MATCH (c:Creation {id: {id}})
+MATCH (c) -[:remix_source*0..]- (relative)
+
+WHERE relative.createdAt < {cursorTime}
+RETURN relative
+ORDER BY relative.createdAt DESC
+LIMIT {count}
+```
+
+Notes:
 
 
 <!-- .slide: data-background="/images/mix-neo4j/mix-graph9-user3.jpg" data-background-transition="none" -->
@@ -286,7 +352,7 @@ WHERE NOT (me) -[:follows*0..1]-> (creator)
 
 RETURN creation, creator, star.createdAt AS _recommendedAt
 ORDER BY _recommendedAt DESC
-LIMIT 10
+LIMIT {count}
 ```
 <!-- .element: class="fragment" -->
 
@@ -311,7 +377,7 @@ WHERE creator <> me AND NOT((me) -[:follows]-> (creator))
 
 RETURN creation, creator, star.createdAt AS _recommendedAt
 ORDER BY _recommendedAt DESC
-LIMIT 10
+LIMIT {count}
 ```
 
 Notes:
@@ -334,7 +400,7 @@ WITH creation, HEAD(COLLECT(star)) AS star
 
 WITH creation, star.createdAt AS _recommendedAt
 ORDER BY _recommendedAt DESC
-LIMIT 10
+LIMIT {count}
 
 MATCH (creation) -[:creator]-> (creator)
 RETURN creation, creator, _recommendedAt
@@ -377,7 +443,7 @@ WITH creation, stars[threshold - 1] AS star
 
 WITH creation, star.createdAt AS _recommendedAt
 ORDER BY _recommendedAt DESC
-LIMIT 10
+LIMIT {count}
 
 MATCH (creation) -[:creator]-> (creator)
 RETURN creation, creator, _recommendedAt
