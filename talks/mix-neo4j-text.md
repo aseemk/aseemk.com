@@ -3,7 +3,7 @@
 <!-- .slide: class="title" -->
 
 # <span class="red">Betting the Company</span>
-## (Again) on a
+## (Again?!) on a
 # <span class="green">Graph Database</span>
 
 ### The Story Continued…
@@ -148,7 +148,7 @@ https://mix.fiftythree.com/74103-Zelo/348930
 
 <!-- MIX GRAPHS -->
 
-<!-- .slide: data-background="/images/mix-neo4j/mix-graph0-template.jpg" data-background-transition="default" -->
+# <span class="orange">Mix</span> ![♥](/images/mix-neo4j/mix-remix-heart.svg) <!-- .element: class="mix-remix-heart" --> <span class="green">Graphs</span>
 
 
 <!-- .slide: data-background="/images/mix-neo4j/mix-graph1-users.jpg" data-background-transition="none" -->
@@ -319,8 +319,14 @@ LIMIT {count}
 
 <!-- .slide: data-background="/images/mix-neo4j/dedupe-holes.jpg" data-background-transition="convex" -->
 
+Notes:
+https://mix.fiftythree.com/aseemk/329802
+
 
 <!-- .slide: data-background="/images/mix-neo4j/neo4j-union-issue.png" data-background-transition="convex" -->
+
+Notes:
+https://github.com/neo4j/neo4j/issues/2725
 
 
 # <span class="green">Until then…</span>
