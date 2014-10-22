@@ -61,8 +61,8 @@
     font-style: italic;
 }
 
-.reveal pre {
-    margin: 3em auto 2em;
+.reveal pre code {
+    max-height: none;
 }
 
 h1 span.orange {
@@ -97,7 +97,21 @@ h1 img.mix-remix-heart {
 
 .big-code pre {
     font-size: 1em;
-    margin: 1em auto;
+    margin: 1.5em auto 1em;
+}
+
+.medium-code pre {
+    font-size: 0.75em;
+    margin: 2em auto 1.5em;
+}
+
+.deduping pre {
+    font-size: 0.7em;
+    margin-bottom: 0;
+}
+
+.profiling pre {
+    font-size: 0.6em;
 }
 
 table.profile-times td:last-child {
@@ -115,6 +129,10 @@ table.profile-times tr.summary td {
 
 table.profile-times td.bad {
     color: #f88;
+}
+
+.production-perf p {
+    margin: 1.5em auto 1em;
 }
 
         </style>

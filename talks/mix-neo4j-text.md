@@ -265,14 +265,133 @@ Notes:
 <!-- .slide: data-background="/images/mix-neo4j/mix-graph15-user5.jpg" data-background-transition="none" -->
 
 
-<!-- .slide: data-background="/images/mix-neo4j/mix-graph6-stars.jpg" data-background-transition="none" -->
+# Home Stream 1
+
+<!-- .slide: class="medium-code" data-transition="fade" -->
+
+```
+MATCH (me:User {id: {id}})
+MATCH (me) -[:follows]-> (f) <-[:creator]- (creation)
+
+WHERE creation.createdAt < {cursorTime}
+RETURN creation
+ORDER BY creation.createdAt DESC
+LIMIT {count}
+```
+
+
+# Home Stream 2
+
+<!-- .slide: class="medium-code" data-transition="fade" -->
+
+```
+MATCH (me:User {id: {id}})
+MATCH (me) -[:follows]-> (f) -[star:starred]-> (creation)
+
+WITH creation, star
+ORDER BY star.createdAt
+WITH creation, HEAD(COLLECT(star)) AS star
+
+WHERE star.createdAt < {cursorTime}
+RETURN creation, star.createdAt AS _starredAt
+ORDER BY _starredAt DESC
+LIMIT {count}
+```
+
+
+# Home Stream 3
+
+<!-- .slide: class="medium-code" data-transition="fade" -->
+
+```
+MATCH (me:User {id: {id}})
+MATCH (me) -[:starred]-> (c) <-[:remix_source*]- (remix)
+
+WHERE remix.createdAt < {cursorTime}
+RETURN DISTINCT remix
+ORDER BY remix.createdAt DESC
+LIMIT {count}
+```
+
+
+# <span class="red">Union?</span>
+
+
+<!-- .slide: data-background="/images/mix-neo4j/dedupe-holes.jpg" data-background-transition="convex" -->
+
+
+<!-- .slide: data-background="/images/mix-neo4j/neo4j-union-issue.png" data-background-transition="convex" -->
+
+
+# <span class="green">Until then…</span>
+
+<!-- .slide: class="big-code" -->
+
+```coffee
+nodes = _(results).chain().flatten()
+    .sortBy (node) -> node._orderedAt
+    .unique (node) -> node.id
+    .reverse().value()
+```
+
+<aside>Post-processing on our server.</aside>
+
+
+# Deduping <span class="red fragment">(Very Bad)</span>
+
+<!-- .slide: class="medium-code deduping" data-transition="fade" -->
+
+```
+MATCH (me:User {id: {id}})
+MATCH (me) -[:follows]-> (f) -[star:starred]-> (creation)
+
+WITH me, creation, star
+ORDER BY star.createdAt
+WITH me, creation, HEAD(COLLECT(star)) AS star
+
+MATCH (creation) -[:creator]-> (creator)
+WHERE NOT (me) -[:follows*0..1]-> (creator)
+
+WHERE star.createdAt < {cursorTime}
+RETURN creation, star.createdAt AS _starredAt
+ORDER BY _starredAt DESC
+LIMIT {count}
+```
 
 Notes:
-All of this richness from this simple graph.
-Just two nodes and four relationships.
+Very slow.
+
+
+# Deduping <span class="red">(Bad)</span>
+
+<!-- .slide: class="medium-code deduping" data-transition="fade" -->
+
+```
+MATCH (me:User {id: {id}})
+MATCH (me) -[:follows]-> (f) -[star:starred]-> (creation)
+
+WITH me, creation, star
+ORDER BY star.createdAt
+WITH me, creation, HEAD(COLLECT(star)) AS star
+
+MATCH (creation) -[:creator]-> (creator)
+WHERE creator <> me AND NOT((me) -[:follows]-> (creator))
+
+WHERE star.createdAt < {cursorTime}
+RETURN creation, star.createdAt AS _starredAt
+ORDER BY _starredAt DESC
+LIMIT {count}
+```
+
+Notes:
+Tipped by Cypher team to break up the variable length implicit MATCH in WHERE.
+
+This helped noticeably, but still slow.
 
 
 # Query Profiling
+
+<!-- .slide: class="medium-code profiling" -->
 
 ```coffee
 for key, query of queries
@@ -291,9 +410,9 @@ for key, query of queries
     echo "Min/median/max: #{min}/#{median}/#{max} ms.
         Mean: #{Math.round mean} ms."
 ```
-<!-- .element: class="fragment" -->
+<!-- .element: class="fragment" data-fragment-index="1" -->
 
-<aside class="fragment">(Hat-tip Mark Needham)</aside>
+<aside class="fragment" data-fragment-index="1">(Hat-tip Mark Needham)</aside>
 
 Notes:
 http://www.markhneedham.com/blog/2013/11/08/neo4j-2-0-0-m06-applying-wes-freemans-cypher-optimisation-tricks/
@@ -301,116 +420,47 @@ http://www.markhneedham.com/blog/2013/11/08/neo4j-2-0-0-m06-applying-wes-freeman
 
 # Home Stream
 
-<table class="profile-times fragment">
+<table class="profile-times">
     <tr>
         <td><code>0-following-ids</code></td>
-        <td class="fragment">27 ms</td>
+        <td class="fragment" data-fragment-index="1">27 ms</td>
     </tr>
     <tr>
         <td><code>1-following-shares</code></td>
-        <td class="fragment bad">581 ms</td>
+        <td class="fragment bad" data-fragment-index="1">581 ms</td>
     </tr>
     <tr>
         <td><code>2-following-features</code></td>
-        <td class="fragment">77 ms</td>
+        <td class="fragment" data-fragment-index="1">77 ms</td>
     </tr
     <tr>
         <td><code>3-following-stars</code></td>
-        <td class="fragment bad">1386 ms</td>
+        <td class="fragment bad" data-fragment-index="1">1386 ms</td>
     </tr>
     <tr>
         <td><code>4-stars-remixes</code></td>
-        <td class="fragment">189 ms</td>
+        <td class="fragment" data-fragment-index="1">189 ms</td>
     </tr>
     <tr>
         <td><code>5-shares-remixes</code></td>
-        <td class="fragment">81 ms</td>
+        <td class="fragment" data-fragment-index="1">81 ms</td>
     </tr>
-    <tr class="summary">
-        <td class="fragment">All in parallel</td>
-        <td class="fragment bad">1961 ms</td>
+    <tr class="summary fragment">
+        <td>All in parallel</td>
+        <td class="bad">1961 ms</td>
     </tr>
 </table>
 
-<aside class="fragment">(On my >3yo MacBook Air, for our ~10x worst-case user.)</aside>
+<aside class="fragment">(On my aging MacBook Air, for our ~worst-case user.)</aside>
 
 
-# Recommendations
+# In Production…
 
-<!-- .slide: data-transition="fade" -->
+<!-- .slide: class="production-perf" -->
 
-```
-MATCH (me:User {id: {id}})
-MATCH (me) -[:follows]-> (following) -[star:starred]-> (creation)
+![](/images/mix-neo4j/home-stream-perf-queries.png) <!-- .element: class="fragment" -->
 
-WITH me, creation, star
-ORDER BY star.createdAt
-WITH me, creation, HEAD(COLLECT(star)) AS star
-
-MATCH (creation) -[:creator]-> (creator)
-WHERE NOT (me) -[:follows*0..1]-> (creator)
-
-RETURN creation, creator, star.createdAt AS _recommendedAt
-ORDER BY _recommendedAt DESC
-LIMIT {count}
-```
-<!-- .element: class="fragment" -->
-
-Notes:
-Our original version. Very slow.
-
-
-# Recommendations
-
-<!-- .slide: data-transition="fade" -->
-
-```
-MATCH (me:User {id: {id}})
-MATCH (me) -[:follows]-> (following) -[star:starred]-> (creation)
-
-WITH me, creation, star
-ORDER BY star.createdAt
-WITH me, creation, HEAD(COLLECT(star)) AS star
-
-MATCH (creation) -[:creator]-> (creator)
-WHERE creator <> me AND NOT((me) -[:follows]-> (creator))
-
-RETURN creation, creator, star.createdAt AS _recommendedAt
-ORDER BY _recommendedAt DESC
-LIMIT {count}
-```
-
-Notes:
-Tipped by Cypher team to break up the variable length implicit MATCH in WHERE.
-
-This helped noticeably, but still slow.
-
-
-# Recommendations
-
-<!-- .slide: data-transition="fade" -->
-
-```
-MATCH (me:User {id: {id}})
-MATCH (me) -[:follows]-> (following) -[star:starred]-> (creation)
-
-WITH creation, star
-ORDER BY star.createdAt
-WITH creation, HEAD(COLLECT(star)) AS star
-
-WITH creation, star.createdAt AS _recommendedAt
-ORDER BY _recommendedAt DESC
-LIMIT {count}
-
-MATCH (creation) -[:creator]-> (creator)
-RETURN creation, creator, _recommendedAt
-```
-
-Notes:
-Ultimately got rid of the extra hop, and worked around differently.
-Had tried a bunch of other stuff too.
-
-Notice now we only fetch creators for O(10) instead of O(N).
+<aside class="fragment">(But still some || mystery to unravel…)</aside>
 
 
 # Threshold
@@ -441,17 +491,26 @@ WITH creation, COLLECT(star) AS stars, threshold
 WHERE LENGTH(stars) >= threshold
 WITH creation, stars[threshold - 1] AS star
 
-WITH creation, star.createdAt AS _recommendedAt
-ORDER BY _recommendedAt DESC
+WITH creation, star.createdAt AS _starredAt
+ORDER BY _starredAt DESC
 LIMIT {count}
 
 MATCH (creation) -[:creator]-> (creator)
-RETURN creation, creator, _recommendedAt
+RETURN creation, creator, _starredAt
 ```
 <!-- .element: class="fragment" -->
 
 Notes:
 And this adds the log threshold.
+
+
+<!-- OUTRO: GRAPH -->
+
+<!-- .slide: data-background="/images/mix-neo4j/mix-graph6-stars.jpg" data-background-transition="convex" -->
+
+Notes:
+All of this richness from this simple graph.
+Just two nodes and four relationships.
 
 
 <!-- OUTRO: MIX -->
@@ -501,3 +560,10 @@ https://mix.fiftythree.com/aseemk/170271
 <!-- .slide: data-transition="fade" -->
 
 # Thank ![♥](/images/mix-neo4j/mix-remix-heart.svg) <!-- .element: class="mix-remix-heart" --> You
+
+Notes:
+Appendix / Future topics:
+
+- Programmatic query building/generation
+- Including extra data (e.g. creator, original, optional `?include`s)
+- Different "shapes" of remix families (e.g. birthday sketches)
