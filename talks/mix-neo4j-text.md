@@ -238,6 +238,8 @@ RETURN creation
 
 // Notes:
 Here's what that looks like in a Cypher query. This is the profile stream.
+<p/>
+(In my previous talk, I recommended using linked lists for `O(1)` scalability. That's still a good recommendation, but in our case this time around, we chose to keep our graph and code simpler by not doing that, since our domain here deals with thousands of nodes, not millions or more. These naive aggregations are definitely "good enough" for small numbers, and they give you a lot more flexibility in adapting your domain and iterating.)
 
 
 # Pagination <span class="red">(Bad)</span>
@@ -489,7 +491,11 @@ LIMIT {count}
 ```
 
 // Notes:
-Very slow.
+We attempted to work around this by manually and explicitly baking dedupe logic into the queries directly.
+<p/>
+For example, this is the "stars from people I follow" query now excluding "creations from people I follow": `WHERE NOT(me) -[:follows*0..1]-> (creator)`.
+<p/>
+Unfortunately, this addition turned out to make that query *an order of magnitude* slower.
 
 
 # Deduping <span class="red">(Bad)</span>
@@ -514,9 +520,11 @@ LIMIT {count}
 ```
 
 // Notes:
-Tipped by Cypher team to break up the variable length implicit MATCH in WHERE.
-
-This helped noticeably, but still slow.
+We reached out to the Neo4j team for support, and they analyzed the query execution plans to see if there was any room for improvement.
+<p/>
+One concrete thing they recommended to us was to break up the variable length `MATCH` (implicitly in the `WHERE`), into separate zero-length (`creator <> me`) and one-length (`NOT (me) -[:follows]-> (creator)`) checks.
+<p/>
+That change helped noticeably, but overall it was still much slower than before.
 
 
 # Query Profiling
@@ -545,16 +553,20 @@ for key, query of queries
 <aside class="fragment" data-fragment-index="1">(Hat-tip Mark Needham)</aside>
 
 // Notes:
-http://www.markhneedham.com/blog/2013/11/08/neo4j-2-0-0-m06-applying-wes-freemans-cypher-optimisation-tricks/
+And that leads to our most important lesson learned this time around: profile, profile, profile.
+<p/>
+Up until this point, we had never explicitly profiled our Cypher queries, assuming that that would be something the Neo4j team could do for us, or thinking that there weren't good tools for that yet, etc. At the most basic level, I assumed we'd need to integrate something into our running app, like a code profiler, except it wouldn't be as simple.
+<p/>
+But then I did a quick search, and came across [a nice blog post](http://www.markhneedham.com/blog/2013/11/08/neo4j-2-0-0-m06-applying-wes-freemans-cypher-optimisation-tricks/) by Mark Needham. Mark describes how he profiles/benchmarks his queries by simply running them a few times (with a warm-up run first) and looking at the mean and median run times. He wrote a Python script for doing this, and I thought that was brilliant.
+<p/>
+So we whipped our own equivalent for Node.js, and checked in some files with representative example queries from our app. We now had the ability to quickly experiment with ideas and variations for our queries, and immediately see the effects of those changes.
+<p/>
+Importantly, *this is not measuring real-world query times in practice* — you're running this script locally on one-off queries — but that's okay. The point of this isn't to look at *absolute* query times (unless they're really high); the point is to look at change, and compare between queries.
 
 
 # Home Stream
 
 <table class="profile-times">
-    <tr>
-        <td><code>0-following-ids</code></td>
-        <td class="fragment" data-fragment-index="1">27 ms</td>
-    </tr>
     <tr>
         <td><code>1-following-shares</code></td>
         <td class="fragment bad" data-fragment-index="1">581 ms</td>
@@ -583,6 +595,13 @@ http://www.markhneedham.com/blog/2013/11/08/neo4j-2-0-0-m06-applying-wes-freeman
 
 <aside class="fragment">(On my aging MacBook Air, for our ~worst-case user.)</aside>
 
+// Notes:
+So we ran this on our home stream queries, experimented, and concluded that unfortunately, the manual deduping we were trying to do (exclude "creations from people I follow" from "stars from people I follow") was the culprit.
+<p/>
+Intuitively, that makes sense: we were now fanning out two extra levels and doing a relationship search for every node. It's possible to optimize that algorithm, but every way we tried to in Cypher didn't have the effect. The Neo4j team is aware of the issue and hope to improve this as part of their ongoing Cypher performance optimizations!
+<p/>
+The numbers here are what my laptop does on our queries today. It's definitely not fast, but more importantly, we made sure to test the queries in parallel too (which is how we run them in practice), and the fact that the parallel run time isn't simply equal to the slowest query's run time tells us that there's something significant to investigate there.
+
 
 # In Production…
 
@@ -592,19 +611,35 @@ http://www.markhneedham.com/blog/2013/11/08/neo4j-2-0-0-m06-applying-wes-freeman
 
 <aside class="fragment">(But still some || mystery to unravel…)</aside>
 
+// Notes:
+Fortunately, our performance is much better in practice. =) But notice that the relative ordering of slow to fast queries is still the same.
+
 
 # Threshold
 
 ![Log threshold graph](/images/mix-neo4j/log-threshold-graph.png) <!-- .element: class="fragment" -->
 
+// Notes:
+I want to share one last tidbit of our queries.
+<p/>
+For our "stars from people I follow" query, one tweak we decided to make soon after launch was to make that query selective: instead of recommending *every* creation that's starred, only recommend creations that are starred by *two* people I follow, or maybe three.
+<p/>
+We spent some time looking at our data, and decided that the threshold should be dynamic, adapting to the number of people I follow. (Conceptually, the more people you follow, the more content you're directly getting, so there's less need for us to recommend content to you.)
+<p/>
+We arrived at this logarithmic approach: if you follow less than 100 people, still recommend every creation; if you follow 100-300 people, only recommend creations starred by two people you follow; if you follow 300-900, make the threshold three people; etc.
+
 
 <!-- .slide: data-background="/images/mix-neo4j/log-threshold-derivation.jpg" data-background-transition="convex" -->
 
 // Notes:
-https://mix.fiftythree.com/aseemk/308673
+I pulled out Paper, Pencil, and some high-school calculus to derive the logarithmic equation... (Some math is wrong here in retrospect!)
+<p/>
+[Via](https://mix.fiftythree.com/aseemk/308673)
 
 
 # Threshold
+
+<!-- .slide: class="threshold" -->
 
 ```
 MATCH (me:User {id: {id}})
@@ -624,14 +659,12 @@ WITH creation, stars[threshold - 1] AS star
 WITH creation, star.createdAt AS _starredAt
 ORDER BY _starredAt DESC
 LIMIT {count}
-
-MATCH (creation) -[:creator]-> (creator)
-RETURN creation, creator, _starredAt
 ```
-<!-- .element: class="fragment" -->
 
 // Notes:
-And this adds the log threshold.
+And we were able to plug that logic into our Cypher query directly.
+<p/>
+How cool is that? =)
 
 
 <!-- OUTRO: GRAPH -->
