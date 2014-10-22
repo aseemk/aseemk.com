@@ -182,7 +182,7 @@ And users follow each other, but that's the least interesting part of our graph.
 <!-- .slide: data-background="/images/mix-neo4j/mix-graph3-creation.jpg" data-background-transition="none" -->
 
 // Notes:
-Users share *creations* (made in Paper), so we add a "creator" relationship from the creation to the user.
+Users share *creations* (made with Paper), so we add a "creator" relationship from the creation to the user.
 <p/>
 (The relationship goes from creation to user just for convention: creations *need* user creators, but users don't *need* to have any creations.)
 
@@ -237,7 +237,7 @@ RETURN creation
 ```
 
 // Notes:
-Here's what that looks like in a Cypher query. This is the creations stream.
+Here's what that looks like in a Cypher query. This is the profile stream.
 
 
 # Pagination <span class="red">(Bad)</span>
@@ -311,7 +311,7 @@ Again, aggregating these relationships gives us more of the core concepts we con
 <!-- .slide: data-background="/images/mix-neo4j/mix-graph13-creation4.jpg" data-background-transition="none" -->
 
 // Notes:
-It's worth noting that this still leaves us the flexibility to be more precise for our own needs. E.g. in our algorithms for deriving popular/trending creations, we consider only creations' direct remixes, not deeper ones.
+It's worth noting that this still leaves us the flexibility to be more precise for our own needs. E.g. in our algorithms for deriving popular/trending creations, we consider only creations' first-level remixes, not deeper ones.
 
 
 # Remix Families
@@ -342,8 +342,18 @@ Let's return to our single user now, and apply the context of a single creation 
 
 <!-- .slide: data-background="/images/mix-neo4j/mix-graph14-user4.jpg" data-background-transition="none" -->
 
+// Notes:
+So for each of the creations that our user has shared or starred, those creations themselves can have remixes and/or stars. And the users that our user follows have creations of their own that they've shared or starred.
+
 
 <!-- .slide: data-background="/images/mix-neo4j/mix-graph15-user5.jpg" data-background-transition="none" -->
+
+// Notes:
+From these, we get interesting email notifications ("Bob starred your idea" and "You've been remixed"), as well as an interesting home stream, filled not just with content from people you follow, but with personalized, relevant recommendations as well: creations that people you follow are starring (a form of social curation), and remixes of creations you've starred (giving you the ability to "subscribe" to interesting remix families).
+<p/>
+What's powerful is that we can do even more in the future, just with what's shown here. E.g. we can recommend users to follow (if you star a creation, you may like more of that creator's work), and we can detect real *collaboration* (if you're remixing other creators).
+<p/>
+Let's dive into those three pieces that make up our home stream.
 
 
 # Home Stream 1
@@ -359,6 +369,9 @@ RETURN creation
 ORDER BY creation.createdAt DESC
 LIMIT {count}
 ```
+
+// Notes:
+The first piece is the standard one: "creations from people I follow". This is what that query looks like, basic as expected.
 
 
 # Home Stream 2
@@ -379,6 +392,15 @@ ORDER BY _starredAt DESC
 LIMIT {count}
 ```
 
+// Notes:
+The second piece is the "stars from people I follow" recommendation. This is that query.
+<p/>
+What's notable here is that `WITH` aggregation in the middle. The reason for it is because we need to account for the fact that multiple people (whom I follow) can star the same creation, at totally different times. We don't want to show you the same creation multiple times though; we want to show it to you just once, at the time that it was first starred.
+<p/>
+So to achieve that, we have to sort everything by when it was first starred (oldest-to-newest), then filter out any duplicate *stars* (that's what the `HEAD(COLLECT(star))` does), before returning them in reverse (newest-to-oldest).
+<p/>
+This sounds complex, but this has become a standard pattern for us, whenever an object we're interested in can be arrived at by different paths. It'd be nice if there were a simpler, more shorthand way of expressing this in Cypher. ;)
+
 
 # Home Stream 3
 
@@ -394,20 +416,36 @@ ORDER BY remix.createdAt DESC
 LIMIT {count}
 ```
 
+// Notes:
+The last piece is the "remixes of creations I've starred" recommendation. This is again a more straightforward query. The only thing worth pointing out is that we show you the full sub-tree down, not just first-level remixes, and not siblings, etc.
+<p/>
+(We actually have two more queries that make up our home stream in practice, but they're similar to these and less noteworthy.)
+
 
 # <span class="red">Union?</span>
+
+// Notes:
+So given that we have these disparate and dissimilar queries, how do we execute them together to make up a single "home stream" query?
+<p/>
+Well, Cypher 2.0 added a `UNION` keyword, which we thought would have been perfect for this... but the problem is, it's very basic: it doesn't support doing anything *after* the `UNION`; it literally *just* returns each sub-query's results directly.
+<p/>
+[Via](https://mix.fiftythree.com/aseemk/329802)
 
 
 <!-- .slide: data-background="/images/mix-neo4j/dedupe-holes.jpg" data-background-transition="convex" -->
 
 // Notes:
-https://mix.fiftythree.com/aseemk/329802
+The result is that if we were to use it, we'd skip over data. This sketch shows an example I had visualized to help me think through this problem: if queries A and B are returning their individual top result(s), and we simply `UNION`'ed them together, we could skip over data in the middle when we paginate next. (Or we paginate differently but then the two pages overlap in order, which you don't want either.)
+<p/>
+What we really need, and shown on the right, is for us to dedupe and *slice* (for pagination) *after* aggregation, not before.
+<p/>
+[Via](https://github.com/neo4j/neo4j/issues/2725)
 
 
 <!-- .slide: data-background="/images/mix-neo4j/neo4j-union-issue.png" data-background-transition="convex" -->
 
 // Notes:
-https://github.com/neo4j/neo4j/issues/2725
+I filed a feature request to fix this: [neo4j/neo4j#2725](https://github.com/neo4j/neo4j/issues/2725). Chime in there if you agree! ;)
 
 
 # <span class="green">Until then…</span>
@@ -422,6 +460,11 @@ nodes = _(results).chain().flatten()
 ```
 
 <aside>Post-processing on our server.</aside>
+
+// Notes:
+So until we get that ability, our only option is to do the post-processing that we need on our own side. Unfortunately, this can never be fully correct, as we can't simply return all of the data in the database, but we have no other choice with Cypher today.
+<p/>
+As a concrete example of where this still falls short, imagine that someone I follow just starred a creation today, but that creation was shared by someone *else* I follow *yesterday*. We ideally don't want to show you this creation at the top of your stream today since we just showed it to you yesterday — so this creation should be further down in your stream where it originally was — but our "creations from people I follow" query may not have this creation on its first page anymore, so our post-processing deduping won't see it.
 
 
 # Deduping <span class="red fragment">(Very Bad)</span>
