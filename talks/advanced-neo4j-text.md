@@ -2,14 +2,13 @@
 
 <!-- .slide: class="title" -->
 
-# <span class="red">Betting the Company</span>
-## (Again?!) on a
-# <span class="green">Graph Database</span>
+# <span class="red">Advanced Neo4j</span>
+# <span class="green">at FiftyThree</span>
 
-### The Story Continued…
+### Reading, Writing, and Scaling — Oh, My!
 
 Aseem Kishore<br/>
-Oct 2014<br/>
+Oct 2015<br/>
 
 // Notes:
 Hi guys. My name is [Aseem Kishore](http://aseemk.com/). I'm a developer at a startup called [FiftyThree](http://www.fiftythree.com/). We make an iPad app called [Paper](http://www.fiftythree.com/paper). But I'll get to all that and more.
