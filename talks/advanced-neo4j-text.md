@@ -11,217 +11,202 @@ Aseem Kishore<br/>
 Oct 2015<br/>
 
 // Notes:
-Hi guys. My name is [Aseem Kishore](http://aseemk.com/). I'm a developer at a startup called [FiftyThree](http://www.fiftythree.com/). We make an iPad app called [Paper](http://www.fiftythree.com/paper). But I'll get to all that and more.
-<p/>
-Some of you may know me, maybe from previous GraphConnects. I've previously given a talk entitled [Betting the Company on a Graph Database](http://aseemk.com/talks/neo4j-lessons-learned), sharing my experiences and lessons learned building a startup on [Neo4j](http://neo4j.org/).
-<p/>
-Today, I'm excited to share the continuation to that story.
-
-
-<!-- INTRO: THINGDOM -->
-
-<!-- .slide: data-background="/images/neo4j-lessons-learned/thingdom-hp-gasi.png" data-background-transition="convex" -->
-
-// Notes:
-The startup I built (along with my friend and peer, [Daniel Gasienica](http://gasi.ch/)) was [The Thingdom](http://www.thethingdom.com/), a social network around products.
+Hi folks. My name is [Aseem Kishore](http://aseemk.com/). I'm a developer at a startup called [FiftyThree](http://www.fiftythree.com/about). We make the popular iOS app [Paper](http://www.fiftythree.com/paper).
 
 
 <!-- INTRO: FIFTYTHREE -->
 
-<!-- .slide: data-background="/images/neo4j-lessons-learned/fiftythree-hp.png" data-background-transition="convex" -->
+<!-- .slide: data-background="/images/advanced-neo4j/paper-1440.png" data-background-transition="convex" -->
+
+<p class="stretch"><a href="https://player.vimeo.com/video/138268307?autoplay=1" style="color: transparent; display: block; width: 100%; height: 100%;">&nbsp;</a></p>
 
 // Notes:
-I shared that The Thingdom was acquired by [FiftyThree](http://www.fiftythree.com/), and I joined the team to transform its tech into something new.
+Paper is an app for quickly capturing ideas. Whether your idea is a text note, a photo, a sketch — or any combination of those — we aim for Paper to be both the fastest and simplest way to get it recorded.
 <p/>
-I just couldn't share what that new thing was...
+Be sure to [watch the video](https://vimeo.com/138268307).
 
 
-<!-- INTRO: TIMELINE -->
+<!-- INTRO: FIFTYTHREE / GRAPH 1 -->
 
-<!-- .slide: data-background="/images/mix-neo4j/aseemk-timeline.jpg" data-background-transition="convex" -->
+<!-- .slide: data-background="/images/advanced-neo4j/talk2-mix-graph6-stars.jpg" data-background-transition="convex" -->
 
 // Notes:
-We worked in secret on that thing for quite a while. I hit my two-year anniversary at FiftyThree this past March, and I drew this sketch then, promising that we'd ship before the year was up. =)
-<p/>
-(The top line is a reference to the burger chain love of my NYC life, Shake Shack. It blows In 'N Out *out* of the water.)
-<p/>
-Well, I'm extremely pleased to say that we did meet that goal! We shipped this new product last month...
-<p/>
-[Via](https://mix.fiftythree.com/aseemk/24342)
+TODO
 
 
-<!-- INTRO: MIX -->
+<!-- INTRO: FIFTYTHREE / GRAPH 2 -->
 
-<!-- .slide: data-background="/images/mix-neo4j/mix-billboard-1024x768.png" data-background-transition="convex" -->
-
-<p class="stretch"><a href="http://player.vimeo.com/video/105656434?autoplay=1" style="color: transparent; display: block; width: 100%; height: 100%;">&nbsp;</a></p>
+<!-- .slide: data-background="/images/advanced-neo4j/talk2-mix-graph15-user5.jpg" data-background-transition="none" -->
 
 // Notes:
-And here it is! [Mix by FiftyThree](https://mix.fiftythree.com/).
+TODO
+
+
+<!-- INTRO: FIFTYTHREE / GRAPH 3 -->
+
+<!-- .slide: data-background="/images/advanced-neo4j/talk2-mix-graph13-creation4.jpg" data-background-transition="none" -->
+
+// Notes:
+TODO
+
+
+<!-- INTRO: FIRST TALK / TITLE -->
+
+<!-- .slide: data-background="/images/neo4j-lessons-learned.png" data-background-transition="convex" -->
+
+<p class="stretch"><a href="http://aseemk.com/talks/neo4j-lessons-learned" style="color: transparent; display: block; width: 100%; height: 100%;">&nbsp;</a></p>
+
+// Notes:
+I've previously given two other talks relating to Neo4j. The first, [Betting the Company on a Graph Database](http://aseemk.com/talks/neo4j-lessons-learned), described why we chose Neo4j in the first place, how it works, and some of the fundamental lessons we learned.
+
+
+<!-- INTRO: FIRST TALK / GRAPH DB DEF -->
+
+<!-- .slide: data-background="/images/advanced-neo4j/talk1-graphdb-def.png" data-background-transition="fade" -->
+
+// Notes:
+TODO
+
+
+<!-- INTRO: FIRST TALK / GRAPH DB VIZ -->
+
+<!-- .slide: data-background="/images/advanced-neo4j/talk1-graphdb-viz.png" data-background-transition="none" -->
+
+// Notes:
+TODO
+
+
+<!-- INTRO: FIRST TALK / FILE DIAGRAM -->
+
+<!-- .slide: data-background="/images/advanced-neo4j/talk1-neo4j-file-diagram.png" data-background-transition="none" -->
+
+// Notes:
+TODO
+
+
+<!-- INTRO: FIRST TALK / FILE FORMAT -->
+
+<!-- .slide: data-background="/images/advanced-neo4j/talk1-neo4j-file-format.png" data-background-transition="none" -->
+
+// Notes:
+TODO
+
+
+<!-- INTRO: FIRST TALK / LESSONS -->
+
+<!-- .slide: data-background="/images/advanced-neo4j/talk1-lessons.png" data-background-transition="none" -->
+
+// Notes:
+TODO
+
+
+<!-- INTRO: SECOND TALK / TITLE -->
+
+<!-- .slide: data-background="/images/mix-neo4j.png" data-background-transition="convex" -->
+
+<p class="stretch"><a href="http://aseemk.com/talks/mix-neo4j" style="color: transparent; display: block; width: 100%; height: 100%;">&nbsp;</a></p>
+
+// Notes:
+The second talk, Betting the Company Part 2, or [Building Mix with Neo4j](http://aseemk.com/talks/mix-neo4j), described how we expanded our understanding of Neo4j to ship our major sharing and collaboration service for Paper.
+
+
+<!-- INTRO: SECOND TALK / PAGINATION BAD -->
+
+<!-- .slide: data-background="/images/advanced-neo4j/talk2-pagination-bad.png" data-background-transition="fade" -->
+
+// Notes:
+TODO
+
+
+<!-- INTRO: SECOND TALK / PAGINATION GOOD -->
+
+<!-- .slide: data-background="/images/advanced-neo4j/talk2-pagination-good.png" data-background-transition="none" -->
+
+// Notes:
+TODO
+
+
+<!-- INTRO: SECOND TALK / PRECISE DISTINCT -->
+
+<!-- .slide: data-background="/images/advanced-neo4j/talk2-precise-distinct.png" data-background-transition="none" -->
+
+// Notes:
+TODO
+
+
+<!-- INTRO: SECOND TALK / DEDUPE HOLES -->
+
+<!-- .slide: data-background="/images/advanced-neo4j/talk2-dedupe-holes.jpg" data-background-transition="none" -->
+
+// Notes:
+TODO
+
+
+<!-- INTRO: SECOND TALK / QUERY PROFILING -->
+
+<!-- .slide: data-background="/images/advanced-neo4j/talk2-query-profiling-code.png" data-background-transition="none" -->
+
+// Notes:
+TODO
+
+
+<!-- INTRO: THIS TALK -->
+
+<!-- .slide: class="big-list" -->
+
+# This Talk
+
+<ul class="fragment fade-in">
+<li>Reading <em class="fragment">&rarr; Consistency</em></li>
+<li>Writing <em class="fragment">&rarr; Atomicity</em></li>
+<li>Scaling <em class="fragment">&rarr; Monitoring</em></li>
+</ul>
+
+// Notes:
+With both of my previous talks, I tried to focus on things that weren't already covered by typical blog posts, tutorials, etc. This talk is no different.
 <p/>
-Be sure to [watch the video](https://vimeo.com/105656434) too. =)
+I want to focus on just three things in this talk, but I'll dive deep into each one. And the three things correspond to basic actions. The subtleties just come into play as you grow.
 
 
 <!-- .slide: class="subtitle" -->
 
-# <span class="orange">Mix</span> ![♥](/images/mix-neo4j/mix-remix-heart.svg) <!-- .element: class="mix-remix-heart" --> <span class="green">Graphs</span>
-
-## Bringing Ideas Together
+## <span class="red">Reading</span> &rarr; <span class="green">Consistency</span>
 
 // Notes:
+TODO
 
 
-<!-- GRAPHCONNECT 2014 + MONSTERS -->
+<!-- .slide: class="big-list" data-transition="fade" -->
 
-<!-- .slide: data-background="/images/mix-neo4j/graphconnect-2014.jpg" data-background-transition="default" -->
-
-// Notes:
-[Via](https://mix.fiftythree.com/GraphConnect/464175)
-
-
-<!-- .slide: data-background="/images/mix-neo4j/gc-monster1.jpg" data-background-transition="none" -->
-
-// Notes:
-[Via](https://mix.fiftythree.com/391241-Natalia-La-Fey/471737)
-
-
-<!-- .slide: data-background="/images/mix-neo4j/gc-monster2.jpg" data-background-transition="none" -->
+<ul>
+<li><code><span class="green">A</span>tomicity</code></li>
+<li><code><span class="green">C</span>onsistency</code></li>
+<li><code><span class="green">I</span>solation</code></li>
+<li><code><span class="green">D</span>urability</code></li>
+</ul>
 
 // Notes:
-[Via](https://mix.fiftythree.com/391241-Natalia-La-Fey/474539)
+Neo4j claims to be ACID, and it certainly is. The consistency in ACID (the database is always "correct" w.r.t. its constraints) is not the consistency we're talking about.
 
 
-<!-- .slide: data-background="/images/mix-neo4j/gc-monster3.jpg" data-background-transition="none" -->
+<!-- .slide: class="big-list" data-transition="fade" -->
 
-// Notes:
-[Via](https://mix.fiftythree.com/391241-Natalia-La-Fey/482993)
-
-
-# <span class="orange">Mix</span> ![♥](/images/mix-neo4j/mix-remix-heart.svg) <!-- .element: class="mix-remix-heart" --> <span class="green">Neo<span class="fragment fade-out">4j</a></span>
-
-// Notes:
-
-
-<!-- NEO FAMILY -->
-
-<!-- .slide: data-background="/images/mix-neo4j/mix-neo0.jpg" data-background-transition="default" -->
+<ul>
+<li><code><span class="green">C</span>onsistency</em></code></li>
+<li><code><span class="green">A</span>vailability</code></li>
+<li><code><span class="green">P</span>artition-tolerance</code></li>
+</ul>
 
 // Notes:
-[Via](https://mix.fiftythree.com/5923-Denis-Kovacs/42774)
+The consistency we're talking about is the consistency referenced in the CAP theorem. Neo4j's High Availability (HA) cluster prioritizes availability (as the name states!), which means that consistency is sacrificed.
 
 
-<!-- .slide: data-background="/images/mix-neo4j/mix-neo1.jpg" data-background-transition="none" -->
+<!-- .slide: class="subtitle" -->
 
-// Notes:
-[Via](https://mix.fiftythree.com/35823-Seth-H/42837)
-
-
-<!-- .slide: data-background="/images/mix-neo4j/mix-neo2.jpg" data-background-transition="none" -->
+## <span class="red">Writing</span> &rarr; <span class="green">Atomicity</span>
 
 // Notes:
-[Via](https://mix.fiftythree.com/scott/43069)
-
-
-<!-- .slide: data-background="/images/mix-neo4j/mix-neo3.jpg" data-background-transition="none" -->
-
-// Notes:
-[Via](https://mix.fiftythree.com/58879-Maciej/116628)
-
-
-<!-- .slide: data-background="/images/mix-neo4j/mix-neo4.jpg" data-background-transition="none" -->
-
-// Notes:
-[Via](https://mix.fiftythree.com/43408-David-Samaniego/143459)
-
-
-<!-- .slide: data-background="/images/mix-neo4j/mix-neo5.jpg" data-background-transition="none" -->
-
-// Notes:
-[Via](https://mix.fiftythree.com/65597-K-EH/173206)
-
-
-<!-- .slide: data-background="/images/mix-neo4j/mix-neo6.jpg" data-background-transition="none" -->
-
-// Notes:
-[Via](https://mix.fiftythree.com/73470-Deb-Kelly/208037)
-
-
-<!-- .slide: data-background="/images/mix-neo4j/mix-neo7.jpg" data-background-transition="none" -->
-
-// Notes:
-[Via](https://mix.fiftythree.com/198435-Antonio-Ferreira/441055)
-
-
-<!-- .slide: data-background="/images/mix-neo4j/mix-neo8.jpg" data-background-transition="none" -->
-
-// Notes:
-[Via](https://mix.fiftythree.com/74103-Zelo/348930)
-
-
-<!-- MIX GRAPHS -->
-
-# <span class="orange">Mix</span> ![♥](/images/mix-neo4j/mix-remix-heart.svg) <!-- .element: class="mix-remix-heart" --> <span class="green">Graphs</span>
-
-// Notes:
-So let's dive into the Mix graph.
-
-
-<!-- .slide: data-background="/images/mix-neo4j/mix-graph1-users.jpg" data-background-transition="none" -->
-
-// Notes:
-Like any service, we obviously have users...
-
-
-<!-- .slide: data-background="/images/mix-neo4j/mix-graph2-follows.jpg" data-background-transition="none" -->
-
-// Notes:
-And users follow each other, but that's the least interesting part of our graph.
-
-
-<!-- .slide: data-background="/images/mix-neo4j/mix-graph3-creation.jpg" data-background-transition="none" -->
-
-// Notes:
-Users share *creations* (made with Paper), so we add a "creator" relationship from the creation to the user.
-<p/>
-(The relationship goes from creation to user just for convention: creations *need* user creators, but users don't *need* to have any creations.)
-
-
-<!-- .slide: data-background="/images/mix-neo4j/mix-graph4-remix.jpg" data-background-transition="none" -->
-
-// Notes:
-The key piece to our service is that creations can *remix* other creations. So we add a "remix source" relationship from the remix to the source.
-
-
-<!-- .slide: data-background="/images/mix-neo4j/mix-graph5-remixes.jpg" data-background-transition="none" -->
-
-// Notes:
-The real fun happens when creations remix other *remixes*. These remix creations form a tree, much like source code.
-<p/>
-You can imagine that remixes can go in all sorts of directions, and so the corresponding remix trees can take all sorts of shapes. Broad, shallow ones; long, deep chains; or hybrids in between.
-
-
-<!-- .slide: data-background="/images/mix-neo4j/mix-graph6-stars.jpg" data-background-transition="none" -->
-
-// Notes:
-Finally, users can *star* (AKA "favorite") arbitrary creations.
-
-
-<!-- .slide: data-background="/images/mix-neo4j/mix-graph7-user1.jpg" data-background-transition="none" -->
-
-// Notes:
-So let's look at a single user, what the graph looks like from their perspective, fanning out.
-
-
-<!-- .slide: data-background="/images/mix-neo4j/mix-graph8-user2.jpg" data-background-transition="none" -->
-
-// Notes:
-A single user can have many incoming "creator" relationships (by sharing many creations), many outgoing "star" relationships (by starring many creations), and many "follows" relationships, both incoming and outgoing (by following and being followed by other users).
-
-
-<!-- .slide: data-background="/images/mix-neo4j/mix-graph9-user3.jpg" data-background-transition="none" -->
-
-// Notes:
-Aggregating or enumerating these relationships gives us many of the core lists and streams we surface in our UI. A nice 1:1 mapping.
+TODO
 
 
 # Streams

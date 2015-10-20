@@ -69,24 +69,22 @@
     max-height: none;
 }
 
-h1 span.orange {
-    color: #ff8f5e;
-    text-shadow: 0 5px 0 #eb5e28;
-}
-
-h1 span.red {
+h1 span.red, h2 span.red {
     color: #f88;
     text-shadow: 0 5px 0 #800;
 }
 
-h1 span.green {
+h1 span.green, h2 span.green {
     color: #8fa;
     text-shadow: 0 5px 0 #084;
 }
 
-h1 img.mix-remix-heart {
-    height: 0.75em;
-    vertical-align: middle;
+.red {
+    color: #f88;
+}
+
+.green {
+    color: #8fa;
 }
 
 /* Custom slide styles */
@@ -95,8 +93,21 @@ h1 img.mix-remix-heart {
     margin: 1em 0;
 }
 
-.subtitle h2 {
-    margin: 0.5em 0 1em;
+.big-list ul {
+    font-size: 1.5em;
+}
+
+.big-list li {
+    list-style-type: none;
+    margin: 0.75em 0;
+}
+
+.big-list li.no {
+    color: #ccc;
+}
+
+.big-list li.yes {
+    color: #8fa;
 }
 
 .big-code pre {
@@ -108,6 +119,9 @@ h1 img.mix-remix-heart {
     font-size: 0.75em;
     margin: 2em auto 1.5em;
 }
+
+
+/* OLD */
 
 .deduping pre {
     font-size: 0.7em;
