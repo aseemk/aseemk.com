@@ -6,7 +6,7 @@
 ## (Again?!) on a
 # <span class="green">Graph Database</span>
 
-### The Story Continued…
+### Building Mix With Neo4j
 
 Aseem Kishore<br/>
 Oct 2014<br/>

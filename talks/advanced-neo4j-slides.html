@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title>Advanced Neo4j at FiftyThree – Talks – Aseem Kishore</title>
+
+        <!-- Open all links in a new tab when viewing these slides: -->
+        <base target="_blank">
+
+        <meta name="description" content="FiftyThree is the company behind the popular iOS app Paper. This talk shares some of the more advanced and non-obvious things we've learned building and scaling our services on Neo4j.">
+        <meta name="author" content="Aseem Kishore">
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <link rel="stylesheet" href="reveal.js/2.6/css/reveal.min.css">
+        <link rel="stylesheet" href="reveal.js/2.6/css/theme/default.css">
+
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="reveal.js/2.6/lib/css/zenburn.css">
+
+        <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+        <script>
+            if( window.location.search.match( /print-pdf/gi ) ) {
+                var link = document.createElement( 'link' );
+                link.rel = 'stylesheet';
+                link.type = 'text/css';
+                link.href = 'reveal.js/2.6/css/print/pdf.css';
+                document.getElementsByTagName( 'head' )[0].appendChild( link );
+            }
+        </script>
+
+        <!--[if lt IE 9]>
+        <script src="reveal.js/2.6/lib/js/html5shiv.js"></script>
+        <![endif]-->
+
+        <style>
+
+.reveal {
+    margin: auto;   /* For viewport aspect ratio HACK from JS. */
+}
+
+.reveal .slides > section {
+    padding: 0;
+}
+
+.reveal section img {
+    background: none;
+    border: none;
+    box-shadow: none;
+    margin: 0;
+}
+
+.reveal blockquote {
+    margin: 1em auto;
+}
+
+.reveal table {
+    margin: 1em auto;
+}
+
+.reveal aside {
+    color: #888;
+    font-size: 0.8em;
+    font-style: italic;
+}
+
+.reveal pre code {
+    max-height: none;
+}
+
+h1 span.red, h2 span.red {
+    color: #f88;
+    text-shadow: 0 5px 0 #800;
+}
+
+h1 span.green, h2 span.green {
+    color: #8fa;
+    text-shadow: 0 5px 0 #084;
+}
+
+.red {
+    color: #f88;
+}
+
+.green {
+    color: #8fa;
+}
+
+.no {
+    color: #888;
+}
+
+/* Custom slide styles */
+
+.title h3 {
+    margin: 1em 0;
+}
+
+.subtitle h2 {
+    margin: 0 0 1em;
+}
+
+.big-list ul, .big-list ol {
+    font-size: 1.5em;
+}
+
+.big-list li {
+    margin: 0.75em 0;
+}
+
+.big-list ul li {
+    list-style-type: none;
+}
+
+.big-code pre {
+    font-size: 1em;
+    margin: 1.5em auto 1em;
+}
+
+.medium-code pre {
+    font-size: 0.75em;
+    margin: 2em auto 1.5em;
+}
+
+section.images p img {
+    margin: 0.5em 0;
+}
+
+section.table-images table img {
+    max-height: 50%;
+}
+
+        </style>
+    </head>
+
+    <body>
+
+        <div class="reveal">
+
+            <!-- Any section element inside of this container is displayed as a slide -->
+            <div class="slides">
+
+                <!-- Use external markdown resource, separate slides by two newlines -->
+                <section data-markdown="./advanced-neo4j-text.md" data-separator="^\n\n" data-notes="^// Notes:"></section>
+
+            </div>
+
+        </div>
+
+        <script src="reveal.js/2.6/lib/js/head.min.js"></script>
+        <script src="reveal.js/2.6/js/reveal.min.js"></script>
+
+        <script>
+
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: true,
+                progress: true,
+                history: true,
+                center: true,
+
+                width: 1024,
+                height: 768,
+                margin: 0,
+
+                // Optional libraries used to extend on reveal.js
+                dependencies: [
+                    { src: 'reveal.js/2.6/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    { src: 'reveal.js/2.6/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'reveal.js/2.6/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    // { src: 'reveal.js/2.6/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    { src: 'reveal.js/2.6/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+                    { src: 'reveal.js/2.6/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+                    { src: 'reveal.js/2.6/plugin/remotes/remotes.js', async: true, condition: function() { return !!location.search.match( /remote/i ); } }
+                ]
+            });
+
+            // HACK: If the viewport's aspect ratio doesn't match our slides',
+            // constrain Reveal to match our slides. We do this for this
+            // presentation since we our backgrounds aren't good full-bleed.
+            // This probably isn't the most robust cross-browser way either...
+
+            var revealElmt = document.querySelector('.reveal');
+            var slidesAspect = 1024 / 768;
+            var viewportWidth = window.innerWidth;
+            var viewportHeight = window.innerHeight;
+            var viewportAspect = viewportWidth / viewportHeight;
+
+            if (viewportAspect < slidesAspect) {
+                revealElmt.style.height = viewportWidth / slidesAspect + 'px';
+            } else if (viewportAspect > slidesAspect) {
+                revealElmt.style.width = viewportHeight * slidesAspect + 'px';
+            }
+
+        </script>
+
+    </body>
+</html>
