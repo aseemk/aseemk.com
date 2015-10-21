@@ -408,8 +408,9 @@ TODO
 
 <!-- .slide: class="big-code" data-transition="fade" -->
 
-<pre><code><span class="red">SET n.count</span> = <span class="green">n.count</span> + 1
-</code></pre>
+```
+SET n.count = n.count + 1
+```
 
 // Notes:
 So going back to our simple Cypher example, we now know we need to take a write lock before we do this read, but how?
@@ -429,8 +430,8 @@ The same section of the Neo4j manual tells us that locks are held per node and r
 
 <!-- .slide: class="big-code" data-transition="fade" -->
 
-<pre><code><span class="red">SET n._lock</span> = true
-<span class="red">SET n.count</span> = <span class="green">n.count</span> + 1
+<pre><code><span class="green">SET n._lock = true</span>
+SET n.count = n.count + 1
 </code></pre>
 
 // Notes:
@@ -439,9 +440,9 @@ That means we can fix our Cypher increment by simply writing *any other property
 
 <!-- .slide: class="big-code" data-transition="fade" -->
 
-<pre><code><span class="green">MATCH (n:Node ...)</span>
-<span class="red">SET n._lock</span> = true
-<span class="red">SET n.count</span> = <span class="green">n.count</span> + 1
+<pre><code><span class="red">MATCH (n:Node ...)</span>
+SET n._lock = true
+SET n.count = n.count + 1
 </code></pre>
 
 // Notes:
@@ -450,9 +451,9 @@ But of course, we need a node first. So we add a `MATCH`. That's fine, right?
 
 <!-- .slide: class="big-code" data-transition="fade" -->
 
-<pre><code><span class="green">MATCH (n:Node ...)</span>
+<pre><code>MATCH (n:Node ...)
 <span class="red">REMOVE n:Node</span>
-<span class="red">SET n:Deleted</span>
+SET n:Deleted
 </code></pre>
 
 // Notes:
@@ -463,11 +464,11 @@ What happens if this other query, which removes the `:Node` label, runs concurre
 
 <!-- .slide: class="big-code" data-transition="fade" -->
 
-<pre><code><span class="green">MATCH (n:Node ...)</span>
-<span class="red">SET n._lock</span> = true
+<pre><code>MATCH (n:Node ...)
+<span class="green">SET n._lock = true</span>
 WITH n
 <span class="green">WHERE (n:Node)</span>
-<span class="red">SET n.count</span> = <span class="green">n.count</span> + 1
+SET n.count = n.count + 1
 </code></pre>
 
 // Notes:
@@ -478,9 +479,10 @@ This is known as [double-checked locking](https://en.wikipedia.org/wiki/Double-c
 
 <!-- .slide: class="big-code" data-transition="fade" -->
 
-<pre><code><span class="green">WHERE NOT (a) -[:follows]-> (b)</span>
-<span class="red">CREATE (a) -[:follows]-> (b)</span>
-</code></pre>
+```
+WHERE NOT (a) -[:follows]-> (b)
+CREATE (a) -[:follows]-> (b)
+```
 
 // Notes:
 What about relationships? Here's a common concept: ensure only one instance of a particular relationship.
@@ -609,6 +611,8 @@ Fortunately, these "deadlock detected" errors are formally returned as transient
 As an aside, I think this error classification is awesome. Nice job to the team.
 
 
+<!-- TODO: Syntax highlight this code? Manually call out important parts? -->
+
 ```
 for numAttempts in [1..maxAttempts]
 
@@ -616,7 +620,7 @@ for numAttempts in [1..maxAttempts]
         db.cypher query, params
 
     catch error
-        if error.classification isnt 'TransientError'
+        if error.type isnt 'TransientError'
             throw error
 
         else if numAttempts >= maxAttempts
@@ -636,9 +640,11 @@ for numAttempts in [1..maxAttempts]
 So we retry as suggested. Here's roughly what our (pseudo)code looks like to execute Cypher queries with a retry loop for transient errors. Note the important exponential backoff.
 
 
+<!-- .slide: class="medium-code" -->
+
 ```
 isRetriable = (error) ->
-    error.classification is 'TransientError' or error.code in [
+    error.type is 'TransientError' or error.code in [
         'Neo.ClientError.Statement.EntityNotFound'
         'Neo.DatabaseError.Statement.ExecutionFailure'
         'Neo.DatabaseError.Transaction.CouldNotCommit'
@@ -653,7 +659,41 @@ In practice, we retry on a few other types of errors too, not just explicitly tr
 
 [![Neo4j error classifications](/images/advanced-neo4j/error-classifications.png)](http://neo4j.com/docs/stable/status-codes.html)
 
-[![Effects on transaction](/images/advanced-neo4j/error-classification-effects.png)](http://neo4j.com/docs/stable/status-codes.html) <!-- .element: class="fragment" -->
+[![Effects on transaction](/images/advanced-neo4j/error-classification-effects.png)](http://neo4j.com/docs/stable/status-codes.html)
 
 // Notes:
 Retrying individual queries like that makes sense. But things change when you're working with transactional queries (i.e. making multiple queries within a single transaction).
+<p/>
+Notice how the manual ([now](https://github.com/neo4j/neo4j/issues/5258)) documents that *any* type of error is fatal to open transactions: the *entire transaction* will be rolled back on *any* query error.
+
+
+<!-- .slide: class="medium-code" -->
+
+<!-- TODO: Syntax highlight this code? Manually call out important parts? -->
+
+```
+User.delete = (id) ->
+    transactWithRetries (tx) ->
+        tx.cypher '...'
+        ...     # application logic here
+        tx.cypher '...'
+
+transactWithRetries = (func) ->
+    for numAttempts in [1..maxAttempts]
+
+        try
+            tx = db.beginTransaction()
+            func tx
+            tx.commit()
+
+        catch error
+            tx.rollback()
+            ...     # same checks, backoff, etc.
+```
+
+// Notes:
+This means that if you want to be robust to transient errors in a multi-query transaction, you have to retry *the whole transaction* — including any application logic within.
+<p/>
+So this is roughly what our (pseudo)code looks like to execute queries within retriable transactions. It's actually a fair bit more involved in practice (e.g. these transactional functions could be composed, but Neo4j doesn't support nested transactions, so we track depth and explicitly guard against outer transactions suppressing inner transactions’ errors, etc.), but the important high-level point is that individual queries *aren't* retried on their own. Maybe we'll open-source our full framework some day. =)
+<p/>
+One note on the explicit `tx.rollback()`: this is to ensure we immediately release any locks, rather than waiting potentially a whole minute for Neo4j to expire the transaction. We only do this because Neo4j didn't always auto-rollback transactions on errors as documented, but Neo4j 2.2.6+ supposedly fixes this.
