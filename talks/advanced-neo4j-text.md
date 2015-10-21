@@ -178,64 +178,126 @@ I want to focus on just three things in this talk, but I'll dive deep into each 
 TODO
 
 
-<!-- .slide: class="big-list" data-transition="fade" -->
-
-<ul>
-<li><code><span class="green">A</span>tomicity</code></li>
-<li><code><span class="green">C</span>onsistency</code></li>
-<li><code><span class="green">I</span>solation</code></li>
-<li><code><span class="green">D</span>urability</code></li>
-</ul>
-
-// Notes:
-Neo4j claims to be ACID, and it certainly is. The consistency in ACID (the database is always "correct" w.r.t. its constraints) is not the consistency we're talking about.
-
-
-<!-- .slide: class="big-list" data-transition="fade" -->
-
-<ul>
-<li><code><span class="green">C</span>onsistency</em></code></li>
-<li><code><span class="green">A</span>vailability</code></li>
-<li><code><span class="green">P</span>artition-tolerance</code></li>
-</ul>
-
-// Notes:
-The consistency we're talking about is the consistency referenced in the CAP theorem. Neo4j's High Availability (HA) cluster prioritizes availability (as the name states!), which means that consistency is sacrificed.
-
-
-<!-- HA DIAGRAM: IMAGE 1 -->
-
-<!-- .slide: data-background="/images/advanced-neo4j/ha-setup-1.jpeg" data-background-transition="none" -->
-
-<p class="stretch"><a href="https://paper.fiftythree.com/aseemk/6953106" style="color: transparent; display: block; width: 100%; height: 100%;">&nbsp;</a></p>
-
-// Notes:
-TODO
-
-
-<!-- HA DIAGRAM: IMAGE 2 -->
-
-<!-- .slide: data-background="/images/advanced-neo4j/ha-setup-2.jpeg" data-background-transition="none" -->
-
-<p class="stretch"><a href="https://paper.fiftythree.com/aseemk/6953126" style="color: transparent; display: block; width: 100%; height: 100%;">&nbsp;</a></p>
-
-// Notes:
-TODO
-
-
 <!-- HA DIAGRAM: IMAGE 3 -->
 
-<!-- .slide: data-background="/images/advanced-neo4j/ha-setup-3.jpeg" data-background-transition="none" -->
+<!-- .slide: data-background="/images/advanced-neo4j/ha-setup-3.jpeg" data-background-transition="convex" -->
 
 <p class="stretch"><a href="https://paper.fiftythree.com/aseemk/6953178" style="color: transparent; display: block; width: 100%; height: 100%;">&nbsp;</a></p>
 
 // Notes:
-TODO
+Here's a typical cluster setup: a master, at least two slaves, and a load balancer like HAProxy handling the requests. To take advantage of the cluster for scale, not just resilience, you typically split the traffic between the master and the slaves.
 
 
-<!-- .slide: class="big-code" data-transition="default" -->
+<!-- .slide: class="big-code" data-transition="fade" -->
 
 `X-Query-Type: read|write`
+
+&nbsp;
+
+<code>&nbsp;</code>
+
+// Notes:
+The typical way of splitting the traffic is based on whether the query is a read query or write one. Reads get sent to slaves; writes to the master.
+<p/>
+(Given that Cypher calls are all `POST` requests, the [recommended way](http://blog.armbruster-it.de/2015/08/neo4j-and-haproxy-some-best-practices-and-tricks/) of determining read vs. write is to just send an explicit header with every query.)
+
+
+<!-- .slide: class="big-code" data-transition="fade" -->
+
+<p><strike class="no">`X-Query-Type: read|write`</strike></p>
+
+&nbsp;
+
+<span class="green">`X-Query-Consistency: strong|weak`</span>
+
+// Notes:
+We've learned at FiftyThree that the better way to think about it is through consistency. Writes always need to be strongly consistent, but some reads do too. And all strongly consistent queries should get sent to the master.
+<p/>
+It's also worthwhile making consistency a separate concept from read/write. We support entering a read-only maintenance mode in our service, and in that mode, we reject write queries, but still accept strongly consistent read queries.
+
+
+<!-- PAPER APP SCREENSHOTS -->
+
+<!-- .slide: class="table-images" -->
+
+<table>
+<tr>
+<td>
+![Paper sign-up screen](/images/advanced-neo4j/paper-app-signup.png)
+</td>
+<td class="fragment">
+![Paper follow profile](/images/advanced-neo4j/paper-app-follow.png)
+</td>
+</tr>
+</table>
+
+// Notes:
+Here are two examples where we need strongly consistent reads:
+<p/>
+- Right after you sign up (which creates a user node in our db), the very next request — auth'ed as your new account — should succeed in finding you.
+<p/>
+- Right after you follow someone, the very next home stream request — which Paper might immediately make on your behalf — should include that person's content.
+
+
+## Per-user
+## <span class="green">read-after-write</span>
+## consistency
+
+// Notes:
+We saw a pattern in cases like those and others: when a given user does a write, *their* immediately subsequent read queries should be strongly consistent.
+<p/>
+"I don't need to see the effects of someone else's actions right away (because I'm not aware of those actions). But I *should* see the effects of *my* actions right away — because I made them."
+
+
+<!-- .slide: class="medium-code" -->
+
+<!-- TODO: Syntax highlight this code? Manually call out important parts? -->
+
+```
+getConsistency = (req) ->
+    if req.method in ['GET', 'HEAD']
+        (recentlyWrote req.user) ? 'strong' : 'weak'
+    else
+        'strong'
+
+recentlyWrote = (user) ->
+    return false if not user
+    (Date.now() - user.lastWroteAt) < THRESHOLD
+
+recordWrite = (req) ->
+    return if not req.user
+    return if req.method in ['GET', 'HEAD']
+
+    req.user.lastWroteAt = Date.now()
+    req.user.save()
+```
+
+// Notes:
+So we achieved read-after-write consistency by persisting a "last wrote" time per user, updating that on every write\*, and on every request, checking that value for the user making the request, to see if we should make the request's queries with strong or weak consistency.
+<p/>
+\*We actually do this by injecting a bit of Cypher into all Cypher write calls, so that this is both atomic and efficient. It was just easier to illustrate this concept with simple code.
+
+
+<!-- .slide: class="medium-code" -->
+
+<!-- TODO: Syntax highlight this code? Manually call out important parts? -->
+
+```
+initReq = (req) ->
+    authToken = parseAuthHeader req
+
+    req.user = User.getByAuthToken authToken,
+        {consistency: 'strong'}
+
+    req.consistency = getConsistency req
+```
+
+// Notes:
+Importantly, this implies that we should be reading this timestamp *with strong consistency*.
+<p/>
+We store this timestamp along with all other account data in Neo4j, so that means we make all auth lookups — read queries — with strong consistency.
+<p/>
+These lookup queries are very simple and fast, so they haven't been an issue for us. But if they do become an issue, we could offload auth data to a different datastore, e.g. DynamoDB or Redis.
 
 
 <!-- .slide: class="subtitle" -->
@@ -250,12 +312,22 @@ Let's talk about writing, and subtleties that come up relating to atomicity.
 Many props to my colleague Ryan, who discovered and taught me most of this.
 
 
-<!-- .slide: class="big-code" data-transition="fade" -->
+<!-- FOLLOW DIAGRAM -->
 
-`SET n.count = n.count + 1`
+<!-- .slide: data-background="/images/advanced-neo4j/following-1.jpeg" data-background-transition="convex" -->
+
+<p class="stretch"><a href="https://paper.fiftythree.com/aseemk/6963902" style="color: transparent; display: block; width: 100%; height: 100%;">&nbsp;</a></p>
 
 // Notes:
-Here's a simple line of Cypher. Does it do what you expect?
+In Paper, like any other social app, you can follow other users. So we want to create and remove `follows` relationships between users. We also want to increment and decrement `numFollowers` and `numFollowing` stats on those users whenever we do that.
+
+
+<!-- .slide: class="big-code" data-transition="fade" -->
+
+`SET u.numFollowers = u.numFollowers + 1`
+
+// Notes:
+So let's start with the straightforward stat updates. Here's a simple line of Cypher. Does it do what you expect?
 
 
 <!-- .slide: class="big-list" data-transition="fade" -->
@@ -409,7 +481,7 @@ TODO
 <!-- .slide: class="big-code" data-transition="fade" -->
 
 ```
-SET n.count = n.count + 1
+SET u.numFollowers = u.numFollowers + 1
 ```
 
 // Notes:
@@ -430,8 +502,8 @@ The same section of the Neo4j manual tells us that locks are held per node and r
 
 <!-- .slide: class="big-code" data-transition="fade" -->
 
-<pre><code><span class="green">SET n._lock = true</span>
-SET n.count = n.count + 1
+<pre><code><span class="green">SET u._lock = true</span>
+SET u.numFollowers = u.numFollowers + 1
 </code></pre>
 
 // Notes:
@@ -440,35 +512,35 @@ That means we can fix our Cypher increment by simply writing *any other property
 
 <!-- .slide: class="big-code" data-transition="fade" -->
 
-<pre><code><span class="red">MATCH (n:Node ...)</span>
-SET n._lock = true
-SET n.count = n.count + 1
+<pre><code><span class="red">MATCH (u:User ...)</span>
+SET u._lock = true
+SET u.numFollowers = u.numFollowers + 1
 </code></pre>
 
 // Notes:
-But of course, we need a node first. So we add a `MATCH`. That's fine, right?
+But of course, we need the node first. So we add a `MATCH`. That's fine, right?
 
 
 <!-- .slide: class="big-code" data-transition="fade" -->
 
-<pre><code>MATCH (n:Node ...)
-<span class="red">REMOVE n:Node</span>
-SET n:Deleted
+<pre><code>MATCH (u:User ...)
+<span class="red">REMOVE u:User</span>
+SET u:DeletedUser
 </code></pre>
 
 // Notes:
-What happens if this other query, which removes the `:Node` label, runs concurrently? Then we're back to our race condition, because our first query may have already `MATCH`ed on the `:Node` label before it was removed here.
+What happens if this other query runs concurrently? Then we're back to our race condition, because our first query may have already `MATCH`ed on the `:User` label before it was removed here.
 <p/>
-(In case that seems unrealistic, we do replace labels like this for soft deletes.)
+(Replacing labels like this is indeed what we do for soft deletes.)
 
 
 <!-- .slide: class="big-code" data-transition="fade" -->
 
-<pre><code>MATCH (n:Node ...)
-<span class="green">SET n._lock = true</span>
-WITH n
-<span class="green">WHERE (n:Node)</span>
-SET n.count = n.count + 1
+<pre><code>MATCH (u:User ...)
+<span class="green">SET u._lock = true</span>
+WITH u
+<span class="green">WHERE (u:User)</span>
+SET u.numFollowers = u.numFollowers + 1
 </code></pre>
 
 // Notes:
@@ -703,3 +775,41 @@ One note on the explicit `tx.rollback()`: this is to ensure we immediately relea
 
 // Notes:
 Just keep in mind that if your application code within a transaction has any side effects, e.g. modifying other data stores, enqueueing background work, emailing users, etc. you shouldn't naively retry those transactions. You only want to retry idempotent or side-effect-free transactions.
+
+
+`/giphy phew`
+
+&nbsp;
+
+`/giphy spectrum` <!-- .element: class="fragment" -->
+
+// Notes:
+So that's obviously a lot to think about! And if even the simple following example has become significantly non-trivial, you can probably imagine how more complex queries quickly become hard to reason about. What all reads are we implicitly depending on? Which locks do we need to explicitly take? What contention will we then start to see? These questions rarely have simple answers.
+<p/>
+But the good news is that this is a spectrum of trade-offs, between simple and robust. You don't *have* to think about this everywhere. You can generally stick to simple, and use this locking knowledge as a tool when you need it. A few query helpers for common things like property updates and relationship management can also abstract away the complexity.
+
+
+<blockquote>
+While there is still some discussion about error handling semantics and we haven't looked into reordering our locks yet, these changes have <span class="green">dramatically decreased our error count</span> and helped ensure <span class="green">correctness and consistency</span> in our DB.
+</blockquote>
+
+<blockquote class="fragment">
+I'd like to thank you and Chris for your guidance on this. It's always scary when the solid ground you stand on isn't as sure as you believed, but our system is in a <span class="green">better state now</span> and I feel better about <span class="green">continuing to build</span> on top of Neo4j :-)
+</blockquote>
+
+// Notes:
+In the end, I agree with these sentiments from Ryan (quotes dug up from our support ticket on this): we work with the tools we have, and I'm pleased that we've been able to get our system running smoothly.
+<p/>
+The "you" is John Forrest, and "Chris" is Chris Leishman. Thanks guys!
+
+
+<blockquote>
+Locks are acquired at the <span class="green">Node</span> and <nobr><span class="green">Relationship</span> level.</nobr>
+</blockquote>
+
+<blockquote class="fragment">
+When modifying a <span class="red">property</span> on a node or relationship, a write lock will be taken on the <span class="green">node</span> or <span class="green">relationship</span>.
+</blockquote>
+
+// Notes:
+I want to close this topic with one parting lesson, which can be derived from what we covered earlier. TODO
