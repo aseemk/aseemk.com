@@ -177,7 +177,7 @@ I want to focus on just three things in this talk, but I'll dive deep into each 
 // Notes:
 Let's talk about reading data, and what it means with respect to consistency.
 <p/>
-All of my knowledge here is thanks to my colleague Dave, and our current and best understanding and setup is thanks to my colleague Matt.
+All of my knowledge here is thanks to my colleague Dave, and our latest and greatest setup is thanks to my colleague Matt.
 
 
 <!-- HA DIAGRAM: IMAGE 3 -->
@@ -429,9 +429,9 @@ Many props to my colleague Ryan, who discovered and taught me most of this.
 
 <!-- FOLLOW DIAGRAM -->
 
-<!-- .slide: data-background="/images/advanced-neo4j/following-1.jpeg" data-background-transition="convex" -->
+<!-- .slide: data-background="/images/advanced-neo4j/following-2.jpeg" data-background-transition="convex" -->
 
-<p class="stretch"><a href="https://paper.fiftythree.com/aseemk/6963902" style="color: transparent; display: block; width: 100%; height: 100%;">&nbsp;</a></p>
+<p class="stretch"><a href="https://paper.fiftythree.com/aseemk/6962249" style="color: transparent; display: block; width: 100%; height: 100%;">&nbsp;</a></p>
 
 // Notes:
 In Paper, like any other social app, you can follow other users. So we want to create and remove `follows` relationships between users. We also want to increment and decrement `numFollowers` and `numFollowing` stats on those users whenever we do that.
@@ -508,7 +508,7 @@ These are quotes from the Neo4j manual, under the [Transactions](http://neo4j.co
 <p class="stretch"><a href="https://paper.fiftythree.com/aseemk/6961461" style="color: transparent; display: block; width: 100%; height: 100%;">&nbsp;</a></p>
 
 // Notes:
-TODO
+So going back to a simple operation by itself...
 
 
 <!-- LOCKING DIAGRAM: IMAGE 4 -->
@@ -518,7 +518,7 @@ TODO
 <p class="stretch"><a href="https://paper.fiftythree.com/aseemk/6961137" style="color: transparent; display: block; width: 100%; height: 100%;">&nbsp;</a></p>
 
 // Notes:
-TODO
+...The entire operation is a transaction in Neo4j, but a lock is only taken at the end with the write.
 
 
 <!-- LOCKING DIAGRAM: IMAGE 3 -->
@@ -528,7 +528,7 @@ TODO
 <p class="stretch"><a href="https://paper.fiftythree.com/aseemk/6961504" style="color: transparent; display: block; width: 100%; height: 100%;">&nbsp;</a></p>
 
 // Notes:
-TODO
+So when two operations run concurrently...
 
 
 <!-- LOCKING DIAGRAM: IMAGE 6 -->
@@ -538,7 +538,7 @@ TODO
 <p class="stretch"><a href="https://paper.fiftythree.com/aseemk/6961439" style="color: transparent; display: block; width: 100%; height: 100%;">&nbsp;</a></p>
 
 // Notes:
-TODO
+...We can now see why the lock at the end is ineffective in preventing the race condition.
 
 
 <blockquote>
@@ -550,7 +550,7 @@ One can <span class="green">manually acquire write locks</span> on nodes and rel
 </blockquote>
 
 // Notes:
-TODO
+Fortunately, the Neo4j manual acknowledges this default behavior, arguing it's a reasonable trade-off, and notes that you can still achieve higher isolation manually.
 
 
 <!-- LOCKING DIAGRAM: IMAGE 4 -->
@@ -560,7 +560,7 @@ TODO
 <p class="stretch"><a href="https://paper.fiftythree.com/aseemk/6961137" style="color: transparent; display: block; width: 100%; height: 100%;">&nbsp;</a></p>
 
 // Notes:
-TODO
+So let's do that. We'll scrap the increment to simplify the illustration (it doesn't affect things here). And then if we add a write before the read...
 
 
 <!-- LOCKING DIAGRAM: IMAGE 7 -->
@@ -570,7 +570,7 @@ TODO
 <p class="stretch"><a href="https://paper.fiftythree.com/aseemk/6961680" style="color: transparent; display: block; width: 100%; height: 100%;">&nbsp;</a></p>
 
 // Notes:
-TODO
+...We get the lock at the *beginning* of the transaction, which is what we want.
 
 
 <!-- LOCKING DIAGRAM: IMAGE 6 -->
@@ -580,7 +580,7 @@ TODO
 <p class="stretch"><a href="https://paper.fiftythree.com/aseemk/6961439" style="color: transparent; display: block; width: 100%; height: 100%;">&nbsp;</a></p>
 
 // Notes:
-TODO
+So applying the same approach to the concurrent transactions...
 
 
 <!-- LOCKING DIAGRAM: IMAGE 8 -->
@@ -590,7 +590,7 @@ TODO
 <p class="stretch"><a href="https://paper.fiftythree.com/aseemk/6962004" style="color: transparent; display: block; width: 100%; height: 100%;">&nbsp;</a></p>
 
 // Notes:
-TODO
+...We get guaranteed serialization, even if both transactions begin at the same time.
 
 
 <!-- .slide: class="big-code" data-transition="fade" -->
@@ -680,7 +680,7 @@ When <span class="red">creating</span> or <span class="red">deleting</span> a <s
 </blockquote>
 
 // Notes:
-TODO
+The Neo4j manual tells us that relationships are tied to nodes (makes sense!)...
 
 
 <!-- .slide: class="big-code" data-transition="fade" -->
@@ -692,7 +692,7 @@ CREATE (a) -[:follows]-> (b)
 </code></pre>
 
 // Notes:
-So the fix here is to simply write any property to *both* the relationship's nodes, before seeing if the relationship exists.
+...So the fix here is to simply write any property to *both* the relationship's nodes, before seeing if the relationship exists.
 <p/>
 (To explain further, by taking these locks, you're ensuring that a relationship can't get created until you're done, since creating a relationship would need these locks.)
 
@@ -918,9 +918,109 @@ The "you" is John Forrest, and "Chris" is Chris Leishman. Thanks guys!
 Locks are acquired at the <span class="green">Node</span> and <nobr><span class="green">Relationship</span> level.</nobr>
 </blockquote>
 
-<blockquote class="fragment">
+// Notes:
+I want to close this topic with one parting lesson, which can be derived from the locking behaviors we covered earlier.
+
+
+<!-- .slide: class="big-code" -->
+
+```
+(:User)
+ + lastWroteAt
+ + latestBackupBlobId
+ + numFollowers
+```
+
+```
+(:User)
+ -[:home_stream_next]->
+ -[:notifications_next]->
+```
+
+// Notes:
+Here's an example data model you might arrive at, for representing users and their associated data. (It's actually not too far from our own model.)
+<p/>
+You can see that there's a variety of data connected to users, across both properties and relationships.
+<p/>
+For the sake of illustration, I've picked things here that you could imagine having a reasonably high write throughput — particularly for power or popular users, and particularly since much of the data is modified by *others* (e.g. things that add to your home stream or notify you).
+
+
+<blockquote>
 When modifying a <span class="red">property</span> on a node or relationship, a write lock will be taken on the <span class="green">node</span> or <span class="green">relationship</span>.
 </blockquote>
 
+<blockquote>
+When creating or deleting a <span class="green">relationship</span>, <nobr>a write lock</nobr> will be taken on the <span class="green">relationship</span> <nobr>and <span class="red">both its nodes</span></nobr>.
+</blockquote>
+
 // Notes:
-I want to close this topic with one parting lesson, which can be derived from what we covered earlier. TODO
+We now know, though, that every property modification and new relationship means that the single node gets locked. That makes the single node an unnecessary bottleneck for conceptually disparate data.
+
+
+<!-- .slide: class="big-code" -->
+
+```
+(:UserAccount)
+ + lastWroteAt
+ + latestBackupBlobId
+```
+
+```
+(:UserProfile)
+ + numFollowers
+```
+
+```
+(:UserHomeStream)
+ -[:home_stream_next]->
+```
+
+```
+(:UserNotifications)
+ -[:notifications_next]->
+```
+
+// Notes:
+So perhaps it'd be worth breaking that node up into separate nodes, each having a smaller surface area (similar to separate tables in a relational db). The nodes would still be connected to each other 1:1, so you could still efficiently query across this data if you needed.
+<p/>
+As before, there exists a spectrum of trade-offs here, and you don't need to prematurely optimize in either direction. It's just good to be aware of the options, and have yet another tool at your disposal. =)
+<p/>
+(For what it's worth, we do still have the monolithic user node data model shown earlier, and it hasn't seemed like an issue in practice for us *yet*. But if I were starting fresh, I probably would split separate concerns into separate nodes from the start. I think it would encourage smaller APIs, as well as make it easier to extract data into separate data stores in the future if that became valuable.)
+
+
+# Takeaways
+
+<p class="fragment">
+Ensure atomicity by taking <span class="green">write locks</span> early
+</p>
+
+<p class="fragment">
+Verify implicit reads via <span class="green">double-check locking</span>
+</p>
+
+<p class="fragment">
+Locks are held at the <span class="green">node</span> and <span class="green">relationship</span> level
+</p>
+
+<p class="fragment">
+<span class="green">Retry with backoff</span> on transient errors
+</p>
+
+<p class="fragment">
+<span class="green">Separate nodes</span> for finer-grained locking
+</p>
+
+
+# Thanks
+
+...to Dave, Matt, and Ryan! =)
+
+&nbsp;
+
+### Twitter: [@aseemk](https://twitter.com/aseemk)
+### GitHub: [@aseemk](https://github.com/aseemk)
+### Email: [aseem@fiftythree.com](mailto:aseem@fiftythree.com)
+
+&nbsp;
+
+Questions?
