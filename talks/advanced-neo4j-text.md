@@ -26,130 +26,6 @@ Paper is an app for quickly capturing ideas. Whether your idea is a text note, a
 Be sure to [watch the video](https://vimeo.com/138268307).
 
 
-<!-- INTRO: FIFTYTHREE / GRAPH 1 -->
-
-<!-- .slide: data-background="/images/advanced-neo4j/talk2-mix-graph6-stars.jpg" data-background-transition="fade" -->
-
-// Notes:
-TODO
-
-
-<!-- INTRO: FIFTYTHREE / GRAPH 2 -->
-
-<!-- .slide: data-background="/images/advanced-neo4j/talk2-mix-graph15-user5.jpg" data-background-transition="none" -->
-
-// Notes:
-TODO
-
-
-<!-- INTRO: FIFTYTHREE / GRAPH 3 -->
-
-<!-- .slide: data-background="/images/advanced-neo4j/talk2-mix-graph13-creation4.jpg" data-background-transition="none" -->
-
-// Notes:
-TODO
-
-
-<!-- INTRO: FIRST TALK / TITLE -->
-
-<!-- .slide: data-background="/images/neo4j-lessons-learned.png" data-background-transition="convex" -->
-
-<p class="stretch"><a href="http://aseemk.com/talks/neo4j-lessons-learned" style="color: transparent; display: block; width: 100%; height: 100%;">&nbsp;</a></p>
-
-// Notes:
-I've previously given two other talks relating to Neo4j. The first, [Betting the Company on a Graph Database](http://aseemk.com/talks/neo4j-lessons-learned), described why we chose Neo4j in the first place, how it works, and some of the fundamental lessons we learned.
-
-
-<!-- INTRO: FIRST TALK / GRAPH DB DEF -->
-
-<!-- .slide: data-background="/images/advanced-neo4j/talk1-graphdb-def.png" data-background-transition="fade" -->
-
-// Notes:
-TODO
-
-
-<!-- INTRO: FIRST TALK / GRAPH DB VIZ -->
-
-<!-- .slide: data-background="/images/advanced-neo4j/talk1-graphdb-viz.png" data-background-transition="none" -->
-
-// Notes:
-TODO
-
-
-<!-- INTRO: FIRST TALK / FILE DIAGRAM -->
-
-<!-- .slide: data-background="/images/advanced-neo4j/talk1-neo4j-file-diagram.png" data-background-transition="none" -->
-
-// Notes:
-TODO
-
-
-<!-- INTRO: FIRST TALK / FILE FORMAT -->
-
-<!-- .slide: data-background="/images/advanced-neo4j/talk1-neo4j-file-format.png" data-background-transition="none" -->
-
-// Notes:
-TODO
-
-
-<!-- INTRO: FIRST TALK / LESSONS -->
-
-<!-- .slide: data-background="/images/advanced-neo4j/talk1-lessons.png" data-background-transition="none" -->
-
-// Notes:
-TODO
-
-
-<!-- INTRO: SECOND TALK / TITLE -->
-
-<!-- .slide: data-background="/images/mix-neo4j.png" data-background-transition="convex" -->
-
-<p class="stretch"><a href="http://aseemk.com/talks/mix-neo4j" style="color: transparent; display: block; width: 100%; height: 100%;">&nbsp;</a></p>
-
-// Notes:
-The second talk, Betting the Company Part 2, or [Building Mix with Neo4j](http://aseemk.com/talks/mix-neo4j), described how we expanded our understanding of Neo4j to ship our major sharing and collaboration service for Paper.
-
-
-<!-- INTRO: SECOND TALK / PAGINATION BAD -->
-
-<!-- .slide: data-background="/images/advanced-neo4j/talk2-pagination-bad.png" data-background-transition="fade" -->
-
-// Notes:
-TODO
-
-
-<!-- INTRO: SECOND TALK / PAGINATION GOOD -->
-
-<!-- .slide: data-background="/images/advanced-neo4j/talk2-pagination-good.png" data-background-transition="none" -->
-
-// Notes:
-TODO
-
-
-<!-- INTRO: SECOND TALK / PRECISE DISTINCT -->
-
-<!-- .slide: data-background="/images/advanced-neo4j/talk2-precise-distinct.png" data-background-transition="none" -->
-
-// Notes:
-TODO
-
-
-<!-- INTRO: SECOND TALK / DEDUPE HOLES -->
-
-<!-- .slide: data-background="/images/advanced-neo4j/talk2-dedupe-holes.jpg" data-background-transition="none" -->
-
-// Notes:
-TODO
-
-
-<!-- INTRO: SECOND TALK / QUERY PROFILING -->
-
-<!-- .slide: data-background="/images/advanced-neo4j/talk2-query-profiling-code.png" data-background-transition="none" -->
-
-// Notes:
-TODO
-
-
 <!-- INTRO: THIS TALK -->
 
 <!-- .slide: class="big-list" -->
@@ -159,13 +35,17 @@ TODO
 <ul class="fragment fade-in">
 <li>Reading <em class="fragment">&rarr; Consistency</em></li>
 <li>Writing <em class="fragment">&rarr; Atomicity</em></li>
-<li>Scaling <em class="fragment">&rarr; Monitoring</em></li>
+<li class="no"><strike>Scaling <em class="fragment">&rarr; Monitoring</em></strike></li>
 </ul>
 
 // Notes:
-With both of my previous talks, I tried to focus on things that weren't already covered by typical blog posts, tutorials, etc. This talk is no different.
+I've given two other talks here at past GraphConnects. With both, I tried to focus on things that weren't typically covered in blog posts, tutorials, etc.
 <p/>
-I want to focus on just three things in this talk, but I'll dive deep into each one. And the three things correspond to basic actions. The subtleties just come into play as you grow.
+This talk is no different — but it has "advanced" in the title. That's because in this case, these are things that I didn't discover on my own; I learned them through my awesome colleagues, all of whom brought with them a wealth of knowledge and experience from other databases. And I don't hear the Neo4j community discussing these things *at all* — even though they feel pretty fundamental — so I hope you'll find this educational and valuable.
+<p/>
+So I'm going to focus on just three things in this talk, and each seems pretty basic on the surface. But when you dive deep, they each have significant subtleties relating to fundamental concepts you might be taking for granted.
+<p/>
+Update: I've scrapped the least interesting aspect around monitoring at scale. There's more than enough meat with the other two topics. I might revisit this aspect later.
 
 
 <!-- .slide: class="subtitle" -->
