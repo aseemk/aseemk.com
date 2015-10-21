@@ -175,7 +175,9 @@ I want to focus on just three things in this talk, but I'll dive deep into each 
 ### <!-- .element: class="fragment" --> 🎩 [Dave Stern](https://paper.fiftythree.com/davestern) & [Matt Cox](https://paper.fiftythree.com/mcox) 👏
 
 // Notes:
-TODO
+Let's talk about reading data, and what it means with respect to consistency.
+<p/>
+All of my knowledge here is thanks to my colleague Dave, and our current and best understanding and setup is thanks to my colleague Matt.
 
 
 <!-- HA DIAGRAM: IMAGE 3 -->
@@ -251,8 +253,6 @@ We saw a pattern in cases like those and others: when a given user does a write,
 
 <!-- .slide: class="medium-code" -->
 
-<!-- TODO: Syntax highlight this code? Manually call out important parts? -->
-
 ```
 getConsistency = (req) ->
     if req.method in ['GET', 'HEAD']
@@ -280,8 +280,6 @@ So we achieved read-after-write consistency by persisting a "last wrote" time pe
 
 <!-- .slide: class="medium-code" -->
 
-<!-- TODO: Syntax highlight this code? Manually call out important parts? -->
-
 ```
 initReq = (req) ->
     authToken = parseAuthHeader req
@@ -300,6 +298,123 @@ We store this timestamp along with all other account data in Neo4j, so that mean
 These lookup queries are very simple and fast, so they haven't been an issue for us. But if they do become an issue, we could offload auth data to a different datastore, e.g. DynamoDB or Redis.
 
 
+<!-- .slide: class="medium-code" -->
+
+```
+recentlyWrote = (user) ->
+    return false if not user
+    (Date.now() - user.lastWroteAt) < THRESHOLD
+```
+
+`THRESHOLD = ?` <!-- .element: class="fragment" -->
+
+// Notes:
+Going back to the notion of "recently wrote", what threshold should we use exactly?
+
+
+<!-- .slide: class="medium-code" -->
+
+```
+AnsibleBOT [10:30 PM]
+Slave Lag Report:
+production-02 (M): 87860743
+production-03 (S): 87860748 [-5]
+production-01 (S): 87860748 [-5]
+
+AnsibleBOT [10:45 PM]
+Slave Lag Report:
+production-02 (M): 87863270
+production-01 (S): 87863281 [-11]
+production-03 (S): 87863289 [-19]
+
+AnsibleBOT [11:00 PM]
+Slave Lag Report:
+production-02 (M): 87865973
+production-01 (S): 87865973 [0]
+production-03 (S): 87865973 [0]
+```
+
+// Notes:
+That's a tough question to answer, with no easy formula. It ultimately depends on slave lag: how far your slaves typically lag behind the master, and the rate at which they catch up and process new transactions.
+<p/>
+It's possible (though not easy) to monitor this data in Neo4j, via each instance's "last committed transaction ID". We dug into this data and for now, just sample it every 15 minutes and send the numbers to a Slack channel, so we can keep our finger on the pulse.
+<p/>
+Here's a random snippet. As you can see, the slave lag fluctuates, but it's nice and small relative to the rate of transactions being added.
+<p/>
+It's important to test this under load and scale, to make sure that your slaves don't start lagging more and more, hopelessly behind and never catching up. Neo4j recently had a bug that would cause that to happen; it's thankfully now fixed in 2.2.6.
+
+
+<!-- .slide: class="medium-code" -->
+
+<pre><code># The interval at which slaves will pull updates from the master. Comment out
+# the option to disable periodic pulling of updates. Unit is seconds.
+<span class="green">ha.pull_interval=10</span>
+
+# Amount of slaves the master will try to push a transaction to upon commit
+# (default is 1). The master will optimistically continue and not fail the
+# transaction even if it fails to reach the push factor. Setting this to 0 will
+# increase write performance when writing through master but could potentially
+# lead to branched data (or loss of transaction) if the master goes down.
+<span class="red">#ha.tx_push_factor=1</span>
+
+# Strategy the master will use when pushing data to slaves (if the push factor
+# is greater than 0). There are two options available "fixed" (default) or
+# "round_robin". Fixed will start by pushing to slaves ordered by server id
+# (highest first) improving performance since the slaves only have to cache up
+# one transaction at a time.
+<span class="red">#ha.tx_push_strategy=fixed</span>
+</code></pre>
+
+// Notes:
+A few important HA configs also come into play: push factor, push strategy, and pull interval. This snippet is the default that shipped with Neo4j 2.2.3.
+<p/>
+As you can see, the default behavior may not be ideal for your needs. It wasn't for us — we were on a pull interval of 10 seconds (with a push factor of 0) for a long time. Only recently did we revisit this with support, and we're now at 500ms (still with a push factor of 0\*).
+<p/>
+Given this info, and the fact that we don't see significant slave lag in production, we currently set our read-after-write "recency" threshold to 2 seconds — a few comfortable multiples of the pull interval.
+<p/>
+\*A push factor of 0 has been the official recommendation from the Neo4j team to us, and I can't say I still totally understand why. In general though, it's important to realize that pushes are async and optimistic, so they don't serve the purpose of durability. (And indeed, data loss/branching can occur in some master failures.) I'm looking forward to the revamped quorum-based clustering in Neo4j 3.0!
+
+
+## Per-user
+## <span class="green">read-after-<span class="red">read</span></span>
+## consistency
+
+// Notes:
+Finally, we also know it's possible for users to see inconsistent data between *reads*, if one read goes to slave A, the next goes to slave B, and the two slaves aren't in sync.
+
+
+<!-- .slide: class="medium-code" -->
+
+`X-User-Id: 12345678`
+
+```
+stick-table type string size 1m expire 5m store server_id,conn_cnt,sess_cnt
+stick on hdr(X-User-Id)
+```
+
+// Notes:
+Because our slave lag is nice and low today, we haven't felt this issue so far. But if we do, one way to solve it would be to introduce slave stickiness based on the user: for weakly consistent reads, always route a given user's queries to the same slave.
+
+
+# Takeaways
+
+<p class="fragment">
+Split on <span class="green">consistency</span>, not read vs. write
+</p>
+
+<p class="fragment">
+Track user last write time, for <span class="green">read-after-write</span> consistency
+</p>
+
+<p class="fragment">
+Monitor and tune <span class="green">slave lag</span>, via push/pull configs
+</p>
+
+<p class="fragment">
+Stick slaves by user, for <span class="green">read-after-read</span> consistency
+</p>
+
+
 <!-- .slide: class="subtitle" -->
 
 ## <span class="red">Writing</span> &rarr; <span class="green">Atomicity</span>
@@ -307,7 +422,7 @@ These lookup queries are very simple and fast, so they haven't been an issue for
 ### <!-- .element: class="fragment" --> 🎩 [Ryan Weingast](https://paper.fiftythree.com/ryan) 👏
 
 // Notes:
-Let's talk about writing, and subtleties that come up relating to atomicity.
+Let's switch gears to writes, and the associated subtleties that come up relating to atomicity.
 <p/>
 Many props to my colleague Ryan, who discovered and taught me most of this.
 
@@ -683,8 +798,6 @@ Fortunately, these "deadlock detected" errors are formally returned as transient
 As an aside, I think this error classification is awesome. Nice job to the team.
 
 
-<!-- TODO: Syntax highlight this code? Manually call out important parts? -->
-
 ```
 for numAttempts in [1..maxAttempts]
 
@@ -740,8 +853,6 @@ Notice how the manual ([now](https://github.com/neo4j/neo4j/issues/5258)) docume
 
 
 <!-- .slide: class="medium-code" -->
-
-<!-- TODO: Syntax highlight this code? Manually call out important parts? -->
 
 ```
 User.delete = (id) ->
