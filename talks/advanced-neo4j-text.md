@@ -697,3 +697,9 @@ This means that if you want to be robust to transient errors in a multi-query tr
 So this is roughly what our (pseudo)code looks like to execute queries within retriable transactions. It's actually a fair bit more involved in practice (e.g. these transactional functions could be composed, but Neo4j doesn't support nested transactions, so we track depth and explicitly guard against outer transactions suppressing inner transactions’ errors, etc.), but the important high-level point is that individual queries *aren't* retried on their own. Maybe we'll open-source our full framework some day. =)
 <p/>
 One note on the explicit `tx.rollback()`: this is to ensure we immediately release any locks, rather than waiting potentially a whole minute for Neo4j to expire the transaction. We only do this because Neo4j didn't always auto-rollback transactions on errors as documented, but Neo4j 2.2.6+ supposedly fixes this.
+
+
+[![XKCD Haskell comic](/images/advanced-neo4j/xkcd-haskell.png)](https://xkcd.com/1312/)
+
+// Notes:
+Just keep in mind that if your application code within a transaction has any side effects, e.g. modifying other data stores, enqueueing background work, emailing users, etc. you shouldn't naively retry those transactions. You only want to retry idempotent or side-effect-free transactions.
