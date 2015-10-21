@@ -28,7 +28,7 @@ Be sure to [watch the video](https://vimeo.com/138268307).
 
 <!-- INTRO: FIFTYTHREE / GRAPH 1 -->
 
-<!-- .slide: data-background="/images/advanced-neo4j/talk2-mix-graph6-stars.jpg" data-background-transition="convex" -->
+<!-- .slide: data-background="/images/advanced-neo4j/talk2-mix-graph6-stars.jpg" data-background-transition="fade" -->
 
 // Notes:
 TODO
@@ -235,7 +235,7 @@ TODO
 
 <!-- .slide: class="big-code" data-transition="default" -->
 
-`X-Query-Type: write|read`
+`X-Query-Type: read|write`
 
 
 <!-- .slide: class="subtitle" -->
@@ -362,10 +362,6 @@ This type of isolation is weaker than serialization, but offers <span class="gre
 One can <span class="green">manually acquire write locks</span> on nodes and relationships to achieve higher levels of isolation.
 </blockquote>
 
-<blockquote class="fragment">
-<span class="green">Deadlock detection</span> is built into the core transaction management.
-</blockquote>
-
 // Notes:
 TODO
 
@@ -412,29 +408,41 @@ TODO
 
 <!-- .slide: class="big-code" data-transition="fade" -->
 
-```
-SET n.count = n.count + 1
-```
-
-
-<!-- .slide: class="big-code" data-transition="fade" -->
-
-```
-SET n._lock = true
-SET n.count = n.count + 1
-```
+<pre><code><span class="red">SET n.count</span> = <span class="green">n.count</span> + 1
+</code></pre>
 
 // Notes:
-Fix by explicitly taking a write lock before reading. We achieve this in Cypher by assigning some dummy property some dummy value. (We do `_lock = true` purely as a convention.)
+So going back to our simple Cypher example, we now know we need to take a write lock before we do this read, but how?
+
+
+<blockquote>
+Locks are acquired at the <span class="green">Node</span> and <nobr><span class="green">Relationship</span> level.</nobr>
+</blockquote>
+
+<blockquote class="fragment">
+When modifying a <span class="red">property</span> on a node or relationship, a write lock will be taken on the <span class="green">node</span> or <span class="green">relationship</span>.
+</blockquote>
+
+// Notes:
+The same section of the Neo4j manual tells us that locks are held per node and relationship, and so modifying a property on a node means locking the node.
 
 
 <!-- .slide: class="big-code" data-transition="fade" -->
 
-```
-MATCH (n:Node ...)
-SET n._lock = true
-SET n.count = n.count + 1
-```
+<pre><code><span class="red">SET n._lock</span> = true
+<span class="red">SET n.count</span> = <span class="green">n.count</span> + 1
+</code></pre>
+
+// Notes:
+That means we can fix our Cypher increment by simply writing *any other property* first. (We use `_lock = true` to explicitly convey this purpose, but that's purely a convention.) This will lock the node before reading the `count` and incrementing it.
+
+
+<!-- .slide: class="big-code" data-transition="fade" -->
+
+<pre><code><span class="green">MATCH (n:Node ...)</span>
+<span class="red">SET n._lock</span> = true
+<span class="red">SET n.count</span> = <span class="green">n.count</span> + 1
+</code></pre>
 
 // Notes:
 But of course, we need a node first. So we add a `MATCH`. That's fine, right?
@@ -442,26 +450,25 @@ But of course, we need a node first. So we add a `MATCH`. That's fine, right?
 
 <!-- .slide: class="big-code" data-transition="fade" -->
 
-```
-MATCH (n:Node ...)
-REMOVE n:Node
-SET n:Deleted
-```
+<pre><code><span class="green">MATCH (n:Node ...)</span>
+<span class="red">REMOVE n:Node</span>
+<span class="red">SET n:Deleted</span>
+</code></pre>
 
 // Notes:
-What happens if this other query, which removes the `:Node` label, runs concurrently?
+What happens if this other query, which removes the `:Node` label, runs concurrently? Then we're back to our race condition, because our first query may have already `MATCH`ed on the `:Node` label before it was removed here.
 <p/>
-(In case that seems unrealistic, we do this for soft deletes, replacing labels with `:Deleted` variants.)
+(In case that seems unrealistic, we do replace labels like this for soft deletes.)
 
 
 <!-- .slide: class="big-code" data-transition="fade" -->
 
-```
-MATCH (n:Node ...)
-SET n._lock = true
-WHERE (n:Node)
-SET n.count = n.count + 1
-```
+<pre><code><span class="green">MATCH (n:Node ...)</span>
+<span class="red">SET n._lock</span> = true
+WITH n
+<span class="green">WHERE (n:Node)</span>
+<span class="red">SET n.count</span> = <span class="green">n.count</span> + 1
+</code></pre>
 
 // Notes:
 The fix is to note that any part of the `MATCH` that can change is *also* a read. So it, too, should be done after the write. In this case, that means to repeat/verify the read.
@@ -471,107 +478,182 @@ This is known as [double-checked locking](https://en.wikipedia.org/wiki/Double-c
 
 <!-- .slide: class="big-code" data-transition="fade" -->
 
-```
-MERGE (a) -[:follows]-> (b)
-```
+<pre><code><span class="green">WHERE NOT (a) -[:follows]-> (b)</span>
+<span class="red">CREATE (a) -[:follows]-> (b)</span>
+</code></pre>
 
 // Notes:
-Fortunately, for relationships, Neo4j's `MERGE` statement takes care of being properly atomic, taking write locks before reading the pattern.
+What about relationships? Here's a common concept: ensure only one instance of a particular relationship.
+
+
+<blockquote>
+When <span class="red">creating</span> or <span class="red">deleting</span> a <span class="green">relationship</span>, <nobr>a write lock</nobr> will be taken on the <span class="green">relationship</span> <nobr>and <span class="red">both its nodes</span></nobr>.
+</blockquote>
+
+// Notes:
+TODO
+
+
+<!-- .slide: class="big-code" data-transition="fade" -->
+
+<pre><code><span class="green">SET a._lock = true
+SET b._lock = true</span>
+WHERE NOT (a) -[:follows]-> (b)
+CREATE (a) -[:follows]-> (b)
+</code></pre>
+
+// Notes:
+So the fix here is to simply write any property to *both* the relationship's nodes, before seeing if the relationship exists.
+<p/>
+(To explain further, by taking these locks, you're ensuring that a relationship can't get created until you're done, since creating a relationship would need these locks.)
 
 
 <!-- .slide: class="big-code" data-transition="fade" -->
 
 ```
-MATCH (a:User ...)
-MATCH (b:User ...)
 MERGE (a) -[:follows]-> (b)
 ```
 
 // Notes:
-Except there too, if you only want to `MERGE` a specific part of the pattern (e.g. just the `follows` relationship in this case), and you're `MATCH`ing other parts (e.g. the users in this case)...
+Fortunately for relationships, Neo4j's `MERGE` statement takes care of being properly atomic, taking write locks before reading the pattern.
 
 
 <!-- .slide: class="big-code" data-transition="fade" -->
 
-```
-MATCH (a:User ...)
+<pre><code><span class="red">MATCH (a:User ...)
+MATCH (b:User ...)</span>
+MERGE (a) -[:follows]-> (b)
+</code></pre>
+
+// Notes:
+Except there too, if you only want to `MERGE` a specific part of the pattern (e.g. just the `follows` relationship in this case), and you're `MATCH`ing other parts which could change (e.g. the users' labels in this case)...
+
+
+<!-- .slide: class="big-code" data-transition="fade" -->
+
+<pre><code>MATCH (a:User ...)
 MATCH (b:User ...)
 
-SET a._lock = true
-SET b._lock = true
+<span class="green">SET a._lock = true
+SET b._lock = true</span>
 WITH a, b
 
-WHERE (a:User) AND (b:User)
+<span class="green">WHERE (a:User) AND (b:User)</span>
 MERGE (a) -[:follows]-> (b)
-```
+</code></pre>
 
 // Notes:
-...then you need to manually double-check lock in this case too.
+...then you need to manually double-check lock in this case too, *even though* you're using `MERGE`.
 
 
 <!-- .slide: class="big-code" data-transition="fade" -->
 
-```
-MATCH (a:User ...)
+<pre><code>MATCH (a:User ...)
 MATCH (b:User ...)
 
-WHERE NOT (b) -[:blocks]-> (a)
+<span class="red">WHERE NOT (b) -[:blocks]-> (a)</span>
 MERGE (a) -[:follows]-> (b)
-```
+</code></pre>
 
 // Notes:
 Even if changing labels etc. isn't an issue for you, these cases can still come up *across multiple relationships*.
 <p/>
-Here's a simple query to check whether someone is blocking you before you can follow them.
+Here's a simple query to check whether someone is blocking you before you can follow them. In this case, you might see no `blocks` relationship, but then one could get added just before your `MERGE`.
 
 
 <!-- .slide: class="big-code" data-transition="fade" -->
 
-```
-MATCH (a:User ...)
-MATCH (b:User ...)
-OPTIONAL MATCH (a) -[f:follows]-> (b)
-MERGE (b) -[:blocks]-> (a)
-DELETE f
-```
-
-// Notes:
-If this is the query for performing the block — taking care to unfollow if needed — we can have the same kind of race condition, where both queries can do their reads before either one does its write.
-
-
-<!-- .slide: class="big-code" data-transition="fade" -->
-
-```
-MATCH (a:User ...)
+<pre><code>MATCH (a:User ...)
 MATCH (b:User ...)
 
-SET a._lock = true
-SET b._lock = true
+<span class="green">SET a._lock = true
+SET b._lock = true</span>
 
 WHERE NOT (b) -[:blocks]-> (a)
 MERGE (a) -[:follows]-> (b)
+</code></pre>
+
+// Notes:
+So the fix here is to take explicit locks on the nodes again, *even though* we're using `MERGE`.
+<p/>
+So however you slice it, `MERGE` is not a silver bullet for properly atomic writes.
+
+
+<!-- .slide: id="deadlocks" class="medium-code" -->
+
+<blockquote>
+<span class="green">Deadlock detection</span> is built into the core transaction management.
+</blockquote>
+
+<pre class="fragment"><code><span class="red">Neo.TransientError.Transaction.DeadlockDetected:</span>
+ForsetiClient[0] can't acquire ExclusiveLock{owner=ForsetiClient[1]}
+on NODE(0), because holders of that lock are waiting for ForsetiClient[0].
+Wait list: ExclusiveLock[ForsetiClient[1] waits for [0, 1, ]]
+</code></pre>
+
+// Notes:
+Now, if you've ever worked with locks before, you know that taking *two* locks, not just one, is asking for trouble. And the more you take explicit locks, the more likely you are to run into issues across queries.
+<p/>
+Fortunately, Neo4j has deadlock detection built in. And it manifests in the form of these "deadlock detected" errors.
+
+
+<!-- .slide: class="images" -->
+
+[![Neo4j error classifications](/images/advanced-neo4j/error-classifications.png)](http://neo4j.com/docs/stable/status-codes.html)
+
+[![Props for transient classification](/images/advanced-neo4j/error-classification-props.png)](https://github.com/neo4j/neo4j/issues/1922#issuecomment-77702559) <!-- .element: class="fragment" -->
+
+// Notes:
+Fortunately, these "deadlock detected" errors are formally returned as transient errors, encouraging clients to retry the call.
+<p/>
+As an aside, I think this error classification is awesome. Nice job to the team.
+
+
+```
+for numAttempts in [1..maxAttempts]
+
+    try
+        db.cypher query, params
+
+    catch error
+        if error.classification isnt 'TransientError'
+            throw error
+
+        else if numAttempts >= maxAttempts
+            throw error     # could wrap in "after N retries" error
+
+        else
+            # exponential backoff (in ms): 5, 15, 45, 135, 405
+            backoff = Math.min MAX_BACKOFF, 5 * Math.pow 3, numAttempts - 1
+
+            logger.warn 'Retrying query...',
+                {query, params, error, numAttempts, maxAttempts, backoff}
+
+            sleep backoff
 ```
 
 // Notes:
-Since creating and deleting relationships locks on both the start and end nodes, we can manually take write locks on those nodes the same way we do for properties, to ensure we're protected here too.
+So we retry as suggested. Here's roughly what our (pseudo)code looks like to execute Cypher queries with a retry loop for transient errors. Note the important exponential backoff.
 
 
-<blockquote>
-Using locks gives the opportunity to simulate the effects of higher levels of isolation by obtaining and releasing locks explicitly. For example, if a write lock is taken on a common node or relationship, then all transactions will serialize on that lock — giving the effect of a serialization isolation level.
-</blockquote>
-
-// Notes:
-http://neo4j.com/docs/stable/transactions-isolation.html
-
-
-# Write Locks
-
-<blockquote>
-When adding, changing or removing a property on a node or relationship a write lock will be taken on the specific node or relationship.
-When creating or deleting a node a write lock will be taken for the specific node.
-When creating or deleting a relationship a write lock will be taken on the specific relationship and both its nodes.
-The locks will be added to the transaction and released when the transaction finishes.
-</blockquote>
+```
+isRetriable = (error) ->
+    error.classification is 'TransientError' or error.code in [
+        'Neo.ClientError.Statement.EntityNotFound'
+        'Neo.DatabaseError.Statement.ExecutionFailure'
+        'Neo.DatabaseError.Transaction.CouldNotCommit'
+    ] or isDbUnavailable error
+```
 
 // Notes:
-http://neo4j.com/docs/stable/transactions-locking.html
+In practice, we retry on a few other types of errors too, not just explicitly transient ones. These are due to Neo4j bugs, which we've reported — and which may have since been fixed. And `isDbUnavailable` is for detecting hiccups specific to our setup, e.g. HAProxy 502s and Node.js DNS errors.
+
+
+<!-- .slide: class="images" -->
+
+[![Neo4j error classifications](/images/advanced-neo4j/error-classifications.png)](http://neo4j.com/docs/stable/status-codes.html)
+
+[![Effects on transaction](/images/advanced-neo4j/error-classification-effects.png)](http://neo4j.com/docs/stable/status-codes.html) <!-- .element: class="fragment" -->
+
+// Notes:
+Retrying individual queries like that makes sense. But things change when you're working with transactional queries (i.e. making multiple queries within a single transaction).
