@@ -183,7 +183,7 @@ recentlyWrote = (user) ->
     (Date.now() - user.lastWroteAt) < THRESHOLD
 ```
 
-`THRESHOLD = ?` <!-- .element: class="fragment" -->
+`THRESHOLD = ?`
 
 // Notes:
 Going back to the notion of "recently wrote", what threshold should we use exactly?
@@ -759,10 +759,12 @@ So this is roughly what our (pseudo)code looks like to execute queries within re
 One note on the explicit `tx.rollback()`: this is to ensure we immediately release any locks, rather than waiting potentially a whole minute for Neo4j to expire the transaction. We only do this because Neo4j didn't always auto-rollback transactions on errors as documented, but Neo4j 2.2.6+ supposedly fixes this.
 
 
-[![XKCD Haskell comic](/images/advanced-neo4j/xkcd-haskell.png)](https://xkcd.com/1312/)
+[![XKCD Haskell comic](/images/advanced-neo4j/xkcd-haskell.png)](https://xkcd.com/1312/) <!-- .element: title="The problem with Haskell is that it's a language built on lazy evaluation and nobody's actually called for it." -->
 
 // Notes:
-Just keep in mind that if your application code within a transaction has any side effects, e.g. modifying other data stores, enqueueing background work, emailing users, etc. you shouldn't naively retry those transactions. You only want to retry idempotent or side-effect-free transactions.
+Just keep in mind that if your application code within a transaction has any side effects, e.g. modifying other data stores, enqueueing background work, emailing users, etc. you shouldn't naïvely retry those transactions. You in fact probably want to rollback those side effects, if you can.
+<p/>
+In general, you should only retry idempotent or side-effect-free transactions.
 
 
 `/giphy phew`
@@ -876,11 +878,11 @@ Verify implicit reads via <span class="green">double-check locking</span>
 </p>
 
 <p class="fragment">
-Locks are held at the <span class="green">node</span> and <span class="green">relationship</span> level
+<span class="green">Retry with backoff</span> on transient errors
 </p>
 
 <p class="fragment">
-<span class="green">Retry with backoff</span> on transient errors
+Locks are held at the <span class="green">node</span> and <span class="green">relationship</span> level
 </p>
 
 <p class="fragment">
