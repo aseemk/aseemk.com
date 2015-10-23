@@ -35,7 +35,6 @@ Be sure to [watch the video](https://vimeo.com/138268307).
 <ul class="fragment fade-in">
 <li>Reading <em class="fragment">&rarr; Consistency</em></li>
 <li>Writing <em class="fragment">&rarr; Atomicity</em></li>
-<li class="no"><strike>Scaling <em class="fragment">&rarr; Monitoring</em></strike></li>
 </ul>
 
 // Notes:
@@ -43,9 +42,7 @@ I've given two other talks here at past GraphConnects. With both, I tried to foc
 <p/>
 This talk is no different — but it has "advanced" in the title. That's because in this case, these are things that I didn't discover on my own; I learned them through my awesome colleagues, all of whom brought with them a wealth of knowledge and experience from other databases. And I don't hear the Neo4j community discussing these things *at all* — even though they feel pretty fundamental — so I hope you'll find this educational and valuable.
 <p/>
-So I'm going to focus on just three things in this talk, and each seems pretty basic on the surface. But when you dive deep, they each have significant subtleties relating to fundamental concepts you might be taking for granted.
-<p/>
-Update: I've scrapped the least interesting aspect around monitoring at scale. There's more than enough meat with the other two topics. I might revisit this aspect later.
+So I'm going to focus on just two things in this talk, and both seem pretty basic on the surface. But when you dive deep, each has significant subtleties relating to fundamental concepts you might be taking for granted.
 
 
 <!-- .slide: class="subtitle" -->
@@ -55,7 +52,7 @@ Update: I've scrapped the least interesting aspect around monitoring at scale. T
 ### <!-- .element: class="fragment" --> 🎩 [Dave Stern](https://paper.fiftythree.com/davestern) & [Matt Cox](https://paper.fiftythree.com/mcox) 👏
 
 // Notes:
-Let's talk about reading data, and what it means with respect to consistency.
+So let's start with reading data, and what it means with respect to consistency.
 <p/>
 All of my knowledge here is thanks to my colleague Dave, and our latest and greatest setup is thanks to my colleague Matt.
 
