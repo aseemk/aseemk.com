@@ -62,7 +62,7 @@ og_type: blog
         function updateCommentsCounts(objs) {
             var commentsCountSpans = document.querySelectorAll(".comments-count");
             for (var i = 0; i < postURLs.length; i++) {
-                var num = objs[postURLs[i]].comments;
+                var num = objs[postURLs[i]].share.comment_count;
                 commentsCountSpans[i].innerHTML =
                     num ? (num + " comment" + (num > 1 ? 's' : '')) : "No comments";
             }

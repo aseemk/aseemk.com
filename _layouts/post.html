@@ -31,9 +31,11 @@ og_type: article
             <span id="comments-count">&nbsp;</span>
             <script>
                 function updateCommentsCount(obj) {
-                    var num = obj.comments;
-                    document.getElementById("comments-count").innerHTML =
-                        (num || "No") + " " + (num === 1 ? "comment" : "comments");
+                    var num = obj.share.comment_count;
+                    // NOTE: Commented out for now since the FB comments plugin now shows
+                    // this number directly -- and it doesn't always match!
+                    // document.getElementById("comments-count").innerHTML =
+                    //     (num || "No") + " " + (num === 1 ? "comment" : "comments");
                 }
             </script>
             <script src="https://graph.facebook.com/?id={{ postURLAbs | cgi_escape | escape }}&amp;callback=updateCommentsCount"></script>
