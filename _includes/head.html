@@ -39,9 +39,7 @@
     {% capture pageSectionEsc %}{{ page.section | escape }}{% endcapture %}
     {% capture siteTitleEsc %}{{ site.title | escape }}{% endcapture %}
 
-    <title>{% if page.title %}{{ pageTitleEsc }}
-        - {% endif %}{% if page.section %}{{ pageSectionEsc }}
-        - {% endif %}{{ siteTitleEsc }}</title>
+    <title>{% if page.title %}{{ pageTitleEsc }} - {% endif %}{% if page.section %}{{ pageSectionEsc }} - {% endif %}{{ siteTitleEsc }}</title>
 
     {% capture pageDescEsc %}{{ page.description | escape }}{% endcapture %}
     {% capture siteDescEsc %}{{ site.description | escape }}{% endcapture %}
