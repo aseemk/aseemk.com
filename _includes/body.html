@@ -49,14 +49,20 @@
             {% capture blogMatch %}{{ paddedURL | replace_first:'/blog/','MATCH' }}{% endcapture %}
             <a href="/blog/" class="{% if blogMatch contains 'BEGINMATCH' %}current{% endif %}">Blog</a>
 
+            <!--
             {% capture musicMatch %}{{ paddedURL | replace_first:'/music/','MATCH' }}{% endcapture %}
             <a href="/music/" class="{% if musicMatch contains 'BEGINMATCH' %}current{% endif %}">Music</a>
+            -->
 
+            <!--
             {% capture projectsMatch %}{{ paddedURL | replace_first:'/projects/','MATCH' }}{% endcapture %}
             <a href="/projects/" class="{% if projectsMatch contains 'BEGINMATCH' %}current{% endif %}">Projects</a>
+            -->
 
+            <!--
             {% capture teachingMatch %}{{ paddedURL | replace_first:'/teaching/','MATCH' }}{% endcapture %}
             <a href="/teaching/" class="{% if teachingMatch contains 'BEGINMATCH' %}current{% endif %}">Teaching</a>
+            -->
         </nav>
 
     </header>
