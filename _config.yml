@@ -14,4 +14,4 @@ pygments: true
 url: http://aseemk.com
 title: Aseem Kishore
 description: 'Developer, entrepreneur, musician. Please excuse the construction.'
-permalink: /blog/:title.html
+permalink: /blog/:year/:slug.html
