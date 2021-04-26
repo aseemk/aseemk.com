@@ -1,6 +1,0 @@
-<!DOCTYPE html>
-<meta charset="utf-8">
-<title>Redirecting to {{ include.to }}</title>
-{% capture siteURLEsc %}{{ site.url | xml_escape }}{% endcapture %}
-<meta http-equiv="refresh" content="0; URL={{ siteURLEsc }}{{ include.to }}">
-<link rel="canonical" href="{{ siteURLEsc }}{{ include.to }}">

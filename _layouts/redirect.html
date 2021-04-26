@@ -1,0 +1,6 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Redirecting to {{ page.redirectPath }}</title>
+{% capture siteURLEsc %}{{ site.url | xml_escape }}{% endcapture %}
+<meta http-equiv="refresh" content="0; URL={{ siteURLEsc }}{{ page.redirectPath }}">
+<link rel="canonical" href="{{ siteURLEsc }}{{ page.redirectPath }}">
