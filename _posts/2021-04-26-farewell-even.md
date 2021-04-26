@@ -5,8 +5,6 @@ description: "I left Even after four incredible years of learning & growth. This
 layout: post
 ---
 
----
-
 _I [joined Even]({% post_url 2017-04-05-joining-even | remove:'.html' %}) in 2017, compelled by the mission and impressed by the founders. I thought I was putting my career on the backburner, not expecting to learn or grow too much, but boy, was I wrong. Over four years, I learned & grew more than I ever expected, as an engineer, manager, leader, and teammate._
 
 _I left Even this month for another opportunity (which I'll share more about soon). Below is an excerpt of the memo I shared internally to express my gratitude._
