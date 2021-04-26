@@ -1,7 +1,7 @@
 ---
-title: "Engineering interviews at Even"
+title: "How we interview engineers at Even"
 categories: even
-description: "This was a blog post I wrote at Even on the tradeoffs we made, and why we made them."
+description: "This was a blog post I wrote at Even on our approach to interviewing, the tradeoffs we made, and why we made them."
 layout: post
 image: /images/even/even-interviewing-engineers-blog-post-hero.png
 ---
