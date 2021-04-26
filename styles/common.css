@@ -221,6 +221,7 @@ h2:after {
 
 /* this is for section headlines within blog posts */
 h3 {
+    font-size: 120%;
     margin-top: 2em;
 }
 

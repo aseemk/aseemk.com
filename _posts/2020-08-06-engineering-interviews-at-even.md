@@ -6,7 +6,17 @@ layout: post
 image: /images/even/even-interviewing-engineers-blog-post-hero.png
 ---
 
-_This is a cross-post of a post I wrote at Even. [Original post on the Even blog.](https://www.even.com/blog/how-we-interview-engineers)_
+<style>
+    blockquote {
+        color: #444; /* HACK: Hardcoded/duplicated from common.css */
+        font-size: 125%;
+        font-weight: bold;
+    }
+</style>
+
+![](/images/even/even-interviewing-engineers-blog-post-hero.png)
+
+_This is a cross-post of a post I wrote at Even. [Original post on Even's blog.](https://www.even.com/blog/how-we-interview-engineers)_
 
 ---
 
@@ -74,7 +84,7 @@ Today, we don’t:
 
 Many of the interviews above do provide meaningful signal, so we try to get an approximation of that signal through the other interviews below.
 
-# What we do
+### What we do
 
 Today, we:
 
