@@ -106,7 +106,7 @@ Even so, I really appreciate where we are today. I have confidence in the signal
 
 > “I want to thank you and the entire Even team for making this the best recruiting, interview, and offer experience I have ever encountered. It is very clear that you care deeply about helping your candidates. I greatly enjoyed my time interviewing with the team.”
 
-If you have feedback, [shoot me an email](mailto:aseem@even.com) — I’d love to hear it. And if you’d like to join, [reach out](https://www.even.com/about/careers)! Hopefully your own interview experience will be just as positive. ❤️
+If you have feedback, [send it to me](/about) — I’d love to hear it. And if you’d like to join, [reach out](https://www.even.com/about/careers)! Hopefully your own interview experience will be just as positive. ❤️
 
 ---
 
