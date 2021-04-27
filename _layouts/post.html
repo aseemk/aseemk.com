@@ -19,76 +19,18 @@ og_type: article
 
             <time pubdate datetime="{{ page.date | date: "%Y-%m-%d" }}">{{ page.date | date: "%B %d, %Y" }}</time>
 
-            <!-- TODO categories? -->
+            <!-- TODO: Categories? -->
         </h2>
 
-        <!-- important: don't escape content! it'll actually be HTML markup. -->
+        <!-- Important: Don't escape content! It'll actually be HTML markup. -->
         {{ content }}
 
-        <div class="stats">
-
-            <!-- technique via http://developers.facebook.com/docs/reference/plugins/comments/ FAQ -->
-            <span id="comments-count">&nbsp;</span>
-            <script>
-                function updateCommentsCount(obj) {
-                    var num = obj.share.comment_count;
-                    // NOTE: Commented out for now since the FB comments plugin now shows
-                    // this number directly -- and it doesn't always match!
-                    // document.getElementById("comments-count").innerHTML =
-                    //     (num || "No") + " " + (num === 1 ? "comment" : "comments");
-                }
-            </script>
-            <script src="https://graph.facebook.com/?id={{ postURLAbs | cgi_escape | escape }}&amp;callback=updateCommentsCount"></script>
-
-        </div>
-
-        <div class="buttons">
-
-            <!--
-                all buttons below are explicitly set to use this post's full
-                (canonical) absolute URL and are customized to be 20px tall.
-
-                links:
-                - http://developers.facebook.com/docs/reference/plugins/like/
-                - https://dev.twitter.com/docs/tweet-button
-
-                all scripts are at the bottom.
-            -->
-
-            <a href="http://twitter.com/share" class="twitter-share-button" data-via="aseemk" data-related="aseemk"
-                data-url="{{ postURLAbsEsc }}" data-text="{{ page.title | escape }}">Tweet</a>
-
-            <div class="fb-like" data-send="false" data-layout="button_count" data-width="90" data-show-faces="false" data-href="{{ postURLAbsEsc }}"></div>
-
-        </div>
-
         <!--
-            Facebook comments plugin:
-            http://developers.facebook.com/docs/reference/plugins/comments/
-
-            XXX But it currently shows a terrible mobile view on iPad;
-            manually preventing that. TODO FIXME Remove if fixed!
+            Purposely no more Facebook like button, Twitter tweet button, or Facebook comments widget.
+            I'd rather link out to my own social posts these days, e.g. on Twitter or LinkedIn.
+            For now, leaving that to individual posts to specify, so it can be tailored (e.g. LinkedIn vs. Facebook).
         -->
-        <div id="comments" class="fb-comments" data-num-posts="50" data-width="700" data-href="{{ postURLAbsEsc }}"></div>
-        <script>
-            if (navigator.userAgent.match(/\biPad\b/)) {
-                document.getElementById("comments").setAttribute(
-                    "data-mobile", "false");
-            }
-        </script>
 
     </article>
-
-    <!-- Facebook SDK: -->
-    <div id="fb-root"></div>
-    <script>(function(d){
-      var js, id = 'facebook-jssdk'; if (d.getElementById(id)) {return;}
-      js = d.createElement('script'); js.id = id; js.async = true;
-      js.src = "//connect.facebook.net/en_US/all.js#appId=278241485519332&xfbml=1";
-      d.getElementsByTagName('head')[0].appendChild(js);
-    }(document));</script>
-
-    <!-- Twitter widgets: -->
-    <script async src="http://platform.twitter.com/widgets.js" type="text/javascript"></script>
 
 {% include foot.html %}

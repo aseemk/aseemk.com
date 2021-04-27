@@ -37,44 +37,11 @@ og_type: blog
             {{ post.description | escape }}
         </p>
 
-        <div class="stats">
-            <!-- This gets populated by script below -->
-            <span class="comments-count">&nbsp;</span>
-        </div>
-
         <div class="continue">Continue reading &rarr;</div>
 
     </article>
     </a>
     {% endunless %}
     {% endfor %}
-
-    <!-- TEMP HACK this whole thing feels quite hacky. wish there were easier ways. -->
-    <script>
-        // iterate over all the posts above and grab their (absolute) URLs:
-        var posts = document.querySelectorAll('body > a.post');
-        var postURLs = [];
-        for (var i = 0; i < posts.length; i++) {
-            postURLs.push('{{ site.url }}' + posts[i].getAttribute('href'));
-        }
-
-        // callback function for the next JSONP request:
-        function updateCommentsCounts(objs) {
-            var commentsCountSpans = document.querySelectorAll(".comments-count");
-            for (var i = 0; i < postURLs.length; i++) {
-                var num = objs[postURLs[i]].share.comment_count;
-                commentsCountSpans[i].innerHTML =
-                    num ? (num + " comment" + (num > 1 ? 's' : '')) : "No comments";
-            }
-        }
-
-        // fetch the # of comments for each post as a single batch request:
-        document.write([
-            '<script src="https://graph.facebook.com/?ids=',
-            encodeURIComponent(postURLs.join(',')),
-            '&callback=updateCommentsCounts"></',
-            'script>'
-        ].join(''));
-    </script>
 
 {% include foot.html %}
