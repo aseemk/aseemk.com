@@ -33,18 +33,18 @@
                 assign-ing the output of a filter! Gotta use capture. Argh^2!
 
                 Using assign:
-                {% assign aboutMatch = paddedURL | replace_first:'/about/','MATCH' %}
+                {% assign aboutMatch = paddedURL | replace_first:'/about','MATCH' %}
                 {{ aboutMatch }}
 
                 Using capture:
-                {% capture aboutMatch %}{{ paddedURL | replace_first:'/about/','MATCH' }}{% endcapture %}
+                {% capture aboutMatch %}{{ paddedURL | replace_first:'/about','MATCH' }}{% endcapture %}
                 {{ aboutMatch }}
             -->
 
             <!-- Important: no newlines after opening <a> and content — messes w/ layout! -->
 
-            {% capture aboutMatch %}{{ paddedURL | replace_first:'/about/','MATCH' }}{% endcapture %}
-            <a href="/about/" class="{% if aboutMatch contains 'BEGINMATCH' %}current{% endif %}">About</a>
+            {% capture aboutMatch %}{{ paddedURL | replace_first:'/about','MATCH' }}{% endcapture %}
+            <a href="/about" class="{% if aboutMatch contains 'BEGINMATCH' %}current{% endif %}">About</a>
 
             {% capture blogMatch %}{{ paddedURL | replace_first:'/blog/','MATCH' }}{% endcapture %}
             <a href="/blog/" class="{% if blogMatch contains 'BEGINMATCH' %}current{% endif %}">Blog</a>
