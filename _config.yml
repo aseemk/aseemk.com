@@ -9,7 +9,7 @@ safe: true
 source: .
 destination: ./_site
 lsi: false
-pygments: true
+highlighter: rouge
 
 url: http://aseemk.com
 title: Aseem Kishore
