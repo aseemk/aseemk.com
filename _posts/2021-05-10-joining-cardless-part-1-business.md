@@ -1,7 +1,7 @@
 ---
 title: "Joining Cardless, Part 1: The Business"
 categories: cardless
-description: "This past month, I joined a 20-person startup named Cardless as their new Head of Engineering. I'm very excited to be here — both for the destination and for the journey."
+description: "This past month, I joined a startup named Cardless as their new Head of Engineering. I wanted to explain what we do and why I joined."
 layout: post
 draft: true
 ---
@@ -58,6 +58,7 @@ And *that's* the rub: ***banks'* structural incentives are not aligned with bran
 We're starting our journey with co-branded credit cards, offering a very simple value prop:
 
 - We make it easy (much easier) for brands to launch their own credit cards. **90 days, $0 setup cost, and headcount of 1** — not 1.5 years, $10M+, and a team of 10.
+
 - These credit cards are amazing for consumers: **no late fees** (or fees of any kind), **the lowest interest rate we ourselves can get**, **fantastic discounts & rewards**, and **best-in-class** (e.g. modern & mobile-first) **customer experience & support**.
 
 Importantly, our business model aligns our incentives with brands & consumers: **we don't make money off of interest or late fees, only transactions.**
@@ -99,7 +100,9 @@ Only time, work, and ingenuity will tell, but I'm too excited by the opportunity
 If we do this well, we're going to achieve a lot more than what we've already achieved so far. Some of our most exciting ideas to me include:
 
 - Offering a **"secured" credit card** for Americans who don't qualify for credit today. This would be like a bank account-backed debit card except it'd **help build credit**. And as a perfect example of the power of aligned incentives, *brands want this*, since many brands have sizable customer populations that wouldn't qualify for co-branded credit cards otherwise.
+
 - Backing our cards with a **diversity of lenders**. Traditional issuers serve only one part of the credit score spectrum. (E.g. Chase targets super-prime, while Capital One targets sub-prime.) This becomes a problem when a brand has customers across that spectrum. As a startup, we can turn a "weakness" — that we can't afford to lend our own money and need to borrow money ourselves — into a competitive advantage. Every time someone applies, we can run an instant auction across multiple lenders to give our customers the best interest rate we can get, ***for every credit score***. This'll help us serve hopefully *all* of a brand's customers, giving them access to hopefully the best rates they'll find anywhere.
+
 - **Experiences that money (literally) can't buy today.** The average American gets only $10/month of rewards value today. (Remember that the average American doesn't qualify for top/fancy credit cards.) That $10 can buy $10 of value if you have points or miles. But the Cavs are excited to offer rewards like getting to meet the team & players, sit on the bench during warm-ups, and maybe even fly on the team jet to an away game someday. These are opportunities that **fans would love** and that **brands could afford**. This is again the power of aligned incentives.
 
 ## Why I joined

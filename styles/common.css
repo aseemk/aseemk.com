@@ -253,6 +253,12 @@ table.cols-2 {
 table.cols-2 td {
     width: 50%;
 }
+table.cols-2 td.col-1 {
+    padding-right: 0.5em;
+}
+table.cols-2 td.col-2 {
+    padding-left: 0.5em;
+}
 
 /** For lists, we'll reimplement the numbers/bullets ourselves to get our own
     custom style. CSS counters to the rescue here for numbers! (IE8+) */
