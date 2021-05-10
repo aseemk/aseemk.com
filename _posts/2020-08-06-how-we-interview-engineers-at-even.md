@@ -1,6 +1,6 @@
 ---
 title: "How we interview engineers at Even"
-categories: even
+categories: even, leadership
 description: "This was a blog post I wrote at Even on our approach to interviewing, the tradeoffs we made, and why we made them."
 layout: post
 image: /images/even/even-interviewing-engineers-blog-post-hero.png
