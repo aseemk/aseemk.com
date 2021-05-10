@@ -44,8 +44,10 @@ Lyft's not alone. Other members of the Cardless team come from Airbnb & Uber. Ai
 
 Uber *did* manage to launch an Uber credit card… only to stop offering it a couple of years later, when their issuing bank started **auto-rejecting applicants with high credit scores** — since that bank wouldn't make any money from people who didn't carry a balance.
 
-| ![Uber card Google search result: no information available](/images/cardless/uber-card-google.png) | ![Uber card on Barclays website: no longer available](/images/cardless/uber-card-barclays.png) |
-|:---:|:---:|
+<table class="cols-2">
+    <td class="col-1"><img alt="Uber card Google search result: no information available" src="/images/cardless/uber-card-google.png"></td>
+    <td class="col-2"><img alt="Uber card on Barclays website: no longer available" src="/images/cardless/uber-card-barclays.png"></td>
+</table>
 
 (This is what you see today when you Google ["Uber credit card"](https://www.google.com/search?q=uber+credit+card).)
 
@@ -60,8 +62,10 @@ We're starting our journey with co-branded credit cards, offering a very simple 
 
 Importantly, our business model aligns our incentives with brands & consumers: **we don't make money off of interest or late fees, only transactions.**
 
-| ![Cardless Cavs card](/images/cardless/cardless-card-cavs.png) | ![Cardless ManU card](/images/cardless/cardless-card-manu.png) |
-|:---:|:---:|
+<table class="cols-2">
+    <td class="col-1"><img alt="Cardless Cavs card" src="/images/cardless/cardless-card-cavs.jpg"></td>
+    <td class="col-2"><img alt="Cardless ManU card" src="/images/cardless/cardless-card-manu.png"></td>
+</table>
 
 Cardless just launched our first two credit cards, starting in the sports vertical, with the [Cleveland Cavaliers](https://www.cardless.com/cavs) and [Manchester United](https://www.cardless.com/manutd). (ManU in particular has co-branded credit cards in many other countries, but had never launched one in the US — until now.)
 

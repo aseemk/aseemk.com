@@ -246,6 +246,14 @@ img {
     opacity: 1;
 }
 
+/* Multiple columns, e.g. for side-by-side images */
+table.cols-2 {
+    border: none;
+}
+table.cols-2 td {
+    width: 50%;
+}
+
 /** For lists, we'll reimplement the numbers/bullets ourselves to get our own
     custom style. CSS counters to the rescue here for numbers! (IE8+) */
 ol, ul {
