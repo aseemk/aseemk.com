@@ -51,7 +51,7 @@ Uber *did* manage to launch an Uber credit card… only to stop offering it a c
 
 (This is what you see today when you Google ["Uber credit card"](https://www.google.com/search?q=uber+credit+card).)
 
-And *that's* the rub: ***banks'* structural incentives are not aligned with brands *or* consumers.** If even top, modern, beloved brands like Lyft & Airbnb can't do this, what hope do other brands have?
+And *that's* the rub: ***banks'* structural incentives are not aligned with brands *or* consumers.** If even world-class, beloved brands like Lyft & Airbnb can't do this, what hope do other brands have?
 
 ## Enter Cardless
 
@@ -103,7 +103,7 @@ If we do this well, we're going to achieve a lot more than what we've already ac
 
 - Backing our cards with a **diversity of lenders**. Traditional issuers serve only one part of the credit score spectrum. (E.g. Chase targets super-prime, while Capital One targets sub-prime.) This becomes a problem when a brand has customers across that spectrum. As a startup, we can turn a "weakness" — that we can't afford to lend our own money and need to borrow money ourselves — into a competitive advantage. Every time someone applies, we can run an instant auction across multiple lenders to give our customers the best interest rate we can get, ***for every credit score***. This'll help us serve hopefully *all* of a brand's customers, giving them access to hopefully the best rates they'll find anywhere.
 
-- **Experiences that money (literally) can't buy today.** The average American gets only $10/month of rewards value today. (Remember that the average American doesn't qualify for top/fancy credit cards.) That $10 can buy $10 of value if you have points or miles. But the Cavs are excited to offer rewards like getting to meet the team & players, sit on the bench during warm-ups, and maybe even fly on the team jet to an away game someday. These are opportunities that **fans would love** and that **brands could afford**. This is again the power of aligned incentives.
+- **Experiences that money (literally) can't buy today.** The average American gets only $10/month of rewards value today. (Remember that the average American doesn't qualify for top/fancy credit cards.) That $10 can buy $10 of value if you have points or miles. But the Cavs are excited to offer rewards like getting to meet the players and sitting on the bench during warm-ups. These are opportunities that **fans would love** and that **brands could afford**. This is again the power of aligned incentives.
 
 ## Why I joined
 
