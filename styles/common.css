@@ -246,7 +246,12 @@ img {
     opacity: 1;
 }
 
+figcaption {
+
+}
+
 /* Multiple columns, e.g. for side-by-side images */
+/* TODO: This appears to be unused? */
 table.cols-2 {
     border: none;
 }
@@ -260,20 +265,26 @@ table.cols-2 td.col-2 {
     padding-left: 0.5em;
 }
 
+article table td {
+    border: 1px solid gray;
+}
+
 /** For lists, we'll reimplement the numbers/bullets ourselves to get our own
     custom style. CSS counters to the rescue here for numbers! (IE8+) */
+/* HACK: Never mind, this doesn't look good. Commenting out for now! */
 ol, ul {
-    list-style: none none inside;
+    /* list-style: none none inside; */
     margin-left: 1em;
     counter-reset: item;
 }
 
 li {
     position: relative;
+    margin-bottom: 1em;
 }
 
 ol li:before {
-    content: counter(item) ")";
+    /* content: counter(item) ")"; */
     counter-increment: item;
     position: absolute;
     top: 0;
@@ -285,7 +296,7 @@ ol li:before {
 }
 
 ul li:before {
-    content: "»";
+    /* content: "»"; */
     position: absolute;
     top: 0;
     bottom: 0;
@@ -303,18 +314,26 @@ blockquote {
     font-style: italic;
 }
 
-aside {
+aside, figcaption, div.footnotes {
     font-size: 80%;
     font-style: italic;
     margin: 1.5em 0;
     color: #888;
 }
 
-aside a, aside a:visited {
+figcaption {
+    margin: 1em 0;
+}
+
+aside a, aside a:visited,
+figcaption a, figcaption a:visited,
+div.footnotes a, div.footnotes a:visited {
     color: #44b;
 }
 
-aside a:hover, aside a:active {
+aside a:hover, aside a:active,
+figcaption a:hover, figcaption a:active,
+div.footnotes a:hover, div.footnotes a:active {
     color: #226;
 }
 
