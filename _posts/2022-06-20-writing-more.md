@@ -3,7 +3,6 @@ title: "Writing more"
 # TODO: Categories?
 description: "I'm excited to start writing more, specifically about engineering leadership and management at early-stage startups."
 layout: post
-draft: true
 ---
 
 Last year, I [left](/blog/2021/farewell-even) one startup named [Even](https://www.even.com/) to lead all of engineering at another startup named [Cardless](https://www.cardless.com/). I never ended up writing about it, but this was another valuable experience full of learning and growth.
@@ -27,7 +26,8 @@ In preparation for my role at Cardless, and again in preparation for my next rol
 
 [will-larson]: https://lethain.com/
 [camille-fournier]: https://www.camilletalk.com/
-[charity-majors]: https://lauratacho.com/
+[michael-lopp]: https://www.linkedin.com/in/michaellopp/
+[charity-majors]: https://charity.wtf/about/
 
 [managers-path]: https://www.amazon.com/Managers-Path-Leaders-Navigating-Growth/dp/1491973897
 [elegant-puzzle]: https://www.amazon.com/Elegant-Puzzle-Systems-Engineering-Management/dp/1732265186
@@ -51,7 +51,7 @@ I'm now feeling like I should still write and share, for three reasons:
 
 So I'm going to try and actually write and share content now, even if that content feels "basic". I'm excited to start!
 
-I'll keep posting here and sharing on [LinkedIn][linkedin], [Twitter][twitter], and [Facebook][facebook], but if you're excited to follow along, **[sign up here][substack]** to get each post by email, too. (This'll be low-volume — at most once a week.)
+I'll keep posting here and sharing on [LinkedIn][linkedin], [Twitter][twitter], and [Facebook][facebook], but if you're excited to follow along, **[sign up here][substack]** to get each post by email, too. (This'll be low-volume — probably only once or twice a month.)
 
 [linkedin]: https://www.linkedin.com/in/aseemk/
 [twitter]: https://twitter.com/aseemk
