@@ -437,6 +437,14 @@ p#copy a.external:first-of-type {
     margin-left: 0.33em;
 }
 
+p#copy a.linkedin {
+    background-image: url(/images/logos/linkedin-16x16.png);
+}
+
+p#copy a.substack {
+    background-image: url(/images/logos/substack-16x16.png);
+}
+
 p#copy a.twitter {
     background-image: url(/images/twitter/bird_blue_16.png);
 }
