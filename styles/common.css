@@ -306,6 +306,14 @@ ul li:before {
     line-height: 2;     /* default 1.5 adjusted for 75% font-size */
 }
 
+/* Nested numeric lists need to be explicitly letters and roman numerals. */
+ol > li > ol {
+    list-style-type: lower-alpha;
+}
+ol > li > ol > li > ol {
+    list-style-type: lower-roman;
+}
+
 blockquote {
     border-left: 2px solid #ddd;
     padding-left: 1em;
