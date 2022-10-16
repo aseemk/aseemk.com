@@ -35,7 +35,7 @@ Fortunately, I ignored these comments and just kept building. I got some tractio
 
 JSON5 now gets [\>60M downloads/week](https://www.npmjs.com/package/json5), ranks in the [top 0.1%](https://twitter.com/aseemk/status/1513545843030122504) of the most depended-upon packages on npm[^npm-stats], and has been adopted by major projects like [Chromium](https://source.chromium.org/chromium/chromium/src/+/main:third_party/blink/renderer/platform/runtime_enabled_features.json5;drc=5de823b36e68fd99009a29281b17bc3a1d6b329c), [Next.js](https://github.com/vercel/next.js/blob/b88f20c90bf4659b8ad5cb2a27956005eac2c7e8/packages/next/lib/find-config.ts#L43-L46), [Babel](https://babeljs.io/docs/en/config-files#supported-file-extensions), [Retool](https://community.retool.com/t/i-am-attempting-to-append-several-text-fields-to-a-google-sheet-but-receiving-a-json5-invalid-character-error/7626), [WebStorm](https://www.jetbrains.com/help/webstorm/json.html), and [more](https://github.com/json5/json5/wiki/In-The-Wild). All adoption has been entirely organic, with no company or marketing behind it.
 
-My favorite example is that even [Apple](https://developer.apple.com/documentation/foundation/jsondecoder/3766916-allowsjson5) has adopted it now, supporting it *natively* across all their platforms! 🤯 (This means that every iPhone and Mac now ships with JSON5 built in!) I never even considered this to be a possibility and would have bet against it.
+My favorite example is that even [Apple](https://developer.apple.com/documentation/foundation/jsondecoder/3766916-allowsjson5) has adopted it now, supporting it *natively* across all their platforms! 🤯 This means that every iPhone and Mac now ships with JSON5 built in. I never even considered this to be a possibility and would have bet against it.
 
 ![Apple Developer docs: `allowsJSON5`](/images/json5/apple-allowsJSON5.png)
 
@@ -47,7 +47,7 @@ I take three lessons from this experience that I’d love to share now, ten year
 
 ## Lesson 1: Ignore the haters
 
-This one is obvious. And I admit I [enjoyed](https://twitter.com/aseemk/status/767229426304253952) proving the haters wrong. 😛
+This one is obvious, and I admit I [enjoyed](https://twitter.com/aseemk/status/767229426304253952) proving the haters wrong. 😛
 
 ![Twitter thread from @aseemk: "Ignore the f'ing haters!"](/images/json5/twitter-ignore-the-haters.png)
 
@@ -58,7 +58,7 @@ For starters, the reception I got wasn’t unique to me; it was standard for Hac
 !["For a Linux user, you can already build [Dropbox] yourself quite trivially"](/images/json5/hn-dropbox.png)
 !["No wireless. Less space than a nomad. Lame."](/images/json5/slashdot-ipod.png)
 
-But there’s something to be said about actually listening to feedback and criticism, right? And not just blindly building in a vacuum, ignoring the world around you?
+But there’s something to be said about actually listening to feedback and criticism, and not just blindly building in a vacuum, ignoring the world around you, right?
 
 The key difference to me is to **know your audience/customer/market**, and listen to _them_. Linux hackers weren’t Dropbox’s target market, nor the iPod’s. It turns out that _all_ of the various software engineers on Hacker News weren’t my target market, either; specifically _JavaScript_ engineers were.
 
@@ -70,7 +70,7 @@ So when I also shared JSON5 on the [Node.js mailing list](https://groups.google.
 
 !["I love this idea!"](/images/json5/node-ryan-dahl.png)
 
-_This_ was who mattered, so _this_ feedback and validation kept me going.
+_This_ was who mattered, so _this_ was the feedback I considered and the validation that kept me going.
 
 This lesson applies broadly.
 
@@ -105,7 +105,7 @@ I can confidently say that JSON5’s adoption would be nowhere near what it is t
 So I don’t deserve all the credit, but I think I did at least two things right. 😛
 
 1.  **I [shipped early](https://en.wikipedia.org/wiki/Minimum_viable_product).** Shipping less earlier allowed others to contribute more — and better than I could have myself.
-2.  **I [shared my legos](https://review.firstround.com/give-away-your-legos-and-other-commandments-for-scaling-startups).** I _truly_ gave up full and direct control, and _this_ was what allowed JSON5 to flourish.
+2.  **I [shared my legos](https://review.firstround.com/give-away-your-legos-and-other-commandments-for-scaling-startups).** I _truly_ gave up full and direct control, and this allowed JSON5 to flourish.
 
 Sharing legos here didn’t come naturally or trivially to me. A lot of people wanted a lot of different things from JSON5, and I was pretty sure that the project would only succeed if it maintained _focus_. I felt responsibility to uphold that focus, so of course I should maintain control, right?
 
@@ -113,7 +113,7 @@ I was inspired here by [this post](https://felixge.de/2013/03/11/the-pull-reques
 
 > **Whenever somebody sends you a pull request, give them commit access to your project.**
 
-This sounded crazy at first, but his reasoning and results were spot on. Like Felix, I was often too busy to review code and manage contributions in a timely manner. (I had a demanding [day job](https://www.fiftythree.com/), too!) And the most significant contributions often needed the most time to properly review and accept. So of course [episodes like this](https://github.com/json5/json5/pull/35) happened, where I left a contributor hanging for _nine months_:
+This sounded crazy at first, but his reasoning and results were spot on. Like Felix, I was often too busy to manage contributions and review code in a timely manner. (I had a demanding [day job](https://www.fiftythree.com/), too!) And the most significant contributions often needed the most time to properly review and accept. So of course [episodes like this](https://github.com/json5/json5/pull/35) happened, where I left a contributor hanging for _nine months_:
 
 ![GitHub PR from @aisenberg](/images/json5/aisenberg-pr-delay.png)
 
@@ -155,9 +155,9 @@ As Jony Ive said so eloquently in his [eulogy for Steve Jobs](https://www.youtub
 
 I look back on Mitchell Hashimoto’s example as a fascinating case study here. Mitchell is and was an expert programmer and amazing technologist, and even he failed to see the value here. That makes sense in hindsight given that Mitchell’s background was more with Ruby and YAML than with JavaScript and JSON — but that’s the point. We’re all blind and touching [different parts of the elephant](https://en.wikipedia.org/wiki/Blind_men_and_an_elephant).
 
-Successful investors know this well. [Paul Buchheit](https://en.wikipedia.org/wiki/Paul_Buchheit), creator of Gmail and partner at Y Combinator, made this point elegantly in a [2007 post](http://paulbuchheit.blogspot.com/2007/03/how-to-be-right-90-of-time-and-why-id.html): it’s easy to dismiss new ideas and be right most of the time — but if you want to be _successful_ as an investor, it’s better to be _optimistic_ and _wrong_ most of the time (since the most successful ideas yield disproportionate returns). Hence, most successful investors approach new ideas with openness, curiosity, and humility, even if they ultimately reject them.
+Successful investors know this well. [Paul Buchheit](https://en.wikipedia.org/wiki/Paul_Buchheit), creator of Gmail and partner at Y Combinator, made this point elegantly in a [2007 post](http://paulbuchheit.blogspot.com/2007/03/how-to-be-right-90-of-time-and-why-id.html): it’s easy to dismiss new ideas and be right most of the time — but if you want to be _successful_ as an investor, it’s better to be _optimistic_ and _wrong_ most of the time, since the most successful ideas yield disproportionate returns. Hence, most successful investors approach new ideas with openness, curiosity, and humility, even if they still ultimately reject them.
 
-(An example of Paul’s success with this philosophy was Twitch, which is now one of the most popular sites on the web, but which started as Justin Kan simply streaming his life 24/7. Paul expanded on this example and others in his wonderful [2014 Startup School talk](http://paulbuchheit.blogspot.com/2014/07/the-technology.html) — highly recommend reading.)
+(An example of Paul’s success with this philosophy was Twitch, which started as Justin Kan simply streaming his life 24/7, but which is now one of the most popular sites on the web. Paul expanded on this example and others in his wonderful [2014 Startup School talk](http://paulbuchheit.blogspot.com/2014/07/the-technology.html) — highly recommend reading. Other classic examples here include Airbnb and Uber/Lyft; “you're asking people to let strangers do what??”)
 
 But this isn’t just about our own self-interests — it’s also about the impact we have on others.
 
